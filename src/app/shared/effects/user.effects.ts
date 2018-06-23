@@ -38,7 +38,10 @@ export class UserEffects {
   @Effect()
   signOutUser$: Observable<Action> = this._action$.pipe(ofType(fromUser.SIGNOUT_USER_ACTION),
     mergeMap((action: fromUser.SignoutUserAction) => this._tokenService.signOut()
-      .pipe(map(response => new fromUser.SignoutUserCompleteAction(),
+      .pipe(map(response => {
+        this._router.navigate(["login"]);
+        return new fromUser.SignoutUserCompleteAction();
+      },
         catchError(error => of(new fromUser.SignoutUserFailedAction(error.json())))))));
         
 }
