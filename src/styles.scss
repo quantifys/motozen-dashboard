@@ -21,6 +21,14 @@ body {
   background-color: $white;
 }
 
+a {
+  color: $primary;
+  &:hover {
+    color: $primary-dark;
+    text-decoration: none;
+  }
+}
+
 .h4 {
   font-weight: 600 !important;
   font-size: 14px !important;
