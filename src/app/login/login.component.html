@@ -10,7 +10,8 @@
             </div>
             <form class="mt-4 p-2" [formGroup]="loginForm" (ngSubmit)="loginClicked()">
               <div class="input-group mb-3">
-                <input type="email" class="form-control" formControlName="email" placeholder="Email or username" aria-label="Email or username" aria-describedby="email">
+                <input type="email" class="form-control" formControlName="email" placeholder="Email or username" aria-label="Email or username"
+                  aria-describedby="email">
                 <div class="input-group-append">
                   <span class="input-group-text" id="email">
                     <i class="fas fa-user-shield fa-fw"></i>
@@ -25,10 +26,15 @@
                   </span>
                 </div>
               </div>
+              <div class="alert alert-danger" *ngIf="(email.touched || password.touched) && (email.invalid || password.invalid)">
+                Please enter the credentials
+              </div>
               <button type="submit" class="btn btn-primary w-100 p-3 font-weight-bold">Login</button>
               <div class="text-center mt-5">
                 <h6 class="text-muted m-0">If you have forgotten your credentials</h6>
-                <h6 class="text-muted m-0">please contact us <a href="mailto:customercare@gemeniindia.com">customercare@gemeniindia.com</a></h6>
+                <h6 class="text-muted m-0">please contact us
+                  <a href="mailto:customercare@gemeniindia.com">customercare@gemeniindia.com</a>
+                </h6>
               </div>
             </form>
           </div>
