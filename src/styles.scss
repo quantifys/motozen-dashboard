@@ -1,9 +1,72 @@
 @import url('https://fonts.googleapis.com/css?family=Nunito+Sans:300,400,600');
+// color palette
+$primary: #FFB88C;
+$primary-dark: #E56590;
+$secondary: #4CCBAB;
+$secondary-dark: #3E75C8;
+$black: #4A4A4A;
+$black-dark: #191F28;
+$grey: #D8D8D8;
+$grey-dark: #B6B6B7;
+$white: #F8F9FA;
+$white-dark: #F0F0F0;
 * {
   font-family: 'Nunito Sans', sans-serif;
 }
 
-html, body {
+html,
+body {
   min-height: 100%;
   min-width: 100%;
+  background-color: $white;
+}
+
+.h4 {
+  font-weight: 600 !important;
+  font-size: 14px !important;
+}
+
+.text-muted {
+  color: $grey-dark !important;
+}
+
+.input-group {
+  .form-control {
+    padding: .8rem 1rem;
+    color: $black;
+    font-weight: 600;
+    border-right: 0;
+    &:focus {
+      border-color: $primary;
+      box-shadow: 0 0 0 0.2rem rgba($primary, .25);
+    }
+  }
+  .input-group-text {
+    background-color: transparent;
+    color: $grey-dark;
+  }
+}
+
+.btn-primary {
+  border-color: $primary;
+  background-color: transparent;
+  box-shadow: 5px 5px 25px 0 rgba(46, 61, 73, .2);
+  background-image: linear-gradient(to top left, $primary 0%, $primary-dark 100%);
+  &:hover {
+    border-color: $primary;
+  }
+  &:not(:disabled):not(.disabled):active {
+    border-color: $primary;
+    background-color: transparent;
+    background-image: linear-gradient(to bottom right, $primary 0%, $primary-dark 100%);
+    box-shadow: 0 0 0 0.2rem rgba($primary, .5);
+    ;
+  }
+  &:not(:disabled):not(.disabled):focus {
+    box-shadow: 0 0 0 0.2rem rgba($primary, .5);
+    ;
+  }
+  &:not(:disabled):not(.disabled):active:focus {
+    box-shadow: 0 0 0 0.2rem rgba($primary, .5);
+  }
 }
