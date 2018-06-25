@@ -1,0 +1,21 @@
+$primary: #FFB88C;
+$primary-dark: #E56590;
+$white: #F8F9FA;
+$black-dark: #191F28;
+
+section {
+  ul {
+    li {
+      a {
+        padding: 15px 20px;
+        color: $black-dark;
+        border: 2px solid transparent;
+        &.active {
+          background: $white;
+          border-color: $primary-dark;
+          color: $primary-dark;
+        }
+      }
+    }
+  }
+}

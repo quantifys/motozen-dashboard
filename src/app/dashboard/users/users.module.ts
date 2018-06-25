@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { Routes, RouterModule } from '@angular/router';
 
 import { UsersComponent } from './users.component';
+import { UserTableComponent } from './user-table/user-table.component';
 
 const routes: Routes = [
   {
@@ -19,6 +20,6 @@ const routes: Routes = [
     CommonModule,
     RouterModule.forChild(routes)
   ],
-  declarations: [UsersComponent]
+  declarations: [UsersComponent, UserTableComponent]
 })
 export class UsersModule { }

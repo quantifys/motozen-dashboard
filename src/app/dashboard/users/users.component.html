@@ -1,3 +1,26 @@
-<p>
-  users works!
-</p>
+<section class="container-fluid">
+  <h4 class="text-grey-dark">User Management</h4>
+  <div class="content mt-4">
+    <ul class="nav nav-pills justify-content-center align-items-center" id="pills-tab" role="tablist">
+      <li class="nav-item">
+        <a class="nav-link text-center" [routerLink]="['../']" [queryParams]="{type: 'employees'}" routerLinkActive="active">
+          <i class="fas fa-chess-rook mb-2"></i>
+          <h6 class="m-0">Employees</h6>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link text-center" [routerLink]="['../']" [queryParams]="{type: 'customers'}" routerLinkActive="active">
+          <i class="fas fa-chess-knight mb-2"></i>
+          <h6 class="m-0">Customers</h6>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link text-center" [routerLink]="['../']" [queryParams]="{type: 'manufacturers'}" routerLinkActive="active">
+          <i class="fas fa-chess-king mb-2"></i>
+          <h6 class="m-0">Manufacturers</h6>
+        </a>
+      </li>
+    </ul>
+    <user-table></user-table>
+  </div>
+</section>
