@@ -5,7 +5,7 @@
         <div class="card border-0 login-container">
           <div class="card-body">
             <div class="text-center">
-              <h2 class="text-warning">Engine</h2>
+              <img src="../../assets/images/gemeni_logo.svg" alt="Gemeni India" class="img-fluid mb-3 w-50">
               <h4 class="h4 text-muted">Sign in your account here</h4>
             </div>
             <form class="mt-4 p-2" [formGroup]="loginForm" (ngSubmit)="loginClicked()">
@@ -26,7 +26,7 @@
                   </span>
                 </div>
               </div>
-              <div class="alert alert-danger" *ngIf="(email.touched || password.touched) && (email.invalid || password.invalid)">
+              <div class="alert alert-danger" *ngIf="(email.touched && password.touched) && (email.invalid || password.invalid)">
                 Please enter the credentials
               </div>
               <button type="submit" class="btn btn-primary w-100 p-3 font-weight-bold">Login</button>

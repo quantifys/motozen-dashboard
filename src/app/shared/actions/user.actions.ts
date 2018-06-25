@@ -50,7 +50,7 @@ export class LoginUserCompleteAction implements Action {
 export class LoginUserFailedAction implements Action {
   readonly type = LOGIN_USER_FAILURE_ACTION;
   constructor(public payload: any) {
-    swal("Login failed.", "error");
+    swal("Oops", "Login failed.", "error");
   }
 }
 
@@ -77,14 +77,14 @@ export class SignoutUserAction implements Action {
 export class SignoutUserCompleteAction implements Action {
   readonly type = SIGNOUT_USER_COMPLETE_ACTION;
   constructor(public payload?: any) {
-    swal("Signout Successful", "success");
+    swal("Great!", "Logged out successfully", "success");
   }
 }
 
 export class SignoutUserFailedAction implements Action {
   readonly type = SIGNOUT_USER_FAILED_ACTION;
   constructor(public payload: any) {
-    swal("Signout failed!", "error");
+    swal("Oops!", "Signout failed!", "error");
   }
 }
 

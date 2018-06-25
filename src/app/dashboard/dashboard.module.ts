@@ -3,14 +3,25 @@ import { CommonModule } from '@angular/common';
 import { Routes, RouterModule } from '@angular/router';
 
 import { DashboardComponent } from './dashboard.component';
+import { SideNavComponent } from './side-nav/side-nav.component';
+import { Angular2TokenService } from 'angular2-token';
 
 const routes: Routes = [
   {
     path: '',
     component: DashboardComponent,
-    data: {
-      title: "Dashboard | Gemeni India"
-    }
+    canActivate: [Angular2TokenService],
+    children: [
+      {
+        path: 'home',
+        loadChildren: './home/home.module#HomeModule'
+      },
+      {
+        path: '',
+        pathMatch: 'full',
+        redirectTo: 'home'
+      }
+    ]
   }
 ];
 
@@ -19,6 +30,6 @@ const routes: Routes = [
     CommonModule,
     RouterModule.forChild(routes)
   ],
-  declarations: [DashboardComponent]
+  declarations: [DashboardComponent, SideNavComponent]
 })
 export class DashboardModule { }
