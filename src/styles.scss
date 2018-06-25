@@ -12,6 +12,9 @@ $white: #F8F9FA;
 $white-dark: #F0F0F0;
 * {
   font-family: 'Nunito Sans', sans-serif;
+  -webkit-transition: all 0.2s ease-in-out;
+  -moz-transition: all 0.2s ease-in-out;
+  transition: all 0.2s ease-in-out;
 }
 
 html,

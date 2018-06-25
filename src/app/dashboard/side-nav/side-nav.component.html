@@ -1,3 +1,17 @@
-<p>
-  side-nav works!
-</p>
+<section class="h-100">
+  <div class="logo p-3 text-center">
+    <h4 class="text-warning font-weight-bold">GEMENI INDIA</h4>
+    <img src="../../../assets/images/user.png" alt="User" class="img-fluid w-50">
+    <h5 class="font-weight-bold mt-2 mb-0">Marc Miranda</h5>
+    <p class="text-muted">Store purchases</p>
+  </div>
+  <ul class="menu p-0">
+    <li *ngFor="let route of routes">
+      <a class="d-flex" [routerLink]="route.path" routerLinkActive="active">
+        <div class="line mr-1"></div>
+        <h6 class="m-0 p-3 text-dark">
+          <i class="fas fa-fw" [ngClass]="route.icontype"></i>{{route.title}}</h6>
+        </a>
+      </li>
+  </ul>
+</section>
