@@ -19,8 +19,4 @@ export class DashboardComponent implements OnInit {
   ngOnInit() {
   }
 
-  signOut() {
-    this._store.dispatch(new userActions.SignoutUserAction);
-  }
-
 }

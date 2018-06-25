@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { Store } from '@ngrx/store';
+
+import * as fromRoot from '../../shared/reducers';
+import * as userActions from '../../shared/actions/user.actions';
 
 export interface RouteInfo {
   path: string;
@@ -40,10 +44,16 @@ export class SideNavComponent implements OnInit {
   
   public routes: any[];
   
-  constructor() { }
+  constructor(
+    private _store: Store<fromRoot.State>
+  ) {}
 
   ngOnInit() {
     this.routes = ROUTES.filter(menuItem => menuItem);
+  }
+
+  signOut() {
+    this._store.dispatch(new userActions.SignoutUserAction);
   }
 
 }
