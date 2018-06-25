@@ -2,15 +2,15 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Routes, RouterModule } from '@angular/router';
 
-import { HomeComponent } from './home.component';
+import { UsersComponent } from './users.component';
 
 const routes: Routes = [
   {
     path: '',
-    component: HomeComponent,
+    component: UsersComponent,
     data: {
-      title: "Dashboard - Home | Gemeni India"
-    },
+      title: 'Dashboard - User management | Gemeni India'
+    }
   }
 ];
 
@@ -19,6 +19,6 @@ const routes: Routes = [
     CommonModule,
     RouterModule.forChild(routes)
   ],
-  declarations: [HomeComponent]
+  declarations: [UsersComponent]
 })
-export class HomeModule { }
+export class UsersModule { }
