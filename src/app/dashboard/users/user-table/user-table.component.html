@@ -1,3 +1,37 @@
-<p>
-  user-table works!
-</p>
+<div class="table-container">
+  <table class="table w-100 rounded table-striped text-center m-0">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>NAME</th>
+        <th>EMAIL</th>
+        <th *ngIf="type == 'employees' || type == 'customers'">ROLE</th>
+        <th>CONTACT</th>
+        <th>ACTIONS</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let user of users">
+        <td>{{user.serial_no}}</td>
+        <td>{{user.name}}</td>
+        <td>{{user.email}}</td>
+        <td *ngIf="type == 'employees' || type == 'customers'">{{user.getRole() | ucfirst}}</td>
+        <td>{{user.details.contact}}</td>
+        <td>
+          <button class="action border-0 btn btn-outline-info btn-sm btn-sm" title="Change password" (click)="changePassword(user?.id)">
+            <i class="fas fa-lock"></i>
+          </button>
+          <button class="action border-0 btn btn-outline-warning btn-sm btn-sm" title="Update" (click)="openEditUserModal(user?.id)">
+            <i class="fas fa-wrench"></i>
+          </button>
+          <button class="action border-0 btn btn-outline-danger btn-sm btn-sm" title="Delete" (click)="deleteUser(user?.id, user?.email)">
+            <i class="fas fa-trash-alt"></i>
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="alert alert-primary text-center rounded-0 border-0 text-light" *ngIf="users.length == 0">
+    <strong>No users found!</strong>
+  </div>
+</div>

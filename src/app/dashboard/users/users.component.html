@@ -2,25 +2,93 @@
   <h4 class="text-grey-dark">User Management</h4>
   <div class="content mt-4">
     <ul class="nav nav-pills justify-content-center align-items-center" id="pills-tab" role="tablist">
-      <li class="nav-item">
-        <a class="nav-link text-center" [routerLink]="['../']" [queryParams]="{type: 'employees'}" routerLinkActive="active">
-          <i class="fas fa-chess-rook mb-2"></i>
-          <h6 class="m-0">Employees</h6>
-        </a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link text-center" [routerLink]="['../']" [queryParams]="{type: 'customers'}" routerLinkActive="active">
-          <i class="fas fa-chess-knight mb-2"></i>
-          <h6 class="m-0">Customers</h6>
-        </a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link text-center" [routerLink]="['../']" [queryParams]="{type: 'manufacturers'}" routerLinkActive="active">
-          <i class="fas fa-chess-king mb-2"></i>
-          <h6 class="m-0">Manufacturers</h6>
-        </a>
-      </li>
+      <ng-container *ngIf="loggedUser.role == 'manufacturer'">
+        <li class="nav-item">
+          <a class="nav-link text-center" [routerLink]="['../']" [queryParams]="{type: 'employees'}" routerLinkActive="active">
+            <i class="fas fa-chess-rook mb-2"></i>
+            <h6 class="m-0">Employees</h6>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-center" [routerLink]="['../']" [queryParams]="{type: 'customers'}" routerLinkActive="active">
+            <i class="fas fa-chess-knight mb-2"></i>
+            <h6 class="m-0">Customers</h6>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-center" [routerLink]="['../']" [queryParams]="{type: 'manufacturer'}" routerLinkActive="active">
+            <i class="fas fa-chess-king mb-2"></i>
+            <h6 class="m-0">Manufacturers</h6>
+          </a>
+        </li>
+      </ng-container>
+      <ng-container *ngIf="loggedUser.role == 'sales'">
+        <li class="nav-item">
+          <a class="nav-link text-center" [routerLink]="['../']" [queryParams]="{type: 'distributor'}" routerLinkActive="active">
+            <i class="fas fa-chess-rook mb-2"></i>
+            <h6 class="m-0">Distributor</h6>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-center" [routerLink]="['../']" [queryParams]="{type: 'dealer'}" routerLinkActive="active">
+            <i class="fas fa-chess-knight mb-2"></i>
+            <h6 class="m-0">Dealer</h6>
+          </a>
+        </li>
+      </ng-container>
+      <ng-container *ngIf="loggedUser.role == 'human_resource'">
+        <li class="nav-item">
+          <a class="nav-link text-center" [routerLink]="['../']" [queryParams]="{type: 'store_purchases'}" routerLinkActive="active">
+            <i class="fas fa-store mb-2"></i>
+            <h6 class="m-0">Store Purchases</h6>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-center" [routerLink]="['../']" [queryParams]="{type: 'store_dispatch'}" routerLinkActive="active">
+            <i class="fas fa-dolly-flatbed mb-2"></i>
+            <h6 class="m-0">Dispatch</h6>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-center" [routerLink]="['../']" [queryParams]="{type: 'store_logistics'}" routerLinkActive="active">
+            <i class="fas fa-dolly mb-2"></i>
+            <h6 class="m-0">Logistics</h6>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-center" [routerLink]="['../']" [queryParams]="{type: 'accounts'}" routerLinkActive="active">
+            <i class="fas fa-dollar-sign mb-2"></i>
+            <h6 class="m-0">Accounts</h6>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-center" [routerLink]="['../']" [queryParams]="{type: 'sales'}" routerLinkActive="active">
+            <i class="fas fa-donate mb-2"></i>
+            <h6 class="m-0">Sales</h6>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-center" [routerLink]="['../']" [queryParams]="{type: 'human_resource'}" routerLinkActive="active">
+            <i class="fas fa-users mb-2"></i>
+            <h6 class="m-0">HR</h6>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-center" [routerLink]="['../']" [queryParams]="{type: 'plant_manager'}" routerLinkActive="active">
+            <i class="fas fa-industry mb-2"></i>
+            <h6 class="m-0">Plant Manager</h6>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-center" [routerLink]="['../']" [queryParams]="{type: 'plant_supervisor'}" routerLinkActive="active">
+            <i class="fas fa-file-invoice mb-2"></i>
+            <h6 class="m-0">Plant Supervisor</h6>
+          </a>
+        </li>
+      </ng-container>
     </ul>
-    <user-table></user-table>
+    <div class="mt-3">
+      <user-table></user-table>
+    </div>
   </div>
 </section>

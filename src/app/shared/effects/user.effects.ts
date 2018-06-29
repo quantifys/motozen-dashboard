@@ -29,11 +29,7 @@ export class UserEffects {
   validateUser$: Observable<Action> = this._action$.pipe(ofType(fromUser.VALIDATE_USER_TOKEN_ACTION),
     mergeMap((action: fromUser.ValidateUserTokenAction) => this._tokenService.validateToken()
       .pipe(map(response => new fromUser.ValidateUserTokenCompleteAction(response.json().data)),
-        catchError(error => {
-          this._tokenService.signOut();
-          this._router.navigate(['/login']);
-          return of(new fromUser.ValidateUserTokenFailedAction(error.json()));
-        }))));
+        catchError(error => of(new fromUser.ValidateUserTokenFailedAction(error.json()))))));
 
   @Effect()
   signOutUser$: Observable<Action> = this._action$.pipe(ofType(fromUser.SIGNOUT_USER_ACTION),
@@ -43,5 +39,11 @@ export class UserEffects {
         return new fromUser.SignoutUserCompleteAction();
       },
         catchError(error => of(new fromUser.SignoutUserFailedAction(error.json())))))));
+
+  @Effect()
+  fetchUsers$: Observable<Action> = this._action$.pipe(ofType(fromUser.FETCH_ALL_USERS_ACTION),
+    mergeMap((action: fromUser.FetchAllUsersAction) => this._tokenService.post('users/list', action.payload)
+      .pipe(map(response => new fromUser.FetchAllUsersCompleteAction(response.json().message),
+        catchError(error => of(new fromUser.FetchAllUsersFailedAction(error.json().message)))))));
         
 }

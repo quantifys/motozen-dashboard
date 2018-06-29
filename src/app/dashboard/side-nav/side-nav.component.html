@@ -8,7 +8,7 @@
     </div>
     <ul class="menu p-0">
       <li *ngFor="let route of routes">
-        <a class="d-flex" [routerLink]="route.path" routerLinkActive="active">
+        <a class="d-flex" [routerLink]="route.path" routerLinkActive="active" [queryParams]="route.params">
           <div class="line mr-1"></div>
           <h6 class="m-0 p-3 text-dark">
             <i class="fas fa-fw" [ngClass]="route.icontype"></i>{{route.title}}</h6>
