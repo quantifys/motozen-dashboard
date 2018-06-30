@@ -6,6 +6,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
 
 import { UsersComponent } from './users.component';
 import { UserTableComponent } from './user-table/user-table.component';
+import { UserEditComponent } from './user-edit/user-edit.component';
 
 const routes: Routes = [
   {
@@ -13,6 +14,13 @@ const routes: Routes = [
     component: UsersComponent,
     data: {
       title: 'Dashboard - User management | Gemeni India'
+    }
+  },
+  {
+    path: 'edit',
+    component: UserEditComponent,
+    data: {
+      title: 'Dashboard - User edit | Gemeni India'
     }
   }
 ];
@@ -24,6 +32,6 @@ const routes: Routes = [
     NgxPaginationModule,
     RouterModule.forChild(routes)
   ],
-  declarations: [UsersComponent, UserTableComponent]
+  declarations: [UsersComponent, UserTableComponent, UserEditComponent]
 })
 export class UsersModule { }

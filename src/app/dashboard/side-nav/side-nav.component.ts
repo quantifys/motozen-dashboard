@@ -10,7 +10,6 @@ export interface RouteInfo {
   title: string;
   type: string;
   icontype: string;
-  params?: any;
   collapse?: string;
   children?: ChildrenItems[];
 }
@@ -62,27 +61,6 @@ export class SideNavComponent implements OnInit {
   }
 
   refreshRoutes() {
-    ROUTES.map(route => {
-      switch(route.path) {
-        case "users":
-          if (this.loggedUser.role == 'manufacturer') {
-            route.params = {
-              type: 'employees'
-            }
-          } else if (this.loggedUser.role == 'sales') {
-            route.params = {
-              type: 'distributor'
-            }
-          } else if (this.loggedUser.role == 'human_resource') {
-            route.params = {
-              type: 'store_purchases'
-            }
-          }
-          return route;
-        default:
-          return;
-      }
-    });
     this.routes = ROUTES.filter(menuItem => menuItem);
   }
 
