@@ -22,7 +22,10 @@ export class User {
   }
 
   getRole(): string {
-    return this.role.replace('_', ' ');
+    if (this.role) {
+      return this.role.replace('_', ' ');
+    }
+    return null;
   }
 
   hasEsic(): boolean {
