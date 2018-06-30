@@ -78,7 +78,6 @@ export class SideNavComponent implements OnInit {
               type: 'store_purchases'
             }
           }
-          console.log(route);
           return route;
         default:
           return;

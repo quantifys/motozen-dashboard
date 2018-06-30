@@ -11,7 +11,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let user of users">
+      <tr *ngFor="let user of users | paginate: config; let i = index">
         <td>{{user.serial_no}}</td>
         <td>{{user.name}}</td>
         <td>{{user.email}}</td>
@@ -31,7 +31,13 @@
       </tr>
     </tbody>
   </table>
-  <div class="alert alert-primary text-center rounded-0 border-0 text-light" *ngIf="users.length == 0">
+  <div class="alert alert-primary text-center rounded-0 border-0 text-light" *ngIf="users.length == 0 && !loading">
     <strong>No users found!</strong>
+  </div>
+  <div class="alert alert-primary text-center rounded-0 border-0 text-light" *ngIf="loading">
+    <strong>Loading...</strong>
+  </div>
+  <div class="d-flex justify-content-end mt-3">
+    <pagination-controls (pageChange)="config.currentPage = $event"></pagination-controls>
   </div>
 </div>

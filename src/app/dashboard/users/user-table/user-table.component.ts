@@ -6,6 +6,7 @@ import { Store } from '@ngrx/store';
 import * as fromRoot from '../../../shared/reducers';
 import * as userActions from '../../../shared/actions/user.actions';
 import { User } from '../../../shared/models';
+import { PaginationInstance } from 'ngx-pagination';
 
 @Component({
   selector: 'user-table',
@@ -17,6 +18,12 @@ export class UserTableComponent implements OnInit, OnDestroy {
   private routerSubscription$: Subscription = new Subscription();
   public users: User[] = [];
   public type: string = '';
+  public loading: boolean = false;
+  public config: PaginationInstance = {
+    itemsPerPage: 20,
+    currentPage: 1,
+    totalItems: this.users.length
+  };
 
   constructor(
     private _store: Store<fromRoot.State>,
@@ -34,12 +41,16 @@ export class UserTableComponent implements OnInit, OnDestroy {
           role: params["type"]
         };
       }
+      this.loading = true;
       this._store.dispatch(new userActions.FetchAllUsersAction(formData));
     });
   }
 
   ngOnInit() {
-    this._store.select(fromRoot.getUsers).subscribe(users => this.users = users);
+    this._store.select(fromRoot.getUsers).subscribe(users => {
+      this.loading = false;
+      this.users = users;
+    });
   }
 
   ngOnDestroy() {
