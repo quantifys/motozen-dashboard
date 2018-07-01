@@ -12,6 +12,8 @@ import { AppComponent } from './app.component';
 
 import { reducers } from './shared/reducers';
 import { UserEffects } from './shared/effects/user.effects';
+import { RtoService } from './shared/services/rto.service';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -21,6 +23,7 @@ import { UserEffects } from './shared/effects/user.effects';
     BrowserModule,
     AppRoutingModule,
     HttpModule,
+    HttpClientModule,
     StoreModule.forRoot(reducers),
     EffectsModule.forRoot([
       UserEffects
@@ -30,7 +33,7 @@ import { UserEffects } from './shared/effects/user.effects';
       logOnly: environment.production, // Restrict extension to log-only mode
     }),
   ],
-  providers: [Angular2TokenService],
+  providers: [Angular2TokenService, RtoService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

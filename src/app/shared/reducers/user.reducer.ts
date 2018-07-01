@@ -4,6 +4,7 @@ import * as userActions from '../actions/user.actions';
 
 export interface State {
   allUsers: User[];
+  filteredUsers: User[];
   loggedUser: User;
   showUserModal: boolean;
   currentUserID: number;
@@ -11,6 +12,7 @@ export interface State {
 
 const initialState: State = {
   allUsers: [],
+  filteredUsers: [],
   loggedUser: new User({}),
   showUserModal: false,
   currentUserID: null
@@ -35,6 +37,11 @@ export function reducer(state = initialState, action: userActions.Actions): Stat
       users = action.payload.map(user => new User(user));
       return Object.assign({}, state, {
         allUsers: [...users]
+      });
+    case userActions.FILTER_USERS_COMPLETE_ACTION:
+      users = action.payload.map(user => new User(user));
+      return Object.assign({}, state, {
+        filteredUsers: [...users]
       });
     // case userActions.OPEN_USER_MODAL_ACTION:
     //   return Object.assign({}, state, {

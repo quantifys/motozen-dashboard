@@ -42,8 +42,20 @@ export class UserEffects {
 
   @Effect()
   fetchUsers$: Observable<Action> = this._action$.pipe(ofType(fromUser.FETCH_ALL_USERS_ACTION),
-    mergeMap((action: fromUser.FetchAllUsersAction) => this._tokenService.post('users/list', action.payload)
+    mergeMap((action: fromUser.FetchAllUsersAction) => this._tokenService.get('users')
       .pipe(map(response => new fromUser.FetchAllUsersCompleteAction(response.json().message),
         catchError(error => of(new fromUser.FetchAllUsersFailedAction(error.json().message)))))));
+
+  @Effect()
+  filterUsers$: Observable<Action> = this._action$.pipe(ofType(fromUser.FILTER_USERS_ACTION),
+    mergeMap((action: fromUser.FilterUsersAction) => this._tokenService.post('users/list', action.payload)
+      .pipe(map(response => new fromUser.FilterUsersCompleteAction(response.json().message),
+        catchError(error => of(new fromUser.FilterUsersFailedAction(error.json().message)))))));
+
+  @Effect()
+  createNewUser$: Observable<Action> = this._action$.pipe(ofType(fromUser.CREATE_NEW_USER_ACTION),
+    mergeMap((action: fromUser.CreateNewUserAction) => this._tokenService.post('users', action.payload)
+      .pipe(map(response => new fromUser.CreateNewUserCompleteAction(response.json().message),
+        catchError(error => of(new fromUser.CreateNewUserFailedAction(error.json().message)))))));
         
 }

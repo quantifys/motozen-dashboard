@@ -42,12 +42,12 @@ export class UserTableComponent implements OnInit, OnDestroy {
         };
       }
       this.loading = true;
-      this._store.dispatch(new userActions.FetchAllUsersAction(formData));
+      this._store.dispatch(new userActions.FilterUsersAction(formData));
     });
   }
 
   ngOnInit() {
-    this._store.select(fromRoot.getUsers).subscribe(users => {
+    this._store.select(fromRoot.getFilteredUsers).subscribe(users => {
       this.loading = false;
       this.users = users;
     });
