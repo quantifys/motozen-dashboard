@@ -9,6 +9,7 @@ import { NgSelectModule } from '@ng-select/ng-select';
 import { UsersComponent } from './users.component';
 import { UserTableComponent } from './user-table/user-table.component';
 import { UserEditComponent } from './user-edit/user-edit.component';
+import { UserDetailComponent } from './user-detail/user-detail.component';
 
 const routes: Routes = [
   {
@@ -24,6 +25,13 @@ const routes: Routes = [
     data: {
       title: 'Dashboard - User edit | Gemeni India'
     }
+  },
+  {
+    path: 'view',
+    component: UserDetailComponent,
+    data: {
+      title: 'Dashboard - User details | Gemeni India'
+    }
   }
 ];
 
@@ -36,6 +44,6 @@ const routes: Routes = [
     NgSelectModule,
     RouterModule.forChild(routes)
   ],
-  declarations: [UsersComponent, UserTableComponent, UserEditComponent]
+  declarations: [UsersComponent, UserTableComponent, UserEditComponent, UserDetailComponent]
 })
 export class UsersModule { }

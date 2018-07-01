@@ -1,5 +1,5 @@
 <div class="table-container">
-  <table class="table w-100 rounded table-striped text-center m-0">
+  <table class="table table-hover w-100 rounded table-striped text-center m-0">
     <thead>
       <tr>
         <th>#</th>
@@ -18,14 +18,17 @@
         <td *ngIf="type == 'employees' || type == 'customers'">{{user.getRole() | ucfirst}}</td>
         <td>{{user.details.contact}}</td>
         <td>
-          <button class="action border-0 btn btn-outline-info btn-sm btn-sm" title="Change password" (click)="changePassword(user?.id)">
-            <i class="fas fa-lock"></i>
+          <a class="action border-0 btn btn-outline-primary btn-sm" title="More info" routerLink="view" [queryParams]="{id: user.id}">
+            <i class="fas fa-fw fa-info"></i>
+          </a>
+          <button class="action border-0 btn btn-outline-info btn-sm" title="Change password" (click)="changePassword(user.id)">
+            <i class="fas fa-fw fa-lock"></i>
           </button>
-          <button class="action border-0 btn btn-outline-warning btn-sm btn-sm" title="Update" (click)="openEditUserModal(user?.id)">
-            <i class="fas fa-wrench"></i>
+          <button class="action border-0 btn btn-outline-warning btn-sm" title="Update" (click)="openEditUserModal(user.id)">
+            <i class="fas fa-fw fa-wrench"></i>
           </button>
-          <button class="action border-0 btn btn-outline-danger btn-sm btn-sm" title="Delete" (click)="deleteUser(user?.id, user?.email)">
-            <i class="fas fa-trash-alt"></i>
+          <button class="action border-0 btn btn-outline-danger btn-sm" title="Delete" (click)="deleteUser(user.id, user.email)">
+            <i class="fas fa-fw fa-trash-alt"></i>
           </button>
         </td>
       </tr>

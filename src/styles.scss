@@ -58,6 +58,10 @@ a {
   color: $black !important;
 }
 
+.bg-primary {
+  background-image: linear-gradient(to top left, $primary 0%, $primary-dark 100%);
+}
+
 form {
   label {
     color: $grey-dark !important;
@@ -155,6 +159,7 @@ form {
     }
     tbody {
       td {
+        font-weight: 300 !important;
         .action {
           margin: 0 5px;
         }

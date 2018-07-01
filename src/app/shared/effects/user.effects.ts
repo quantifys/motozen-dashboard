@@ -47,6 +47,12 @@ export class UserEffects {
         catchError(error => of(new fromUser.FetchAllUsersFailedAction(error.json().message)))))));
 
   @Effect()
+  fetchUser$: Observable<Action> = this._action$.pipe(ofType(fromUser.FETCH_USER_ACTION),
+    mergeMap((action: fromUser.FetchUserAction) => this._tokenService.get(`users/${action.payload}`)
+      .pipe(map(response => new fromUser.FetchUserCompleteAction(response.json().message),
+        catchError(error => of(new fromUser.FetchUserFailedAction(error.json().message)))))));
+
+  @Effect()
   filterUsers$: Observable<Action> = this._action$.pipe(ofType(fromUser.FILTER_USERS_ACTION),
     mergeMap((action: fromUser.FilterUsersAction) => this._tokenService.post('users/list', action.payload)
       .pipe(map(response => new fromUser.FilterUsersCompleteAction(response.json().message),
