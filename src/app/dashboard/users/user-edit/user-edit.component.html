@@ -5,150 +5,154 @@
     <h4 class="text-grey-dark m-0">{{addUser ? 'Add' : 'Edit'}} user</h4>
   </div>
 
-  <div class="card mt-5">
-    <div class="card-body">
-      <form [formGroup]="userForm" autocomplete="off">
-        <h5 class="text-grey-dark font-weight-bold mb-3">General information</h5>
-        <div class="form-group">
-          <label for="name">Full Name</label>
-          <input type="text" class="form-control" [ngClass]="name.valid ? 'is-valid' : 'is-invalid'" id="name" formControlName="name"
-            placeholder="John Doe">
-        </div>
-        <div class="row">
-          <div class="form-group col-sm-6">
-            <label for="email">Email</label>
-            <input type="email" class="form-control" [ngClass]="email.valid ? 'is-valid' : 'is-invalid'" id="email" formControlName="email"
-              placeholder="johndoe@company.com">
-          </div>
-          <div class="form-group col-sm-6">
-            <label for="role">Role</label>
-            <ng-select id="role" [items]="roles" bindLabel="display" bindValue="value" formControlName="role" placeholder="Select role"></ng-select>
-          </div>
-          <div class="form-group col-sm-6" *ngIf="role.value == 'dealer'">
-            <label for="distributor_id">Distributor</label>
-            <ng-select [items]="distributors" bindLabel="email" bindValue="id" formControlName="distributor_id" placeholder="Select distributor"></ng-select>
-          </div>
-        </div>
-        <ng-container *ngIf="role.value != 'manufacturer' && role.value != null">
-          <hr>
-          <h5 class="text-grey-dark font-weight-bold mb-3">Contact details</h5>
-          <div formGroupName="details">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <div class="card mt-5">
+        <div class="card-body">
+          <form [formGroup]="userForm" autocomplete="off">
+            <h5 class="text-grey-dark font-weight-bold mb-3">General information</h5>
             <div class="form-group">
-              <label for="contact">Contact</label>
-              <input type="tel" class="form-control" [ngClass]="contact.valid ? 'is-valid' : 'is-invalid'" id="contact" formControlName="contact"
-                placeholder="+91-8368381828">
+              <label for="name">Full Name</label>
+              <input type="text" class="form-control" [ngClass]="name.valid ? 'is-valid' : 'is-invalid'" id="name" formControlName="name"
+                placeholder="John Doe">
             </div>
-            <ng-container *ngIf="role.value == 'dealer' || role.value == 'distributor'">
-              <ng-container *ngIf="addUser; else fullAddress">
+            <div class="row">
+              <div class="form-group col-sm-6">
+                <label for="email">Email</label>
+                <input type="email" class="form-control" [ngClass]="email.valid ? 'is-valid' : 'is-invalid'" id="email" formControlName="email"
+                  placeholder="johndoe@company.com">
+              </div>
+              <div class="form-group col-sm-6">
+                <label for="role">Role</label>
+                <ng-select id="role" [items]="roles" bindLabel="display" bindValue="value" formControlName="role" placeholder="Select role"></ng-select>
+              </div>
+              <div class="form-group col-sm-6" *ngIf="role.value == 'dealer'">
+                <label for="distributor_id">Distributor</label>
+                <ng-select [items]="distributors" bindLabel="email" bindValue="id" formControlName="distributor_id" placeholder="Select distributor"></ng-select>
+              </div>
+            </div>
+            <ng-container *ngIf="role.value != 'manufacturer' && role.value != null">
+              <hr>
+              <h5 class="text-grey-dark font-weight-bold mb-3">Contact details</h5>
+              <div formGroupName="details">
                 <div class="form-group">
-                  <label for="address_l1">Address line 1</label>
-                  <input class="form-control" [ngClass]="address_l1.valid ? 'is-valid' : 'is-invalid'" id="address_l1" type="text" formControlName="address_l1"
-                  />
+                  <label for="contact">Contact</label>
+                  <input type="tel" class="form-control" [ngClass]="contact.valid ? 'is-valid' : 'is-invalid'" id="contact" formControlName="contact"
+                    placeholder="+91-8368381828">
                 </div>
-                <div class="form-group">
-                  <label for="address_l2">Address line 2</label>
-                  <input class="form-control" [ngClass]="address_l2.valid ? 'is-valid' : 'is-invalid'" id="address_l2" type="text" formControlName="address_l2"
-                  />
+                <ng-container *ngIf="role.value == 'dealer' || role.value == 'distributor'">
+                  <ng-container *ngIf="addUser; else fullAddress">
+                    <div class="form-group">
+                      <label for="address_l1">Address line 1</label>
+                      <input class="form-control" [ngClass]="address_l1.valid ? 'is-valid' : 'is-invalid'" id="address_l1" type="text" formControlName="address_l1"
+                      />
+                    </div>
+                    <div class="form-group">
+                      <label for="address_l2">Address line 2</label>
+                      <input class="form-control" [ngClass]="address_l2.valid ? 'is-valid' : 'is-invalid'" id="address_l2" type="text" formControlName="address_l2"
+                      />
+                    </div>
+                  </ng-container>
+                  <ng-template #fullAddress>
+                    <div class="form-group">
+                      <label for="address">Address</label>
+                      <textarea class="form-control" [ngClass]="address.valid ? 'is-valid' : 'is-invalid'" id="address" rows="5" formControlName="address"></textarea>
+                    </div>
+                  </ng-template>
+                  <div class="row">
+                    <div class="col-md-4">
+                      <div class="form-group">
+                        <label for="locality">Locality</label>
+                        <input class="form-control" [ngClass]="locality.valid ? 'is-valid' : 'is-invalid'" id="locality" type="text" formControlName="locality"
+                        />
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="form-group">
+                        <label for="city">City</label>
+                        <input class="form-control" [ngClass]="city.valid ? 'is-valid' : 'is-invalid'" id="city" type="text" formControlName="city"
+                        />
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="form-group">
+                        <label id="state">State</label>
+                        <input type="text" class="form-control" formControlName="state" *ngIf="role.value == 'dealer'; else stateSelect" readonly="true">
+                        <ng-template #stateSelect>
+                          <ng-select id="state" [items]="states" bindLabel="name" formControlName="state" placeholder="Select state"></ng-select>
+                        </ng-template>
+                      </div>
+                    </div>
+                    <div class="col-sm-6 form-group">
+                      <label for="pincode">Pincode</label>
+                      <input class="form-control" [ngClass]="pincode.valid ? 'is-valid' : 'is-invalid'" id="pincode" type="number" formControlName="pincode"
+                      />
+                    </div>
+                  </div>
+                </ng-container>
+                <hr>
+                <h5 class="text-grey-dark font-weight-bold mb-3">Company information</h5>
+                <div class="form-group" *ngIf="role.value == 'dealer' || role.value == 'distributor'">
+                  <label for="gstn">GSTN</label>
+                  <input type="text" class="form-control" [ngClass]="gstn.valid ? 'is-valid' : 'is-invalid'" id="gstn" formControlName="gstn"
+                    placeholder="22AAAAA0000A1Z5">
+                  <div class="alert alert-danger" *ngIf="gstn.invalid && gstn.touched">
+                    <span *ngIf="gstn.hasError('required')">Please enter your GST number.</span>
+                    <p class="mb-0" *ngIf="!gstn.hasError('required') && gstn.hasError('pattern')">Please verify your GST number.</p>
+                    <span *ngIf="!gstn.hasError('required') && (gstn.hasError('minlength') || gstn.hasError('maxlength'))">GST number should be 15 characters in length.</span>
+                  </div>
                 </div>
-              </ng-container>
-              <ng-template #fullAddress>
-                <div class="form-group">
-                  <label for="address">Address</label>
-                  <textarea class="form-control" [ngClass]="address.valid ? 'is-valid' : 'is-invalid'" id="address" rows="5" formControlName="address"></textarea>
-                </div>
-              </ng-template>
+                <ng-container *ngIf="role.value != 'distributor' && role.value != 'dealer'">
+                  <div class="row">
+                    <div class="form-group col-sm-6">
+                      <label for="base_salary">Base salary</label>
+                      <input type="number" class="form-control" [ngClass]="base_salary.valid ? 'is-valid' : 'is-invalid'" id="base_salary" formControlName="base_salary"
+                        placeholder="10000">
+                    </div>
+                    <div class="form-group col-sm-6">
+                      <label for="hra">HRA</label>
+                      <input type="number" class="form-control" [ngClass]="hra.valid ? 'is-valid' : 'is-invalid'" id="hra" formControlName="hra"
+                        placeholder="1500">
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="form-group col-sm-4">
+                      <label for="transport_allowance">Transport allowance</label>
+                      <input type="number" class="form-control" [ngClass]="transport_allowance.valid ? 'is-valid' : 'is-invalid'" id="transport_allowance"
+                        formControlName="transport_allowance" placeholder="500">
+                    </div>
+                    <div class="form-group col-sm-4">
+                      <label for="gpf">GPF</label>
+                      <input type="number" class="form-control" [ngClass]="gpf.valid ? 'is-valid' : 'is-invalid'" formControlName="gpf" placeholder="3000">
+                    </div>
+                    <div class="form-group col-sm-4">
+                      <label for="esic">ESIC</label>
+                      <input type="number" class="form-control" id="esic" formControlName="esic" placeholder="400">
+                    </div>
+                  </div>
+                </ng-container>
+              </div>
+            </ng-container>
+            <ng-container *ngIf="addUser">
+              <hr>
+              <h5 class="text-grey-dark font-weight-bold mb-3">Security information</h5>
               <div class="row">
-                <div class="col-md-4">
-                  <div class="form-group">
-                    <label for="locality">Locality</label>
-                    <input class="form-control" [ngClass]="locality.valid ? 'is-valid' : 'is-invalid'" id="locality" type="text" formControlName="locality"
-                    />
-                  </div>
+                <div class="form-group col-sm-6">
+                  <label for="password">Password</label>
+                  <input type="password" class="form-control" [ngClass]="password.valid ? 'is-valid' : 'is-invalid'" id="password" formControlName="password"
+                    placeholder="boiledcabbage">
                 </div>
-                <div class="col-md-4">
-                  <div class="form-group">
-                    <label for="city">City</label>
-                    <input class="form-control" [ngClass]="city.valid ? 'is-valid' : 'is-invalid'" id="city" type="text" formControlName="city"
-                    />
-                  </div>
-                </div>
-                <div class="col-md-4">
-                  <div class="form-group">
-                    <label id="state">State</label>
-                    <input type="text" class="form-control" formControlName="state" *ngIf="role.value == 'dealer'; else stateSelect" readonly="true">
-                    <ng-template #stateSelect>
-                      <ng-select id="state" [items]="states" bindLabel="name" formControlName="state" placeholder="Select state"></ng-select>
-                    </ng-template>
-                  </div>
-                </div>
-                <div class="col-sm-6 form-group">
-                  <label for="pincode">Pincode</label>
-                  <input class="form-control" [ngClass]="pincode.valid ? 'is-valid' : 'is-invalid'" id="pincode" type="number" formControlName="pincode"
-                  />
+                <div class="form-group col-sm-6">
+                  <label for="password_confirmation">Confirm password</label>
+                  <input type="password" class="form-control" [ngClass]="password_confirmation.valid ? 'is-valid' : 'is-invalid'" id="password_confirmation"
+                    formControlName="password_confirmation" placeholder="boiledcabbage">
                 </div>
               </div>
             </ng-container>
-            <hr>
-            <h5 class="text-grey-dark font-weight-bold mb-3">Company information</h5>
-            <div class="form-group" *ngIf="role.value == 'dealer' || role.value == 'distributor'">
-              <label for="gstn">GSTN</label>
-              <input type="text" class="form-control" [ngClass]="gstn.valid ? 'is-valid' : 'is-invalid'" id="gstn" formControlName="gstn"
-                placeholder="22AAAAA0000A1Z5">
-              <div class="alert alert-danger" *ngIf="gstn.invalid && gstn.touched">
-                <span *ngIf="gstn.hasError('required')">Please enter your GST number.</span>
-                <p class="mb-0" *ngIf="!gstn.hasError('required') && gstn.hasError('pattern')">Please verify your GST number.</p>
-                <span *ngIf="!gstn.hasError('required') && (gstn.hasError('minlength') || gstn.hasError('maxlength'))">GST number should be 15 characters in length.</span>
-              </div>
-            </div>
-            <ng-container *ngIf="role.value != 'distributor' && role.value != 'dealer'">
-              <div class="row">
-                <div class="form-group col-sm-6">
-                  <label for="base_salary">Base salary</label>
-                  <input type="number" class="form-control" [ngClass]="base_salary.valid ? 'is-valid' : 'is-invalid'" id="base_salary" formControlName="base_salary"
-                    placeholder="10000">
-                </div>
-                <div class="form-group col-sm-6">
-                  <label for="hra">HRA</label>
-                  <input type="number" class="form-control" [ngClass]="hra.valid ? 'is-valid' : 'is-invalid'" id="hra" formControlName="hra"
-                    placeholder="1500">
-                </div>
-              </div>
-              <div class="row">
-                <div class="form-group col-sm-4">
-                  <label for="transport_allowance">Transport allowance</label>
-                  <input type="number" class="form-control" [ngClass]="transport_allowance.valid ? 'is-valid' : 'is-invalid'" id="transport_allowance"
-                    formControlName="transport_allowance" placeholder="500">
-                </div>
-                <div class="form-group col-sm-4">
-                  <label for="gpf">GPF</label>
-                  <input type="number" class="form-control" [ngClass]="gpf.valid ? 'is-valid' : 'is-invalid'" formControlName="gpf" placeholder="3000">
-                </div>
-                <div class="form-group col-sm-4">
-                  <label for="esic">ESIC</label>
-                  <input type="number" class="form-control" id="esic" formControlName="esic" placeholder="400">
-                </div>
-              </div>
-            </ng-container>
-          </div>
-        </ng-container>
-        <ng-container *ngIf="addUser">
-          <hr>
-          <h5 class="text-grey-dark font-weight-bold mb-3">Security information</h5>
-          <div class="row">
-            <div class="form-group col-sm-6">
-              <label for="password">Password</label>
-              <input type="password" class="form-control" [ngClass]="password.valid ? 'is-valid' : 'is-invalid'" id="password" formControlName="password"
-                placeholder="boiledcabbage">
-            </div>
-            <div class="form-group col-sm-6">
-              <label for="password_confirmation">Confirm password</label>
-              <input type="password" class="form-control" [ngClass]="password_confirmation.valid ? 'is-valid' : 'is-invalid'" id="password_confirmation"
-                formControlName="password_confirmation" placeholder="boiledcabbage">
-            </div>
-          </div>
-        </ng-container>
-        <button class="btn btn-primary btn-save mt-4" [disabled]="userForm.invalid" (click)="saveChanges()">Save</button>
-      </form>
+            <button class="btn btn-primary btn-save mt-4" [disabled]="userForm.invalid" (click)="saveChanges()">Save</button>
+          </form>
+        </div>
+      </div>
     </div>
   </div>
 </section>

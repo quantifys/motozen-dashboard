@@ -13,7 +13,7 @@
     <tbody>
       <tr *ngFor="let user of users | paginate: config; let i = index">
         <td>{{user.serial_no}}</td>
-        <td>{{user.name}}</td>
+        <td>{{user.name | ucwords}}</td>
         <td>{{user.email}}</td>
         <td *ngIf="type == 'employees' || type == 'customers'">{{user.getRole() | ucfirst}}</td>
         <td>{{user.details.contact}}</td>
@@ -27,7 +27,7 @@
           <button class="action border-0 btn btn-outline-warning btn-sm" title="Update" (click)="openEditUserModal(user.id)">
             <i class="fas fa-fw fa-wrench"></i>
           </button>
-          <button class="action border-0 btn btn-outline-danger btn-sm" title="Delete" (click)="deleteUser(user.id, user.email)">
+          <button class="action border-0 btn btn-outline-danger btn-sm" title="Delete" (click)="deleteUser(user.id)">
             <i class="fas fa-fw fa-trash-alt"></i>
           </button>
         </td>

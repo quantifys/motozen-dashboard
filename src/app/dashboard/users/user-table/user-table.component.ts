@@ -1,12 +1,13 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { PaginationInstance } from 'ngx-pagination';
+import swal from 'sweetalert2';
 import { Store } from '@ngrx/store';
 
 import * as fromRoot from '../../../shared/reducers';
 import * as userActions from '../../../shared/actions/user.actions';
 import { User } from '../../../shared/models';
-import { PaginationInstance } from 'ngx-pagination';
 
 @Component({
   selector: 'user-table',
@@ -47,7 +48,7 @@ export class UserTableComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this._store.select(fromRoot.getFilteredUsers).subscribe(users => {
+    this._store.select(fromRoot.getAllUsers).subscribe(users => {
       this.loading = false;
       this.users = users;
     });
@@ -55,6 +56,22 @@ export class UserTableComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.routerSubscription$.unsubscribe();
+  }
+
+  deleteUser(id: number) {
+    swal({
+      title: 'Are you sure?',
+      text: 'Delete user!',
+      type: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete!'
+    }).then((result) => {
+      if (result.value) {
+        this._store.dispatch(new userActions.DeleteUserAction(id));
+      }
+    });
   }
 
 }

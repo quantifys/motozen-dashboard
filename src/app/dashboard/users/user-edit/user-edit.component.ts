@@ -98,8 +98,10 @@ export class UserEditComponent implements OnInit {
   }
 
   fetchDistributors() {
-    this._store.dispatch(new userActions.FetchAllUsersAction);
-    this._store.select(fromRoot.getAllUsers).subscribe(distributors => this.distributors = distributors.filter(user => user.role == 'distributor'));
+    this._store.dispatch(new userActions.FilterUsersAction({
+      role: 'distributor'
+    }));
+    this._store.select(fromRoot.getAllUsers).subscribe(distributors => this.distributors = distributors);
   }
 
   formListener() {
