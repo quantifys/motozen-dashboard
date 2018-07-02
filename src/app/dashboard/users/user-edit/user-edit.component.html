@@ -36,7 +36,7 @@
               <h5 class="text-grey-dark font-weight-bold mb-3">Contact details</h5>
               <div formGroupName="details">
                 <div class="form-group">
-                  <label for="contact">Contact</label>
+                  <label for="contact">Phone</label>
                   <input type="tel" class="form-control" [ngClass]="contact.valid ? 'is-valid' : 'is-invalid'" id="contact" formControlName="contact"
                     placeholder="+91-8368381828">
                 </div>
@@ -60,20 +60,22 @@
                     </div>
                   </ng-template>
                   <div class="row">
-                    <div class="col-md-4">
-                      <div class="form-group">
-                        <label for="locality">Locality</label>
-                        <input class="form-control" [ngClass]="locality.valid ? 'is-valid' : 'is-invalid'" id="locality" type="text" formControlName="locality"
-                        />
+                    <ng-container *ngIf="addUser">
+                      <div class="col-md-4">
+                        <div class="form-group">
+                          <label for="locality">Locality</label>
+                          <input class="form-control" [ngClass]="locality.valid ? 'is-valid' : 'is-invalid'" id="locality" type="text" formControlName="locality"
+                          />
+                        </div>
                       </div>
-                    </div>
-                    <div class="col-md-4">
-                      <div class="form-group">
-                        <label for="city">City</label>
-                        <input class="form-control" [ngClass]="city.valid ? 'is-valid' : 'is-invalid'" id="city" type="text" formControlName="city"
-                        />
+                      <div class="col-md-4">
+                        <div class="form-group">
+                          <label for="city">City</label>
+                          <input class="form-control" [ngClass]="city.valid ? 'is-valid' : 'is-invalid'" id="city" type="text" formControlName="city"
+                          />
+                        </div>
                       </div>
-                    </div>
+                    </ng-container>
                     <div class="col-md-4">
                       <div class="form-group">
                         <label id="state">State</label>
@@ -83,7 +85,7 @@
                         </ng-template>
                       </div>
                     </div>
-                    <div class="col-sm-6 form-group">
+                    <div class="col-sm-6 form-group" *ngIf="addUser">
                       <label for="pincode">Pincode</label>
                       <input class="form-control" [ngClass]="pincode.valid ? 'is-valid' : 'is-invalid'" id="pincode" type="number" formControlName="pincode"
                       />

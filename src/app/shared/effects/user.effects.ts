@@ -73,4 +73,13 @@ export class UserEffects {
       .pipe(map(response => new fromUser.DeleteUserCompleteAction(response.json().message),
         catchError(error => of(new fromUser.DeleteUserFailedAction(error.json().message)))))));
 
+  @Effect()
+  updateUser$: Observable<Action> = this._action$.pipe(ofType(fromUser.UPDATE_USER_ACTION),
+    mergeMap((action: fromUser.UpdateUserAction) => this._tokenService.patch(`users/${action.payload.user.id}`, action.payload)
+      .pipe(map(response => {
+        this._router.navigate(["dashboard", "users", "view"], { queryParams: { id: response.json().message.id } });
+        return new fromUser.UpdateUserCompleteAction(response.json().message); 
+      },
+        catchError(error => of(new fromUser.UpdateUserFailedAction(error.json().message)))))));
+
 }

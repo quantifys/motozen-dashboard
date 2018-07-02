@@ -80,6 +80,7 @@ export class UserEditComponent implements OnInit {
     this._activatedRoute.queryParams.subscribe(params => {
       if (params["id"]) {
         this.addUser = false;
+        this._store.dispatch(new userActions.FetchUserAction(params["id"]));
       } else {
         this.addUser = true;
       }
@@ -95,6 +96,11 @@ export class UserEditComponent implements OnInit {
       this.loggedUser = user;
       this.filterRoles();
     });
+    this._store.select(fromRoot.getCurrentUser).subscribe(user => {
+      if (user.id) {
+        this.userForm.patchValue(user, { emitEvent: false });
+      }
+    });
   }
 
   fetchDistributors() {
@@ -108,8 +114,8 @@ export class UserEditComponent implements OnInit {
     this.userForm.valueChanges.subscribe(value => {
       if (this.distributor_id.value) {
         let distributor: User = this.distributors.find(dist => this.distributor_id.value == dist.id);
-        this.state.patchValue(distributor.details.state, {emitEvent: false});
-        this.state_code.patchValue(distributor.details.state_code, {emitEvent: false});
+        this.state.patchValue(distributor.details.state, { emitEvent: false });
+        this.state_code.patchValue(distributor.details.state_code, { emitEvent: false });
       }
       this.hasEsic = value.details.base_salary + value.details.transport_allowance + value.details.hra + value.details.gpf < 16000 ? true : false;
       if (this.employeeCheck()) {
@@ -125,11 +131,11 @@ export class UserEditComponent implements OnInit {
         this.gpf.clearValidators();
         this.role.value != 'manufacturer' ? this.gstn.setValidators([Validators.required, Validators.minLength(15), Validators.maxLength(15), Validators.pattern("[a-zA-Z0-9]+")]) : this.gstn.clearValidators();
       }
-      this.base_salary.updateValueAndValidity({emitEvent: false});
-      this.hra.updateValueAndValidity({emitEvent: false});
-      this.transport_allowance.updateValueAndValidity({emitEvent: false});
-      this.gpf.updateValueAndValidity({emitEvent: false});
-      this.gstn.updateValueAndValidity({emitEvent: false});
+      this.base_salary.updateValueAndValidity({ emitEvent: false });
+      this.hra.updateValueAndValidity({ emitEvent: false });
+      this.transport_allowance.updateValueAndValidity({ emitEvent: false });
+      this.gpf.updateValueAndValidity({ emitEvent: false });
+      this.gstn.updateValueAndValidity({ emitEvent: false });
     });
   }
 
@@ -151,6 +157,7 @@ export class UserEditComponent implements OnInit {
   buildForm() {
     this.userForm = this._fb.group(
       {
+        id: null,
         name: [null, Validators.required],
         email: [null, [Validators.required, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$")]],
         role: [null, Validators.required],
@@ -261,9 +268,9 @@ export class UserEditComponent implements OnInit {
       delete formData.details['locality'];
       delete formData.details['city'];
       delete formData.details['pincode'];
-    }
-    if (this.addUser) {
       this._store.dispatch(new userActions.CreateNewUserAction({ user: formData }));
+    } else {
+      this._store.dispatch(new userActions.UpdateUserAction({ user: formData }));
     }
   }
 

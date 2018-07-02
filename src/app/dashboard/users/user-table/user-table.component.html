@@ -24,9 +24,9 @@
           <button class="action border-0 btn btn-outline-info btn-sm" title="Change password" (click)="changePassword(user.id)">
             <i class="fas fa-fw fa-lock"></i>
           </button>
-          <button class="action border-0 btn btn-outline-warning btn-sm" title="Update" (click)="openEditUserModal(user.id)">
+          <a class="action border-0 btn btn-outline-warning btn-sm" title="Update" routerLink="edit" [queryParams]="{id: user.id}">
             <i class="fas fa-fw fa-wrench"></i>
-          </button>
+          </a>
           <button class="action border-0 btn btn-outline-danger btn-sm" title="Delete" (click)="deleteUser(user.id)">
             <i class="fas fa-fw fa-trash-alt"></i>
           </button>
