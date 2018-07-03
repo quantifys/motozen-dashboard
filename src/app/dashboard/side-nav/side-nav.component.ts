@@ -33,6 +33,12 @@ export const ROUTES: RouteInfo[] = [
     title: 'User Management',
     type: 'link',
     icontype: 'fa-users'
+  },
+  {
+    path: 'devices',
+    title: 'Devices',
+    type: 'link',
+    icontype: 'fa-desktop'
   }
 ];
 
