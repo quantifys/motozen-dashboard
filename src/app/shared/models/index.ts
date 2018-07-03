@@ -8,3 +8,12 @@ export class PageData {
     this.per_page = data.per_page != null ? +data.per_page : null;
   }
 }
+
+export class Config {
+  public type: string;
+  public message: any;
+  constructor(data: any) {
+    this.type = data.type ? data.type : null;
+    this.message = data.message ? data.message : null;
+  }
+}

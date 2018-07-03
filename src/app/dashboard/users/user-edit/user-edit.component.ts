@@ -77,6 +77,7 @@ export class UserEditComponent implements OnInit {
     private _fb: FormBuilder,
     private _activatedRoute: ActivatedRoute
   ) {
+    this._store.dispatch(new userActions.ClearCurrentUserAction);
     this._activatedRoute.queryParams.subscribe(params => {
       if (params["id"]) {
         this.addUser = false;

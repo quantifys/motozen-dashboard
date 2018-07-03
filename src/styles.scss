@@ -62,6 +62,12 @@ a {
   background-image: linear-gradient(to top left, $primary 0%, $primary-dark 100%);
 }
 
+.ngx-pagination {
+  .current {
+    background-image: linear-gradient(to top left, #FFB88C 0%, #E56590 100%) !important;
+  }
+}
+
 form {
   label {
     color: $grey-dark !important;

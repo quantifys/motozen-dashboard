@@ -41,6 +41,10 @@ export function reducer(state = initialState, action: userActions.Actions): Stat
       return Object.assign({}, state, {
         allUsers: [...users]
       });
+    case userActions.FETCH_USER_ACTION:
+      return Object.assign({}, state, {
+        currentUser: new User({})
+      });
     case userActions.FETCH_USER_COMPLETE_ACTION:
       return Object.assign({}, state, {
         currentUser: new User(action.payload)
@@ -55,6 +59,14 @@ export function reducer(state = initialState, action: userActions.Actions): Stat
         currentUser: new User({
           id: action.payload
         })
+      });
+    case userActions.UPDATE_USER_COMPLETE_ACTION:
+      return Object.assign({}, state, {
+        allUsers: [...state.allUsers.map(user => user.id != action.payload.id ? user : new User(action.payload))]
+      });
+    case userActions.CLEAR_CURRENT_USER_ACTION:
+      return Object.assign({}, state, {
+        currentUser: new User({})
       });
     // case userActions.OPEN_USER_MODAL_ACTION:
     //   return Object.assign({}, state, {
@@ -71,10 +83,6 @@ export function reducer(state = initialState, action: userActions.Actions): Stat
     // case userActions.DELETE_USER_FAILED_ACTION:
     //   return Object.assign({}, state, {
     //     currentUserID: null
-    //   });
-    // case userActions.UPDATE_USER_COMPLETE_ACTION:
-    //   return Object.assign({}, state, {
-    //     allUsers: [...state.allUsers.map(user => user.id != action.payload.id ? user : new User(action.payload))]
     //   });
 
     default:
