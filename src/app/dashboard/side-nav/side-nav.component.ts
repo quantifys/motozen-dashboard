@@ -3,6 +3,7 @@ import { Store } from '@ngrx/store';
 
 import * as fromRoot from '../../shared/reducers';
 import * as userActions from '../../shared/actions/user.actions';
+import { User } from '../../shared/models';
 
 export interface RouteInfo {
   path: string;
@@ -25,7 +26,7 @@ export const ROUTES: RouteInfo[] = [
     path: 'home',
     title: 'Dashboard',
     type: 'link',
-    icontype: 'fa-chart-line'
+    icontype: 'fa-chart-area'
   },
   {
     path: 'users',
@@ -43,12 +44,23 @@ export const ROUTES: RouteInfo[] = [
 export class SideNavComponent implements OnInit {
   
   public routes: any[];
+  public loggedUser: User = new User({});
   
   constructor(
     private _store: Store<fromRoot.State>
-  ) {}
+  ) {
+    this._store.select(fromRoot.getLoggedUser).subscribe(user => {
+      this.loggedUser = user;
+      if (this.loggedUser.role) {
+        this.refreshRoutes();
+      }
+    });
+  }
 
   ngOnInit() {
+  }
+
+  refreshRoutes() {
     this.routes = ROUTES.filter(menuItem => menuItem);
   }
 

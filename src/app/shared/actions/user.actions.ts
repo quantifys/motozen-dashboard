@@ -26,6 +26,10 @@ export const DELETE_USER_ACTION = "[User] Delete User Action";
 export const DELETE_USER_COMPLETE_ACTION = "[User] Delete User Complete Action";
 export const DELETE_USER_FAILED_ACTION = "[User] Delete User Failed Action";
 
+export const FILTER_USERS_ACTION = "[User] Filter Users Action";
+export const FILTER_USERS_COMPLETE_ACTION = "[User] Filter Users Complete Action";
+export const FILTER_USERS_FAILED_ACTION = "[User] Filter Users Failed Action";
+
 export const FETCH_ALL_USERS_ACTION = "[User] Fetch All Users Action";
 export const FETCH_ALL_USERS_COMPLETE_ACTION = "[User] Fetch All Users Complete Action";
 export const FETCH_ALL_USERS_FAILED_ACTION = "[User] Fetch All Users Failed Action";
@@ -33,6 +37,8 @@ export const FETCH_ALL_USERS_FAILED_ACTION = "[User] Fetch All Users Failed Acti
 export const FETCH_USER_ACTION = "[User] Fetch User Action";
 export const FETCH_USER_COMPLETE_ACTION = "[User] Fetch User Complete Action";
 export const FETCH_USER_FAILED_ACTION = "[User] Fetch User Failed Action";
+
+export const CLEAR_CURRENT_USER_ACTION = "[User] Clear Current User Action";
 
 export const OPEN_USER_MODAL_ACTION = "[User] Open User Modal Action";
 export const CLOSE_USER_MODAL_ACTION = "[User] Close User Modal Action";
@@ -145,9 +151,23 @@ export class DeleteUserFailedAction implements Action {
   }
 }
 
+export class FilterUsersAction implements Action {
+  readonly type = FILTER_USERS_ACTION;
+  constructor(public payload: any) { }
+}
+
+export class FilterUsersCompleteAction implements Action {
+  readonly type = FILTER_USERS_COMPLETE_ACTION;
+  constructor(public payload: any) { }
+}
+
+export class FilterUsersFailedAction implements Action {
+  readonly type = FILTER_USERS_FAILED_ACTION;
+  constructor(public payload: any) { }
+}
+
 export class FetchAllUsersAction implements Action {
   readonly type = FETCH_ALL_USERS_ACTION;
-  constructor(public payload: any) { }
 }
 
 export class FetchAllUsersCompleteAction implements Action {
@@ -173,6 +193,10 @@ export class FetchUserCompleteAction implements Action {
 export class FetchUserFailedAction implements Action {
   readonly type = FETCH_USER_FAILED_ACTION;
   constructor(public payload: any) { }
+}
+
+export class ClearCurrentUserAction implements Action {
+  readonly type = CLEAR_CURRENT_USER_ACTION;
 }
 
 export class OpenUserModalAction implements Action {
@@ -202,11 +226,15 @@ export type Actions =
   | DeleteUserAction
   | DeleteUserCompleteAction
   | DeleteUserFailedAction
+  | FilterUsersAction
+  | FilterUsersCompleteAction
+  | FilterUsersFailedAction
   | FetchAllUsersAction
   | FetchAllUsersCompleteAction
   | FetchAllUsersFailedAction
   | FetchUserAction
   | FetchUserCompleteAction
   | FetchUserFailedAction
+  | ClearCurrentUserAction
   | OpenUserModalAction
   | CloseUserModalAction;

@@ -6,14 +6,14 @@ export interface State {
   allUsers: User[];
   loggedUser: User;
   showUserModal: boolean;
-  currentUserID: number;
+  currentUser: User;
 }
 
 const initialState: State = {
   allUsers: [],
   loggedUser: new User({}),
   showUserModal: false,
-  currentUserID: null
+  currentUser: new User({})
 };
 
 export function reducer(state = initialState, action: userActions.Actions): State {
@@ -36,36 +36,55 @@ export function reducer(state = initialState, action: userActions.Actions): Stat
       return Object.assign({}, state, {
         allUsers: [...users]
       });
-    // case userActions.OPEN_USER_MODAL_ACTION:
-    //   return Object.assign({}, state, {
-    //     showUserModal: true
-    //   });
-    // case userActions.CLOSE_USER_MODAL_ACTION:
-    //   return Object.assign({}, state, {
-    //     showUserModal: false
-    //   });
-    // case userActions.CREATE_USER_COMPLETE_ACTION:
-    //   return Object.assign({}, state, {
-    //     allUsers: [...state.allUsers, new User(action.payload)]
-    //   });
-    // case userActions.DELETE_USER_COMPLETE_ACTION:
-    //   return Object.assign({}, state, {
-    //     allUsers: [...state.allUsers.filter(user => user.id != state.currentUserID ? user : null)],
-    //     currentUserID: null
-    //   });
-    // case userActions.DELETE_USER_ACTION:
-    //   return Object.assign({}, state, {
-    //     currentUserID: action.payload
-    //   });
-    // case userActions.DELETE_USER_FAILED_ACTION:
-    //   return Object.assign({}, state, {
-    //     currentUserID: null
-    //   });
-    // case userActions.UPDATE_USER_COMPLETE_ACTION:
-    //   return Object.assign({}, state, {
-    //     allUsers: [...state.allUsers.map(user => user.id != action.payload.id ? user : new User(action.payload))]
-    //   });
-
+    case userActions.FILTER_USERS_COMPLETE_ACTION:
+      users = action.payload.map(user => new User(user));
+      return Object.assign({}, state, {
+        allUsers: [...users]
+      });
+    case userActions.FETCH_USER_ACTION:
+      return Object.assign({}, state, {
+        currentUser: new User({})
+      });
+    case userActions.FETCH_USER_COMPLETE_ACTION:
+      return Object.assign({}, state, {
+        currentUser: new User(action.payload)
+      });
+    case userActions.DELETE_USER_COMPLETE_ACTION:
+      return Object.assign({}, state, {
+        allUsers: [...state.allUsers.filter(user => user.id != state.currentUser.id ? user : null)],
+        currentUser: new User({})
+      });
+    case userActions.DELETE_USER_ACTION:
+      return Object.assign({}, state, {
+        currentUser: new User({
+          id: action.payload
+        })
+      });
+    case userActions.UPDATE_USER_COMPLETE_ACTION:
+      return Object.assign({}, state, {
+        allUsers: [...state.allUsers.map(user => user.id != action.payload.id ? user : new User(action.payload))],
+        showUserModal: false
+      });
+    case userActions.CLEAR_CURRENT_USER_ACTION:
+      return Object.assign({}, state, {
+        currentUser: new User({})
+      });
+    case userActions.OPEN_USER_MODAL_ACTION:
+      return Object.assign({}, state, {
+        showUserModal: true
+      });
+    case userActions.CLOSE_USER_MODAL_ACTION:
+      return Object.assign({}, state, {
+        showUserModal: false
+      });
+    case userActions.CREATE_NEW_USER_COMPLETE_ACTION:
+      return Object.assign({}, state, {
+        allUsers: [...state.allUsers, new User(action.payload)]
+      });
+    case userActions.DELETE_USER_FAILED_ACTION:
+      return Object.assign({}, state, {
+        currentUser: new User({})
+      });
     default:
       return state;
   }

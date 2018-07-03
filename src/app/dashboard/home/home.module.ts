@@ -9,7 +9,7 @@ const routes: Routes = [
     path: '',
     component: HomeComponent,
     data: {
-      title: "Home | Gemeni India"
+      title: "Dashboard - Home | Gemeni India"
     },
   }
 ];

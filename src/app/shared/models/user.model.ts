@@ -21,6 +21,13 @@ export class User {
     this.details = data.details ? new UserDetails(data.details) : new UserDetails({});
   }
 
+  getRole(): string {
+    if (this.role) {
+      return this.role.replace('_', ' ');
+    }
+    return null;
+  }
+
   hasEsic(): boolean {
     return this.details.base_salary + this.details.transport_allowance + this.details.hra + this.details.gpf < 16000 ? true : false
   }

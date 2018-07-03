@@ -5,6 +5,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { DashboardComponent } from './dashboard.component';
 import { SideNavComponent } from './side-nav/side-nav.component';
 import { Angular2TokenService } from 'angular2-token';
+import { NgStringPipesModule } from 'ngx-pipes';
 
 const routes: Routes = [
   {
@@ -15,6 +16,10 @@ const routes: Routes = [
       {
         path: 'home',
         loadChildren: './home/home.module#HomeModule'
+      },
+      {
+        path: 'users',
+        loadChildren: './users/users.module#UsersModule'
       },
       {
         path: '',
@@ -28,6 +33,7 @@ const routes: Routes = [
 @NgModule({
   imports: [
     CommonModule,
+    NgStringPipesModule,
     RouterModule.forChild(routes)
   ],
   declarations: [DashboardComponent, SideNavComponent]

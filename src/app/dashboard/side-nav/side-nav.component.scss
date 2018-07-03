@@ -9,11 +9,20 @@ section {
   box-shadow: 2px 2px 3px 0 rgba(117, 124, 129, 0.12);
   .menu {
     list-style: none;
-    border-top: 1px solid $grey;
+    border-top: 2px solid $grey;
+    a.active {
+      pointer-events: none;
+      cursor: default;
+    }
     li {
-      border-bottom: 1px solid $grey;
+      border-bottom: 2px solid $grey;
       i {
         margin-right: 5px;
+        color: $primary-dark !important;
+        background: linear-gradient(to right, $primary 0%, $primary-dark 100%);
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
       }
       .line {
         width: 5px;
