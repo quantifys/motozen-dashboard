@@ -21,3 +21,4 @@ export const showUserModal = createSelector(users, (state: fromUser.State) => st
 
 export const devices = (state: State) => state.devices;
 export const getAllDevices = createSelector(devices, (state: fromDevice.State) => state.allDevices);
+export const getCurrentDevice = createSelector(devices, (state: fromDevice.State) => state.currentDevice);

@@ -12,6 +12,9 @@
         <td>{{(i + 1) + (config.currentPage * config.itemsPerPage) - config.itemsPerPage}}</td>
         <td>{{device.sld_number}}</td>
         <td>
+          <a class="action border-0 btn btn-outline-primary btn-sm" title="More info" routerLink="view" [queryParams]="{id: device.id}">
+            <i class="fas fa-fw fa-info"></i>
+          </a>
           <a class="action border-0 btn btn-outline-warning btn-sm" title="Update" routerLink="edit" [queryParams]="{id: device.id}" *ngIf="device.status == 'unsold'">
             <i class="fas fa-fw fa-wrench"></i>
           </a>
