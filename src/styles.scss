@@ -64,8 +64,11 @@ a {
 
 .ngx-pagination {
   .current {
-    background-image: linear-gradient(to top left, #FFB88C 0%, #E56590 100%) !important;
+    background-image: linear-gradient(to top left, $primary 0%, $primary-dark 100%) !important;
   }
+}
+.modal-backdrop {
+  background-image: linear-gradient(to top left, $primary 0%, $primary-dark 100%) !important;
 }
 
 form {

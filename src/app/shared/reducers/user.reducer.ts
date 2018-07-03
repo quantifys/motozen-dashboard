@@ -62,29 +62,29 @@ export function reducer(state = initialState, action: userActions.Actions): Stat
       });
     case userActions.UPDATE_USER_COMPLETE_ACTION:
       return Object.assign({}, state, {
-        allUsers: [...state.allUsers.map(user => user.id != action.payload.id ? user : new User(action.payload))]
+        allUsers: [...state.allUsers.map(user => user.id != action.payload.id ? user : new User(action.payload))],
+        showUserModal: false
       });
     case userActions.CLEAR_CURRENT_USER_ACTION:
       return Object.assign({}, state, {
         currentUser: new User({})
       });
-    // case userActions.OPEN_USER_MODAL_ACTION:
-    //   return Object.assign({}, state, {
-    //     showUserModal: true
-    //   });
-    // case userActions.CLOSE_USER_MODAL_ACTION:
-    //   return Object.assign({}, state, {
-    //     showUserModal: false
-    //   });
-    // case userActions.CREATE_USER_COMPLETE_ACTION:
-    //   return Object.assign({}, state, {
-    //     allUsers: [...state.allUsers, new User(action.payload)]
-    //   });
-    // case userActions.DELETE_USER_FAILED_ACTION:
-    //   return Object.assign({}, state, {
-    //     currentUserID: null
-    //   });
-
+    case userActions.OPEN_USER_MODAL_ACTION:
+      return Object.assign({}, state, {
+        showUserModal: true
+      });
+    case userActions.CLOSE_USER_MODAL_ACTION:
+      return Object.assign({}, state, {
+        showUserModal: false
+      });
+    case userActions.CREATE_NEW_USER_COMPLETE_ACTION:
+      return Object.assign({}, state, {
+        allUsers: [...state.allUsers, new User(action.payload)]
+      });
+    case userActions.DELETE_USER_FAILED_ACTION:
+      return Object.assign({}, state, {
+        currentUser: new User({})
+      });
     default:
       return state;
   }
