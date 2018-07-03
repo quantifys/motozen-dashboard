@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { PaginationInstance } from 'ngx-pagination';
+import swal from 'sweetalert2';
 import { Store } from '@ngrx/store';
 
 import * as fromRoot from '../../../shared/reducers';
@@ -25,6 +26,22 @@ export class DeviceTableComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+  }
+
+  deleteDevice(id: number) {
+    swal({
+      title: 'Are you sure?',
+      text: 'Delete device!',
+      type: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete!'
+    }).then((result) => {
+      if (result.value) {
+        this._store.dispatch(new deviceActions.DeleteDeviceAction(id));
+      }
+    });
   }
 
 }

@@ -9,7 +9,10 @@ import { NgArrayPipesModule } from 'ngx-pipes';
 const routes: Routes = [
   {
     path: '',
-    component: DevicesComponent
+    component: DevicesComponent,
+    data: {
+      title: "Dashboard - Device management | Gemeni India"
+    }
   }
 ];
 

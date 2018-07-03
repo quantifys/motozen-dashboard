@@ -12,10 +12,10 @@
         <td>{{(i + 1) + (config.currentPage * config.itemsPerPage) - config.itemsPerPage}}</td>
         <td>{{device.sld_number}}</td>
         <td>
-          <a class="action border-0 btn btn-outline-warning btn-sm" title="Update" routerLink="edit" [queryParams]="{id: device.id}">
+          <a class="action border-0 btn btn-outline-warning btn-sm" title="Update" routerLink="edit" [queryParams]="{id: device.id}" *ngIf="device.status == 'unsold'">
             <i class="fas fa-fw fa-wrench"></i>
           </a>
-          <button class="action border-0 btn btn-outline-danger btn-sm" title="Delete" (click)="deleteUser(device.id)">
+          <button class="action border-0 btn btn-outline-danger btn-sm" title="Delete" (click)="deleteDevice(device.id)" *ngIf="device.status == 'unsold'">
             <i class="fas fa-fw fa-trash-alt"></i>
           </button>
         </td>
