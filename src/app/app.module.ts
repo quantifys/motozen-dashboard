@@ -14,6 +14,7 @@ import { reducers } from './shared/reducers';
 import { UserEffects } from './shared/effects/user.effects';
 import { RtoService } from './shared/services/rto.service';
 import { HttpClientModule } from '@angular/common/http';
+import { DeviceEffects } from './shared/effects/device.effects';
 
 @NgModule({
   declarations: [
@@ -26,12 +27,13 @@ import { HttpClientModule } from '@angular/common/http';
     HttpClientModule,
     StoreModule.forRoot(reducers),
     EffectsModule.forRoot([
-      UserEffects
+      UserEffects,
+      DeviceEffects
     ]),
     StoreDevtoolsModule.instrument({
       maxAge: 25, // Retains last 25 states
-      logOnly: environment.production, // Restrict extension to log-only mode
-    }),
+      logOnly: environment.production // Restrict extension to log-only mode
+    })
   ],
   providers: [Angular2TokenService, RtoService],
   bootstrap: [AppComponent]

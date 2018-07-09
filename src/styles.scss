@@ -180,6 +180,21 @@ form {
   }
 }
 
+.nav {
+  .nav-item {
+    a {
+      padding: 15px 20px;
+      color: $grey-dark;
+      border: 2px solid transparent;
+      &.active {
+        background: $white;
+        border-color: $primary-dark;
+        color: $primary-dark;
+      }
+    }
+  }
+}
+
 .alert {
   &.alert-primary {
     background-image: linear-gradient(to top left, $primary 0%, $primary-dark 100%);

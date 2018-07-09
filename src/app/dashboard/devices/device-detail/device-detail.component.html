@@ -1,0 +1,19 @@
+<section class="container">
+  <div class="d-flex align-items-center justify-content-between">
+    <button (click)="_location.back()" class="btn btn-primary text-light">
+      <i class="fas fa-arrow-left mr-2"></i>Go back</button>
+    <h4 class="text-grey-dark m-0">Device details</h4>
+  </div>
+  <div class="row justify-content-center mt-4">
+    <div class="col-md-4">
+      <div class="card">
+        <div class="card-body">
+            <h5 class="text-grey-dark text-center">SLD NUMBER</h5>
+            <h4 class="alert alert-primary border-0 text-light text-center font-weight-bold">{{device.sld_number}}</h4>
+            <h5 class="text-grey-dark text-center">STATUS</h5>
+            <h6 class="alert alert-info border-0 text-center font-weight-bold">{{device.status | uppercase}}</h6>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

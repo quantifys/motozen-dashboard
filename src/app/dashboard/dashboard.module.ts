@@ -22,6 +22,10 @@ const routes: Routes = [
         loadChildren: './users/users.module#UsersModule'
       },
       {
+        path: 'devices',
+        loadChildren: './devices/devices.module#DevicesModule'
+      },
+      {
         path: '',
         pathMatch: 'full',
         redirectTo: 'home'
