@@ -16,7 +16,7 @@ export class DeviceTableComponent implements OnInit {
   @Input('devices') devices: Device[] = [];
   public loading: boolean = false;
   public config: PaginationInstance = {
-    itemsPerPage: 2,
+    itemsPerPage: 20,
     currentPage: 1,
     totalItems: this.devices.length
   };

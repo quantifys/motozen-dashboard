@@ -1,3 +1,52 @@
-<p>
-  device-edit works!
-</p>
+<section class="container-fluid">
+  <div class="d-flex align-items-center justify-content-between">
+    <a (click)="_location.back()" class="btn btn-primary text-light">
+      <i class="fas fa-arrow-left mr-2"></i>Go back</a>
+    <h4 class="text-grey-dark m-0">{{addDevice ? 'Add' : 'Edit'}} device</h4>
+  </div>
+
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <div class="card mt-5">
+        <div class="card-body">
+          <h5 class="text-grey-dark font-weight-bold mb-3">Add list of devices</h5>
+          <form [formGroup]="deviceForm">
+            <table class="table mb-0">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>SLD number</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody formArrayName="device">
+                <tr *ngFor="let sld of device.controls; let i=index">
+                  <td class="align-middle">
+                    {{i + 1}}
+                  </td>
+                  <td>
+                    <sld-device [formGroupName]="i" [group]="device.controls[i]" (enterPressed)="enterPressed($event)" [position]="i"></sld-device>
+                  </td>
+                  <td class="align-middle text-right">
+                    <button class="btn btn-outline-danger btn-sm border-0" (click)="deleteSld(i)" *ngIf="device.controls.length > 1">
+                      <i class="fas fa-trash-alt"></i>
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+              <tfoot>
+                <tr>
+                  <td colspan="2" class="align-middle text-primary">
+                    If you're using a scanner please verify that the input is focused.
+                  </td>
+                  <td class="text-right"><button class="btn btn-sm btn-primary" (click)="addSld()">Add device</button></td>
+                </tr>
+              </tfoot>
+            </table>
+            <button class="btn btn-primary btn-save" [disabled]="deviceForm.invalid" (click)="saveChanges()">Save</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

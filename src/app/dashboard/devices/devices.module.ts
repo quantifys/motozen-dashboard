@@ -2,11 +2,14 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DevicesComponent } from './devices.component';
 import { Routes, RouterModule } from '@angular/router';
-import { DeviceTableComponent } from './device-table/device-table.component';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { NgArrayPipesModule, NgStringPipesModule } from 'ngx-pipes';
-import { DeviceEditComponent } from './device-edit/device-edit.component';
+import { ReactiveFormsModule } from '@angular/forms';
+
+import { DeviceTableComponent } from './device-table/device-table.component';
 import { DeviceDetailComponent } from './device-detail/device-detail.component';
+import { DeviceEditComponent } from './device-edit/device-edit.component';
+import { SldComponent } from './device-edit/sld/sld.component';
 
 const routes: Routes = [
   {
@@ -14,6 +17,13 @@ const routes: Routes = [
     component: DevicesComponent,
     data: {
       title: "Dashboard - Device management | Gemeni India"
+    }
+  },
+  {
+    path: 'edit',
+    component: DeviceEditComponent,
+    data: {
+      title: "Dashboard - Device edit | Gemeni India"
     }
   },
   {
@@ -28,11 +38,12 @@ const routes: Routes = [
 @NgModule({
   imports: [
     CommonModule,
+    ReactiveFormsModule,
     NgxPaginationModule,
     NgStringPipesModule,
     NgArrayPipesModule,
     RouterModule.forChild(routes)
   ],
-  declarations: [DevicesComponent, DeviceTableComponent, DeviceEditComponent, DeviceDetailComponent]
+  declarations: [DevicesComponent, DeviceTableComponent, DeviceEditComponent, DeviceDetailComponent, SldComponent]
 })
 export class DevicesModule { }

@@ -62,7 +62,7 @@ export class UserEffects {
   createNewUser$: Observable<Action> = this._action$.pipe(ofType(fromUser.CREATE_NEW_USER_ACTION),
     mergeMap((action: fromUser.CreateNewUserAction) => this._tokenService.post('users', action.payload)
       .pipe(map(response => {
-        this._router.navigate(["dashboard", "users", "view"], { queryParams: { id: response.json().message.id } })
+        this._router.navigate(["dashboard", "users", "view"], { queryParams: { status: 'unsold' } })
         return new fromUser.CreateNewUserCompleteAction(response.json().message)
       },
         catchError(error => of(new fromUser.CreateNewUserFailedAction(error.json().message)))))));
@@ -77,7 +77,7 @@ export class UserEffects {
   updateUser$: Observable<Action> = this._action$.pipe(ofType(fromUser.UPDATE_USER_ACTION),
     mergeMap((action: fromUser.UpdateUserAction) => this._tokenService.patch(`users/${action.payload.user.id}`, action.payload)
       .pipe(map(response => {
-        this._router.navigate(["dashboard", "users", "view"], { queryParams: { id: response.json().message.id } });
+        this._router.navigate(["dashboard", "users", "view"], { queryParams: { status: 'unsold' } });
         return new fromUser.UpdateUserCompleteAction(response.json().message); 
       },
         catchError(error => of(new fromUser.UpdateUserFailedAction(error.json().message)))))));

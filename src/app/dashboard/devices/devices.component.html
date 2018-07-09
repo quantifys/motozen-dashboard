@@ -34,7 +34,7 @@
       </li>
     </ul>
     <div class="mt-3">
-      <device-table [devices]="devices | filterBy: ['status']: status"></device-table>
+      <device-table [devices]="devices | filterBy: ['status']: status: 'strict'"></device-table>
     </div>
   </div>
 </section>
