@@ -1,6 +1,7 @@
 import { Location } from '@angular/common';
 import { Component, OnInit, ChangeDetectorRef, AfterViewInit } from '@angular/core';
 import { FormGroup, FormBuilder, FormArray, Validators } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 import { Store } from "@ngrx/store";
 
 import * as fromRoot from "../../../shared/reducers";
@@ -14,13 +15,25 @@ import * as deviceActions from "../../../shared/actions/device.actions";
 export class DeviceEditComponent implements OnInit {
 
   public deviceForm: FormGroup;
+  public deviceEditForm: FormGroup;
+  public addDevice: boolean;
 
   constructor(
     private _store: Store<fromRoot.State>,
+    private _activatedRoute: ActivatedRoute,
     private _fb: FormBuilder,
     private _cdr: ChangeDetectorRef,
     public _location: Location
-  ) { }
+  ) {
+    this._activatedRoute.queryParams.subscribe(params => {
+      if (params["id"]) {
+        this.addDevice = false;
+        this._store.dispatch(new deviceActions.FetchDeviceAction(params["id"]));
+      } else {
+        this.addDevice = true;
+      }
+    });
+  }
 
   ngOnInit() {
     this.buildForm();
@@ -32,11 +45,20 @@ export class DeviceEditComponent implements OnInit {
         this.deviceForm.setErrors(null);
       }
     });
+    this._store.select(fromRoot.getCurrentDevice).subscribe(device => {
+      if (device.id) {
+        this.deviceEditForm.patchValue(device, { emitEvent: false });
+      }
+    });
   }
 
   buildForm() {
     this.deviceForm = this._fb.group({
       device: this._fb.array([])
+    });
+    this.deviceEditForm = this._fb.group({
+      id: null,
+      sld_number: [null, Validators.required]
     });
   }
 
@@ -80,7 +102,13 @@ export class DeviceEditComponent implements OnInit {
   }
 
   saveChanges() {
-    this._store.dispatch(new deviceActions.CreateDeviceAction(this.deviceForm.value));
+    if (this.addDevice) {
+      this._store.dispatch(new deviceActions.CreateDeviceAction(this.deviceForm.value));
+    } else {
+      this._store.dispatch(new deviceActions.UpdateDeviceAction({
+        device: this.deviceEditForm.value
+      }));
+    }
   }
 
 }

@@ -45,7 +45,7 @@ export class DeviceEffects {
 
   @Effect()
   updateDevice$: Observable<Action> = this._action$.pipe(ofType(fromDevice.UPDATE_DEVICE_ACTION),
-    mergeMap((action: fromDevice.UpdateDeviceAction) => this._tokenService.patch(`devices/${action.payload.user.id}`, action.payload)
+    mergeMap((action: fromDevice.UpdateDeviceAction) => this._tokenService.patch(`devices/${action.payload.device.id}`, action.payload)
       .pipe(map(response => {
         this._router.navigate(["dashboard", "devices", "view"], { queryParams: { id: response.json().message.id } });
         return new fromDevice.UpdateDeviceCompleteAction(response.json().message); 
