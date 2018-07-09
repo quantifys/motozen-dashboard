@@ -15,6 +15,7 @@ import { UserEffects } from './shared/effects/user.effects';
 import { RtoService } from './shared/services/rto.service';
 import { HttpClientModule } from '@angular/common/http';
 import { DeviceEffects } from './shared/effects/device.effects';
+import { InventoryEffects } from './shared/effects/inventory.effects';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { DeviceEffects } from './shared/effects/device.effects';
     StoreModule.forRoot(reducers),
     EffectsModule.forRoot([
       UserEffects,
-      DeviceEffects
+      DeviceEffects,
+      InventoryEffects
     ]),
     StoreDevtoolsModule.instrument({
       maxAge: 25, // Retains last 25 states
