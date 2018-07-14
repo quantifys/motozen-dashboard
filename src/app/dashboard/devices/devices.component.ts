@@ -1,11 +1,11 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 
 import * as fromRoot from '../../shared/reducers';
 import * as deviceActions from '../../shared/actions/device.actions';
-import { Device } from '../../shared/models';
+import { Device, User } from '../../shared/models';
 
 @Component({
   selector: 'app-devices',
@@ -14,26 +14,32 @@ import { Device } from '../../shared/models';
 })
 export class DevicesComponent implements OnInit, OnDestroy {
 
-  private routerSubscription$: Subscription = new Subscription();
-  public status: string = '';
-  public devices: Device[] = [];
+  private userSubscription$: Subscription = new Subscription();
+  public loggedUser: User = new User({});
 
   constructor(
     private _activatedRoute: ActivatedRoute,
+    private _router: Router,
     private _store: Store<fromRoot.State>
   ) {
     this._store.dispatch(new deviceActions.FetchAllDevicesAction);
-    this.routerSubscription$ = this._activatedRoute.queryParams.subscribe(params => {
-      this.status = params["status"];
+    this.userSubscription$ = this._store.select(fromRoot.getLoggedUser).subscribe(user => {
+      this.loggedUser = user;
+      if (!this._activatedRoute.snapshot.queryParams["status"]) {
+        if (user.role == 'manufacturer') {
+          this._router.navigate(["dashboard", "devices"], {queryParams: {status: 'unsold'}});
+        } else if (user.role == 'distributor' || user.role == 'dealer') {
+          this._router.navigate(["dashboard", "devices"], {queryParams: {status: 'sold'}});
+        }
+      }
     });
   }
 
   ngOnInit() {
-    this._store.select(fromRoot.getAllDevices).subscribe(devices => this.devices = devices);
   }
 
   ngOnDestroy() {
-    this.routerSubscription$.unsubscribe();
+    this.userSubscription$.unsubscribe();
   }
 
 }

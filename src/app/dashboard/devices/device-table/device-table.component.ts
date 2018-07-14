@@ -1,6 +1,8 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, OnDestroy, OnChanges } from '@angular/core';
 import { PaginationInstance } from 'ngx-pagination';
 import swal from 'sweetalert2';
+import { ActivatedRoute } from '@angular/router';
+import { Subscription } from 'rxjs';
 import { Store } from '@ngrx/store';
 
 import * as fromRoot from '../../../shared/reducers';
@@ -12,9 +14,12 @@ import { Device } from '../../../shared/models/device.model';
   templateUrl: './device-table.component.html',
   styleUrls: ['./device-table.component.scss']
 })
-export class DeviceTableComponent implements OnInit {
-  @Input('devices') devices: Device[] = [];
+export class DeviceTableComponent implements OnInit, OnDestroy {
+
+  private routerSubscription$: Subscription = new Subscription();
+  public devices: Device[] = [];
   public loading: boolean = false;
+  public status: string = '';
   public config: PaginationInstance = {
     itemsPerPage: 20,
     currentPage: 1,
@@ -22,10 +27,20 @@ export class DeviceTableComponent implements OnInit {
   };
   
   constructor(
-    private _store: Store<fromRoot.State>
-  ) { }
+    private _store: Store<fromRoot.State>,
+    private _activatedRoute: ActivatedRoute
+  ) {
+    this.routerSubscription$ = this._activatedRoute.queryParams.subscribe(params => {
+      this.status = params["status"];
+    });
+  }
 
   ngOnInit() {
+    this._store.select(fromRoot.getAllDevices).subscribe(devices => this.devices = devices.filter(device => device.status == this.status));
+  }
+
+  ngOnDestroy() {
+    this.routerSubscription$.unsubscribe();
   }
 
   deleteDevice(id: number) {

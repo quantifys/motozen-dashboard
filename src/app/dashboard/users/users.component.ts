@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Subscription } from 'rxjs';
 import { Store } from '@ngrx/store';
 
 import * as fromRoot from '../../shared/reducers';
@@ -10,8 +11,9 @@ import { User } from '../../shared/models';
   templateUrl: './users.component.html',
   styleUrls: ['./users.component.scss']
 })
-export class UsersComponent implements OnInit {
+export class UsersComponent implements OnInit, OnDestroy {
 
+  private userSubscription$: Subscription = new Subscription();
   public loggedUser: User = new User({});
 
   constructor(
@@ -19,7 +21,7 @@ export class UsersComponent implements OnInit {
     private _router: Router,
     private _activatedRoute: ActivatedRoute
   ) {
-    this._store.select(fromRoot.getLoggedUser).subscribe(user => {
+    this.userSubscription$ = this._store.select(fromRoot.getLoggedUser).subscribe(user => {
       this.loggedUser = user;
       if (!this._activatedRoute.snapshot.queryParams["type"]) {
         if (user.role == 'manufacturer') {
@@ -34,6 +36,10 @@ export class UsersComponent implements OnInit {
   }
 
   ngOnInit() {
+  }
+
+  ngOnDestroy() {
+    this.userSubscription$.unsubscribe();
   }
 
 }
