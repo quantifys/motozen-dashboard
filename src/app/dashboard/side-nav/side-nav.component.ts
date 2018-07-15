@@ -30,7 +30,7 @@ export const ROUTES: RouteInfo[] = [
   },
   {
     path: 'users',
-    title: 'User Management',
+    title: 'Users',
     type: 'link',
     icontype: 'fa-users'
   },
@@ -39,6 +39,12 @@ export const ROUTES: RouteInfo[] = [
     title: 'Devices',
     type: 'link',
     icontype: 'fa-desktop'
+  },
+  {
+    path: 'inventory',
+    title: 'Inventory',
+    type: 'link',
+    icontype: 'fa-sitemap'
   }
 ];
 

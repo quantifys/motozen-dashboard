@@ -26,6 +26,10 @@ const routes: Routes = [
         loadChildren: './devices/devices.module#DevicesModule'
       },
       {
+        path: 'inventory',
+        loadChildren: './inventory/inventory.module#InventoryModule'
+      },
+      {
         path: '',
         pathMatch: 'full',
         redirectTo: 'home'
