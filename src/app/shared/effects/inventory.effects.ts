@@ -29,6 +29,12 @@ export class InventoryEffects {
         catchError(error => of(new fromInventory.FetchInventoryFailedAction(error.json().message)))))));
 
   @Effect()
+  filterInventory$: Observable<Action> = this._action$.pipe(ofType(fromInventory.FILTER_INVENTORY_ACTION),
+    mergeMap((action: fromInventory.FilterInventoryAction) => this._tokenService.get(`inventory_items?category=${action.payload}`)
+      .pipe(map(response => new fromInventory.FilterInventoryCompleteAction(response.json().message),
+        catchError(error => of(new fromInventory.FilterInventoryFailedAction(error.json().message)))))));
+
+  @Effect()
   createNewInventory$: Observable<Action> = this._action$.pipe(ofType(fromInventory.CREATE_INVENTORY_ACTION),
     mergeMap((action: fromInventory.CreateInventoryAction) => this._tokenService.post('inventory_items', action.payload)
       .pipe(map(response => {

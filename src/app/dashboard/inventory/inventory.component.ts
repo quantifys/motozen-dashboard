@@ -15,6 +15,33 @@ export class InventoryComponent implements OnInit, OnDestroy {
 
   private userSubscription$: Subscription = new Subscription();
   public loggedUser: User = new User({});
+  public categories: any[] = [
+    {
+      display: 'Connectors',
+      value: 'automotive_connector',
+      icon: 'fa-plug'
+    },
+    {
+      display: 'Tool',
+      value: 'tool',
+      icon: 'fa-gavel'
+    },
+    {
+      display: 'Raw material',
+      value: 'raw_material',
+      icon: 'fa-shopping-bag'
+    },
+    {
+      display: 'Finished product',
+      value: 'finished_product',
+      icon: 'fa-box'
+    },
+    {
+      display: 'Others',
+      value: 'other',
+      icon: 'fa-boxes'
+    }
+  ];
 
   constructor(
     private _store: Store<fromRoot.State>,

@@ -1,8 +1,10 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Routes, RouterModule } from '@angular/router';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 import { InventoryComponent } from './inventory.component';
+import { InventoryTableComponent } from './inventory-table/inventory-table.component';
 
 const routes: Routes = [
   {
@@ -17,8 +19,9 @@ const routes: Routes = [
 @NgModule({
   imports: [
     CommonModule,
+    NgxPaginationModule,
     RouterModule.forChild(routes)
   ],
-  declarations: [InventoryComponent]
+  declarations: [InventoryComponent, InventoryTableComponent]
 })
 export class InventoryModule { }

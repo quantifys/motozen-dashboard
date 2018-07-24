@@ -9,6 +9,10 @@ export const FETCH_INVENTORY_ACTION = '[Inventory] Fetch Inventory Action';
 export const FETCH_INVENTORY_COMPLETE_ACTION = '[Inventory] Fetch Inventory Complete Action';
 export const FETCH_INVENTORY_FAILED_ACTION = '[Inventory] Fetch Inventory Failed Action';
 
+export const FILTER_INVENTORY_ACTION = '[Inventory] Filter Inventory Action';
+export const FILTER_INVENTORY_COMPLETE_ACTION = '[Inventory] Filter Inventory Complete Action';
+export const FILTER_INVENTORY_FAILED_ACTION = '[Inventory] Filter Inventory Failed Action';
+
 export const CREATE_INVENTORY_ACTION = '[Inventory] Create Inventory Action';
 export const CREATE_INVENTORY_COMPLETE_ACTION = '[Inventory] Create Inventory Complete Action';
 export const CREATE_INVENTORY_FAILED_ACTION = '[Inventory] Create Inventory Failed Action';
@@ -62,6 +66,21 @@ export class FetchInventoryCompleteAction implements Action {
 
 export class FetchInventoryFailedAction implements Action {
   readonly type = FETCH_INVENTORY_FAILED_ACTION;
+  constructor(public payload?: any) { }
+}
+
+export class FilterInventoryAction implements Action {
+  readonly type = FILTER_INVENTORY_ACTION;
+  constructor(public payload: any) { }
+}
+
+export class FilterInventoryCompleteAction implements Action {
+  readonly type = FILTER_INVENTORY_COMPLETE_ACTION;
+  constructor(public payload?: any) { }
+}
+
+export class FilterInventoryFailedAction implements Action {
+  readonly type = FILTER_INVENTORY_FAILED_ACTION;
   constructor(public payload?: any) { }
 }
 
@@ -150,6 +169,9 @@ export type Actions =
   | FetchInventoryAction
   | FetchInventoryCompleteAction
   | FetchInventoryFailedAction
+  | FilterInventoryAction
+  | FilterInventoryCompleteAction
+  | FilterInventoryFailedAction
   | CreateInventoryAction
   | CreateInventoryCompleteAction
   | CreateInventoryFailedAction

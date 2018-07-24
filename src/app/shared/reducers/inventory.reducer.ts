@@ -13,12 +13,12 @@ const initialState: State = {
 };
 
 export function reducer(state = initialState, action: inventoryActions.Actions): State {
-  let inventorys: Inventory[] = [];
+  let inventories: Inventory[] = [];
   switch (action.type) {
     case inventoryActions.FETCH_ALL_INVENTORIES_COMPLETE_ACTION:
-      inventorys = action.payload.map(inventory => new Inventory(inventory));
+      inventories = action.payload.map(inventory => new Inventory(inventory));
       return Object.assign({}, state, {
-        allInventories: [...inventorys]
+        allInventories: [...inventories]
       });
     case inventoryActions.FETCH_INVENTORY_ACTION:
       return Object.assign({}, state, {
@@ -27,6 +27,11 @@ export function reducer(state = initialState, action: inventoryActions.Actions):
     case inventoryActions.FETCH_INVENTORY_COMPLETE_ACTION:
       return Object.assign({}, state, {
         currentInventory: new Inventory(action.payload)
+      });
+    case inventoryActions.FILTER_INVENTORY_ACTION:
+      inventories = action.payload.map(inventory => new Inventory(inventory));
+      return Object.assign({}, state, {
+        allInventories: [...inventories]
       });
     case inventoryActions.DELETE_INVENTORY_COMPLETE_ACTION:
       return Object.assign({}, state, {
