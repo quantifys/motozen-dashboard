@@ -50,7 +50,11 @@ export class InventoryComponent implements OnInit, OnDestroy {
   ) {
     this.userSubscription$ = this._store.select(fromRoot.getLoggedUser).subscribe(user => {
       this.loggedUser = user;
-      this._router.navigate(["dashboard", "inventory"], { queryParams: { type: 'automotive_connector' } });
+      if (!this._activatedRoute.snapshot.queryParams["status"]) {
+        if (user.role == 'manufacturer') {
+          this._router.navigate(["dashboard", "inventory"], { queryParams: { category: 'automotive_connector' } });
+        }
+      }
     });
   }
 
