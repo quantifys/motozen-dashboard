@@ -3,6 +3,7 @@ import { Store } from '@ngrx/store';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { PaginationInstance } from 'ngx-pagination';
+import swal from 'sweetalert2';
 
 import * as fromRoot from '../../../shared/reducers';
 import * as inventoryActions from '../../../shared/actions/inventory.actions';
@@ -16,7 +17,7 @@ import { Inventory } from '../../../shared/models';
 export class InventoryTableComponent implements OnInit, OnDestroy {
 
   private routerSubscription$: Subscription = new Subscription();
-  public category: string = '';
+  public category: string = 'automotive_connector';
   public inventory: Inventory[] = [];
   public filteredInventory: Inventory[] = [];
   public loading: boolean = false;
@@ -33,19 +34,40 @@ export class InventoryTableComponent implements OnInit, OnDestroy {
     this._store.dispatch(new inventoryActions.FetchAllInventoriesAction);
     this.routerSubscription$ = this._activatedRoute.queryParams.subscribe(params => {
       this.category = params["category"];
-      this.filteredInventory = this.inventory.filter(item => item.category == this.category);
+      this.filterInventory();
     });
   }
-
+  
   ngOnInit() {
     this._store.select(fromRoot.getAllInventories).subscribe(inventory => {
       this.loading = false;
       this.inventory = inventory;
+      this.filterInventory();
     });
   }
 
   ngOnDestroy() {
     this.routerSubscription$.unsubscribe();
+  }
+
+  filterInventory() {
+    this.filteredInventory = this.inventory.filter(item => item.category == this.category);
+  }
+
+  deleteItem(id: number) {
+    swal({
+      title: 'Are you sure?',
+      text: 'Delete item!',
+      type: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete!'
+    }).then((result) => {
+      if (result.value) {
+        this._store.dispatch(new inventoryActions.DeleteInventoryAction(id));
+      }
+    });
   }
 
 }
