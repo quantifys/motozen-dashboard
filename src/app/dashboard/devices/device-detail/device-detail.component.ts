@@ -19,7 +19,7 @@ export class DeviceDetailComponent implements OnInit {
   constructor(
     private _activatedRoute: ActivatedRoute,
     private _router: Router,
-    private _location: Location,
+    public _location: Location,
     private _store: Store<fromRoot.State>
   ) {
     this._activatedRoute.queryParams.subscribe(params => {
