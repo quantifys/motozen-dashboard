@@ -30,18 +30,13 @@ export const CLOSE_DEVICE_MODAL_ACTION = '[Device] Close Device Modal Action';
 
 export class FetchAllDevicesAction implements Action {
   readonly type = FETCH_ALL_DEVICES_ACTION;
-  constructor(public payload?: any) {
-    swal({
-      title: 'Fetching devices...'
-    });
-    swal.showLoading();
+  constructor(public payload: any) {
   }
 }
 
 export class FetchAllDevicesCompleteAction implements Action {
   readonly type = FETCH_ALL_DEVICES_COMPLETE_ACTION;
   constructor(public payload: any) {
-    swal.close();
   }
 }
 

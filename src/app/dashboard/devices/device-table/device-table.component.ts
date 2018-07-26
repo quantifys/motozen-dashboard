@@ -32,6 +32,7 @@ export class DeviceTableComponent implements OnInit, OnDestroy {
   ) {
     this.routerSubscription$ = this._activatedRoute.queryParams.subscribe(params => {
       this.status = params["status"];
+      this.fetchDevices();
     });
   }
 
@@ -41,6 +42,13 @@ export class DeviceTableComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.routerSubscription$.unsubscribe();
+  }
+
+  fetchDevices() {
+    let formData = {
+      status: this.status
+    };
+    this._store.dispatch(new deviceActions.FetchAllDevicesAction(formData));
   }
 
   deleteDevice(id: number) {

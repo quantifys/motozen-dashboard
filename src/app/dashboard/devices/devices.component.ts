@@ -22,7 +22,6 @@ export class DevicesComponent implements OnInit, OnDestroy {
     private _router: Router,
     private _store: Store<fromRoot.State>
   ) {
-    this._store.dispatch(new deviceActions.FetchAllDevicesAction);
     this.userSubscription$ = this._store.select(fromRoot.getLoggedUser).subscribe(user => {
       this.loggedUser = user;
       if (!this._activatedRoute.snapshot.queryParams["status"]) {
