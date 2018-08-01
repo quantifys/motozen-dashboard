@@ -151,7 +151,7 @@
                 </div>
               </div>
             </ng-container>
-            <button class="btn btn-primary btn-save mt-4" [disabled]="userForm.invalid" (click)="saveChanges()">Save</button>
+            <button class="btn btn-primary btn-save mt-4" [disabled]="userForm.invalid || userForm.pristine" (click)="saveChanges()">Save</button>
           </form>
         </div>
       </div>

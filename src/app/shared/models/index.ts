@@ -1,5 +1,6 @@
 export * from './user.model';
 export * from './device.model';
+export * from './inventory.model';
 
 export class PageData {
   public total: number;

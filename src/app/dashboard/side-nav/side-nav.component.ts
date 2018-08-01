@@ -12,6 +12,7 @@ export interface RouteInfo {
   icontype: string;
   collapse?: string;
   children?: ChildrenItems[];
+  users: string[]
 }
 
 export interface ChildrenItems {
@@ -26,19 +27,29 @@ export const ROUTES: RouteInfo[] = [
     path: 'home',
     title: 'Dashboard',
     type: 'link',
-    icontype: 'fa-chart-area'
+    icontype: 'fa-chart-area',
+    users: []
   },
   {
     path: 'users',
-    title: 'User Management',
+    title: 'Users',
     type: 'link',
-    icontype: 'fa-users'
+    icontype: 'fa-users',
+    users: ['manufacturer', 'sales', 'human_resource']
   },
   {
     path: 'devices',
     title: 'Devices',
     type: 'link',
-    icontype: 'fa-desktop'
+    icontype: 'fa-desktop',
+    users: ['manufacturer', 'distributor']
+  },
+  {
+    path: 'inventory',
+    title: 'Inventory',
+    type: 'link',
+    icontype: 'fa-sitemap',
+    users: ['manufacturer']
   }
 ];
 
@@ -49,7 +60,7 @@ export const ROUTES: RouteInfo[] = [
 })
 export class SideNavComponent implements OnInit {
   
-  public routes: any[];
+  public routes: any[] = [];
   public loggedUser: User = new User({});
   
   constructor(
@@ -67,7 +78,13 @@ export class SideNavComponent implements OnInit {
   }
 
   refreshRoutes() {
-    this.routes = ROUTES.filter(menuItem => menuItem);
+    ROUTES.filter(menuItem => {
+      menuItem.users.map(user => {
+        if (user == this.loggedUser.role) {
+          this.routes.push(menuItem);
+        }
+      });
+    });
   }
 
   signOut() {

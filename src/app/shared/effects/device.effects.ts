@@ -18,7 +18,7 @@ export class DeviceEffects {
 
   @Effect()
   fetchDevices$: Observable<Action> = this._action$.pipe(ofType(fromDevice.FETCH_ALL_DEVICES_ACTION),
-    mergeMap((action: fromDevice.FetchAllDevicesAction) => this._tokenService.get('devices')
+    mergeMap((action: fromDevice.FetchAllDevicesAction) => this._tokenService.post(`devices/list`, action.payload)
       .pipe(map(response => new fromDevice.FetchAllDevicesCompleteAction(response.json().message),
         catchError(error => of(new fromDevice.FetchAllDevicesFailedAction(error.json().message)))))));
 

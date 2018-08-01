@@ -1,4 +1,4 @@
-import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
@@ -15,20 +15,22 @@ import { UserEffects } from './shared/effects/user.effects';
 import { RtoService } from './shared/services/rto.service';
 import { HttpClientModule } from '@angular/common/http';
 import { DeviceEffects } from './shared/effects/device.effects';
+import { InventoryEffects } from './shared/effects/inventory.effects';
 
 @NgModule({
   declarations: [
     AppComponent
   ],
   imports: [
-    BrowserModule,
+    BrowserAnimationsModule,
     AppRoutingModule,
     HttpModule,
     HttpClientModule,
     StoreModule.forRoot(reducers),
     EffectsModule.forRoot([
       UserEffects,
-      DeviceEffects
+      DeviceEffects,
+      InventoryEffects
     ]),
     StoreDevtoolsModule.instrument({
       maxAge: 25, // Retains last 25 states

@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { DevicesComponent } from './devices.component';
 import { Routes, RouterModule } from '@angular/router';
 import { NgxPaginationModule } from 'ngx-pagination';
-import { NgArrayPipesModule, NgStringPipesModule } from 'ngx-pipes';
+import { NgStringPipesModule } from 'ngx-pipes';
 import { ReactiveFormsModule } from '@angular/forms';
 
 import { DeviceTableComponent } from './device-table/device-table.component';
@@ -41,7 +41,6 @@ const routes: Routes = [
     ReactiveFormsModule,
     NgxPaginationModule,
     NgStringPipesModule,
-    NgArrayPipesModule,
     RouterModule.forChild(routes)
   ],
   declarations: [DevicesComponent, DeviceTableComponent, DeviceEditComponent, DeviceDetailComponent, SldComponent]
