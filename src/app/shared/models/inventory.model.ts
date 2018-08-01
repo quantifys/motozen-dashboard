@@ -12,4 +12,8 @@ export class Inventory {
     this.item_code = data.item_code ? data.item_code : null;
     this.quantity = data.quantity != null ? +data.quantity : null;
   }
+
+  getCategory(): string {
+    return this.category.replace('_', ' ');
+  }
 }

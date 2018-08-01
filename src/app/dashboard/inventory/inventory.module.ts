@@ -9,6 +9,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { InventoryComponent } from './inventory.component';
 import { InventoryTableComponent } from './inventory-table/inventory-table.component';
 import { InventoryEditComponent } from './inventory-edit/inventory-edit.component';
+import { InventoryDetailComponent } from './inventory-detail/inventory-detail.component';
 
 const routes: Routes = [
   {
@@ -16,6 +17,13 @@ const routes: Routes = [
     component: InventoryEditComponent,
     data: {
       title: "Inventory edit - Dashboard | Gemeni India"
+    }
+  },
+  {
+    path: 'view',
+    component: InventoryDetailComponent,
+    data: {
+      title: "Inventory details - Dashboard | Gemeni India"
     }
   },
   {
@@ -36,6 +44,6 @@ const routes: Routes = [
     NgSelectModule,
     RouterModule.forChild(routes)
   ],
-  declarations: [InventoryComponent, InventoryTableComponent, InventoryEditComponent]
+  declarations: [InventoryComponent, InventoryTableComponent, InventoryEditComponent, InventoryDetailComponent]
 })
 export class InventoryModule { }
