@@ -14,6 +14,9 @@ export class Inventory {
   }
 
   getCategory(): string {
-    return this.category.replace('_', ' ');
+    if (this.category) {
+      return this.category.replace('_', ' ');
+    }
+    return null;
   }
 }
