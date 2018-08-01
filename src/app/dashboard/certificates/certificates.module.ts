@@ -8,7 +8,7 @@ const routes: Routes = [
     path: '',
     component: CertificatesComponent,
     data: {
-      title: "Certificate list - Dashboard | Gemeni India"
+      title: "Certificate management - Dashboard | Gemeni India"
     }
   }
 ];
