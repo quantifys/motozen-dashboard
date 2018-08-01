@@ -25,7 +25,7 @@
               <input type="text" class="form-control" [ngClass]="item_code.valid ? 'is-valid' : 'is-invalid'" id="item_code" formControlName="item_code"
                 placeholder="GE09">
             </div>
-            <button class="btn btn-primary btn-save" [disabled]="itemForm.invalid" (click)="saveChanges()">Save</button>
+            <button class="btn btn-primary btn-save" [disabled]="itemForm.invalid || itemForm.pristine" (click)="saveChanges()">Save</button>
           </form>
         </div>
       </div>

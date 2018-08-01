@@ -51,9 +51,9 @@ export class InventoryEffects {
 
   @Effect()
   updateInventory$: Observable<Action> = this._action$.pipe(ofType(fromInventory.UPDATE_INVENTORY_ACTION),
-    mergeMap((action: fromInventory.UpdateInventoryAction) => this._tokenService.patch(`inventory_items/${action.payload.device.id}`, action.payload)
+    mergeMap((action: fromInventory.UpdateInventoryAction) => this._tokenService.patch(`inventory_items/${action.payload.inventory_item.id}`, action.payload)
       .pipe(map(response => {
-        this._router.navigate(["dashboard", "inventory_items", "view"], { queryParams: { id: response.json().message.id } });
+        this._router.navigate(["dashboard", "inventory", "view"], { queryParams: { id: response.json().message.id } });
         return new fromInventory.UpdateInventoryCompleteAction(response.json().message); 
       },
         catchError(error => of(new fromInventory.UpdateInventoryFailedAction(error.json().message)))))));

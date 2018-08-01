@@ -57,6 +57,11 @@ export class InventoryEditComponent implements OnInit {
 
   ngOnInit() {
     this.buildForm();
+    this._store.select(fromRoot.getCurrentInventory).subscribe(inventory => {
+      if (inventory.id) {
+        this.itemForm.patchValue(inventory, { emitEvent: false });
+      }
+    });
   }
 
   buildForm() {
@@ -81,7 +86,13 @@ export class InventoryEditComponent implements OnInit {
   }
 
   saveChanges() {
-    this._store.dispatch(new inventoryActions.CreateInventoryAction(this.itemForm.value));
+    if (this.addItem) {
+      this._store.dispatch(new inventoryActions.CreateInventoryAction(this.itemForm.value));
+    } else {
+      this._store.dispatch(new inventoryActions.UpdateInventoryAction({
+        inventory_item: this.itemForm.value
+      }))
+    }
   }
 
 }
