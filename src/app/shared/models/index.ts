@@ -1,6 +1,8 @@
 export * from './user.model';
 export * from './device.model';
 export * from './inventory.model';
+export * from './vehicle.model';
+export * from './certificate.model';
 
 export class PageData {
   public total: number;
