@@ -80,4 +80,8 @@ export class InventoryEditComponent implements OnInit {
     return this.itemForm.get('item_code') as FormControl;
   }
 
+  saveChanges() {
+    this._store.dispatch(new inventoryActions.CreateInventoryAction(this.itemForm.value));
+  }
+
 }

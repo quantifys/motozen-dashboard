@@ -38,7 +38,7 @@ export class InventoryEffects {
   createNewInventory$: Observable<Action> = this._action$.pipe(ofType(fromInventory.CREATE_INVENTORY_ACTION),
     mergeMap((action: fromInventory.CreateInventoryAction) => this._tokenService.post('inventory_items', action.payload)
       .pipe(map(response => {
-        this._router.navigate(["dashboard", "inventory_items", "view"], { queryParams: { id: response.json().message.id } })
+        this._router.navigate(["dashboard", "inventory", "view"], { queryParams: { id: response.json().message.id } })
         return new fromInventory.CreateInventoryCompleteAction(response.json().message)
       },
         catchError(error => of(new fromInventory.CreateInventoryFailedAction(error.json().message)))))));
