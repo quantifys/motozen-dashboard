@@ -36,3 +36,4 @@ export const getCurrentInventory = createSelector(inventories, (state: fromInven
 export const certificates = (state: State) => state.certificates;
 export const getAllCertificates = createSelector(certificates, (state: fromCertificate.State) => state.allCertificates);
 export const getCurrentCertificate = createSelector(certificates, (state: fromCertificate.State) => state.currentCertificate);
+export const getCertificateFormdata = createSelector(certificates, (state: fromCertificate.State) => state.certificateFormdata);

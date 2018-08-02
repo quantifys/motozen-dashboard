@@ -5,11 +5,13 @@ import * as certificateActions from '../actions/certificate.actions';
 export interface State {
   allCertificates: Certificate[];
   currentCertificate: Certificate;
+  certificateFormdata: any;
 }
 
 const initialState: State = {
   allCertificates: [],
-  currentCertificate: new Certificate({})
+  currentCertificate: new Certificate({}),
+  certificateFormdata: null
 };
 
 export function reducer(state = initialState, action: certificateActions.Actions): State {
@@ -55,6 +57,10 @@ export function reducer(state = initialState, action: certificateActions.Actions
     case certificateActions.DELETE_CERTIFICATE_FAILED_ACTION:
       return Object.assign({}, state, {
         currentCertificate: new Certificate({})
+      });
+    case certificateActions.FETCH_CERTIFICATE_FORMDATA_COMPLETE_ACTION:
+      return Object.assign({}, state, {
+        certificateFormdata: action.payload
       });
     default:
       return state;

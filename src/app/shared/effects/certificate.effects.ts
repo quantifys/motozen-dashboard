@@ -58,4 +58,10 @@ export class CertificateEffects {
       },
         catchError(error => of(new fromCertificate.UpdateCertificateFailedAction(error.json().message)))))));
 
+  @Effect()
+  fetchCertificateFormdata$: Observable<Action> = this._action$.pipe(ofType(fromCertificate.FETCH_CERTIFICATE_FORMDATA_ACTION),
+    mergeMap((action: fromCertificate.FetchCertificateFormdataAction) => this._tokenService.get("certificates/new")
+      .pipe(map(response => new fromCertificate.FetchCertificateFormdataCompleteAction(response.json().message),
+        catchError(error => of(new fromCertificate.FetchCertificateFormdataFailedAction(error.json().message)))))));
+
 }

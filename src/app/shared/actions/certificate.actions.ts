@@ -29,6 +29,10 @@ export const RENEW_CERTIFICATE_ACTION = '[Certificate] Renew Certificate Action'
 export const RENEW_CERTIFICATE_COMPLETE_ACTION = '[Certificate] Renew Certificate Complete Action';
 export const RENEW_CERTIFICATE_FAILED_ACTION = '[Certificate] Renew Certificate Failed Action';
 
+export const FETCH_CERTIFICATE_FORMDATA_ACTION = '[Certificate] Fetch Certificate Form Data Action';
+export const FETCH_CERTIFICATE_FORMDATA_COMPLETE_ACTION = '[Certificate] Fetch Certificate Form Data Complete Action';
+export const FETCH_CERTIFICATE_FORMDATA_FAILED_ACTION = '[Certificate] Fetch Certificate Form Data Failed Action';
+
 export class FetchAllCertificatesAction implements Action {
 	readonly type = FETCH_ALL_CERTIFICATES_ACTION;
 	constructor(public payload: any) {
@@ -182,6 +186,23 @@ export class RenewCertificateFailedAction implements Action {
 	}
 }
 
+export class FetchCertificateFormdataAction implements Action {
+	readonly type = FETCH_CERTIFICATE_FORMDATA_ACTION;
+	constructor(public payload: any) { }
+}
+
+export class FetchCertificateFormdataCompleteAction implements Action {
+	readonly type = FETCH_CERTIFICATE_FORMDATA_COMPLETE_ACTION;
+	constructor(public payload: any) { }
+}
+
+export class FetchCertificateFormdataFailedAction implements Action {
+	readonly type = FETCH_CERTIFICATE_FORMDATA_FAILED_ACTION;
+	constructor(public payload: any) {
+		swal("There was an error with the form.", payload, "error");
+	}
+}
+
 export type Actions =
 	FetchAllCertificatesAction
 	| FetchAllCertificatesCompleteAction
@@ -203,4 +224,7 @@ export type Actions =
 	| DeleteCertificateFailedAction
 	| RenewCertificateAction
 	| RenewCertificateCompleteAction
-	| RenewCertificateFailedAction;
+	| RenewCertificateFailedAction
+	| FetchCertificateFormdataAction
+	| FetchCertificateFormdataCompleteAction
+	| FetchCertificateFormdataFailedAction;
