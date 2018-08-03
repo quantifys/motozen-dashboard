@@ -4,8 +4,9 @@
         <tr>
           <th>#</th>
           <th>FITMENT NO</th>
-          <th>DUE DATE</th>
           <th>CUSTOMER</th>
+          <th>DATE GENERATED</th>
+          <th>DUE DATE</th>
           <th>ACTIONS</th>
         </tr>
       </thead>
@@ -13,8 +14,9 @@
         <tr *ngFor="let certificate of certificates; let i = index">
           <td>{{i+1}}</td>
           <td>{{certificate.certificate_number}}</td>
-          <td>{{certificate.due_date}}</td>
           <td>{{certificate.customer_name}}</td>
+          <td>{{certificate.due_date | date: 'mediumDate'}}</td>
+          <td>{{certificate.date_generated | date: 'mediumDate'}}</td>
           <td>
             <a class="action border-0 btn btn-outline-primary btn-sm" title="More info" routerLink="view" [queryParams]="{id: certificate.id}">
               <i class="fas fa-fw fa-info"></i>

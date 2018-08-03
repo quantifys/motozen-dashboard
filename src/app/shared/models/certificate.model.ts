@@ -1,12 +1,13 @@
 import { Device } from "./device.model";
 import { Vehicle } from "./vehicle.model";
 import { User } from "./user.model";
+import * as moment from 'moment';
 
 export class Certificate {
 	public id: number;
 	public certificate_number: string;
-	public date_generated: string;
-	public due_date: string;
+	public date_generated: Date;
+	public due_date: Date;
 	public status: string;
 	public device: Device;
 	public invoice_no: number;
@@ -28,8 +29,8 @@ export class Certificate {
 	constructor(data: any) {
 		this.id = data.id ? data.id : null;
 		this.certificate_number = data.certificate_number ? data.certificate_number : null;
-		this.date_generated = data.date_generated ? data.date_generated : null;
-		this.due_date = data.due_date ? data.due_date : null;
+		this.date_generated = data.date_generated ? new Date(moment(data.date_generated, "YYYY-MM-DD").format()) : null;
+		this.due_date = data.due_date ? new Date(moment(data.due_date, "YYYY-MM-DD").format()) : null;
 		this.status = data.status ? data.status : null;
 		this.device = data.device ? new Device(data.device) : new Device({});
 		this.invoice_no = data.invoice_no != null ? data.invoice_no : null;
