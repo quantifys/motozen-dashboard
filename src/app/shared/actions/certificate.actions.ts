@@ -188,7 +188,6 @@ export class RenewCertificateFailedAction implements Action {
 
 export class FetchCertificateFormdataAction implements Action {
 	readonly type = FETCH_CERTIFICATE_FORMDATA_ACTION;
-	constructor(public payload: any) { }
 }
 
 export class FetchCertificateFormdataCompleteAction implements Action {

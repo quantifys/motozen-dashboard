@@ -212,3 +212,10 @@ form {
     border: none;
     box-shadow: 5px 5px 25px 0 rgba(46, 61, 73, .2);
 }
+
+// For month and year picker
+.datepicker {
+    .mat-form-field-appearance-standard .mat-form-field-flex {
+        padding-top: 0;
+    }
+}

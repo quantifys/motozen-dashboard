@@ -21,3 +21,17 @@ export class Config {
     this.message = data.message ? data.message : null;
   }
 }
+
+export class Rto {
+  public id: string;
+  public office: string;
+
+  constructor(data: any) {
+    this.id = data.id;
+    this.office = data.office;
+  }
+
+  getFullName(): string {
+    return this.id + ": " + this.office;
+  }
+}
