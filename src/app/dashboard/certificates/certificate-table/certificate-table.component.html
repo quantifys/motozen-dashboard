@@ -15,8 +15,8 @@
           <td>{{i+1}}</td>
           <td>{{certificate.certificate_number}}</td>
           <td>{{certificate.customer_name}}</td>
-          <td>{{certificate.due_date | date: 'mediumDate'}}</td>
           <td>{{certificate.date_generated | date: 'mediumDate'}}</td>
+          <td>{{certificate.due_date | date: 'mediumDate'}}</td>
           <td>
             <a class="action border-0 btn btn-outline-primary btn-sm" title="More info" routerLink="view" [queryParams]="{id: certificate.id}">
               <i class="fas fa-fw fa-info"></i>
