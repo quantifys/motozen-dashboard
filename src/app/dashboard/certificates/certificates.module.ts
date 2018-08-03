@@ -9,6 +9,7 @@ import { CertificatesComponent } from './certificates.component';
 import { CertificateTableComponent } from './certificate-table/certificate-table.component';
 import { CertificateEditComponent } from './certificate-edit/certificate-edit.component';
 import { MonthPickerComponent } from './month-picker/month-picker.component';
+import { CertificateDetailComponent } from './certificate-detail/certificate-detail.component';
 
 const routes: Routes = [
   {
@@ -18,13 +19,13 @@ const routes: Routes = [
       title: "Certificate edit - Dashboard | Gemeni India"
     }
   },
-  // {
-  //   path: 'view',
-  //   component: CertificateDetailComponent,
-  //   data: {
-  //     title: "Certificate details - Dashboard | Gemeni India"
-  //   }
-  // },
+  {
+    path: 'view',
+    component: CertificateDetailComponent,
+    data: {
+      title: "Certificate details - Dashboard | Gemeni India"
+    }
+  },
   {
     path: '',
     component: CertificatesComponent,
@@ -46,6 +47,6 @@ const routes: Routes = [
     MatSelectModule,
     RouterModule.forChild(routes)
   ],
-  declarations: [CertificatesComponent, CertificateTableComponent, CertificateEditComponent, MonthPickerComponent]
+  declarations: [CertificatesComponent, CertificateTableComponent, CertificateEditComponent, MonthPickerComponent, CertificateDetailComponent]
 })
 export class CertificatesModule { }

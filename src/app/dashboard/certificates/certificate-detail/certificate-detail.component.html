@@ -1,0 +1,16 @@
+<section class="container">
+  <div class="d-flex align-items-center justify-content-between">
+    <button (click)="_location.back()" class="btn btn-primary text-light">
+      <i class="fas fa-arrow-left mr-2"></i>Go back</button>
+    <h4 class="text-grey-dark m-0">Certificate preview</h4>
+  </div>
+  <div class="row justify-content-center mt-4">
+    <div class="col-md-10">
+      <div class="card">
+        <div class="card-body">
+          {{certificate | json}}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
