@@ -19,7 +19,11 @@ export class CertificateEffects {
   @Effect()
   fetchCertificates$: Observable<Action> = this._action$.pipe(ofType(fromCertificate.FETCH_ALL_CERTIFICATES_ACTION),
     mergeMap((action: fromCertificate.FetchAllCertificatesAction) => this._tokenService.post('certificates/list', action.payload)
-      .pipe(map(response => new fromCertificate.FetchAllCertificatesCompleteAction(response.json().message),
+      .pipe(map(response => new fromCertificate.FetchAllCertificatesCompleteAction({
+        data: response.json().message,
+        total: response.headers.get('total'),
+        per_page: response.headers.get('per-page')
+      }),
         catchError(error => of(new fromCertificate.FetchAllCertificatesFailedAction(error.json().message)))))));
 
   @Effect()

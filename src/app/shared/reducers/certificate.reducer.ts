@@ -1,4 +1,4 @@
-import { Certificate } from '../models';
+import { Certificate, PageData } from '../models';
 
 import * as certificateActions from '../actions/certificate.actions';
 
@@ -6,21 +6,27 @@ export interface State {
   allCertificates: Certificate[];
   currentCertificate: Certificate;
   certificateFormdata: any;
+  currentCertificatePageStatus: PageData;
 }
 
 const initialState: State = {
   allCertificates: [],
   currentCertificate: new Certificate({}),
-  certificateFormdata: null
+  certificateFormdata: null,
+  currentCertificatePageStatus: new PageData({})
 };
 
 export function reducer(state = initialState, action: certificateActions.Actions): State {
   let certificates: Certificate[] = [];
   switch (action.type) {
     case certificateActions.FETCH_ALL_CERTIFICATES_COMPLETE_ACTION:
-      certificates = action.payload.map(certificate => new Certificate(certificate));
+      certificates = action.payload.data.map(certificate => new Certificate(certificate));
       return Object.assign({}, state, {
-        allCertificates: [...certificates]
+        allCertificates: [...certificates],
+        currentCertificatePageStatus: new PageData({
+          total: action.payload.total,
+          per_page: action.payload.per_page,
+        })
       });
     case certificateActions.FETCH_CERTIFICATE_ACTION:
       return Object.assign({}, state, {
@@ -33,7 +39,7 @@ export function reducer(state = initialState, action: certificateActions.Actions
     case certificateActions.ISSUE_CERTIFICATE_ACTION:
       certificates = action.payload.map(certificate => new Certificate(certificate));
       return Object.assign({}, state, {
-        allCertificates: [...certificates]
+        allCertificates: [...state.allCertificates.map(certificate => certificate.id != action.payload.id ? certificate : new Certificate(action.payload))]
       });
     case certificateActions.DELETE_CERTIFICATE_COMPLETE_ACTION:
       return Object.assign({}, state, {
