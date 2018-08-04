@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { Routes, RouterModule } from '@angular/router';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { ReactiveFormsModule } from '@angular/forms';
-import { MatFormFieldModule, MatInputModule, MatAutocompleteModule, MatDatepickerModule, MatSelectModule } from '@angular/material';
+import { MatFormFieldModule, MatInputModule, MatAutocompleteModule, MatDatepickerModule, MatSelectModule, MatNativeDateModule } from '@angular/material';
 
 import { CertificatesComponent } from './certificates.component';
 import { CertificateTableComponent } from './certificate-table/certificate-table.component';
@@ -45,6 +45,7 @@ const routes: Routes = [
     MatAutocompleteModule,
     MatDatepickerModule,
     MatSelectModule,
+    MatNativeDateModule,
     RouterModule.forChild(routes)
   ],
   declarations: [CertificatesComponent, CertificateTableComponent, CertificateEditComponent, MonthPickerComponent, CertificateDetailComponent]

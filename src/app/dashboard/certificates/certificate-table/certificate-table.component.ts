@@ -58,6 +58,8 @@ export class CertificateTableComponent implements OnInit, OnDestroy {
   fetchCertificates() {
     let formData: any = {
       status: this.queryParams["status"] ? this.queryParams["status"] : null,
+      start: this.queryParams["start_date"] ? this.queryParams["start_date"] : null,
+      end: this.queryParams["end_date"] ? this.queryParams["end_date"] : null,
       page: this.config.currentPage,
       per_page: 15
     };
