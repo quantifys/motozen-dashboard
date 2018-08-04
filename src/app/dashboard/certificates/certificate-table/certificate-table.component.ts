@@ -3,6 +3,7 @@ import { Subscription, BehaviorSubject } from 'rxjs';
 import { PaginationInstance } from 'ngx-pagination';
 import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
+import swal from 'sweetalert2';
 
 import * as fromRoot from '../../../shared/reducers';
 import * as certificateActions from '../../../shared/actions/certificate.actions';
@@ -61,6 +62,22 @@ export class CertificateTableComponent implements OnInit, OnDestroy {
       per_page: 15
     };
     this._store.dispatch(new certificateActions.FetchAllCertificatesAction(formData));
+  }
+
+  deleteCertificate(id: number) {
+    swal({
+      title: 'Are you sure?',
+      text: 'Delete certificate!',
+      type: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete!'
+    }).then((result) => {
+      if (result.value) {
+        this._store.dispatch(new certificateActions.DeleteCertificateAction(id));
+      }
+    });
   }
 
   getPage(page: number) {
