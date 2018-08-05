@@ -39,4 +39,13 @@
       </div>
     </div>
   </div>
+  <hr>
+  <div class="row mt-4" *ngFor="let icat of vehicle.icats; let i = index">
+    <div class="w-100"><p class="d-inline-block bg-primary text-light p-2 rounded"><strong>DOCUMENT {{i+1}}</strong></p></div>
+    <div *ngFor="let page of icat.pages" class="col-lg-6">
+      <div class="card">
+        <img class="img-fluid" [src]="page.page_url">
+      </div>
+    </div>
+  </div>
 </section>
