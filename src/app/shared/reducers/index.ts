@@ -2,12 +2,14 @@ import { ActionReducerMap, createSelector } from "@ngrx/store";
 
 import * as fromUser from "./user.reducer";
 import * as fromDevice from "./device.reducer";
+import * as fromVehicle from "./vehicle.reducer";
 import * as fromInventory from "./inventory.reducer";
 import * as fromCertificate from "./certificate.reducer";
 
 export interface State {
   users: fromUser.State;
   devices: fromDevice.State;
+  vehicles: fromVehicle.State;
   inventories: fromInventory.State;
   certificates: fromCertificate.State;
 }
@@ -15,6 +17,7 @@ export interface State {
 export const reducers: ActionReducerMap<State> = {
   users: fromUser.reducer,
   devices: fromDevice.reducer,
+  vehicles: fromVehicle.reducer,
   inventories: fromInventory.reducer,
   certificates: fromCertificate.reducer
 };
@@ -28,6 +31,10 @@ export const showUserModal = createSelector(users, (state: fromUser.State) => st
 export const devices = (state: State) => state.devices;
 export const getAllDevices = createSelector(devices, (state: fromDevice.State) => state.allDevices);
 export const getCurrentDevice = createSelector(devices, (state: fromDevice.State) => state.currentDevice);
+
+export const vehicles = (state: State) => state.vehicles;
+export const getAllVehicles = createSelector(vehicles, (state: fromVehicle.State) => state.allVehicles);
+export const getCurrentVehicle = createSelector(vehicles, (state: fromVehicle.State) => state.currentVehicle);
 
 export const inventories = (state: State) => state.inventories;
 export const getAllInventories = createSelector(inventories, (state: fromInventory.State) => state.allInventories);

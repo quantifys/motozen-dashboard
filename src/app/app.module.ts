@@ -18,6 +18,7 @@ import { UserEffects } from './shared/effects/user.effects';
 import { DeviceEffects } from './shared/effects/device.effects';
 import { InventoryEffects } from './shared/effects/inventory.effects';
 import { CertificateEffects } from './shared/effects/certificate.effects';
+import { VehicleEffects } from './shared/effects/vehicle.effects';
 
 @NgModule({
   declarations: [
@@ -32,6 +33,7 @@ import { CertificateEffects } from './shared/effects/certificate.effects';
     EffectsModule.forRoot([
       UserEffects,
       DeviceEffects,
+      VehicleEffects,
       InventoryEffects,
       CertificateEffects
     ]),
