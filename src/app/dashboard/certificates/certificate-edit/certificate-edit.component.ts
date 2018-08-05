@@ -1,14 +1,15 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 import * as moment from 'moment';
+import { Subscription } from 'rxjs';
 
 import * as fromRoot from "../../../shared/reducers";
 import * as certificateActions from "../../../shared/actions/certificate.actions";
 import * as deviceActions from "../../../shared/actions/device.actions";
-import { Device, Rto, User } from '../../../shared/models';
+import { Device, Rto, User, Certificate } from '../../../shared/models';
 import { RtoService } from '../../../shared/services/rto.service';
 
 declare var $: any;
@@ -18,7 +19,7 @@ declare var $: any;
   templateUrl: './certificate-edit.component.html',
   styleUrls: ['./certificate-edit.component.scss']
 })
-export class CertificateEditComponent implements OnInit {
+export class CertificateEditComponent implements OnInit, OnDestroy {
 
   model;
   public certificateForm: FormGroup;
@@ -30,6 +31,8 @@ export class CertificateEditComponent implements OnInit {
   public monthMin: Date = new Date(1900, 0, 1);
   public monthMax: Date = new Date();
   public loggedUser: User = new User({});
+  public certificate: Certificate;
+  public certificateSubscription$: Subscription;
 
   constructor(
     private _store: Store<fromRoot.State>,
@@ -38,6 +41,7 @@ export class CertificateEditComponent implements OnInit {
     public _location: Location,
     private _rtoService: RtoService
   ) {
+    this.certificate = new Certificate({});
     this.loadFormdata();
     this._activatedRoute.queryParams.subscribe(params => {
       if (params["id"]) {
@@ -51,12 +55,17 @@ export class CertificateEditComponent implements OnInit {
 
   ngOnInit() {
     this.buildForm();
+    this.validateForm();
     this.formListener();
     this.initializers();
     this.fetchDevices();
-    this._store.select(fromRoot.getCurrentCertificate).subscribe(certificate => {
+    this.certificateSubscription$ = this._store.select(fromRoot.getCurrentCertificate).subscribe((certificate: Certificate) => {
       if (certificate.id) {
-        this.certificateForm.patchValue(certificate, { emitEvent: false });
+        this.certificate = certificate;
+        this.certificateForm.patchValue(certificate);
+        this.device_id.patchValue(certificate.device.id);
+        this.vehicle_id.patchValue(certificate.vehicle.id);
+        this.vehicle_make.patchValue(certificate.vehicle.make, {emitEvent: false});
       }
     });
     this._store.select(fromRoot.getLoggedUser).subscribe(user => {
@@ -66,13 +75,19 @@ export class CertificateEditComponent implements OnInit {
     });
   }
 
+  ngOnDestroy() {
+    this.certificateSubscription$.unsubscribe();
+  }
+
   buildForm() {
     this.certificateForm = this._fb.group({
+      id: [null],
       device_id: [null, [Validators.required, Validators.minLength(4)]],
       invoice_no: [null, Validators.required],
       cutoff_speed: ['', [Validators.required, Validators.min(40), Validators.max(120)]],
       customer_name: [null, [Validators.required, Validators.minLength(4)]],
       customer_telephone: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(13), Validators.pattern("[0-9]+")]],
+      customer_address: [null],
       address_l1: [null, Validators.required],
       address_l2: [null],
       locality: [null],
@@ -97,6 +112,26 @@ export class CertificateEditComponent implements OnInit {
 
   get customer_telephone(): FormControl {
     return this.certificateForm.get('customer_telephone') as FormControl;
+  }
+
+  get customer_address(): FormControl {
+    return this.certificateForm.get('customer_address') as FormControl;
+  }
+
+  get address_l1(): FormControl {
+    return this.certificateForm.get('address_l1') as FormControl;
+  }
+
+  get address_l2(): FormControl {
+    return this.certificateForm.get('address_l2') as FormControl;
+  }
+
+  get locality(): FormControl {
+    return this.certificateForm.get('locality') as FormControl;
+  }
+
+  get city(): FormControl {
+    return this.certificateForm.get('city') as FormControl;
   }
 
   get pincode(): FormControl {
@@ -141,6 +176,7 @@ export class CertificateEditComponent implements OnInit {
   }
 
   optionSelected(event, type) {
+    this.certificateForm.markAsDirty();
     this.certificateForm.get(type).patchValue(event.option.value);
   }
 
@@ -163,18 +199,42 @@ export class CertificateEditComponent implements OnInit {
     });
   }
 
+  validateForm() {
+    if (this.addCertificate) {
+      this.customer_address.clearValidators();
+      this.address_l1.setValidators(Validators.required);
+      this.address_l2.setValidators(Validators.required);
+      this.locality.setValidators(Validators.required);
+      this.city.setValidators(Validators.required);
+      this.pincode.setValidators(Validators.required);
+    } else {
+      this.customer_address.setValidators(Validators.required);
+      this.address_l1.clearValidators();
+      this.address_l2.clearValidators();
+      this.locality.clearValidators();
+      this.city.clearValidators();
+      this.pincode.clearValidators();
+    }
+    this.address_l1.updateValueAndValidity();
+    this.address_l2.updateValueAndValidity();
+    this.locality.updateValueAndValidity();
+    this.city.updateValueAndValidity();
+    this.pincode.updateValueAndValidity();
+    this.customer_address.updateValueAndValidity();
+  }
+
   initializers() {
     this._store.select(fromRoot.getAllDevices).subscribe(devices => this.devices = devices);
   }
 
   saveChanges() {
+    let formData = this.certificateForm.value;
+    delete formData["vehicle_make"];
+    formData["mfg_month_year"] = moment(new Date(formData["mfg_month_year"]).toISOString()).format("YYYY-MM-DD");
+    formData["reg_month_year"] = moment(new Date(formData["reg_month_year"]).toISOString()).format("YYYY-MM-DD");
+    formData["vehicle_id"] = formData["vehicle_id"]["id"];
     if (this.addCertificate) {
-      let formData = this.certificateForm.value;
-      delete formData["vehicle_make"];
-      formData["mfg_month_year"] = moment(new Date(formData["mfg_month_year"]).toISOString()).format("YYYY-MM-DD");
-      formData["reg_month_year"] = moment(new Date(formData["reg_month_year"]).toISOString()).format("YYYY-MM-DD");
       formData["device_id"] = formData["device_id"]["id"];
-      formData["vehicle_id"] = formData["vehicle_id"]["id"];
       formData["customer_address"] = formData.address_l1 + ", " + formData.address_l2 + ", " + formData.locality + ", " + formData.city + " - " + formData.pincode;
       delete formData['address_l1'];
       delete formData['address_l2'];
@@ -182,6 +242,8 @@ export class CertificateEditComponent implements OnInit {
       delete formData['city'];
       delete formData['pincode'];
       this._store.dispatch(new certificateActions.CreateCertificateAction(formData));
+    } else {
+      this._store.dispatch(new certificateActions.UpdateCertificateAction(formData));
     }
   }
 

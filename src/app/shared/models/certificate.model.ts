@@ -23,8 +23,8 @@ export class Certificate {
 	public seals: string;
 	public vehicle: Vehicle;
 	public user: User;
-	public mfg_month_year: string;
-	public reg_month_year: string;
+	public mfg_month_year: Date;
+	public reg_month_year: Date;
 
 	constructor(data: any) {
 		this.id = data.id ? data.id : null;
@@ -46,7 +46,7 @@ export class Certificate {
 		this.seals = data.seals ? data.seals : null;
 		this.vehicle = data.vehicle ? new Vehicle(data.vehicle) : new Vehicle({});
 		this.user = data.user ? new User(data.user) : new User({});
-		this.mfg_month_year = data.mfg_month_year ? data.mfg_month_year : null;
-		this.reg_month_year = data.reg_month_year ? data.reg_month_year : null;
+		this.mfg_month_year = data.mfg_month_year ? new Date(moment(data.mfg_month_year, "yyyy-MM-DD").format()) : new Date();
+		this.reg_month_year = data.reg_month_year ? new Date(moment(data.reg_month_year, "yyyy-MM-DD").format()) : new Date();
 	}
 }

@@ -10,9 +10,9 @@
       <form [formGroup]="certificateForm" autocomplete="off">
         <div class="card mt-5">
           <div class="card-body">
-            <h5 class="text-grey-dark font-weight-bold mb-3">Device details</h5>
+            <h5 class="text-grey-dark font-weight-bold mb-3">Device details <span *ngIf="!addCertificate">for SLD No.: {{certificate.device.sld_number}}</span></h5>
             <div class="row">
-              <div class="col-lg-4">
+              <div class="col-lg-4" *ngIf="addCertificate">
                 <mat-form-field class="w-100">
                   <input placeholder="Enter SLD number" matInput (keyup)="fetchDevices($event)" [matAutocomplete]="sldAuto">
                   <mat-autocomplete #sldAuto="matAutocomplete" (optionSelected)="optionSelected($event, 'device_id')" [displayWith]="displayDevice">
@@ -55,30 +55,38 @@
                     <mat-hint align="end">{{customer_telephone.value.length}} / 10</mat-hint>
                   </mat-form-field>
                 </div>
-                <div class="col-lg-6">
+                <ng-container *ngIf="addCertificate">
+                  <div class="col-lg-6">
+                    <mat-form-field class="w-100">
+                      <input matInput placeholder="Address Line 1" formControlName="address_l1">
+                    </mat-form-field>
+                  </div>
+                  <div class="col-lg-6">
+                    <mat-form-field class="w-100">
+                      <input matInput placeholder="Address Line 2" formControlName="address_l2">
+                    </mat-form-field>
+                  </div>
+                  <div class="col-lg-4">
+                    <mat-form-field class="w-100">
+                      <input matInput placeholder="Locality" formControlName="locality">
+                    </mat-form-field>
+                  </div>
+                  <div class="col-lg-4">
+                    <mat-form-field class="w-100">
+                      <input matInput placeholder="City" formControlName="city">
+                    </mat-form-field>
+                  </div>
+                  <div class="col-lg-4">
+                    <mat-form-field class="w-100">
+                      <input matInput maxlength="6" placeholder="Pincode" formControlName="pincode">
+                      <mat-hint align="end">{{pincode.value.length}} / 6</mat-hint>
+                    </mat-form-field>
+                  </div>
+                </ng-container>
+                <div class="col-lg-12" *ngIf="!addCertificate">
                   <mat-form-field class="w-100">
-                    <input matInput placeholder="Address Line 1" formControlName="address_l1">
-                  </mat-form-field>
-                </div>
-                <div class="col-lg-6">
-                  <mat-form-field class="w-100">
-                    <input matInput placeholder="Address Line 2" formControlName="address_l2">
-                  </mat-form-field>
-                </div>
-                <div class="col-lg-4">
-                  <mat-form-field class="w-100">
-                    <input matInput placeholder="Locality" formControlName="locality">
-                  </mat-form-field>
-                </div>
-                <div class="col-lg-4">
-                  <mat-form-field class="w-100">
-                    <input matInput placeholder="City" formControlName="city">
-                  </mat-form-field>
-                </div>
-                <div class="col-lg-4">
-                  <mat-form-field class="w-100">
-                    <input matInput maxlength="6" placeholder="Pincode" formControlName="pincode">
-                    <mat-hint align="end">{{pincode.value.length}} / 6</mat-hint>
+                    <textarea matInput placeholder="Address" formControlName="customer_address"></textarea>
+                    <mat-hint>Enter the address with proper formatting.</mat-hint>
                   </mat-form-field>
                 </div>
               </div>
@@ -87,7 +95,7 @@
               <div class="row">
                 <div class="col-lg-4">
                   <mat-form-field class="w-100">
-                    <input placeholder="Select Vehicle Make" matInput [matAutocomplete]="makeAuto">
+                    <input placeholder="Select Vehicle Make" matInput [value]="certificate.vehicle.make" [matAutocomplete]="makeAuto">
                     <mat-autocomplete #makeAuto="matAutocomplete" (optionSelected)="optionSelected($event, 'vehicle_make')">
                       <mat-option *ngFor="let brand of brands" [value]="brand">
                         {{brand}}
@@ -97,7 +105,7 @@
                 </div>
                 <div class="col-lg-4">
                   <mat-form-field class="w-100">
-                    <input placeholder="Select Vehicle Model" [disabled]="vehicle_make.invalid" id="model" matInput [matAutocomplete]="modelAuto">
+                    <input placeholder="Select Vehicle Model" [disabled]="vehicle_make.invalid" id="model" [value]="certificate.vehicle.model" matInput [matAutocomplete]="modelAuto">
                     <mat-autocomplete #modelAuto="matAutocomplete" (optionSelected)="optionSelected($event, 'vehicle_id')" [displayWith]="displayFn">
                       <mat-option *ngFor="let model of getModels()" [value]="model">
                         {{model.model}}

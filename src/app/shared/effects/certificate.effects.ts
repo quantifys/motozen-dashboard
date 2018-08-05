@@ -55,7 +55,7 @@ export class CertificateEffects {
 
   @Effect()
   updateCertificate$: Observable<Action> = this._action$.pipe(ofType(fromCertificate.UPDATE_CERTIFICATE_ACTION),
-    mergeMap((action: fromCertificate.UpdateCertificateAction) => this._tokenService.patch(`certificates/${action.payload.certificate_item.id}`, action.payload)
+    mergeMap((action: fromCertificate.UpdateCertificateAction) => this._tokenService.patch(`certificates/${action.payload.id}`, action.payload)
       .pipe(map(response => {
         this._router.navigate(["dashboard", "certificates", "view"], { queryParams: { id: response.json().message.id } });
         return new fromCertificate.UpdateCertificateCompleteAction(response.json().message);
