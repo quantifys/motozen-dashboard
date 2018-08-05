@@ -18,7 +18,7 @@ export class VehicleEffects {
 
   @Effect()
   fetchVehicles$: Observable<Action> = this._action$.pipe(ofType(fromVehicle.FETCH_ALL_VEHICLES_ACTION),
-    mergeMap((action: fromVehicle.FetchAllVehiclesAction) => this._tokenService.post(`vehicles/list`, action.payload)
+    mergeMap((action: fromVehicle.FetchAllVehiclesAction) => this._tokenService.get(`vehicles`)
       .pipe(map(response => new fromVehicle.FetchAllVehiclesCompleteAction(response.json().message),
         catchError(error => of(new fromVehicle.FetchAllVehiclesFailedAction(error.json().message)))))));
 

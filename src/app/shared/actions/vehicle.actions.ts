@@ -23,8 +23,6 @@ export const DELETE_VEHICLE_FAILED_ACTION = '[Vehicle] Delete Vehicle Failed Act
 
 export class FetchAllVehiclesAction implements Action {
   readonly type = FETCH_ALL_VEHICLES_ACTION;
-  constructor(public payload: any) {
-  }
 }
 
 export class FetchAllVehiclesCompleteAction implements Action {

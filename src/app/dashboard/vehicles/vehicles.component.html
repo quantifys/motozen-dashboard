@@ -1,3 +1,58 @@
-<p>
-  vehicles works!
-</p>
+<section class="container-fluid">
+  <div class="header d-flex align-items-center">
+    <h4 class="text-grey-dark m-0">Vehicle List</h4>
+    <div class="ml-auto">
+      <a class="btn btn-primary" routerLink="edit" [queryParams]="{type: 'new'}">
+        <i class="fas fa-desktop mr-2"></i>Add Vehicles</a>
+    </div>
+  </div>
+  <div class="content mt-4">
+    <div class="table-container">
+      <table class="table table-hover w-100 rounded table-striped text-center m-0">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>MAKE</th>
+            <th>MODEL</th>
+            <th>VARIANT</th>
+            <th>TAC NUMBER</th>
+            <th>CATEGORY</th>
+            <th>CONNECTOR CODE</th>
+            <th>ACTIONS</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let vehicle of vehicles; let i = index">
+            <td>{{i + 1}}</td>
+            <td>{{vehicle.make}}</td>
+            <td>{{vehicle.model}}</td>
+            <td>{{vehicle.variant}}</td>
+            <td>{{vehicle.tac_number}}</td>
+            <td>{{vehicle.category}}</td>
+            <td>{{vehicle.connector.item_code}}</td>
+            <td>
+              <a class="action border-0 btn btn-outline-primary btn-sm" title="More info" routerLink="view" [queryParams]="{id: vehicle.id}">
+                <i class="fas fa-fw fa-info"></i>
+              </a>
+              <a class="action border-0 btn btn-outline-warning btn-sm" title="Update" routerLink="edit" [queryParams]="{id: vehicle.id}">
+                <i class="fas fa-fw fa-wrench"></i>
+              </a>
+              <button class="action border-0 btn btn-outline-danger btn-sm" title="Delete" (click)="deleteDevice(vehicle.id)">
+                <i class="fas fa-fw fa-trash-alt"></i>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="alert alert-primary text-center rounded-0 border-0 text-light" *ngIf="vehicles.length == 0 && !loading">
+        <strong>No vehicles found!</strong>
+      </div>
+      <div class="alert alert-primary text-center rounded-0 border-0 text-light" *ngIf="loading">
+        <strong>Loading...</strong>
+      </div>
+      <!-- <div class="d-flex justify-content-end mt-3">
+        <pagination-controls (pageChange)="config.currentPage = $event"></pagination-controls>
+      </div> -->
+    </div>
+  </div>
+</section>
