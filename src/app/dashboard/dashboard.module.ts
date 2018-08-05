@@ -26,6 +26,10 @@ const routes: Routes = [
         loadChildren: './devices/devices.module#DevicesModule'
       },
       {
+        path: 'vehicles',
+        loadChildren: './vehicles/vehicles.module#VehiclesModule'
+      },
+      {
         path: 'inventory',
         loadChildren: './inventory/inventory.module#InventoryModule'
       },
