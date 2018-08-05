@@ -1,8 +1,12 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { VehiclesComponent } from './vehicles.component';
 import { Routes, RouterModule } from '@angular/router';
+import { ReactiveFormsModule } from '@angular/forms';
+import { MatFormFieldModule, MatInputModule, MatSelectModule, MatOptionModule, MatButtonModule } from '@angular/material';
+
+import { VehiclesComponent } from './vehicles.component';
 import { VehicleDetailComponent } from './vehicle-detail/vehicle-detail.component';
+import { VehicleEditComponent } from './vehicle-edit/vehicle-edit.component';
 
 const routes: Routes = [
   {
@@ -12,13 +16,13 @@ const routes: Routes = [
       title: "Vehicle Management - Dashboard | Gemeni India"
     }
   },
-  // {
-  //   path: 'edit',
-  //   component: DeviceEditComponent,
-  //   data: {
-  //     title: "Dashboard - Device edit | Gemeni India"
-  //   }
-  // },
+  {
+    path: 'edit',
+    component: VehicleEditComponent,
+    data: {
+      title: "Vehicle edit - Dashboard | Gemeni India"
+    }
+  },
   {
     path: 'view',
     component: VehicleDetailComponent,
@@ -30,8 +34,14 @@ const routes: Routes = [
 @NgModule({
   imports: [
     CommonModule,
+    ReactiveFormsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatSelectModule,
+    MatOptionModule,
+    MatButtonModule,
     RouterModule.forChild(routes)
   ],
-  declarations: [VehiclesComponent, VehicleDetailComponent]
+  declarations: [VehiclesComponent, VehicleDetailComponent, VehicleEditComponent]
 })
 export class VehiclesModule { }

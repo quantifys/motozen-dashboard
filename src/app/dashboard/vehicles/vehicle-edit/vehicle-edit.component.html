@@ -1,0 +1,86 @@
+<section class="container">
+  <div class="d-flex align-items-center justify-content-between">
+    <a (click)="_location.back()" class="btn btn-primary text-light">
+      <i class="fas fa-arrow-left mr-2"></i>Go back</a>
+    <h4 class="text-grey-dark m-0">{{addVehicle ? 'Add vehicle' : 'Edit vehicle'}}</h4>
+  </div>
+
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <div class="card mt-5">
+        <div class="card-body">
+          <form [formGroup]="vehicleForm" autocomplete="off">
+            <h5 class="text-grey-dark font-weight-bold mb-3">Basic information</h5>
+            <div class="row">
+              <div class="col-lg-6">
+                <mat-form-field class="w-100">
+                  <input matInput placeholder="Make" formControlName="make">
+                </mat-form-field>
+              </div>
+              <div class="col-lg-6">
+                <mat-form-field class="w-100">
+                  <input matInput placeholder="Model" formControlName="model">
+                </mat-form-field>
+              </div>
+              <div class="col-lg-6">
+                <mat-form-field class="w-100">
+                  <input matInput placeholder="Variant" formControlName="variant">
+                </mat-form-field>
+              </div>
+              <div class="col-lg-6">
+                <mat-form-field class="w-100">
+                  <input matInput placeholder="Category" formControlName="category">
+                </mat-form-field>
+              </div>
+              <div class="col-lg-6">
+                <mat-form-field class="w-100">
+                  <input matInput placeholder="TAC Number" formControlName="tac_number">
+                </mat-form-field>
+              </div>
+              <div class="col-lg-6">
+                <mat-form-field class="w-100">
+                  <mat-select placeholder="Connector" formControlName="connector_id">
+                    <mat-option *ngFor="let item of inventory" [value]="item.id">
+                      {{item.description}}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+            </div>
+            <ng-container *ngIf="icat_pages.length > 0">
+              <div class="mb-2 text-right" *ngFor="let icat of icat_pages; let i = index">
+                <hr>
+                <span class="badge badge-info badge-bg mb-2">Document {{i + 1}}</span>
+                <button class="btn btn-danger btn-sm mb-2 ml-2" (click)="deleteIcat(icat.id)">
+                  <i class="fas fa-trash-alt"></i>
+                </button>
+                <div class="row">
+                  <div class="col-sm-6" *ngFor="let page of icat.pages">
+                    <a [attr.href]="page.page_url" target="_blank">
+                      <img [src]="page.page_url" class="img-fluid border border-dark">
+                    </a>
+                  </div>
+                </div>
+              </div>
+              <hr>
+            </ng-container>
+            <div class="form-group" formArrayName="icats" *ngIf="icats.controls.length > 0">
+              <label for="icat">Select documents</label>
+              <ng-container *ngFor="let icat of icats.controls; let i = index">
+                <div class="d-flex mb-2">
+                  <input [formGroupName]="i" accept="application/pdf" type="file" class="form-control-file" [id]="'icat' + i" (change)="onFileChange($event, i)">
+                  <button mat-icon-button color="warn" (click)="removeIcat(i)">
+                    <i class="fas fa-trash-alt"></i>
+                  </button>
+                </div>
+              </ng-container>
+            </div>
+            <button class="btn btn-primary btn-sm" (click)="addIcat()" *ngIf="(addVehicle && icats.length < 1) || !addVehicle">Add Document</button>
+            <hr>
+            <button class="btn btn-primary btn-save" [disabled]="vehicleForm.invalid || vehicleForm.pristine" (click)="saveChanges()">Save</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
