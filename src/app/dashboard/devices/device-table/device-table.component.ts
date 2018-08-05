@@ -25,14 +25,16 @@ export class DeviceTableComponent implements OnInit, OnDestroy {
     currentPage: 1,
     totalItems: this.devices.length
   };
-  
+
   constructor(
     private _store: Store<fromRoot.State>,
     private _activatedRoute: ActivatedRoute
   ) {
     this.routerSubscription$ = this._activatedRoute.queryParams.subscribe(params => {
-      this.status = params["status"];
-      this.fetchDevices();
+      if (params["status"]) {
+        this.status = params["status"];
+        this.fetchDevices();
+      }
     });
   }
 

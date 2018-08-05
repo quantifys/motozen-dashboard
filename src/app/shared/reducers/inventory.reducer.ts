@@ -46,8 +46,7 @@ export function reducer(state = initialState, action: inventoryActions.Actions):
       });
     case inventoryActions.UPDATE_INVENTORY_COMPLETE_ACTION:
       return Object.assign({}, state, {
-        allInventories: [...state.allInventories.map(inventory => inventory.id != action.payload.id ? inventory : new Inventory(action.payload))],
-        showInventoryModal: false
+        allInventories: [...state.allInventories.map(inventory => inventory.id != action.payload.id ? inventory : new Inventory(action.payload))]
       });
     case inventoryActions.CREATE_INVENTORY_COMPLETE_ACTION:
       return Object.assign({}, state, {

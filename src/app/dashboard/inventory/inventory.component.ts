@@ -1,9 +1,9 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
+import { Router, ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
 
 import * as fromRoot from '../../shared/reducers';
-import { Router, ActivatedRoute } from '@angular/router';
 import { User } from '../../shared/models';
 
 @Component({

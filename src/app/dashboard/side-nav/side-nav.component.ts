@@ -50,6 +50,13 @@ export const ROUTES: RouteInfo[] = [
     type: 'link',
     icontype: 'fa-sitemap',
     users: ['manufacturer']
+  },
+  {
+    path: 'certificates',
+    title: 'Certificates',
+    type: 'link',
+    icontype: 'fa-certificate',
+    users: ['distributor', 'store_purchases']
   }
 ];
 

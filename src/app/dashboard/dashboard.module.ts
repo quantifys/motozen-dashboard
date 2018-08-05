@@ -30,6 +30,10 @@ const routes: Routes = [
         loadChildren: './inventory/inventory.module#InventoryModule'
       },
       {
+        path: 'certificates',
+        loadChildren: './certificates/certificates.module#CertificatesModule'
+      },
+      {
         path: '',
         pathMatch: 'full',
         redirectTo: 'home'

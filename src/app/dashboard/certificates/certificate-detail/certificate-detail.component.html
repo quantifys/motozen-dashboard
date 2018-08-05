@@ -1,0 +1,75 @@
+<section class="container">
+  <div class="d-flex align-items-center justify-content-between">
+    <button (click)="_location.back()" class="btn btn-primary text-light">
+      <i class="fas fa-arrow-left mr-2"></i>Go back</button>
+    <h4 class="text-grey-dark m-0">Certificate details</h4>
+  </div>
+  <div class="row justify-content-center mt-4">
+    <div class="col-md-4">
+      <div class="card">
+        <div class="card-body">
+          <h6 class="text-grey-dark font-weight-bold mb-3">
+            <i class="fas fa-info-circle mr-2 fa-fw text-primary"></i>Certificate details</h6>
+          <h6 class="text-grey-dark">Fitment Number:</h6>
+          <h6 class="ml-3">{{certificate.certificate_number}}</h6>
+          <h6 class="text-grey-dark">Date of Issue:</h6>
+          <h6 class="ml-3">{{certificate.date_generated | date: 'fullDate'}}</h6>
+          <h6 class="text-grey-dark">Date of Expiry:</h6>
+          <h6 class="ml-3">{{certificate.due_date | date: 'fullDate'}}</h6>
+          <h6 class="text-grey-dark">Registered RTO:</h6>
+          <h6 class="ml-3">{{certificate.location_rto}}</h6>
+          <h6 class="text-grey-dark">Registered State:</h6>
+          <h6 class="ml-3">{{certificate.location_state}}</h6>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="card">
+        <div class="card-body">
+          <h6 class="text-grey-dark font-weight-bold mb-3">
+            <i class="fas fa-info-circle mr-2 fa-fw text-primary"></i>Device details</h6>
+          <h6 class="text-grey-dark">SLD Number:</h6>
+          <h6 class="ml-3">{{certificate.device.sld_number}}<a routerLink="../../devices/view" [queryParams]="{id: certificate.device.id}"><i class="fas fa-link ml-1"></i></a></h6>
+          <h6 class="text-grey-dark">Cut-off Speed:</h6>
+          <h6 class="ml-3">{{certificate.cutoff_speed}}kmph</h6>
+          <h6 class="text-grey-dark">Seal Number / No. of Seals:</h6>
+          <h6 class="ml-3">{{certificate.seals}}</h6>
+        </div>
+      </div>
+      <div class="card mt-4">
+        <div class="card-body">
+          <h6 class="text-grey-dark font-weight-bold mb-3">
+            <i class="fas fa-info-circle mr-2 fa-fw text-primary"></i>Customer information</h6>
+          <h6 class="text-grey-dark">Name:</h6>
+          <h6 class="ml-3">{{certificate.customer_name}}</h6>
+          <h6 class="text-grey-dark">Address:</h6>
+          <h6 class="ml-3">{{certificate.customer_address}}</h6>
+          <h6 class="text-grey-dark">Contact:</h6>
+          <h6 class="ml-3">{{certificate.customer_telephone}}</h6>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="card">
+        <div class="card-body">
+          <h6 class="text-grey-dark font-weight-bold mb-3">
+            <i class="fas fa-info-circle mr-2 fa-fw text-primary"></i>Vehicle information</h6>
+          <h6 class="text-grey-dark">Registration Number:</h6>
+          <h6 class="ml-3">{{certificate.car_reg_number}}</h6>
+          <h6 class="text-grey-dark">Vehicle make:</h6>
+          <h6 class="ml-3">{{certificate.vehicle.make}}</h6>
+          <h6 class="text-grey-dark">Vehicle model:</h6>
+          <h6 class="ml-3">{{certificate.vehicle.model}}</h6>
+          <h6 class="text-grey-dark">Engine number:</h6>
+          <h6 class="ml-3">{{certificate.engine_number}}</h6>
+          <h6 class="text-grey-dark">Chassis number:</h6>
+          <h6 class="ml-3">{{certificate.chassis_number}}</h6>
+          <h6 class="text-grey-dark">Manufacturing month & year:</h6>
+          <h6 class="ml-3">{{certificate.mfg_month_year | date: 'MMMM, yyyy'}}</h6>
+          <h6 class="text-grey-dark">Registration month & year:</h6>
+          <h6 class="ml-3">{{certificate.reg_month_year | date: 'MMMM, yyyy'}}</h6>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
