@@ -28,7 +28,7 @@ export class PurchaseOrder {
     this.amount_gst = data.amount_gst != null ? +data.amount_gst : null;
     this.created_at = data.created_at ? new Date(data.created_at) : new Date();
     this.serial_no = data.serial_no ? data.serial_no : null;
-    this.shipping_date = data.shipping_date ? new Date(data.shipping_date) : new Date();
+    this.shipping_date = data.shipping_date ? new Date(data.shipping_date) : null;
     this.shipping_amt = data.shipping_amt != null ? +data.shipping_amt : null;
     this.shipping_gst = data.shipping_gst != null ? +data.shipping_gst : null;
     this.shipping_gstn = data.shipping_gstn ? data.shipping_gstn : null;

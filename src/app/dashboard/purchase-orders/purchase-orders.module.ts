@@ -7,8 +7,23 @@ import { MatInputModule, MatFormFieldModule, MatDatepickerModule, MatNativeDateM
 import { PurchaseOrdersComponent } from './purchase-orders.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { PurchaseOrderTableComponent } from './purchase-order-table/purchase-order-table.component';
+import { PurchaseOrderDetailComponent } from './purchase-order-detail/purchase-order-detail.component';
 
 const routes: Routes = [
+  // {
+  //   path: 'edit',
+  //   component: CertificateEditComponent,
+  //   data: {
+  //     title: "Certificate edit - Dashboard | Gemeni India"
+  //   }
+  // },
+  {
+    path: 'view',
+    component: PurchaseOrderDetailComponent,
+    data: {
+      title: "Purchase order details - Dashboard | Gemeni India"
+    }
+  },
   {
     path: "",
     component: PurchaseOrdersComponent,
@@ -29,6 +44,6 @@ const routes: Routes = [
     MatNativeDateModule,
     RouterModule.forChild(routes)
   ],
-  declarations: [PurchaseOrdersComponent, PurchaseOrderTableComponent]
+  declarations: [PurchaseOrdersComponent, PurchaseOrderTableComponent, PurchaseOrderDetailComponent]
 })
 export class PurchaseOrdersModule { }
