@@ -34,7 +34,7 @@ export class Icat {
 export class Page {
 	public page_url: string;
 	constructor(data: any) {
-		this.page_url = data.page_url ? environment.token_auth_config.apiBase + data.page_url : null;
+		this.page_url = data.page_url ? data.page_url : null;
 	}
 
 	getPageUrl(): string {

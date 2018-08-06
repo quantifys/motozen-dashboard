@@ -45,6 +45,13 @@ export const ROUTES: RouteInfo[] = [
     users: ['manufacturer', 'distributor']
   },
   {
+    path: 'vehicles',
+    title: 'Vehicles',
+    type: 'link',
+    icontype: 'fa-bus',
+    users: ['manufacturer', 'sales']
+  },
+  {
     path: 'inventory',
     title: 'Inventory',
     type: 'link',
@@ -66,10 +73,10 @@ export const ROUTES: RouteInfo[] = [
   styleUrls: ['./side-nav.component.scss']
 })
 export class SideNavComponent implements OnInit {
-  
+
   public routes: any[] = [];
   public loggedUser: User = new User({});
-  
+
   constructor(
     private _store: Store<fromRoot.State>
   ) {

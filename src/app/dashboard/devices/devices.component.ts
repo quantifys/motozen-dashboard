@@ -4,8 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 
 import * as fromRoot from '../../shared/reducers';
-import * as deviceActions from '../../shared/actions/device.actions';
-import { Device, User } from '../../shared/models';
+import { User } from '../../shared/models';
 
 @Component({
   selector: 'app-devices',
