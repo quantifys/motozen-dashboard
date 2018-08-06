@@ -21,6 +21,14 @@ export const DELETE_VEHICLE_ACTION = '[Vehicle] Delete Vehicle Action';
 export const DELETE_VEHICLE_COMPLETE_ACTION = '[Vehicle] Delete Vehicle Complete Action';
 export const DELETE_VEHICLE_FAILED_ACTION = '[Vehicle] Delete Vehicle Failed Action';
 
+export const UPDATE_VEHICLE_ICAT_ACTION = "[Vehicle] Update Vehicle Icat Action";
+export const UPDATE_VEHICLE_ICAT_COMPLETE_ACTION = "[Vehicle] Update Vehicle Icat Complete Action";
+export const UPDATE_VEHICLE_ICAT_FAILED_ACTION = "[Vehicle] Update Vehicle Icat Failed Action";
+
+export const DELETE_VEHICLE_ICAT_ACTION = "[Vehicle] Delete Vehicle Icat Action";
+export const DELETE_VEHICLE_ICAT_COMPLETE_ACTION = "[Vehicle] Delete Vehicle Icat Complete Action";
+export const DELETE_VEHICLE_ICAT_FAILED_ACTION = "[Vehicle] Delete Vehicle Icat Failed Action";
+
 export class FetchAllVehiclesAction implements Action {
   readonly type = FETCH_ALL_VEHICLES_ACTION;
 }
@@ -124,6 +132,59 @@ export class DeleteVehicleFailedAction implements Action {
   }
 }
 
+export class DeleteVehicleIcatAction implements Action {
+  readonly type = DELETE_VEHICLE_ICAT_ACTION;
+  constructor(public payload: any) { }
+}
+
+export class DeleteVehicleIcatCompleteAction implements Action {
+  readonly type = DELETE_VEHICLE_ICAT_COMPLETE_ACTION;
+  constructor(public payload?: any) {
+    swal({
+      title: "Document deleted!",
+      type: "success",
+      timer: 3000,
+      showConfirmButton: false
+    });
+  }
+}
+
+export class DeleteVehicleIcatFailedAction implements Action {
+  readonly type = DELETE_VEHICLE_ICAT_FAILED_ACTION;
+  constructor(public payload?: any) {
+    swal("There was an error.", payload, "error");
+  }
+}
+
+export class UpdateVehicleIcatAction implements Action {
+  readonly type = UPDATE_VEHICLE_ICAT_ACTION;
+  constructor(public payload: any) {
+    swal({
+      title: 'Updating vehicle...'
+    });
+    swal.showLoading();
+  }
+}
+
+export class UpdateVehicleIcatCompleteAction implements Action {
+  readonly type = UPDATE_VEHICLE_ICAT_COMPLETE_ACTION;
+  constructor(public payload?: any) {
+    swal({
+      title: "Vehicle Updated!",
+      type: "success",
+      timer: 3000,
+      showConfirmButton: false
+    });
+  }
+}
+
+export class UpdateVehicleIcatFailedAction implements Action {
+  readonly type = UPDATE_VEHICLE_ICAT_FAILED_ACTION;
+  constructor(public payload?: any) {
+    swal("There was an error.", payload, "error");
+  }
+}
+
 export type Actions =
   FetchAllVehiclesAction
   | FetchAllVehiclesCompleteAction
@@ -139,4 +200,10 @@ export type Actions =
   | UpdateVehicleFailedAction
   | DeleteVehicleAction
   | DeleteVehicleCompleteAction
-  | DeleteVehicleFailedAction;
+  | DeleteVehicleFailedAction
+  | DeleteVehicleIcatAction
+  | DeleteVehicleIcatCompleteAction
+  | DeleteVehicleIcatFailedAction
+  | UpdateVehicleIcatAction
+  | UpdateVehicleIcatCompleteAction
+  | UpdateVehicleIcatFailedAction;

@@ -5,11 +5,15 @@ import * as vehicleActions from '../actions/vehicle.actions';
 export interface State {
   allVehicles: Vehicle[];
   currentVehicle: Vehicle;
+  currentVehicleId: number;
+  currentVehicleIcatId: number;
 }
 
 const initialState: State = {
   allVehicles: [],
-  currentVehicle: new Vehicle({})
+  currentVehicle: new Vehicle({}),
+  currentVehicleId: null,
+  currentVehicleIcatId: null
 };
 
 export function reducer(state = initialState, action: vehicleActions.Actions): State {
@@ -30,19 +34,16 @@ export function reducer(state = initialState, action: vehicleActions.Actions): S
       });
     case vehicleActions.DELETE_VEHICLE_COMPLETE_ACTION:
       return Object.assign({}, state, {
-        allVehicles: [...state.allVehicles.filter(vehicle => vehicle.id != state.currentVehicle.id ? vehicle : null)],
-        currentVehicle: new Vehicle({})
+        allVehicles: [...state.allVehicles.filter(vehicle => vehicle.id != state.currentVehicleId ? vehicle : null)],
+        currentVehicleId: null
       });
     case vehicleActions.DELETE_VEHICLE_ACTION:
       return Object.assign({}, state, {
-        currentVehicle: new Vehicle({
-          id: action.payload
-        })
+        currentVehicleId: action.payload
       });
     case vehicleActions.UPDATE_VEHICLE_COMPLETE_ACTION:
       return Object.assign({}, state, {
-        allVehicles: [...state.allVehicles.map(vehicle => vehicle.id != action.payload.id ? vehicle : new Vehicle(action.payload))],
-        showVehicleModal: false
+        currentVehicle: new Vehicle(action.payload)
       });
     case vehicleActions.CREATE_VEHICLE_COMPLETE_ACTION:
       return Object.assign({}, state, {
@@ -50,7 +51,23 @@ export function reducer(state = initialState, action: vehicleActions.Actions): S
       });
     case vehicleActions.DELETE_VEHICLE_FAILED_ACTION:
       return Object.assign({}, state, {
-        currentVehicle: new Vehicle({})
+        currentVehicleId: null
+      });
+    case vehicleActions.DELETE_VEHICLE_ICAT_ACTION:
+      console.log(action.payload);
+      return Object.assign({}, state, {
+        currentVehicleId: action.payload.vehicle_id,
+        currentVehicleIcatId: action.payload.icat_id
+      });
+    case vehicleActions.DELETE_VEHICLE_ICAT_COMPLETE_ACTION:
+      let vehicle: Vehicle = state.currentVehicle;
+      vehicle.icats = vehicle.icats.filter(icat => icat.id !== state.currentVehicleIcatId);
+      return Object.assign({}, state, {
+        currentVehicle: new Vehicle(vehicle)
+      });
+    case vehicleActions.UPDATE_VEHICLE_ICAT_COMPLETE_ACTION:
+      return Object.assign({}, state, {
+        currentVehicle: new Vehicle(action.payload)
       });
     default:
       return state;

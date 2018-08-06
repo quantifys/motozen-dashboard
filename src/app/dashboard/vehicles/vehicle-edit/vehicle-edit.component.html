@@ -57,7 +57,7 @@
                 <div class="row">
                   <div class="col-sm-6" *ngFor="let page of icat.pages">
                     <a [attr.href]="page.page_url" target="_blank">
-                      <img [src]="page.page_url" class="img-fluid border border-dark">
+                      <img [src]="page.getPageUrl()" class="img-fluid border border-dark">
                     </a>
                   </div>
                 </div>

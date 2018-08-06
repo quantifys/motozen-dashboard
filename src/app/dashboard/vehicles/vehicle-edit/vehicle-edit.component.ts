@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
-import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, FormArray, FormControl } from '@angular/forms';
+import { Subscription } from 'rxjs';
 import { Store } from "@ngrx/store";
 import swal from 'sweetalert2';
 
@@ -21,6 +22,7 @@ export class VehicleEditComponent implements OnInit {
   public vehicleForm: FormGroup;
   public icat_pages: Icat[] = [];
   public inventory: Inventory[] = [];
+  public vehicleSubscription$: Subscription;
 
   constructor(
     private _store: Store<fromRoot.State>,
@@ -41,8 +43,13 @@ export class VehicleEditComponent implements OnInit {
 
   ngOnInit() {
     this.buildForm();
-    this.vehicleForm.valueChanges.subscribe(value => console.log(value));
     this._store.select(fromRoot.getAllInventories).subscribe(inventory => this.inventory = inventory.filter(item => item.category == 'automotive_connector'));
+    this.vehicleSubscription$ = this._store.select(fromRoot.getCurrentVehicle).subscribe(vehicle => {
+      console.log(vehicle);
+      this.vehicleForm.patchValue(vehicle);
+      this.connector_id.patchValue(vehicle.connector.id);
+      this.icat_pages = vehicle.icats;
+    });
   }
 
   buildForm() {
@@ -58,8 +65,16 @@ export class VehicleEditComponent implements OnInit {
     });
   }
 
+  get vehicle_id(): FormControl {
+    return this.vehicleForm.get("id") as FormControl;
+  }
+  
+  get connector_id(): FormControl {
+    return this.vehicleForm.get("connector_id") as FormControl;
+  }
+
   get icats(): FormArray {
-    return this.vehicleForm.controls["icats"] as FormArray;
+    return this.vehicleForm.get("icats") as FormArray;
   }
 
   addIcat() {
@@ -83,10 +98,10 @@ export class VehicleEditComponent implements OnInit {
       confirmButtonText: "Yes, delete document!"
     }).then(result => {
       if (result.value) {
-        // this._store.dispatch(new vehicleActions.DeleteVehicleIcatAction({
-        //   vehicle_id: this.vehicle_id.value,
-        //   icat_id: id
-        // }));
+        this._store.dispatch(new vehicleActions.DeleteVehicleIcatAction({
+          vehicle_id: this.vehicle_id.value,
+          icat_id: id
+        }));
       }
     });
   }
@@ -114,12 +129,12 @@ export class VehicleEditComponent implements OnInit {
       this._store.dispatch(new vehicleActions.UpdateVehicleAction({
         vehicle: formData
       }));
-      // if (formData.icats.length > 0) {
-      //   this._store.dispatch(new vehicleActions.UpdateVehicleIcatAction({
-      //     id: formData.id,
-      //     icats: formData.icats
-      //   }))
-      // }
+      if (formData.icats) {
+        this._store.dispatch(new vehicleActions.UpdateVehicleIcatAction({
+          id: formData.id,
+          icats: formData.icats
+        }))
+      }
     }
   }
 
