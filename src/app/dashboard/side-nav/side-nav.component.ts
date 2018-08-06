@@ -64,6 +64,13 @@ export const ROUTES: RouteInfo[] = [
     type: 'link',
     icontype: 'fa-certificate',
     users: ['distributor', 'store_purchases']
+  },
+  {
+    path: 'purchase-orders',
+    title: 'Purchase Orders',
+    type: 'link',
+    icontype: 'fa-credit-card',
+    users: ['distributor', 'store_purchases']
   }
 ];
 

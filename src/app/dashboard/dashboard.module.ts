@@ -38,6 +38,10 @@ const routes: Routes = [
         loadChildren: './certificates/certificates.module#CertificatesModule'
       },
       {
+        path: 'purchase-orders',
+        loadChildren: './purchase-orders/purchase-orders.module#PurchaseOrdersModule'
+      },
+      {
         path: '',
         pathMatch: 'full',
         redirectTo: 'home'
