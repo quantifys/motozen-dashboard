@@ -23,6 +23,7 @@ export const DELETE_PURCHASE_ORDER_FAILED_ACTION = '[PurchaseOrder] Delete Purch
 
 export class FetchAllPurchaseOrdersAction implements Action {
   readonly type = FETCH_ALL_PURCHASE_ORDERS_ACTION;
+  constructor(public payload: any) { }
 }
 
 export class FetchAllPurchaseOrdersCompleteAction implements Action {

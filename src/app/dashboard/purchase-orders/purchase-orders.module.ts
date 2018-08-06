@@ -6,6 +6,7 @@ import { MatInputModule, MatFormFieldModule, MatDatepickerModule, MatNativeDateM
 
 import { PurchaseOrdersComponent } from './purchase-orders.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { PurchaseOrderTableComponent } from './purchase-order-table/purchase-order-table.component';
 
 const routes: Routes = [
   {
@@ -28,6 +29,6 @@ const routes: Routes = [
     MatNativeDateModule,
     RouterModule.forChild(routes)
   ],
-  declarations: [PurchaseOrdersComponent]
+  declarations: [PurchaseOrdersComponent, PurchaseOrderTableComponent]
 })
 export class PurchaseOrdersModule { }

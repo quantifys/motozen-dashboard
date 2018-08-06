@@ -52,3 +52,4 @@ export const getCertificatePageStatus = createSelector(certificates, (state: fro
 export const purchaseOrders = (state: State) => state.purchaseOrders;
 export const getAllPurchaseOrders = createSelector(purchaseOrders, (state: fromPurchaseOrder.State) => state.allPurchaseOrders);
 export const getCurrentPurchaseOrder = createSelector(purchaseOrders, (state: fromPurchaseOrder.State) => state.currentPurchaseOrder);
+export const getPurchaseOrderPageStatus = createSelector(purchaseOrders, (state: fromPurchaseOrder.State) => state.currentPurchaseOrderPageStatus);

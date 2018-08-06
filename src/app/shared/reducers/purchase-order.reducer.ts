@@ -1,24 +1,30 @@
-import { PurchaseOrder } from '../models';
+import { PurchaseOrder, PageData } from '../models';
 
 import * as purchaseOrderActions from '../actions/purchase-order.actions';
 
 export interface State {
   allPurchaseOrders: PurchaseOrder[];
   currentPurchaseOrder: PurchaseOrder;
+  currentPurchaseOrderPageStatus: PageData;
 }
 
 const initialState: State = {
   allPurchaseOrders: [],
-  currentPurchaseOrder: new PurchaseOrder({})
+  currentPurchaseOrder: new PurchaseOrder({}),
+  currentPurchaseOrderPageStatus: new PageData({})
 };
 
 export function reducer(state = initialState, action: purchaseOrderActions.Actions): State {
   let purchaseOrders: PurchaseOrder[] = [];
   switch (action.type) {
     case purchaseOrderActions.FETCH_ALL_PURCHASE_ORDERS_COMPLETE_ACTION:
-      purchaseOrders = action.payload.map(purchaseOrder => new PurchaseOrder(purchaseOrder));
+      purchaseOrders = action.payload.data.map(purchaseOrder => new PurchaseOrder(purchaseOrder));
       return Object.assign({}, state, {
-        allPurchaseOrders: [...purchaseOrders]
+        allPurchaseOrders: [...purchaseOrders],
+        currentPurchaseOrderPageStatus: new PageData({
+          total: action.payload.total,
+          per_page: action.payload.per_page,
+        })
       });
     case purchaseOrderActions.FETCH_PURCHASE_ORDER_ACTION:
       return Object.assign({}, state, {

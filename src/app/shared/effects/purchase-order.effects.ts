@@ -18,8 +18,12 @@ export class PurchaseOrderEffects {
 
   @Effect()
   fetchPurchaseOrders$: Observable<Action> = this._action$.pipe(ofType(fromPurchaseOrder.FETCH_ALL_PURCHASE_ORDERS_ACTION),
-    mergeMap((action: fromPurchaseOrder.FetchAllPurchaseOrdersAction) => this._tokenService.get('purchase_orders')
-      .pipe(map(response => new fromPurchaseOrder.FetchAllPurchaseOrdersCompleteAction(response.json().message),
+    mergeMap((action: fromPurchaseOrder.FetchAllPurchaseOrdersAction) => this._tokenService.post('purchase_orders/list', action.payload)
+      .pipe(map(response => new fromPurchaseOrder.FetchAllPurchaseOrdersCompleteAction({
+        data: response.json().message,
+        total: response.headers.get('total'),
+        per_page: response.headers.get('per-page')
+      }),
         catchError(error => of(new fromPurchaseOrder.FetchAllPurchaseOrdersFailedAction(error.json().message)))))));
 
   @Effect()
