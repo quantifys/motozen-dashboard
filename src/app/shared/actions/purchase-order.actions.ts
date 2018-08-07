@@ -21,6 +21,10 @@ export const DELETE_PURCHASE_ORDER_ACTION = '[PurchaseOrder] Delete Purchase Ord
 export const DELETE_PURCHASE_ORDER_COMPLETE_ACTION = '[PurchaseOrder] Delete Purchase Order Complete Action';
 export const DELETE_PURCHASE_ORDER_FAILED_ACTION = '[PurchaseOrder] Delete Purchase Order Failed Action';
 
+export const FETCH_PURCHASE_ORDER_FORMDATA_ACTION = '[PurchaseOrder] Fetch Purchase Order Form Data Action';
+export const FETCH_PURCHASE_ORDER_FORMDATA_COMPLETE_ACTION = '[PurchaseOrder] Fetch Purchase Order Form Data Complete Action';
+export const FETCH_PURCHASE_ORDER_FORMDATA_FAILED_ACTION = '[PurchaseOrder] Fetch Purchase Order Form Data Failed Action';
+
 export class FetchAllPurchaseOrdersAction implements Action {
   readonly type = FETCH_ALL_PURCHASE_ORDERS_ACTION;
   constructor(public payload: any) { }
@@ -125,6 +129,21 @@ export class DeletePurchaseOrderFailedAction implements Action {
   }
 }
 
+export class FetchPurchaseOrderFormDataAction implements Action {
+  readonly type = FETCH_PURCHASE_ORDER_FORMDATA_ACTION;
+}
+
+export class FetchPurchaseOrderFormDataCompleteAction implements Action {
+  readonly type = FETCH_PURCHASE_ORDER_FORMDATA_COMPLETE_ACTION;
+  constructor(public payload: any) {
+  }
+}
+
+export class FetchPurchaseOrderFormDataFailedAction implements Action {
+  readonly type = FETCH_PURCHASE_ORDER_FORMDATA_FAILED_ACTION;
+  constructor(public payload?: any) { }
+}
+
 export type Actions =
   FetchAllPurchaseOrdersAction
   | FetchAllPurchaseOrdersCompleteAction
@@ -140,4 +159,7 @@ export type Actions =
   | UpdatePurchaseOrderFailedAction
   | DeletePurchaseOrderAction
   | DeletePurchaseOrderCompleteAction
-  | DeletePurchaseOrderFailedAction;
+  | DeletePurchaseOrderFailedAction
+  | FetchPurchaseOrderFormDataAction
+  | FetchPurchaseOrderFormDataCompleteAction
+  | FetchPurchaseOrderFormDataFailedAction;

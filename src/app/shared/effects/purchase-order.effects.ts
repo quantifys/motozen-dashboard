@@ -56,4 +56,10 @@ export class PurchaseOrderEffects {
       },
         catchError(error => of(new fromPurchaseOrder.UpdatePurchaseOrderFailedAction(error.json().message)))))));
 
+  @Effect()
+  fetchPurchaseOrderFormdata$: Observable<Action> = this._action$.pipe(ofType(fromPurchaseOrder.FETCH_PURCHASE_ORDER_FORMDATA_ACTION),
+    mergeMap((action: fromPurchaseOrder.FetchPurchaseOrderFormDataAction) => this._tokenService.get('purchase_orders/new')
+      .pipe(map(response => new fromPurchaseOrder.FetchPurchaseOrderFormDataCompleteAction(response.json().message),
+        catchError(error => of(new fromPurchaseOrder.FetchPurchaseOrderFormDataFailedAction(error.json().message)))))));
+
 }

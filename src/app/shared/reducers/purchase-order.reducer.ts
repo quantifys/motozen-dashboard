@@ -5,12 +5,14 @@ import * as purchaseOrderActions from '../actions/purchase-order.actions';
 export interface State {
   allPurchaseOrders: PurchaseOrder[];
   currentPurchaseOrder: PurchaseOrder;
+  purchaseOrderFormData: any;
   currentPurchaseOrderPageStatus: PageData;
 }
 
 const initialState: State = {
   allPurchaseOrders: [],
   currentPurchaseOrder: new PurchaseOrder({}),
+  purchaseOrderFormData: null,
   currentPurchaseOrderPageStatus: new PageData({})
 };
 
@@ -56,6 +58,10 @@ export function reducer(state = initialState, action: purchaseOrderActions.Actio
     case purchaseOrderActions.DELETE_PURCHASE_ORDER_FAILED_ACTION:
       return Object.assign({}, state, {
         currentPurchaseOrder: new PurchaseOrder({})
+      });
+    case purchaseOrderActions.FETCH_PURCHASE_ORDER_FORMDATA_COMPLETE_ACTION:
+      return Object.assign({}, state, {
+        purchaseOrderFormData: action.payload
       });
     default:
       return state;
