@@ -3,6 +3,7 @@ export * from './device.model';
 export * from './inventory.model';
 export * from './vehicle.model';
 export * from './certificate.model';
+export * from './cost.model';
 
 export class PageData {
   public total: number;

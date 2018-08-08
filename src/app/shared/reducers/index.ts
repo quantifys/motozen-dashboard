@@ -5,6 +5,7 @@ import * as fromDevice from "./device.reducer";
 import * as fromVehicle from "./vehicle.reducer";
 import * as fromInventory from "./inventory.reducer";
 import * as fromCertificate from "./certificate.reducer";
+import * as fromExpense from "./expense.reducer";
 
 export interface State {
   users: fromUser.State;
@@ -12,6 +13,7 @@ export interface State {
   vehicles: fromVehicle.State;
   inventories: fromInventory.State;
   certificates: fromCertificate.State;
+  expenses: fromExpense.State;
 }
 
 export const reducers: ActionReducerMap<State> = {
@@ -19,7 +21,8 @@ export const reducers: ActionReducerMap<State> = {
   devices: fromDevice.reducer,
   vehicles: fromVehicle.reducer,
   inventories: fromInventory.reducer,
-  certificates: fromCertificate.reducer
+  certificates: fromCertificate.reducer,
+  expenses: fromExpense.reducer
 };
 
 export const users = (state: State) => state.users;
@@ -45,3 +48,8 @@ export const getAllCertificates = createSelector(certificates, (state: fromCerti
 export const getCurrentCertificate = createSelector(certificates, (state: fromCertificate.State) => state.currentCertificate);
 export const getCertificateFormdata = createSelector(certificates, (state: fromCertificate.State) => state.certificateFormdata);
 export const getCertificatePageStatus = createSelector(certificates, (state: fromCertificate.State) => state.currentCertificatePageStatus);
+
+export const expenses = (state: State) => state.expenses;
+export const getAllExpenses = createSelector(expenses, (state: fromExpense.State) => state.allExpenses);
+export const getCurrentExpense = createSelector(expenses, (state: fromExpense.State) => state.currentExpense);
+export const getExpensePageStatus = createSelector(expenses, (state: fromExpense.State) => state.currentExpensePageStatus);
