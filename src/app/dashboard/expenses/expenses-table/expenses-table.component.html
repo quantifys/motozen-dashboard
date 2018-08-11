@@ -22,7 +22,7 @@
           <a class="action border-0 btn btn-outline-warning btn-sm" title="Update" routerLink="edit" [queryParams]="{id: expense.id}">
             <i class="fas fa-fw fa-wrench"></i>
           </a>
-          <button class="action border-0 btn btn-outline-danger btn-sm" title="Delete" (click)="deleteCertificate(expense.id)">
+          <button class="action border-0 btn btn-outline-danger btn-sm" title="Delete" (click)="deleteExpense(expense.id)">
             <i class="fas fa-fw fa-trash-alt"></i>
           </button>
         </td>
