@@ -45,6 +45,10 @@ export function reducer(state = initialState, action: expenseActions.Actions): S
       return Object.assign({}, state, {
         allExpenses: [...state.allExpenses, new Cost(action.payload)]
       });
+    case expenseActions.CLEAR_EXPENSE_ACTION:
+      return Object.assign({}, state, {
+        currentExpense: new Cost({})
+      });
     default:
       return state;
   }

@@ -21,6 +21,8 @@ export const DELETE_EXPENSE_ACTION = '[Expense] Delete Expense Action';
 export const DELETE_EXPENSE_COMPLETE_ACTION = '[Expense] Delete Expense Complete Action';
 export const DELETE_EXPENSE_FAILED_ACTION = '[Expense] Delete Expense Failed Action';
 
+export const CLEAR_EXPENSE_ACTION = '[Expense] Clear Expense Action';
+
 export class FetchAllExpensesAction implements Action {
   readonly type = FETCH_ALL_EXPENSES_ACTION;
   constructor(public payload: any) { }
@@ -108,6 +110,10 @@ export class DeleteExpenseFailedAction implements Action {
   }
 }
 
+export class ClearExpenseAction implements Action {
+  readonly type = CLEAR_EXPENSE_ACTION;
+}
+
 export type Actions =
   FetchAllExpensesAction
   | FetchAllExpensesCompleteAction
@@ -123,4 +129,5 @@ export type Actions =
   | UpdateExpenseFailedAction
   | DeleteExpenseAction
   | DeleteExpenseCompleteAction
-  | DeleteExpenseFailedAction;
+  | DeleteExpenseFailedAction
+  | ClearExpenseAction;
