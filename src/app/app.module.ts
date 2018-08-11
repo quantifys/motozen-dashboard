@@ -19,6 +19,7 @@ import { DeviceEffects } from './shared/effects/device.effects';
 import { InventoryEffects } from './shared/effects/inventory.effects';
 import { CertificateEffects } from './shared/effects/certificate.effects';
 import { VehicleEffects } from './shared/effects/vehicle.effects';
+import { ExpenseEffects } from './shared/effects/expense.effects';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ import { VehicleEffects } from './shared/effects/vehicle.effects';
       DeviceEffects,
       VehicleEffects,
       InventoryEffects,
-      CertificateEffects
+      CertificateEffects,
+      ExpenseEffects
     ]),
     StoreDevtoolsModule.instrument({
       maxAge: 25, // Retains last 25 states

@@ -38,6 +38,10 @@ const routes: Routes = [
         loadChildren: './certificates/certificates.module#CertificatesModule'
       },
       {
+        path: 'expenses',
+        loadChildren: './expenses/expenses.module#ExpensesModule'
+      },
+      {
         path: '',
         pathMatch: 'full',
         redirectTo: 'home'

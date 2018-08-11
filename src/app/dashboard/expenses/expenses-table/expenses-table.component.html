@@ -1,0 +1,41 @@
+<div class="table-container">
+  <table class="table table-hover w-100 rounded table-striped text-center m-0">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>SERIAL NO</th>
+        <th>CREATED ON</th>
+        <th>TOTAL</th>
+        <th>ACTIONS</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let expense of expenses | paginate: config; let i = index">
+        <td>{{i+1}}</td>
+        <td>{{expense.serial_no}}</td>
+        <td>{{expense.created_at | date: "mediumDate"}}</td>
+        <td>{{expense.total}}</td>
+        <td>
+          <a class="action border-0 btn btn-outline-primary btn-sm" title="More info" routerLink="view" [queryParams]="{id: expense.id}">
+            <i class="fas fa-fw fa-info"></i>
+          </a>
+          <a class="action border-0 btn btn-outline-warning btn-sm" title="Update" routerLink="edit" [queryParams]="{id: expense.id}">
+            <i class="fas fa-fw fa-wrench"></i>
+          </a>
+          <button class="action border-0 btn btn-outline-danger btn-sm" title="Delete" (click)="deleteExpense(expense.id)">
+            <i class="fas fa-fw fa-trash-alt"></i>
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="alert alert-primary text-center rounded-0 border-0 text-light" *ngIf="expenses.length == 0 && !loading">
+    <strong>No expenses found!</strong>
+  </div>
+  <div class="alert alert-primary text-center rounded-0 border-0 text-light" *ngIf="loading">
+    <strong>Loading...</strong>
+  </div>
+  <div class="d-flex justify-content-end mt-3">
+    <pagination-controls (pageChange)="getPage($event)" [id]="config.id"></pagination-controls>
+  </div>
+</div>
