@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { NgxPaginationModule } from 'ngx-pagination';
 import { Routes, RouterModule } from '@angular/router';
 
 import { ExpensesComponent } from './expenses.component';
@@ -18,6 +19,7 @@ export const routes: Routes = [
 @NgModule({
   imports: [
     CommonModule,
+    NgxPaginationModule,
     RouterModule.forChild(routes)
   ],
   declarations: [ExpensesComponent, ExpensesTableComponent]

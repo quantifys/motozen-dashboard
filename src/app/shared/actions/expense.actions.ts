@@ -23,7 +23,7 @@ export const DELETE_EXPENSE_FAILED_ACTION = '[Expense] Delete Expense Failed Act
 
 export class FetchAllExpensesAction implements Action {
   readonly type = FETCH_ALL_EXPENSES_ACTION;
-  constructor(public payload?: any) { }
+  constructor(public payload: any) { }
 }
 
 export class FetchAllExpensesCompleteAction implements Action {

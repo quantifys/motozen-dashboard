@@ -2,12 +2,12 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription, BehaviorSubject } from 'rxjs';
 import { PaginationInstance } from 'ngx-pagination';
 import { ActivatedRoute } from '@angular/router';
+import swal from 'sweetalert2';
 import { Store } from '@ngrx/store';
 
 import * as fromRoot from '../../../shared/reducers';
 import * as expenseActions from '../../../shared/actions/expense.actions';
 import { Cost, PageData } from '../../../shared/models';
-import swal from 'sweetalert2';
 
 @Component({
   selector: 'expenses-table',
@@ -45,7 +45,7 @@ export class ExpensesTableComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this._store.select(fromRoot.getAllExpenses).subscribe(expenses => {
       this.loading = false;
-      this.expenses = expenses;
+      this.expenses = expenses.filter(expense => expense.category == this.queryParams["category"]);
     });
     this._store.select(fromRoot.getExpensePageStatus).subscribe(pageData => this.pageData.next(pageData));
   }
@@ -57,7 +57,7 @@ export class ExpensesTableComponent implements OnInit, OnDestroy {
 
   fetchExpenses() {
     let formData: any = {
-      status: this.queryParams["status"] ? this.queryParams["status"] : null,
+      category: this.queryParams["category"] ? this.queryParams["category"] : null,
       start: this.queryParams["start_date"] ? this.queryParams["start_date"] : null,
       end: this.queryParams["end_date"] ? this.queryParams["end_date"] : null,
       page: this.config.currentPage,

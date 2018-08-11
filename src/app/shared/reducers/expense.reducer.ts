@@ -20,7 +20,7 @@ export function reducer(state = initialState, action: expenseActions.Actions): S
       inventories = action.payload.data.map(expense => new Cost(expense));
       return Object.assign({}, state, {
         allExpenses: [...inventories],
-        currentCertificatePageStatus: new PageData({
+        currentExpensePageStatus: new PageData({
           total: action.payload.total,
           per_page: action.payload.per_page,
         })
