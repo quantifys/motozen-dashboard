@@ -56,7 +56,7 @@ export class PurchaseOrderEditComponent implements OnInit {
       locality: null,
       city: null,
       state: null,
-      pincode: '',
+      pincode: null,
       remarks: null,
       particulars: this._fb.array([])
     });
