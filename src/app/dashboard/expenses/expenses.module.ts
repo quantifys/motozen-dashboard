@@ -8,6 +8,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { ExpensesComponent } from './expenses.component';
 import { ExpensesTableComponent } from './expenses-table/expenses-table.component';
 import { ExpenseEditComponent } from './expense-edit/expense-edit.component';
+import { ExpenseDetailComponent } from './expense-detail/expense-detail.component';
 
 export const routes: Routes = [
   {
@@ -17,13 +18,13 @@ export const routes: Routes = [
       title: "Expense edit - Dashboard | Gemeni India"
     }
   },
-  // {
-  //   path: 'view',
-  //   component: ExpenseDetailComponent,
-  //   data: {
-  //     title: "Expense details - Dashboard | Gemeni India"
-  //   }
-  // },
+  {
+    path: 'view',
+    component: ExpenseDetailComponent,
+    data: {
+      title: "Expense details - Dashboard | Gemeni India"
+    }
+  },
   {
     path: "",
     component: ExpensesComponent,
@@ -43,6 +44,6 @@ export const routes: Routes = [
     MatInputModule,
     RouterModule.forChild(routes)
   ],
-  declarations: [ExpensesComponent, ExpensesTableComponent, ExpenseEditComponent]
+  declarations: [ExpensesComponent, ExpensesTableComponent, ExpenseEditComponent, ExpenseDetailComponent]
 })
 export class ExpensesModule { }
