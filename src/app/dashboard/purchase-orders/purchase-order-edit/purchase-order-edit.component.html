@@ -6,7 +6,7 @@
   </div>
 
   <div class="row justify-content-center">
-    <div class="xol-md-12 col-lg-10 col-xl-8">
+    <div class="xol-md-12 col-lg-10">
       <form [formGroup]="purchaseForm" autocomplete="off">
         <div class="card mt-5">
           <div class="card-body">
@@ -14,24 +14,35 @@
           </div>
           <div class="table-container">
             <div class="table-responsive">
-              <table class="table table-hover w-100 rounded table-striped text-center m-0">
+              <table class="table table-hover w-100 rounded table-striped m-0">
                 <thead>
                   <tr>
                     <th>Make</th>
                     <th>Model</th>
-                    <th>Variant</th>
                     <th>Quantity</th>
+                    <th></th>
                   </tr>
                 </thead>
                 <tbody formArrayName="particulars">
                   <tr purchase-order-particular *ngFor="let particular of particulars.controls; let i=index" [formGroupName]="i" [group]="particular">
-                    <td *ngIf="particulars.length > 1">
-                      <button class="btn btn-outline-danger btn-sm" (click)="removeVehicle(i)">
+                    <td>
+                      <button *ngIf="particulars.length > 1" (click)="removeVehicle(i)" mat-icon-button color="warn">
                         <i class="fas fa-trash-alt"></i>
                       </button>
                     </td>
                   </tr>
                 </tbody>
+                <tfoot>
+                  <tr>
+                    <td colspan="2"></td>
+                    <td class="text-right">
+                      <button mat-button color="warn" (click)="addVehicle()">
+                        <strong>ADD PARTICULAR</strong>
+                      </button>
+                    </td>
+                    <td></td>
+                  </tr>
+                </tfoot>
               </table>
             </div>
           </div>
@@ -69,7 +80,7 @@
                   </div>
                   <div class="col-lg-6">
                     <mat-form-field class="w-100">
-                      <mat-select placeholder="State">
+                      <mat-select placeholder="State" formControlName="state">
                         <mat-option *ngFor="let state of states" [value]="state.name">
                           {{state.name}}
                         </mat-option>

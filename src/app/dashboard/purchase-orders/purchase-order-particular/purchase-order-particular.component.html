@@ -13,17 +13,14 @@
     <mat-form-field class="w-100">
       <input placeholder="Select Vehicle Model" [disabled]="make.invalid" id="model" matInput [matAutocomplete]="modelAuto">
       <mat-autocomplete #modelAuto="matAutocomplete" (optionSelected)="optionSelected($event, 'vehicle_id')" [displayWith]="displayFn">
-        <mat-option *ngFor="let model of getModels()" [value]="model">
-          {{model.model}}
+        <mat-option *ngFor="let car of getModels()" [value]="car">
+          {{car.model}} - {{car.variant}}
         </mat-option>
       </mat-autocomplete>
     </mat-form-field>
   </td>
   <td>
-
-  </td>
-  <td>
-    <mat-form-field>
+    <mat-form-field class="w-100">
       <input matInput placeholder="Quantity" formControlName="quantity">
     </mat-form-field>
   </td>

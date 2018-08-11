@@ -20,6 +20,16 @@
             <h6 class="text-grey-dark">Remarks:</h6>
             <h6 class="ml-3">{{purchaseOrder.remarks}}</h6>
           </ng-container>
+          <h6 class="text-grey-dark">Address:</h6>
+          <pre class="ml-3">{{purchaseOrder.address}}</pre>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-4">
+      <div class="card">
+        <div class="card-body">
+          <h6 class="text-grey-dark font-weight-bold mb-3">
+            <i class="fas fa-info-circle mr-2 fa-fw text-primary"></i>Amount details</h6>
           <h6 class="text-grey-dark">Amount Paid:</h6>
           <h6 class="ml-3">{{purchaseOrder.amount_paid != null ? purchaseOrder.amount_paid : '-'}}</h6>
           <h6 class="text-grey-dark">Amount GST:</h6>
@@ -32,18 +42,16 @@
         <div class="card-body">
           <h6 class="text-grey-dark font-weight-bold mb-3">
             <i class="fas fa-info-circle mr-2 fa-fw text-primary"></i>Shipping details</h6>
-            <h6 class="text-grey-dark">Address:</h6>
-            <h6 class="ml-3">{{purchaseOrder.address}}</h6>
-            <h6 class="text-grey-dark">Tracking Number:</h6>
-            <h6 class="ml-3">{{purchaseOrder.tracking_no ? purchaseOrder.tracking_no : '-'}}</h6>
-            <h6 class="text-grey-dark">Shipping Amount:</h6>
-            <h6 class="ml-3">{{purchaseOrder.shipping_amt != null ? purchaseOrder.shipping_amt : '-'}}</h6>
-            <h6 class="text-grey-dark">Shipping GST:</h6>
-            <h6 class="ml-3">{{purchaseOrder.shipping_gst != null ? purchaseOrder.shipping_gst : '-'}}</h6>
-            <h6 class="text-grey-dark">Shipping GSTN:</h6>
-            <h6 class="ml-3">{{purchaseOrder.shipping_gstn ? purchaseOrder.shipping_gstn : '-'}}</h6>
-            <h6 class="text-grey-dark">Shipping Date:</h6>
-            <h6 class="ml-3">{{purchaseOrder.shipping_date ? (purchaseOrder.shipping_date | date: 'fullDate') : '-'}}</h6>
+          <h6 class="text-grey-dark">Tracking Number:</h6>
+          <h6 class="ml-3">{{purchaseOrder.tracking_no ? purchaseOrder.tracking_no : '-'}}</h6>
+          <h6 class="text-grey-dark">Shipping Amount:</h6>
+          <h6 class="ml-3">{{purchaseOrder.shipping_amt != null ? purchaseOrder.shipping_amt : '-'}}</h6>
+          <h6 class="text-grey-dark">Shipping GST:</h6>
+          <h6 class="ml-3">{{purchaseOrder.shipping_gst != null ? purchaseOrder.shipping_gst : '-'}}</h6>
+          <h6 class="text-grey-dark">Shipping GSTN:</h6>
+          <h6 class="ml-3">{{purchaseOrder.shipping_gstn ? purchaseOrder.shipping_gstn : '-'}}</h6>
+          <h6 class="text-grey-dark">Shipping Date:</h6>
+          <h6 class="ml-3">{{purchaseOrder.shipping_date ? (purchaseOrder.shipping_date | date: 'fullDate') : '-'}}</h6>
         </div>
       </div>
     </div>
@@ -74,8 +82,8 @@
             <tfoot>
               <tr>
                 <td colspan="4"></td>
-                <td>TOTAL QUANTITY</td>
-                <td>{{purchaseOrder.total_quantity}}</td>
+                <td class="text-muted"><strong>TOTAL QUANTITY</strong></td>
+                <td class="text-muted"><strong>{{purchaseOrder.total_quantity}}</strong></td>
               </tr>
             </tfoot>
           </table>

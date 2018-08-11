@@ -36,7 +36,7 @@ export class PurchaseOrderEffects {
   createNewPurchaseOrder$: Observable<Action> = this._action$.pipe(ofType(fromPurchaseOrder.CREATE_PURCHASE_ORDER_ACTION),
     mergeMap((action: fromPurchaseOrder.CreatePurchaseOrderAction) => this._tokenService.post('purchase_orders', action.payload)
       .pipe(map(response => {
-        this._router.navigate(["dashboard", "inventory", "view"], { queryParams: { id: response.json().message.id } })
+        this._router.navigate(["dashboard", "purchase-orders", "view"], { queryParams: { id: response.json().message.id } })
         return new fromPurchaseOrder.CreatePurchaseOrderCompleteAction(response.json().message)
       },
         catchError(error => of(new fromPurchaseOrder.CreatePurchaseOrderFailedAction(error.json().message)))))));
@@ -49,9 +49,9 @@ export class PurchaseOrderEffects {
 
   @Effect()
   updatePurchaseOrder$: Observable<Action> = this._action$.pipe(ofType(fromPurchaseOrder.UPDATE_PURCHASE_ORDER_ACTION),
-    mergeMap((action: fromPurchaseOrder.UpdatePurchaseOrderAction) => this._tokenService.patch(`purchase_orders/${action.payload.inventory_item.id}`, action.payload)
+    mergeMap((action: fromPurchaseOrder.UpdatePurchaseOrderAction) => this._tokenService.patch(`purchase_orders/${action.payload.purchase_order.id}`, action.payload)
       .pipe(map(response => {
-        this._router.navigate(["dashboard", "inventory", "view"], { queryParams: { id: response.json().message.id } });
+        this._router.navigate(["dashboard", "purchase-orders", "view"], { queryParams: { id: response.json().message.id } });
         return new fromPurchaseOrder.UpdatePurchaseOrderCompleteAction(response.json().message); 
       },
         catchError(error => of(new fromPurchaseOrder.UpdatePurchaseOrderFailedAction(error.json().message)))))));

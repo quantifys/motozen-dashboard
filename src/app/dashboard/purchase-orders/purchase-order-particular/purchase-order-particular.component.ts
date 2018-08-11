@@ -3,6 +3,7 @@ import { FormGroup, FormControl } from '@angular/forms';
 import { Store } from "@ngrx/store";
 
 import * as fromRoot from "../../../shared/reducers";
+import { Vehicle } from '../../../shared/models';
 
 @Component({
   selector: '[purchase-order-particular]',
@@ -47,8 +48,8 @@ export class PurchaseOrderParticularComponent implements OnInit {
     return null;
   }
 
-  displayFn(car): string | undefined {
-    return car ? car.model : undefined;
+  displayFn(vehicle: Vehicle): string | undefined {
+    return vehicle ? `${vehicle.model} - ${vehicle.variant}` : undefined;
   }
 
 }

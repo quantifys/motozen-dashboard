@@ -45,7 +45,6 @@ export class VehicleEditComponent implements OnInit {
     this.buildForm();
     this._store.select(fromRoot.getAllInventories).subscribe(inventory => this.inventory = inventory.filter(item => item.category == 'automotive_connector'));
     this.vehicleSubscription$ = this._store.select(fromRoot.getCurrentVehicle).subscribe(vehicle => {
-      console.log(vehicle);
       this.vehicleForm.patchValue(vehicle);
       this.connector_id.patchValue(vehicle.connector.id);
       this.icat_pages = vehicle.icats;

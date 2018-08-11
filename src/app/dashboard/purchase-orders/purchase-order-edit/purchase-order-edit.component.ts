@@ -99,7 +99,6 @@ export class PurchaseOrderEditComponent implements OnInit {
       id: [data ? data.id : null],
       vehicle_id: [null, Validators.required],
       make: [data ? data.vehicle.make : null],
-      model: [data ? data.vehicle.model : null],
       quantity: [data ? data.quantity : null, Validators.required]
     });
   }
@@ -114,11 +113,36 @@ export class PurchaseOrderEditComponent implements OnInit {
   }
 
   addressValidate(event) {
-    let controls: string[] = ["address_l1", "address_l2", "locality", "city", "state", "pincode"];
+    let controls: string[] = ["address_l1", "locality", "city", "state", "pincode"];
     controls.map(control => {
       event ? this.purchaseForm.get(control).setValidators(Validators.required) : this.purchaseForm.get(control).clearValidators()
+      if (control == "pincode") {
+        event ? this.purchaseForm.get(control).setValidators([Validators.required, Validators.minLength(6), Validators.pattern("[0-9]+")]) : this.purchaseForm.get(control).clearValidators()
+      }
       this.purchaseForm.get(control).updateValueAndValidity();
     });
   }
 
+  saveChanges() {
+    let formData: any = this.purchaseForm.value;
+    if (this.addPurchaseOrder) {
+      formData["particulars"] = formData["particulars"].map(particular => {
+        delete particular["id"];
+        delete particular["make"];
+        particular["vehicle_id"] = particular["vehicle_id"]["id"];
+        return particular;
+      });
+      if (formData["optionalAddress"]) {
+        formData["address"] = formData["address_l1"] + ",\n" + (String(formData["address_l2"]).trim() != "" ? (formData["address_l2"] + ",\n") : "") + formData["locality"] + " " + formData["city"] + ",\n" + formData["state"] + " - " + formData["pincode"]
+      }
+      delete formData["optionalAddress"];
+      delete formData["address_l1"];
+      delete formData["address_l2"];
+      delete formData["locality"];
+      delete formData["city"];
+      delete formData["state"];
+      delete formData["pincode"];
+      this._store.dispatch(new purchaseOrderActions.CreatePurchaseOrderAction({ purchase_order: formData }));
+    }
+  }
 }
