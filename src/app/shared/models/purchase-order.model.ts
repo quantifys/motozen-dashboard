@@ -39,6 +39,13 @@ export class PurchaseOrder {
     this.particulars = data.particulars ? data.particulars.map(particular => new PurchaseOrderParticulars(particular)) : [];
     this.user = data.user ? new User(data.user) : new User({});
   }
+
+  getTotal(): number {
+    if (this.status == 'processing') {
+      return Math.round(this.amount_paid + (this.amount_paid * this.amount_gst * 0.01));
+    }
+    return null
+  }
 }
 
 export class PurchaseOrderParticulars {

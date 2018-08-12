@@ -15,8 +15,12 @@
       <button class="mr-2" mat-stroked-button color="primary" (click)="confirmPurchaseOrder()">Confirm</button>
     </ng-container>
 
+    <ng-container *ngIf="loggedUser.role == 'store_dispatch' && purchaseOrder.status == 'processing'">
+      <a class="mr-2" mat-stroked-button color="primary" routerLink="../dispatch" [queryParams]="{id: purchaseOrder.id}">Dispatch ready</a>
+    </ng-container>
+
     <ng-container *ngIf="(loggedUser.role == 'distributor' || loggedUser.role == 'store_purchases') && purchaseOrder.status == 'can_modify'">
-      <a mat-stroked-button color="warn" routerLink="edit" [queryParams]="{id: purchaseOrder.id}">Edit</a>
+      <a mat-stroked-button color="warn" routerLink="../edit" [queryParams]="{id: purchaseOrder.id}">Edit</a>
     </ng-container>
 
     <ng-container *ngIf="loggedUser.role == 'distributor'">
@@ -57,9 +61,11 @@
           <h6 class="text-grey-dark font-weight-bold mb-3">
             <i class="fas fa-info-circle mr-2 fa-fw text-primary"></i>Amount details</h6>
           <h6 class="text-grey-dark">Amount Paid:</h6>
-          <h6 class="ml-3">{{purchaseOrder.amount_paid != null ? purchaseOrder.amount_paid : '-'}}</h6>
+          <h6 class="ml-3">{{purchaseOrder.amount_paid != null ? (purchaseOrder.amount_paid | currency: 'INR') : '-'}}</h6>
           <h6 class="text-grey-dark">Amount GST:</h6>
           <h6 class="ml-3">{{purchaseOrder.amount_gst != null ? (purchaseOrder.amount_gst + '%') : '-'}}</h6>
+          <h6 class="text-grey-dark">Amount Total:</h6>
+          <h6 class="ml-3">{{purchaseOrder.getTotal() != null ? (purchaseOrder.getTotal() | currency: 'INR') : '-'}}</h6>
         </div>
       </div>
     </div>
@@ -73,7 +79,7 @@
           <h6 class="text-grey-dark">Shipping Amount:</h6>
           <h6 class="ml-3">{{purchaseOrder.shipping_amt != null ? purchaseOrder.shipping_amt : '-'}}</h6>
           <h6 class="text-grey-dark">Shipping GST:</h6>
-          <h6 class="ml-3">{{purchaseOrder.shipping_gst != null ? purchaseOrder.shipping_gst : '-'}}</h6>
+          <h6 class="ml-3">{{purchaseOrder.shipping_gst != null ? (purchaseOrder.shipping_gst + '%') : '-'}}</h6>
           <h6 class="text-grey-dark">Shipping GSTN:</h6>
           <h6 class="ml-3">{{purchaseOrder.shipping_gstn ? purchaseOrder.shipping_gstn : '-'}}</h6>
           <h6 class="text-grey-dark">Shipping Date:</h6>

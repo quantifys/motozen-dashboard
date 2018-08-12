@@ -18,8 +18,10 @@ import { PurchaseOrderConfirmComponent } from '../purchase-order-confirm/purchas
 })
 export class PurchaseOrderDetailComponent implements OnInit, OnDestroy {
 
-  public purchaseOrder: PurchaseOrder = new PurchaseOrder({});
   private userSubscription$: Subscription = new Subscription();
+  private routerSubscription$: Subscription = new Subscription();
+  private purchaseOrderSubscription$: Subscription = new Subscription();
+  public purchaseOrder: PurchaseOrder = new PurchaseOrder({});
   public loggedUser: User = new User({});
 
   constructor(
@@ -30,7 +32,7 @@ export class PurchaseOrderDetailComponent implements OnInit, OnDestroy {
     private bottomSheet: MatBottomSheet
   ) {
     this.userSubscription$ = this._store.select(fromRoot.getLoggedUser).subscribe(user => this.loggedUser = user);
-    this._activatedRoute.queryParams.subscribe(params => {
+    this.routerSubscription$ = this._activatedRoute.queryParams.subscribe(params => {
       if (params["id"]) {
         this._store.dispatch(new purchaseOrderActions.FetchPurchaseOrderAction(params["id"]));
       } else {
@@ -40,11 +42,13 @@ export class PurchaseOrderDetailComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this._store.select(fromRoot.getCurrentPurchaseOrder).subscribe(purchaseOrder => this.purchaseOrder = purchaseOrder);
+    this.purchaseOrderSubscription$ = this._store.select(fromRoot.getCurrentPurchaseOrder).subscribe(purchaseOrder => this.purchaseOrder = purchaseOrder);
   }
 
   ngOnDestroy() {
     this.userSubscription$.unsubscribe();
+    this.routerSubscription$.unsubscribe();
+    this.purchaseOrderSubscription$.unsubscribe();
   }
 
   openPurchaseOrder() {

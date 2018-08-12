@@ -38,6 +38,9 @@ export class PurchaseOrdersComponent implements OnInit, OnDestroy {
           case "accounts":
             this._router.navigate(["dashboard", "purchase-orders"], { queryParams: { status: 'opened' } });
             break;
+          case "store_dispatch":
+            this._router.navigate(["dashboard", "purchase-orders"], { queryParams: { status: 'processing' } });
+            break;
           default:
             this._router.navigate(["404-not-authorized"]);
             break;

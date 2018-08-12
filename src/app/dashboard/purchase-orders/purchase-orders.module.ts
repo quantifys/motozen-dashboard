@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Routes, RouterModule } from '@angular/router';
-import { MatInputModule, MatFormFieldModule, MatDatepickerModule, MatNativeDateModule, MatSlideToggleModule, MatAutocompleteModule, MatButtonModule, MatTabsModule, MatPaginatorModule, MatBottomSheetModule } from '@angular/material';
+import { MatInputModule, MatFormFieldModule, MatDatepickerModule, MatNativeDateModule, MatSlideToggleModule, MatAutocompleteModule, MatButtonModule, MatTabsModule, MatPaginatorModule, MatBottomSheetModule, MatProgressSpinnerModule } from '@angular/material';
 import { NgSelectModule } from '@ng-select/ng-select';
 
 import { PurchaseOrdersComponent } from './purchase-orders.component';
@@ -13,6 +13,7 @@ import { PurchaseOrderParticularComponent } from './purchase-order-particular/pu
 import { PurchaseOrderFilterComponent } from './purchase-order-filter/purchase-order-filter.component';
 import { PurchaseOrderOpenComponent } from './purchase-order-open/purchase-order-open.component';
 import { PurchaseOrderConfirmComponent } from './purchase-order-confirm/purchase-order-confirm.component';
+import { PurchaseOrderDispatchComponent } from './purchase-order-dispatch/purchase-order-dispatch.component';
 
 const routes: Routes = [
   {
@@ -27,6 +28,13 @@ const routes: Routes = [
     component: PurchaseOrderDetailComponent,
     data: {
       title: "Purchase order details - Dashboard | Gemeni India"
+    }
+  },
+  {
+    path: 'dispatch',
+    component: PurchaseOrderDispatchComponent,
+    data: {
+      title: "Purchase order dispatch - Dashboard | Gemeni India"
     }
   },
   {
@@ -53,10 +61,11 @@ const routes: Routes = [
     MatTabsModule,
     MatPaginatorModule,
     MatBottomSheetModule,
+    MatProgressSpinnerModule,
     NgSelectModule,
     RouterModule.forChild(routes)
   ],
-  declarations: [PurchaseOrdersComponent, PurchaseOrderTableComponent, PurchaseOrderDetailComponent, PurchaseOrderEditComponent, PurchaseOrderParticularComponent, PurchaseOrderFilterComponent, PurchaseOrderOpenComponent, PurchaseOrderConfirmComponent],
+  declarations: [PurchaseOrdersComponent, PurchaseOrderTableComponent, PurchaseOrderDetailComponent, PurchaseOrderEditComponent, PurchaseOrderParticularComponent, PurchaseOrderFilterComponent, PurchaseOrderOpenComponent, PurchaseOrderConfirmComponent, PurchaseOrderDispatchComponent],
   entryComponents: [PurchaseOrderFilterComponent, PurchaseOrderOpenComponent, PurchaseOrderConfirmComponent]
 })
 export class PurchaseOrdersModule { }
