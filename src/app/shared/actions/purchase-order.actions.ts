@@ -25,6 +25,10 @@ export const OPEN_PURCHASE_ORDER_ACTION = '[PurchaseOrder] Open Purchase Order A
 export const OPEN_PURCHASE_ORDER_COMPLETE_ACTION = '[PurchaseOrder] Open Purchase Order Complete Action';
 export const OPEN_PURCHASE_ORDER_FAILED_ACTION = '[PurchaseOrder] Open Purchase Order Failed Action';
 
+export const CONFIRM_PURCHASE_ORDER_ACTION = '[PurchaseOrder] Confirm Purchase Order Action';
+export const CONFIRM_PURCHASE_ORDER_COMPLETE_ACTION = '[PurchaseOrder] Confirm Purchase Order Complete Action';
+export const CONFIRM_PURCHASE_ORDER_FAILED_ACTION = '[PurchaseOrder] Confirm Purchase Order Failed Action';
+
 export const FETCH_PURCHASE_ORDER_FORMDATA_ACTION = '[PurchaseOrder] Fetch Purchase Order Form Data Action';
 export const FETCH_PURCHASE_ORDER_FORMDATA_COMPLETE_ACTION = '[PurchaseOrder] Fetch Purchase Order Form Data Complete Action';
 export const FETCH_PURCHASE_ORDER_FORMDATA_FAILED_ACTION = '[PurchaseOrder] Fetch Purchase Order Form Data Failed Action';
@@ -156,6 +160,30 @@ export class OpenPurchaseOrderFailedAction implements Action {
   }
 }
 
+export class ConfirmPurchaseOrderAction implements Action {
+  readonly type = CONFIRM_PURCHASE_ORDER_ACTION;
+  constructor(public payload: any) { }
+}
+
+export class ConfirmPurchaseOrderCompleteAction implements Action {
+  readonly type = CONFIRM_PURCHASE_ORDER_COMPLETE_ACTION;
+  constructor(public payload: any) {
+    swal({
+      title: "Purchase Order Confirmed!",
+      type: "success",
+      timer: 3000,
+      showConfirmButton: false
+    });
+  }
+}
+
+export class ConfirmPurchaseOrderFailedAction implements Action {
+  readonly type = CONFIRM_PURCHASE_ORDER_FAILED_ACTION;
+  constructor(public payload: any) {
+    swal("There was an error.", payload, "error");
+  }
+}
+
 export class FetchPurchaseOrderFormDataAction implements Action {
   readonly type = FETCH_PURCHASE_ORDER_FORMDATA_ACTION;
 }
@@ -190,6 +218,9 @@ export type Actions =
   | OpenPurchaseOrderAction
   | OpenPurchaseOrderCompleteAction
   | OpenPurchaseOrderFailedAction
+  | ConfirmPurchaseOrderAction
+  | ConfirmPurchaseOrderCompleteAction
+  | ConfirmPurchaseOrderFailedAction
   | FetchPurchaseOrderFormDataAction
   | FetchPurchaseOrderFormDataCompleteAction
   | FetchPurchaseOrderFormDataFailedAction;

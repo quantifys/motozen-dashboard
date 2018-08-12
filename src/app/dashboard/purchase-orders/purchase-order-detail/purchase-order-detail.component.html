@@ -11,6 +11,10 @@
       <button class="mr-2" mat-stroked-button color="primary" (click)="openPurchaseOrder()">Open</button>
     </ng-container>
 
+    <ng-container *ngIf="loggedUser.role == 'accounts' && purchaseOrder.status == 'opened'">
+      <button class="mr-2" mat-stroked-button color="primary" (click)="confirmPurchaseOrder()">Confirm</button>
+    </ng-container>
+
     <ng-container *ngIf="(loggedUser.role == 'distributor' || loggedUser.role == 'store_purchases') && purchaseOrder.status == 'can_modify'">
       <a mat-stroked-button color="warn" routerLink="edit" [queryParams]="{id: purchaseOrder.id}">Edit</a>
     </ng-container>
@@ -55,7 +59,7 @@
           <h6 class="text-grey-dark">Amount Paid:</h6>
           <h6 class="ml-3">{{purchaseOrder.amount_paid != null ? purchaseOrder.amount_paid : '-'}}</h6>
           <h6 class="text-grey-dark">Amount GST:</h6>
-          <h6 class="ml-3">{{purchaseOrder.amount_gst != null ? purchaseOrder.amount_gst : '-'}}</h6>
+          <h6 class="ml-3">{{purchaseOrder.amount_gst != null ? (purchaseOrder.amount_gst + '%') : '-'}}</h6>
         </div>
       </div>
     </div>

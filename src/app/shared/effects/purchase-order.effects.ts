@@ -54,13 +54,21 @@ export class PurchaseOrderEffects {
     mergeMap((action: fromPurchaseOrder.DeletePurchaseOrderAction) => this._tokenService.delete(`purchase_orders/${action.payload}`)
       .pipe(map(response => new fromPurchaseOrder.DeletePurchaseOrderCompleteAction(response.json().message),
         catchError(error => of(new fromPurchaseOrder.DeletePurchaseOrderFailedAction(error.json().message)))))));
-
   
   @Effect()
   openPurchaseOrder$: Observable<Action> = this._action$.pipe(ofType(fromPurchaseOrder.OPEN_PURCHASE_ORDER_ACTION),
     mergeMap((action: fromPurchaseOrder.OpenPurchaseOrderAction) => this._tokenService.post(`purchase_orders/${this.purchaseOrder.id}/open`, null)
       .pipe(map(response => new fromPurchaseOrder.OpenPurchaseOrderCompleteAction(response.json().message),
         catchError(error => of(new fromPurchaseOrder.OpenPurchaseOrderFailedAction(error.json().message)))))));
+  
+  @Effect()
+  confirmPurchaseOrder$: Observable<Action> = this._action$.pipe(ofType(fromPurchaseOrder.CONFIRM_PURCHASE_ORDER_ACTION),
+    mergeMap((action: fromPurchaseOrder.ConfirmPurchaseOrderAction) => this._tokenService.post(`purchase_orders/${this.purchaseOrder.id}/processing`, action.payload)
+      .pipe(map(response => {
+        this._router.navigate(["dashboard", "purchase-orders"])
+        return new fromPurchaseOrder.ConfirmPurchaseOrderCompleteAction(response.json().message);
+      },
+        catchError(error => of(new fromPurchaseOrder.ConfirmPurchaseOrderFailedAction(error.json().message)))))));
 
   @Effect()
   updatePurchaseOrder$: Observable<Action> = this._action$.pipe(ofType(fromPurchaseOrder.UPDATE_PURCHASE_ORDER_ACTION),

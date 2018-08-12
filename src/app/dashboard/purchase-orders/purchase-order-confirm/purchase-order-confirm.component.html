@@ -1,0 +1,24 @@
+<div class="container-fluid mt-3">
+  <h5 class="text-center border-bottom mb-3 pb-2">Enter details</h5>
+  <form [formGroup]="confirmForm">
+    <div class="row">
+      <div class="col-lg-6">
+        <mat-form-field class="w-100">
+          <input type="number" matInput placeholder="Amount paid" formControlName="amount_paid">
+        </mat-form-field>
+      </div>
+      <div class="col-lg-6">
+        <mat-form-field class="w-100">
+          <input type="number" matInput placeholder="GST" formControlName="amount_gst">
+        </mat-form-field>
+      </div>
+    </div>
+    <mat-form-field class="w-100">
+      <input disabled type="number" matInput placeholder="Total amount" [value]="total">
+    </mat-form-field>
+  </form>
+  <div class="text-center mb-3">
+    <button mat-stroked-button color="warn" (click)="confirm()" [disabled]="confirmForm.invalid">Confirm</button>
+    <button class="ml-1" mat-button (click)="close()">Close</button>
+  </div>
+</div>
