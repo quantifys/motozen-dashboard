@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Routes, RouterModule } from '@angular/router';
 import { NgxPaginationModule } from 'ngx-pagination';
-import { MatInputModule, MatFormFieldModule, MatDatepickerModule, MatNativeDateModule, MatSlideToggleModule, MatAutocompleteModule, MatButtonModule } from '@angular/material';
+import { MatInputModule, MatFormFieldModule, MatDatepickerModule, MatNativeDateModule, MatSlideToggleModule, MatAutocompleteModule, MatButtonModule, MatTabsModule } from '@angular/material';
 import { NgSelectModule } from '@ng-select/ng-select';
 
 import { PurchaseOrdersComponent } from './purchase-orders.component';
@@ -49,6 +49,7 @@ const routes: Routes = [
     MatSlideToggleModule,
     MatAutocompleteModule,
     MatButtonModule,
+    MatTabsModule,
     NgSelectModule,
     RouterModule.forChild(routes)
   ],
