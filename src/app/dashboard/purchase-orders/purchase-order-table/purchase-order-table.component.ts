@@ -31,23 +31,13 @@ export class PurchaseOrderTableComponent implements OnInit, OnDestroy {
   ) {
     this.routerSubscription$ = this._activatedRoute.queryParams.subscribe(params => {
       this.queryParams = params;
-      let queryParams: any = {};
       if (params["page"]) {
         this.pageEvent.pageIndex = +params["page"] - 1;
-      } else {
-        this.pageEvent.pageIndex = 1;
-        queryParams["page"] = 1;
       }
       if (params["per_page"]) {
         this.pageEvent.pageSize = +params["per_page"];
-      } else {
-        this.pageEvent.pageSize = 10;
-        queryParams.per_page = 10;
       }
-      this._router.navigate(["dashboard", "purchase-orders"], {
-        queryParams: { ...params, ...queryParams }
-      });
-      if (params["page"] && params["per_page"]) {
+      if (params["page"] && params["per_page"] && params["status"]) {
         this.fetchPurchaseOrders();
       }
     });
@@ -90,6 +80,7 @@ export class PurchaseOrderTableComponent implements OnInit, OnDestroy {
 
   getPage(pageEvent: PageEvent) {
     this.pageEvent = pageEvent;
+    console.log("Getting page..");
     this._router.navigate(["dashboard", "purchase-orders"], {
       queryParams: {
         ...this.queryParams,

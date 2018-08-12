@@ -27,25 +27,36 @@ export class PurchaseOrdersComponent implements OnInit, OnDestroy {
   ) {
     this.userSubscription$ = this._store.select(fromRoot.getLoggedUser).subscribe(user => {
       this.loggedUser = user;
+      let newParams: any = {};
+      if (!this._activatedRoute.snapshot.queryParams["page"]) {
+        newParams["page"] = 1;
+      }
+      if (!this._activatedRoute.snapshot.queryParams["per_page"]) {
+        newParams["per_page"] = 10;
+      }
       if (!this._activatedRoute.snapshot.queryParams["status"]) {
         switch (user.role) {
           case "distributor":
-            this._router.navigate(["dashboard", "purchase-orders"], { queryParams: { status: 'can_modify' } });
+            newParams["status"] = "can_modify";
             break;
           case "store_purchases":
-            this._router.navigate(["dashboard", "purchase-orders"], { queryParams: { status: 'can_modify' } });
+            newParams["status"] = "can_modify";
             break;
           case "accounts":
-            this._router.navigate(["dashboard", "purchase-orders"], { queryParams: { status: 'opened' } });
+            newParams["status"] = "opened";
             break;
           case "store_dispatch":
-            this._router.navigate(["dashboard", "purchase-orders"], { queryParams: { status: 'processing' } });
+            newParams["status"] = "processing";
+            break;
+          case "store_dispatch":
+            newParams["status"] = "dispatch_ready";
             break;
           default:
             this._router.navigate(["404-not-authorized"]);
             break;
         }
       }
+      this._router.navigate(["dashboard", "purchase-orders"], { queryParams: { ...this._activatedRoute.snapshot.queryParams, ...newParams } });
     });
   }
 
