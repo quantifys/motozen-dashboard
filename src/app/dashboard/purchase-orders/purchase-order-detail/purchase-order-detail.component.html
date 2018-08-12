@@ -11,7 +11,7 @@
       <button class="mr-2" mat-stroked-button color="primary" (click)="openPurchaseOrder()">Open</button>
     </ng-container>
 
-    <ng-container *ngIf="loggedUser.role == 'distributor' || loggedUser.role == 'store_purchases'">
+    <ng-container *ngIf="(loggedUser.role == 'distributor' || loggedUser.role == 'store_purchases') && purchaseOrder.status == 'can_modify'">
       <a mat-stroked-button color="warn" routerLink="edit" [queryParams]="{id: purchaseOrder.id}">Edit</a>
     </ng-container>
 
