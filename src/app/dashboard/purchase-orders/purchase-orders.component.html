@@ -2,27 +2,23 @@
   <div class="header d-flex align-items-center">
     <h4 class="text-grey-dark m-0">Purchase Order List</h4>
     <div class="ml-auto">
-      <ng-container [formGroup]="filterForm">
-        <mat-form-field>
-          <input matInput [max]="startMax" [matDatepicker]="start" placeholder="START DATE" formControlName="start">
-          <mat-datepicker-toggle matSuffix [for]="start"></mat-datepicker-toggle>
-          <mat-datepicker #start></mat-datepicker>
-        </mat-form-field>
-        <mat-form-field class="ml-3">
-          <input matInput [min]="endMin" [max]="endMax" [matDatepicker]="end" placeholder="END DATE" formControlName="end">
-          <mat-datepicker-toggle matSuffix [for]="end"></mat-datepicker-toggle>
-          <mat-datepicker #end></mat-datepicker>
-        </mat-form-field>
-      </ng-container>
+      <button mat-stroked-button color="warn" (click)="openFilters()">Add Filters</button>
       <a class="btn btn-primary ml-3" routerLink="edit" [queryParams]="{type: 'new'}">
         <i class="far fa-credit-card mr-2"></i>Raise Purchase Order</a>
     </div>
   </div>
   <div class="content mt-4">
     <nav mat-tab-nav-bar>
-      <a mat-tab-link routerLink="../" [queryParams]="getQueryParams('can_modify')" routerLinkActive #new="routerLinkActive" [active]="new.isActive"><strong>New</strong></a>
-      <a mat-tab-link routerLink="../" [queryParams]="getQueryParams('is_valid')" routerLinkActive #ongoing="routerLinkActive" [active]="ongoing.isActive"><strong>Ongoing</strong></a>
-      <a mat-tab-link routerLink="../" [queryParams]="getQueryParams('closed')" routerLinkActive #closed="routerLinkActive" [active]="closed.isActive"><strong>Closed</strong></a>
+      <a mat-tab-link routerLink="../" [queryParams]="getQueryParams('can_modify')" routerLinkActive #new="routerLinkActive" [active]="new.isActive">
+        <strong>New</strong>
+      </a>
+      <a mat-tab-link routerLink="../" [queryParams]="getQueryParams('is_valid')" routerLinkActive #ongoing="routerLinkActive"
+        [active]="ongoing.isActive">
+        <strong>Ongoing</strong>
+      </a>
+      <a mat-tab-link routerLink="../" [queryParams]="getQueryParams('closed')" routerLinkActive #closed="routerLinkActive" [active]="closed.isActive">
+        <strong>Closed</strong>
+      </a>
     </nav>
     <purchase-order-table></purchase-order-table>
   </div>

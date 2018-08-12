@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Routes, RouterModule } from '@angular/router';
-import { MatInputModule, MatFormFieldModule, MatDatepickerModule, MatNativeDateModule, MatSlideToggleModule, MatAutocompleteModule, MatButtonModule, MatTabsModule, MatPaginatorModule } from '@angular/material';
+import { MatInputModule, MatFormFieldModule, MatDatepickerModule, MatNativeDateModule, MatSlideToggleModule, MatAutocompleteModule, MatButtonModule, MatTabsModule, MatPaginatorModule, MatBottomSheetModule } from '@angular/material';
 import { NgSelectModule } from '@ng-select/ng-select';
 
 import { PurchaseOrdersComponent } from './purchase-orders.component';
@@ -10,6 +10,7 @@ import { PurchaseOrderTableComponent } from './purchase-order-table/purchase-ord
 import { PurchaseOrderDetailComponent } from './purchase-order-detail/purchase-order-detail.component';
 import { PurchaseOrderEditComponent } from './purchase-order-edit/purchase-order-edit.component';
 import { PurchaseOrderParticularComponent } from './purchase-order-particular/purchase-order-particular.component';
+import { PurchaseOrderFilterComponent } from './purchase-order-filter/purchase-order-filter.component';
 
 const routes: Routes = [
   {
@@ -49,9 +50,11 @@ const routes: Routes = [
     MatButtonModule,
     MatTabsModule,
     MatPaginatorModule,
+    MatBottomSheetModule,
     NgSelectModule,
     RouterModule.forChild(routes)
   ],
-  declarations: [PurchaseOrdersComponent, PurchaseOrderTableComponent, PurchaseOrderDetailComponent, PurchaseOrderEditComponent, PurchaseOrderParticularComponent]
+  declarations: [PurchaseOrdersComponent, PurchaseOrderTableComponent, PurchaseOrderDetailComponent, PurchaseOrderEditComponent, PurchaseOrderParticularComponent, PurchaseOrderFilterComponent],
+  entryComponents: [PurchaseOrderFilterComponent]
 })
 export class PurchaseOrdersModule { }
