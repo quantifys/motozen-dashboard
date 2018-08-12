@@ -66,7 +66,7 @@ export class PurchaseOrderTableComponent implements OnInit, OnDestroy {
 
   fetchPurchaseOrders() {
     this.loading = true;
-    // this._store.dispatch(new purchaseOrderActions.FetchAllPurchaseOrdersAction(this.queryParams));
+    this._store.dispatch(new purchaseOrderActions.FetchAllPurchaseOrdersAction(this.queryParams));
   }
 
   deletePurchaseOrder(id: number) {
