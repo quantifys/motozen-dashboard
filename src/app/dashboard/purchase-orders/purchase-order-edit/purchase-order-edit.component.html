@@ -4,59 +4,52 @@
       <i class="fas fa-arrow-left mr-2"></i>Go back</a>
     <h4 class="text-grey-dark m-0">{{addPurchaseOrder ? 'Raise purchase order' : 'Edit purchase order'}}</h4>
   </div>
-
   <div class="row justify-content-center">
-    <div class="xol-md-12 col-lg-10">
+    <div class="col-md-12 col-lg-10">
       <form [formGroup]="purchaseForm" autocomplete="off">
         <div class="card mt-5">
           <div class="card-body">
             <h5 class="text-grey-dark font-weight-bold mb-0">Particulars information</h5>
           </div>
-          <div class="table-container">
-            <div class="table-responsive">
-              <table class="table table-hover w-100 rounded table-striped m-0">
-                <thead>
-                  <tr>
-                    <th>Make</th>
-                    <th>Model</th>
-                    <th>Quantity</th>
-                    <th></th>
-                  </tr>
-                </thead>
-                <tbody formArrayName="particulars">
-                  <tr purchase-order-particular *ngFor="let particular of particulars.controls; let i=index" [formGroupName]="i" [group]="particular">
-                    <td>
-                      <button *ngIf="particulars.length > 1" (click)="removeVehicle(i)" mat-icon-button color="warn">
-                        <i class="fas fa-trash-alt"></i>
-                      </button>
-                    </td>
-                  </tr>
-                </tbody>
-                <tfoot>
-                  <tr>
-                    <td colspan="2"></td>
-                    <td class="text-right">
-                      <button mat-button color="warn" (click)="addVehicle()">
-                        <strong>ADD PARTICULAR</strong>
-                      </button>
-                    </td>
-                    <td></td>
-                  </tr>
-                </tfoot>
-              </table>
+          <div class="container-fluid">
+            <div class="row">
+              <div class="text-muted font-weight-bold col-lg-3">Make</div>
+              <div class="text-muted font-weight-bold col-lg-4">Model</div>
+              <div class="text-muted font-weight-bold col-lg-3">Quantity</div>
+              <div class="text-muted font-weight-bold col-lg-2"></div>
+            </div>
+            <ng-container formArrayName="particulars">
+              <div class="row" purchase-order-particular *ngFor="let particular of particulars.controls; let i=index" [formGroupName]="i"
+                [group]="particular">
+                <div class="col-lg-2">
+                  <button *ngIf="particulars.length > 1" (click)="removeVehicle(i)" mat-icon-button color="warn">
+                    <i class="fas fa-trash-alt"></i>
+                  </button>
+                </div>
+              </div>
+            </ng-container>
+            <div class="mb-4 text-right">
+              <button class="ml-auto" mat-button color="warn" (click)="addVehicle()">
+                <strong>ADD PARTICULAR</strong>
+              </button>
             </div>
           </div>
         </div>
         <div class="card mt-4">
           <div class="card-body">
             <h5 class="text-grey-dark font-weight-bold mb-3">Purchase order information</h5>
-            <div class="w-100 text-right">
+            <div class="w-100 text-right" *ngIf="addPurchaseOrder">
               <mat-slide-toggle color="warn" formControlName="optionalAddress" (ngModelChange)="addressValidate($event)">
                 <strong class="text-secondary">Provide optional address</strong>
               </mat-slide-toggle>
             </div>
             <div class="container-fluid">
               <div class="row">
+                <div class="col-lg-12" *ngIf="!addPurchaseOrder">
+                  <mat-form-field class="w-100">
+                    <textarea matInput placeholder="Address" formControlName="address" rows="5"></textarea>
+                  </mat-form-field>
+                </div>
                 <ng-container *ngIf="addPurchaseOrder && optionalAddress.value">
                   <div class="col-lg-6">
                     <mat-form-field class="w-100">
@@ -79,13 +72,8 @@
                     </mat-form-field>
                   </div>
                   <div class="col-lg-6">
-                    <mat-form-field class="w-100">
-                      <mat-select placeholder="State" formControlName="state">
-                        <mat-option *ngFor="let state of states" [value]="state.name">
-                          {{state.name}}
-                        </mat-option>
-                      </mat-select>
-                    </mat-form-field>
+                    <ng-select aria-autocomplete="off" autocomplete="off" id="state" [items]="states" bindLabel="name" bindValue="name" formControlName="state"
+                      placeholder="Select state"></ng-select>
                   </div>
                   <div class="col-lg-6">
                     <mat-form-field class="w-100">

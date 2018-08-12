@@ -91,16 +91,6 @@ form {
 
 .input-group,
 .form-group {
-  .ng-select-container {
-    padding: 1.5rem .4rem;
-    border-width: 2px;
-    .ng-input {
-      input {
-        cursor: text !important;
-      }
-      top: 25% !important;
-    }
-  }
   .form-control {
     border-width: 2px;
     padding: .8rem 1rem;
@@ -115,10 +105,6 @@ form {
     background-color: transparent;
     color: $grey-dark;
   }
-}
-
-.ng-select.ng-select-focused:not(.ng-select-opened)>.ng-select-container {
-  border-color: $primary;
 }
 
 ::placeholder {

@@ -1,28 +1,14 @@
 <ng-container [formGroup]="particularForm">
-  <td>
-    <mat-form-field class="w-100">
-      <input placeholder="Select Vehicle Make" matInput [matAutocomplete]="makeAuto">
-      <mat-autocomplete #makeAuto="matAutocomplete" (optionSelected)="optionSelected($event, 'make')">
-        <mat-option *ngFor="let brand of brands" [value]="brand">
-          {{brand}}
-        </mat-option>
-      </mat-autocomplete>
-    </mat-form-field>
-  </td>
-  <td>
-    <mat-form-field class="w-100">
-      <input placeholder="Select Vehicle Model" [disabled]="make.invalid" id="model" matInput [matAutocomplete]="modelAuto">
-      <mat-autocomplete #modelAuto="matAutocomplete" (optionSelected)="optionSelected($event, 'vehicle_id')" [displayWith]="displayFn">
-        <mat-option *ngFor="let car of getModels()" [value]="car">
-          {{car.model}} - {{car.variant}}
-        </mat-option>
-      </mat-autocomplete>
-    </mat-form-field>
-  </td>
-  <td>
+  <div class="col-lg-3">
+    <ng-select id="make" [items]="brands" formControlName="make" placeholder="Select Make"></ng-select>
+  </div>
+  <div class="col-lg-4">
+    <ng-select id="make" [items]="getModels()" bindLabel="model" bindValue="id" formControlName="vehicle_id" placeholder="Select Model"></ng-select>
+  </div>
+  <div class="col-lg-3 d-flex align-items-end">
     <mat-form-field class="w-100">
       <input matInput placeholder="Quantity" formControlName="quantity">
     </mat-form-field>
-  </td>
+  </div>
   <ng-content></ng-content>
 </ng-container>

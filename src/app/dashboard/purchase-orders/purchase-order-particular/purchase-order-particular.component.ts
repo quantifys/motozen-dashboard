@@ -13,8 +13,9 @@ import { Vehicle } from '../../../shared/models';
 export class PurchaseOrderParticularComponent implements OnInit {
 
   @Input('group') particularForm: FormGroup;
-  public formdata: any;
+  public formData: any;
   public brands: string[] = [];
+  public models: string[] = [];
 
   constructor(
     private _store: Store<fromRoot.State>
@@ -23,7 +24,7 @@ export class PurchaseOrderParticularComponent implements OnInit {
   ngOnInit() {
     this._store.select(fromRoot.getPurchaseOrderFormdata).subscribe(data => {
       if (data) {
-        this.formdata = data;
+        this.formData = data;
         this.brands = [];
         for (var make in data["vehicle_makes"]) {
           this.brands.push(make);
@@ -36,14 +37,18 @@ export class PurchaseOrderParticularComponent implements OnInit {
     return this.particularForm.get('make') as FormControl;
   }
 
+  get vehicle_id(): FormControl {
+    return this.particularForm.get('vehicle_id') as FormControl;
+  }
+
   optionSelected(event, type) {
     this.particularForm.get(type).markAsDirty();
     this.particularForm.get(type).patchValue(event.option.value);
   }
 
   getModels(): any[] {
-    if (this.formdata) {
-      return this.formdata.vehicle_makes[this.make.value];
+    if (this.formData) {
+      return this.formData.vehicle_makes[this.make.value];
     }
     return null;
   }
