@@ -14,6 +14,7 @@ import { PurchaseOrderFilterComponent } from './purchase-order-filter/purchase-o
 import { PurchaseOrderOpenComponent } from './purchase-order-open/purchase-order-open.component';
 import { PurchaseOrderConfirmComponent } from './purchase-order-confirm/purchase-order-confirm.component';
 import { PurchaseOrderDispatchComponent } from './purchase-order-dispatch/purchase-order-dispatch.component';
+import { PurchaseOrderCloseComponent } from './purchase-order-close/purchase-order-close.component';
 
 const routes: Routes = [
   {
@@ -65,7 +66,7 @@ const routes: Routes = [
     NgSelectModule,
     RouterModule.forChild(routes)
   ],
-  declarations: [PurchaseOrdersComponent, PurchaseOrderTableComponent, PurchaseOrderDetailComponent, PurchaseOrderEditComponent, PurchaseOrderParticularComponent, PurchaseOrderFilterComponent, PurchaseOrderOpenComponent, PurchaseOrderConfirmComponent, PurchaseOrderDispatchComponent],
-  entryComponents: [PurchaseOrderFilterComponent, PurchaseOrderOpenComponent, PurchaseOrderConfirmComponent]
+  declarations: [PurchaseOrdersComponent, PurchaseOrderTableComponent, PurchaseOrderDetailComponent, PurchaseOrderEditComponent, PurchaseOrderParticularComponent, PurchaseOrderFilterComponent, PurchaseOrderOpenComponent, PurchaseOrderConfirmComponent, PurchaseOrderDispatchComponent, PurchaseOrderCloseComponent],
+  entryComponents: [PurchaseOrderFilterComponent, PurchaseOrderOpenComponent, PurchaseOrderConfirmComponent, PurchaseOrderCloseComponent]
 })
 export class PurchaseOrdersModule { }

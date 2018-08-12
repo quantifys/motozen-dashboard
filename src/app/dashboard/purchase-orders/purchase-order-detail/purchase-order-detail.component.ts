@@ -10,6 +10,7 @@ import * as purchaseOrderActions from '../../../shared/actions/purchase-order.ac
 import { PurchaseOrder, User } from '../../../shared/models';
 import { PurchaseOrderOpenComponent } from '../purchase-order-open/purchase-order-open.component';
 import { PurchaseOrderConfirmComponent } from '../purchase-order-confirm/purchase-order-confirm.component';
+import { PurchaseOrderCloseComponent } from '../purchase-order-close/purchase-order-close.component';
 
 @Component({
   selector: 'app-purchase-order-detail',
@@ -57,5 +58,9 @@ export class PurchaseOrderDetailComponent implements OnInit, OnDestroy {
 
   confirmPurchaseOrder() {
     this.bottomSheet.open(PurchaseOrderConfirmComponent);
+  }
+  
+  closePurchaseOrder() {
+    this.bottomSheet.open(PurchaseOrderCloseComponent);
   }
 }

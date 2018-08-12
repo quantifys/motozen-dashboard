@@ -41,10 +41,11 @@ export class PurchaseOrder {
   }
 
   getTotal(): number {
-    if (this.status == 'processing') {
-      return Math.round(this.amount_paid + (this.amount_paid * this.amount_gst * 0.01));
-    }
-    return null
+    return Math.round(this.amount_paid + (this.amount_paid * this.amount_gst * 0.01));
+  }
+
+  getShippingTotal(): number {
+    return Math.round(this.shipping_amt + (this.shipping_amt * this.shipping_gst * 0.01));
   }
 }
 

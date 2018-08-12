@@ -33,6 +33,10 @@ export const DISPATCH_PURCHASE_ORDER_ACTION = '[PurchaseOrder] Dispatch Purchase
 export const DISPATCH_PURCHASE_ORDER_COMPLETE_ACTION = '[PurchaseOrder] Dispatch Purchase Order Complete Action';
 export const DISPATCH_PURCHASE_ORDER_FAILED_ACTION = '[PurchaseOrder] Dispatch Purchase Order Failed Action';
 
+export const CLOSE_PURCHASE_ORDER_ACTION = '[PurchaseOrder] Close Purchase Order Action';
+export const CLOSE_PURCHASE_ORDER_COMPLETE_ACTION = '[PurchaseOrder] Close Purchase Order Complete Action';
+export const CLOSE_PURCHASE_ORDER_FAILED_ACTION = '[PurchaseOrder] Close Purchase Order Failed Action';
+
 export const FETCH_PURCHASE_ORDER_FORMDATA_ACTION = '[PurchaseOrder] Fetch Purchase Order Form Data Action';
 export const FETCH_PURCHASE_ORDER_FORMDATA_COMPLETE_ACTION = '[PurchaseOrder] Fetch Purchase Order Form Data Complete Action';
 export const FETCH_PURCHASE_ORDER_FORMDATA_FAILED_ACTION = '[PurchaseOrder] Fetch Purchase Order Form Data Failed Action';
@@ -212,6 +216,30 @@ export class DispatchPurchaseOrderFailedAction implements Action {
   }
 }
 
+export class ClosePurchaseOrderAction implements Action {
+  readonly type = CLOSE_PURCHASE_ORDER_ACTION;
+  constructor(public payload: any) { }
+}
+
+export class ClosePurchaseOrderCompleteAction implements Action {
+  readonly type = CLOSE_PURCHASE_ORDER_COMPLETE_ACTION;
+  constructor(public payload: any) {
+    swal({
+      title: "Purchase Order Closed!",
+      type: "success",
+      timer: 3000,
+      showConfirmButton: false
+    });
+  }
+}
+
+export class ClosePurchaseOrderFailedAction implements Action {
+  readonly type = CLOSE_PURCHASE_ORDER_FAILED_ACTION;
+  constructor(public payload: any) {
+    swal("There was an error.", payload, "error");
+  }
+}
+
 export class FetchPurchaseOrderFormDataAction implements Action {
   readonly type = FETCH_PURCHASE_ORDER_FORMDATA_ACTION;
 }
@@ -252,6 +280,9 @@ export type Actions =
   | DispatchPurchaseOrderAction
   | DispatchPurchaseOrderCompleteAction
   | DispatchPurchaseOrderFailedAction
+  | ClosePurchaseOrderAction
+  | ClosePurchaseOrderCompleteAction
+  | ClosePurchaseOrderFailedAction
   | FetchPurchaseOrderFormDataAction
   | FetchPurchaseOrderFormDataCompleteAction
   | FetchPurchaseOrderFormDataFailedAction;
