@@ -1,13 +1,14 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription, BehaviorSubject } from 'rxjs';
-import { PaginationInstance } from 'ngx-pagination';
 import { Store } from '@ngrx/store';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { PageEvent } from '@angular/material';
+import swal from 'sweetalert2';
+import { debounceTime } from 'rxjs/operators';
 
 import * as fromRoot from '../../../shared/reducers';
 import * as purchaseOrderActions from '../../../shared/actions/purchase-order.actions';
-import { PurchaseOrder, PageData } from '../../../shared/models';
-import swal from 'sweetalert2';
+import { PurchaseOrder } from '../../../shared/models';
 
 @Component({
   selector: 'purchase-order-table',
@@ -19,26 +20,35 @@ export class PurchaseOrderTableComponent implements OnInit, OnDestroy {
   private routerSubscription$: Subscription = new Subscription();
   public queryParams: any = {};
   public purchaseOrders: PurchaseOrder[] = [];
-  public pageData: BehaviorSubject<PageData> = new BehaviorSubject(new PageData({}));
   public loading: boolean = false;
-  public config: PaginationInstance = {
-    id: 'certificatesPaginate',
-    itemsPerPage: this.pageData.value.per_page,
-    currentPage: 1,
-    totalItems: this.purchaseOrders.length
-  };
+  public pageEvent: PageEvent = new PageEvent();
 
   constructor(
     private _store: Store<fromRoot.State>,
-    private _activatedRoute: ActivatedRoute
+    private _activatedRoute: ActivatedRoute,
+    private _router: Router
   ) {
-    this.pageData.subscribe(data => {
-      this.config.itemsPerPage = data.per_page;
-      this.config.totalItems = data.total;
-    });
-    this.routerSubscription$ = this._activatedRoute.queryParams.subscribe(params => {
+    this.routerSubscription$ = this._activatedRoute.queryParams.pipe(debounceTime(400)).subscribe(params => {
       this.queryParams = params;
-      this.fetchPurchaseOrders();
+      let queryParams: any = {};
+      if (params["page"]) {
+        this.pageEvent.pageIndex = +params["page"] - 1;
+      } else {
+        this.pageEvent.pageIndex = 1;
+        queryParams["page"] = 1;
+      }
+      if (params["per_page"]) {
+        this.pageEvent.pageSize = +params["per_page"];
+      } else {
+        this.pageEvent.pageSize = 10;
+        queryParams.per_page = 10;
+      }
+      this._router.navigate(["dashboard", "purchase-orders"], {
+        queryParams: { ...params, ...queryParams }
+      });
+      if (params["page"] && params["per_page"]) {
+        this.fetchPurchaseOrders();
+      }
     });
   }
 
@@ -47,7 +57,7 @@ export class PurchaseOrderTableComponent implements OnInit, OnDestroy {
       this.loading = false;
       this.purchaseOrders = purchaseOrders;
     });
-    this._store.select(fromRoot.getPurchaseOrderPageStatus).subscribe(pageData => this.pageData.next(pageData));
+    this._store.select(fromRoot.getPurchaseOrderPageStatus).subscribe(pageData => this.pageEvent.length = pageData.total);
   }
 
   ngOnDestroy() {
@@ -55,14 +65,8 @@ export class PurchaseOrderTableComponent implements OnInit, OnDestroy {
   }
 
   fetchPurchaseOrders() {
-    let formData: any = {
-      status: this.queryParams["status"] ? this.queryParams["status"] : null,
-      start: this.queryParams["start_date"] ? this.queryParams["start_date"] : null,
-      end: this.queryParams["end_date"] ? this.queryParams["end_date"] : null,
-      page: this.config.currentPage,
-      per_page: 15
-    };
-    this._store.dispatch(new purchaseOrderActions.FetchAllPurchaseOrdersAction(formData));
+    this.loading = true;
+    // this._store.dispatch(new purchaseOrderActions.FetchAllPurchaseOrdersAction(this.queryParams));
   }
 
   deletePurchaseOrder(id: number) {
@@ -81,9 +85,15 @@ export class PurchaseOrderTableComponent implements OnInit, OnDestroy {
     });
   }
 
-  getPage(page: number) {
-    this.config.currentPage = page;
-    this.fetchPurchaseOrders();
+  getPage(pageEvent: PageEvent) {
+    this.pageEvent = pageEvent;
+    this._router.navigate(["dashboard", "purchase-orders"], {
+      queryParams: {
+        ...this.queryParams,
+        page: pageEvent.pageIndex + 1,
+        per_page: pageEvent.pageSize
+      }
+    });
   }
 
 }

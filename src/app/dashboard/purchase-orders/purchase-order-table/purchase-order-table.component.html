@@ -12,8 +12,8 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let order of purchaseOrders | paginate: config; let i = index">
-        <td>{{(i + 1) + (config.currentPage * config.itemsPerPage) - config.itemsPerPage}}</td>
+      <tr *ngFor="let order of purchaseOrders; let i = index">
+        <td>{{i + 1}}</td>
         <td>{{order.serial_no}}</td>
         <td>{{order.user.name}}</td>
         <td>{{order.created_at | date: 'mediumDate'}}</td>
@@ -33,13 +33,11 @@
       </tr>
     </tbody>
   </table>
-  <div class="alert alert-primary text-center rounded-0 border-0 text-light" *ngIf="purchaseOrders.length == 0 && !loading">
+  <div class="alert alert-primary text-center rounded-0 border-0 text-light mb-0" *ngIf="purchaseOrders.length == 0 && !loading">
     <strong>No purchase orders found!</strong>
   </div>
-  <div class="alert alert-primary text-center rounded-0 border-0 text-light" *ngIf="loading">
+  <div class="alert alert-primary text-center rounded-0 border-0 text-light mb-0" *ngIf="loading">
     <strong>Loading...</strong>
   </div>
-  <div class="d-flex justify-content-end mt-3">
-    <pagination-controls (pageChange)="getPage($event)" [id]="config.id"></pagination-controls>
-  </div>
+  <mat-paginator [length]="pageEvent.length" [pageSize]="pageEvent.pageSize" [pageIndex]="pageEvent.pageIndex" [pageSizeOptions]="[5, 10, 25, 100]" (page)="getPage($event)"></mat-paginator>
 </div>
