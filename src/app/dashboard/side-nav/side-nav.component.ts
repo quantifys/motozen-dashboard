@@ -70,7 +70,7 @@ export const ROUTES: RouteInfo[] = [
     title: 'Purchase Orders',
     type: 'link',
     icontype: 'fa-credit-card',
-    users: ['distributor', 'store_purchases']
+    users: ['distributor', 'store_purchases', 'accounts', 'store_dispatch', 'store_logistics']
   }
 ];
 
