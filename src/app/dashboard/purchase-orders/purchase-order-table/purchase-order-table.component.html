@@ -8,28 +8,20 @@
         <th>RAISED ON</th>
         <th>QUANTITY</th>
         <th>AMOUNT PAID</th>
-        <th>ACTIONS</th>
       </tr>
     </thead>
     <tbody>
       <tr *ngFor="let order of purchaseOrders; let i = index">
-        <td>{{i + 1}}</td>
-        <td>{{order.serial_no}}</td>
+        <td>{{(i + 1) + ((pageEvent.pageIndex + 1) * pageEvent.pageSize) - pageEvent.pageSize}}</td>
+        <td>
+          <a routerLink="view" class="text-danger" [queryParams]="{id: order.id}">
+            {{order.serial_no}}
+          </a>
+        </td>
         <td>{{order.user.name}}</td>
         <td>{{order.created_at | date: 'mediumDate'}}</td>
         <td>{{order.total_quantity}}</td>
         <td>{{order.amount_paid ? order.amount_paid : '-'}}</td>
-        <td>
-          <a class="action border-0 btn btn-outline-primary btn-sm" title="More info" routerLink="view" [queryParams]="{id: order.id}">
-            <i class="fas fa-fw fa-info"></i>
-          </a>
-          <a class="action border-0 btn btn-outline-warning btn-sm" title="Update" routerLink="edit" [queryParams]="{id: order.id}">
-            <i class="fas fa-fw fa-wrench"></i>
-          </a>
-          <button class="action border-0 btn btn-outline-danger btn-sm" title="Delete" (click)="deletePurchaseOrder(order.id)">
-            <i class="fas fa-fw fa-trash-alt"></i>
-          </button>
-        </td>
       </tr>
     </tbody>
   </table>
@@ -39,5 +31,6 @@
   <div class="alert alert-primary text-center rounded-0 border-0 text-light mb-0" *ngIf="loading">
     <strong>Loading...</strong>
   </div>
-  <mat-paginator [length]="pageEvent.length" [pageSize]="pageEvent.pageSize" [pageIndex]="pageEvent.pageIndex" [pageSizeOptions]="[5, 10, 25, 100]" (page)="getPage($event)"></mat-paginator>
+  <mat-paginator [length]="pageEvent.length" [pageSize]="pageEvent.pageSize" [pageIndex]="pageEvent.pageIndex" [pageSizeOptions]="[5, 10, 25, 100]"
+    (page)="getPage($event)"></mat-paginator>
 </div>

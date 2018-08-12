@@ -4,11 +4,10 @@ import { Store } from '@ngrx/store';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PageEvent } from '@angular/material';
 import swal from 'sweetalert2';
-import { debounceTime } from 'rxjs/operators';
 
 import * as fromRoot from '../../../shared/reducers';
 import * as purchaseOrderActions from '../../../shared/actions/purchase-order.actions';
-import { PurchaseOrder } from '../../../shared/models';
+import { PurchaseOrder, User } from '../../../shared/models';
 
 @Component({
   selector: 'purchase-order-table',
@@ -18,6 +17,8 @@ import { PurchaseOrder } from '../../../shared/models';
 export class PurchaseOrderTableComponent implements OnInit, OnDestroy {
 
   private routerSubscription$: Subscription = new Subscription();
+  private pageSubscription$: Subscription = new Subscription();
+  private purchaseOrderSubscription$: Subscription = new Subscription();
   public queryParams: any = {};
   public purchaseOrders: PurchaseOrder[] = [];
   public loading: boolean = false;
@@ -28,7 +29,7 @@ export class PurchaseOrderTableComponent implements OnInit, OnDestroy {
     private _activatedRoute: ActivatedRoute,
     private _router: Router
   ) {
-    this.routerSubscription$ = this._activatedRoute.queryParams.pipe(debounceTime(400)).subscribe(params => {
+    this.routerSubscription$ = this._activatedRoute.queryParams.subscribe(params => {
       this.queryParams = params;
       let queryParams: any = {};
       if (params["page"]) {
@@ -53,15 +54,17 @@ export class PurchaseOrderTableComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this._store.select(fromRoot.getAllPurchaseOrders).subscribe(purchaseOrders => {
+    this.purchaseOrderSubscription$ = this._store.select(fromRoot.getAllPurchaseOrders).subscribe(purchaseOrders => {
       this.loading = false;
       this.purchaseOrders = purchaseOrders;
     });
-    this._store.select(fromRoot.getPurchaseOrderPageStatus).subscribe(pageData => this.pageEvent.length = pageData.total);
+    this.pageSubscription$ = this._store.select(fromRoot.getPurchaseOrderPageStatus).subscribe(pageData => this.pageEvent.length = pageData.total);
   }
 
   ngOnDestroy() {
     this.routerSubscription$.unsubscribe();
+    this.purchaseOrderSubscription$.unsubscribe();
+    this.pageSubscription$.unsubscribe();
   }
 
   fetchPurchaseOrders() {

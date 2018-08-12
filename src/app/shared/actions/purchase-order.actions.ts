@@ -21,6 +21,10 @@ export const DELETE_PURCHASE_ORDER_ACTION = '[PurchaseOrder] Delete Purchase Ord
 export const DELETE_PURCHASE_ORDER_COMPLETE_ACTION = '[PurchaseOrder] Delete Purchase Order Complete Action';
 export const DELETE_PURCHASE_ORDER_FAILED_ACTION = '[PurchaseOrder] Delete Purchase Order Failed Action';
 
+export const OPEN_PURCHASE_ORDER_ACTION = '[PurchaseOrder] Open Purchase Order Action';
+export const OPEN_PURCHASE_ORDER_COMPLETE_ACTION = '[PurchaseOrder] Open Purchase Order Complete Action';
+export const OPEN_PURCHASE_ORDER_FAILED_ACTION = '[PurchaseOrder] Open Purchase Order Failed Action';
+
 export const FETCH_PURCHASE_ORDER_FORMDATA_ACTION = '[PurchaseOrder] Fetch Purchase Order Form Data Action';
 export const FETCH_PURCHASE_ORDER_FORMDATA_COMPLETE_ACTION = '[PurchaseOrder] Fetch Purchase Order Form Data Complete Action';
 export const FETCH_PURCHASE_ORDER_FORMDATA_FAILED_ACTION = '[PurchaseOrder] Fetch Purchase Order Form Data Failed Action';
@@ -129,6 +133,29 @@ export class DeletePurchaseOrderFailedAction implements Action {
   }
 }
 
+export class OpenPurchaseOrderAction implements Action {
+  readonly type = OPEN_PURCHASE_ORDER_ACTION;
+}
+
+export class OpenPurchaseOrderCompleteAction implements Action {
+  readonly type = OPEN_PURCHASE_ORDER_COMPLETE_ACTION;
+  constructor(public payload: any) {
+    swal({
+      title: "Purchase Order Opened!",
+      type: "success",
+      timer: 3000,
+      showConfirmButton: false
+    });
+  }
+}
+
+export class OpenPurchaseOrderFailedAction implements Action {
+  readonly type = OPEN_PURCHASE_ORDER_FAILED_ACTION;
+  constructor(public payload: any) {
+    swal("There was an error.", payload, "error");
+  }
+}
+
 export class FetchPurchaseOrderFormDataAction implements Action {
   readonly type = FETCH_PURCHASE_ORDER_FORMDATA_ACTION;
 }
@@ -160,6 +187,9 @@ export type Actions =
   | DeletePurchaseOrderAction
   | DeletePurchaseOrderCompleteAction
   | DeletePurchaseOrderFailedAction
+  | OpenPurchaseOrderAction
+  | OpenPurchaseOrderCompleteAction
+  | OpenPurchaseOrderFailedAction
   | FetchPurchaseOrderFormDataAction
   | FetchPurchaseOrderFormDataCompleteAction
   | FetchPurchaseOrderFormDataFailedAction;

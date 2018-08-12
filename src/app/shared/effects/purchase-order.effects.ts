@@ -2,19 +2,27 @@ import { Router } from '@angular/router';
 import { Angular2TokenService } from 'angular2-token';
 import { Effect, Actions, ofType } from '@ngrx/effects';
 import { Injectable } from '@angular/core';
-import { Action } from '@ngrx/store';
+import { Action, Store } from '@ngrx/store';
 import { Observable, of } from 'rxjs';
 import { catchError, map, mergeMap } from 'rxjs/operators';
 
+import * as fromRoot from '../../shared/reducers';
 import * as fromPurchaseOrder from '../actions/purchase-order.actions';
+import { PurchaseOrder } from '../models';
 
 @Injectable()
 export class PurchaseOrderEffects {
+
+  private purchaseOrder: PurchaseOrder = new PurchaseOrder({});
+
   constructor(
+    private _store: Store<fromRoot.State>,
     private _action$: Actions,
     private _tokenService: Angular2TokenService,
     private _router: Router
-  ) { }
+  ) {
+    this._store.select(fromRoot.getCurrentPurchaseOrder).subscribe(order => this.purchaseOrder = order);
+  }
 
   @Effect()
   fetchPurchaseOrders$: Observable<Action> = this._action$.pipe(ofType(fromPurchaseOrder.FETCH_ALL_PURCHASE_ORDERS_ACTION),
@@ -46,6 +54,13 @@ export class PurchaseOrderEffects {
     mergeMap((action: fromPurchaseOrder.DeletePurchaseOrderAction) => this._tokenService.delete(`purchase_orders/${action.payload}`)
       .pipe(map(response => new fromPurchaseOrder.DeletePurchaseOrderCompleteAction(response.json().message),
         catchError(error => of(new fromPurchaseOrder.DeletePurchaseOrderFailedAction(error.json().message)))))));
+
+  
+  @Effect()
+  openPurchaseOrder$: Observable<Action> = this._action$.pipe(ofType(fromPurchaseOrder.OPEN_PURCHASE_ORDER_ACTION),
+    mergeMap((action: fromPurchaseOrder.OpenPurchaseOrderAction) => this._tokenService.post(`purchase_orders/${this.purchaseOrder.id}/open`, null)
+      .pipe(map(response => new fromPurchaseOrder.OpenPurchaseOrderCompleteAction(response.json().message),
+        catchError(error => of(new fromPurchaseOrder.OpenPurchaseOrderFailedAction(error.json().message)))))));
 
   @Effect()
   updatePurchaseOrder$: Observable<Action> = this._action$.pipe(ofType(fromPurchaseOrder.UPDATE_PURCHASE_ORDER_ACTION),

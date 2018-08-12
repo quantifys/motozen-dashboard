@@ -11,6 +11,7 @@ import { PurchaseOrderDetailComponent } from './purchase-order-detail/purchase-o
 import { PurchaseOrderEditComponent } from './purchase-order-edit/purchase-order-edit.component';
 import { PurchaseOrderParticularComponent } from './purchase-order-particular/purchase-order-particular.component';
 import { PurchaseOrderFilterComponent } from './purchase-order-filter/purchase-order-filter.component';
+import { PurchaseOrderOpenComponent } from './purchase-order-open/purchase-order-open.component';
 
 const routes: Routes = [
   {
@@ -54,7 +55,7 @@ const routes: Routes = [
     NgSelectModule,
     RouterModule.forChild(routes)
   ],
-  declarations: [PurchaseOrdersComponent, PurchaseOrderTableComponent, PurchaseOrderDetailComponent, PurchaseOrderEditComponent, PurchaseOrderParticularComponent, PurchaseOrderFilterComponent],
-  entryComponents: [PurchaseOrderFilterComponent]
+  declarations: [PurchaseOrdersComponent, PurchaseOrderTableComponent, PurchaseOrderDetailComponent, PurchaseOrderEditComponent, PurchaseOrderParticularComponent, PurchaseOrderFilterComponent, PurchaseOrderOpenComponent],
+  entryComponents: [PurchaseOrderFilterComponent, PurchaseOrderOpenComponent]
 })
 export class PurchaseOrdersModule { }

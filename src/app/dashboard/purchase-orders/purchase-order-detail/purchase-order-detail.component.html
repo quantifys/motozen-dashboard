@@ -4,6 +4,26 @@
       <i class="fas fa-arrow-left mr-2"></i>Go back</button>
     <h4 class="text-grey-dark m-0">Purchase order details</h4>
   </div>
+
+  <div class="d-flex justify-content-end mt-3">
+
+    <ng-container *ngIf="loggedUser.role == 'store_purchases' && purchaseOrder.status == 'can_modify'">
+      <button class="mr-2" mat-stroked-button color="primary" (click)="openPurchaseOrder()">Open</button>
+    </ng-container>
+
+    <ng-container *ngIf="loggedUser.role == 'distributor' || loggedUser.role == 'store_purchases'">
+      <a mat-stroked-button color="warn" routerLink="edit" [queryParams]="{id: purchaseOrder.id}">Edit</a>
+    </ng-container>
+
+    <ng-container *ngIf="loggedUser.role == 'distributor'">
+      <button mat-icon-button color="warn" (click)="deletePurchaseOrder()">
+        <i class="fas fa-fw fa-trash-alt text-danger"></i>
+      </button>
+    </ng-container>
+
+  </div>
+
+
   <div class="row justify-content-center mt-4">
     <div class="col-lg-4">
       <div class="card">
@@ -12,6 +32,8 @@
             <i class="fas fa-info-circle mr-2 fa-fw text-primary"></i>Purchase order details</h6>
           <h6 class="text-grey-dark">Serial Number:</h6>
           <h6 class="ml-3">{{purchaseOrder.serial_no}}</h6>
+          <h6 class="text-grey-dark">Status:</h6>
+          <h6 class="ml-3">{{purchaseOrder.status | titlecase}}</h6>
           <h6 class="text-grey-dark">Raised By:</h6>
           <h6 class="ml-3">{{purchaseOrder.user.name}}</h6>
           <h6 class="text-grey-dark">Raised On:</h6>
@@ -82,8 +104,12 @@
             <tfoot>
               <tr>
                 <td colspan="4"></td>
-                <td class="text-muted"><strong>TOTAL QUANTITY</strong></td>
-                <td class="text-muted"><strong>{{purchaseOrder.total_quantity}}</strong></td>
+                <td class="text-muted">
+                  <strong>TOTAL QUANTITY</strong>
+                </td>
+                <td class="text-muted">
+                  <strong>{{purchaseOrder.total_quantity}}</strong>
+                </td>
               </tr>
             </tfoot>
           </table>
