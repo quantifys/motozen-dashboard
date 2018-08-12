@@ -28,8 +28,16 @@ export class PurchaseOrdersComponent implements OnInit, OnDestroy {
     this.userSubscription$ = this._store.select(fromRoot.getLoggedUser).subscribe(user => {
       this.loggedUser = user;
       if (!this._activatedRoute.snapshot.queryParams["status"]) {
-        if (user.role == 'distributor') {
-          this._router.navigate(["dashboard", "purchase-orders"], { queryParams: { status: 'can_modify' } });
+        switch (user.role) {
+          case "distributor":
+            this._router.navigate(["dashboard", "purchase-orders"], { queryParams: { status: 'can_modify' } });
+            break;
+          case "store_purchases":
+            this._router.navigate(["dashboard", "purchase-orders"], { queryParams: { status: 'can_modify' } });
+            break;
+          default:
+            this._router.navigate(["404-not-authorized"]);
+            break;
         }
       }
     });
