@@ -21,7 +21,7 @@
         <td>{{order.user.name}}</td>
         <td>{{order.created_at | date: 'mediumDate'}}</td>
         <td>{{order.total_quantity}}</td>
-        <td>{{order.amount_paid ? order.amount_paid : '-'}}</td>
+        <td>{{order.amount_paid ? (order.amount_paid | currency: 'INR') : '-'}}</td>
       </tr>
     </tbody>
   </table>
