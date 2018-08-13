@@ -34,7 +34,7 @@ export class PurchaseOrdersComponent implements OnInit, OnDestroy {
       if (!this._activatedRoute.snapshot.queryParams["per_page"]) {
         newParams["per_page"] = 10;
       }
-      if (!this._activatedRoute.snapshot.queryParams["status"]) {
+      if (!this._activatedRoute.snapshot.queryParams["status"] && user.role) {
         switch (user.role) {
           case "distributor":
             newParams["status"] = "can_modify";
@@ -56,7 +56,7 @@ export class PurchaseOrdersComponent implements OnInit, OnDestroy {
             break;
         }
       }
-      this._router.navigate(["dashboard", "purchase-orders"], { queryParams: { ...this._activatedRoute.snapshot.queryParams, ...newParams } });
+      user.role ? this._router.navigate(["dashboard", "purchase-orders"], { queryParams: { ...this._activatedRoute.snapshot.queryParams, ...newParams } }) : null
     });
   }
 

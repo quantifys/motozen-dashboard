@@ -44,24 +44,19 @@ export class PurchaseOrderFilterComponent implements OnInit {
   ngOnInit() {
     this.buildForm();
     this._activatedRoute.queryParams.subscribe(params => {
-      if (params["start_date"]) {
-        this.start.patchValue(new Date(params["start_date"]));
+      if (params["start"]) {
+        this.start.patchValue(new Date(params["start"]), { emitEvent: false });
       }
-      if (params["end_date"]) {
-        this.end.patchValue(new Date(params["end_date"]));
+      if (params["end"]) {
+        this.end.patchValue(new Date(params["end"]), { emitEvent: false });
       }
     });
     this.start.valueChanges.subscribe(value => {
-      this.end.value ? null : this.end.patchValue(new Date(), { emitEvent: false })
+      this.end.value ? null : this.end.patchValue(new Date(), { emitEvent: false });
       this.endMin = new Date(moment(this.start.value).add(1, "days").format());
-      this._router.navigate(["dashboard", "purchase-orders"], {
-        queryParams: { ...this._activatedRoute.snapshot.queryParams, "start_date": moment(this.start.value).format('YYYY-MM-DD') },
-      });
     });
     this.end.valueChanges.subscribe(value => {
-      this._router.navigate(["dashboard", "purchase-orders"], {
-        queryParams: { ...this._activatedRoute.snapshot.queryParams, "end_date": moment(this.end.value).format('YYYY-MM-DD') },
-      });
+      this.start.value ? null : this.start.patchValue(moment(this.start.value).subtract(1, 'days').format(), { emitEvent: false });
     });
   }
 
@@ -81,6 +76,13 @@ export class PurchaseOrderFilterComponent implements OnInit {
   }
 
   closeSheet() {
+    this._router.navigate(["dashboard", "purchase-orders"], {
+      queryParams: {
+        ...this._activatedRoute.snapshot.queryParams,
+        end: moment(this.end.value).format('YYYY-MM-DD'),
+        start: moment(this.start.value).format('YYYY-MM-DD')
+      },
+    });
     this.bottomSheetRef.dismiss();
   }
 

@@ -64,7 +64,6 @@ export class PurchaseOrderTableComponent implements OnInit, OnDestroy {
 
   getPage(pageEvent: PageEvent) {
     this.pageEvent = pageEvent;
-    console.log("Getting page..");
     this._router.navigate(["dashboard", "purchase-orders"], {
       queryParams: {
         ...this.queryParams,
