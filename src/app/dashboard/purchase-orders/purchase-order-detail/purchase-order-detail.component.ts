@@ -8,7 +8,7 @@ import { Store } from '@ngrx/store';
 import * as fromRoot from '../../../shared/reducers';
 import * as purchaseOrderActions from '../../../shared/actions/purchase-order.actions';
 import { PurchaseOrder, User } from '../../../shared/models';
-import { PurchaseOrderOpenComponent } from '../purchase-order-open/purchase-order-open.component';
+import { PurchaseOrderOpenComponent, PurchaseOrderDeleteComponent } from '../purchase-order-open/purchase-order-open.component';
 import { PurchaseOrderConfirmComponent } from '../purchase-order-confirm/purchase-order-confirm.component';
 import { PurchaseOrderCloseComponent } from '../purchase-order-close/purchase-order-close.component';
 
@@ -50,6 +50,10 @@ export class PurchaseOrderDetailComponent implements OnInit, OnDestroy {
     this.userSubscription$.unsubscribe();
     this.routerSubscription$.unsubscribe();
     this.purchaseOrderSubscription$.unsubscribe();
+  }
+
+  deletePurchaseOrder() {
+    this.bottomSheet.open(PurchaseOrderDeleteComponent);
   }
 
   openPurchaseOrder() {

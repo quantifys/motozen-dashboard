@@ -51,16 +51,19 @@ export class PurchaseOrderEffects {
 
   @Effect()
   deletePurchaseOrder$: Observable<Action> = this._action$.pipe(ofType(fromPurchaseOrder.DELETE_PURCHASE_ORDER_ACTION),
-    mergeMap((action: fromPurchaseOrder.DeletePurchaseOrderAction) => this._tokenService.delete(`purchase_orders/${action.payload}`)
-      .pipe(map(response => new fromPurchaseOrder.DeletePurchaseOrderCompleteAction(response.json().message),
+    mergeMap((action: fromPurchaseOrder.DeletePurchaseOrderAction) => this._tokenService.delete(`purchase_orders/${this.purchaseOrder.id}`)
+      .pipe(map(response => {
+        this._router.navigate(["dashboard", "purchase-orders"]);
+        return new fromPurchaseOrder.DeletePurchaseOrderCompleteAction
+      },
         catchError(error => of(new fromPurchaseOrder.DeletePurchaseOrderFailedAction(error.json().message)))))));
-  
+
   @Effect()
   openPurchaseOrder$: Observable<Action> = this._action$.pipe(ofType(fromPurchaseOrder.OPEN_PURCHASE_ORDER_ACTION),
     mergeMap((action: fromPurchaseOrder.OpenPurchaseOrderAction) => this._tokenService.post(`purchase_orders/${this.purchaseOrder.id}/open`, null)
       .pipe(map(response => new fromPurchaseOrder.OpenPurchaseOrderCompleteAction(response.json().message),
         catchError(error => of(new fromPurchaseOrder.OpenPurchaseOrderFailedAction(error.json().message)))))));
-  
+
   @Effect()
   confirmPurchaseOrder$: Observable<Action> = this._action$.pipe(ofType(fromPurchaseOrder.CONFIRM_PURCHASE_ORDER_ACTION),
     mergeMap((action: fromPurchaseOrder.ConfirmPurchaseOrderAction) => this._tokenService.post(`purchase_orders/${this.purchaseOrder.id}/processing`, action.payload)
@@ -93,7 +96,7 @@ export class PurchaseOrderEffects {
     mergeMap((action: fromPurchaseOrder.UpdatePurchaseOrderAction) => this._tokenService.patch(`purchase_orders/${action.payload.purchase_order.id}`, action.payload)
       .pipe(map(response => {
         this._router.navigate(["dashboard", "purchase-orders", "view"], { queryParams: { id: response.json().message.id } });
-        return new fromPurchaseOrder.UpdatePurchaseOrderCompleteAction(response.json().message); 
+        return new fromPurchaseOrder.UpdatePurchaseOrderCompleteAction(response.json().message);
       },
         catchError(error => of(new fromPurchaseOrder.UpdatePurchaseOrderFailedAction(error.json().message)))))));
 

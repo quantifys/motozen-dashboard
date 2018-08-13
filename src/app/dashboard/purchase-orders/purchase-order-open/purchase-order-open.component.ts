@@ -10,18 +10,41 @@ import * as purchaseOrderActions from '../../../shared/actions/purchase-order.ac
   templateUrl: './purchase-order-open.component.html',
   styleUrls: ['./purchase-order-open.component.scss']
 })
-export class PurchaseOrderOpenComponent implements OnInit {
+export class PurchaseOrderOpenComponent {
+
+  public type: boolean = false;
 
   constructor(
     private _store: Store<fromRoot.State>,
     private bottomSheetRef: MatBottomSheetRef<PurchaseOrderOpenComponent>
   ) { }
 
-  ngOnInit() {
+  action() {
+    this._store.dispatch(new purchaseOrderActions.OpenPurchaseOrderAction);
+    this.close();
   }
 
-  open() {
-    this._store.dispatch(new purchaseOrderActions.OpenPurchaseOrderAction);
+  close() {
+    this.bottomSheetRef.dismiss();
+  }
+}
+
+
+@Component({
+  selector: 'app-purchase-order-delete',
+  templateUrl: './purchase-order-open.component.html',
+})
+export class PurchaseOrderDeleteComponent {
+
+  public type: boolean = true;
+  
+  constructor(
+    private _store: Store<fromRoot.State>,
+    private bottomSheetRef: MatBottomSheetRef<PurchaseOrderDeleteComponent>
+  ) { }
+
+  action() {
+    this._store.dispatch(new purchaseOrderActions.DeletePurchaseOrderAction);
     this.close();
   }
 

@@ -11,7 +11,7 @@ import { PurchaseOrderDetailComponent } from './purchase-order-detail/purchase-o
 import { PurchaseOrderEditComponent } from './purchase-order-edit/purchase-order-edit.component';
 import { PurchaseOrderParticularComponent } from './purchase-order-particular/purchase-order-particular.component';
 import { PurchaseOrderFilterComponent } from './purchase-order-filter/purchase-order-filter.component';
-import { PurchaseOrderOpenComponent } from './purchase-order-open/purchase-order-open.component';
+import { PurchaseOrderOpenComponent, PurchaseOrderDeleteComponent } from './purchase-order-open/purchase-order-open.component';
 import { PurchaseOrderConfirmComponent } from './purchase-order-confirm/purchase-order-confirm.component';
 import { PurchaseOrderDispatchComponent } from './purchase-order-dispatch/purchase-order-dispatch.component';
 import { PurchaseOrderCloseComponent } from './purchase-order-close/purchase-order-close.component';
@@ -66,7 +66,7 @@ const routes: Routes = [
     NgSelectModule,
     RouterModule.forChild(routes)
   ],
-  declarations: [PurchaseOrdersComponent, PurchaseOrderTableComponent, PurchaseOrderDetailComponent, PurchaseOrderEditComponent, PurchaseOrderParticularComponent, PurchaseOrderFilterComponent, PurchaseOrderOpenComponent, PurchaseOrderConfirmComponent, PurchaseOrderDispatchComponent, PurchaseOrderCloseComponent],
-  entryComponents: [PurchaseOrderFilterComponent, PurchaseOrderOpenComponent, PurchaseOrderConfirmComponent, PurchaseOrderCloseComponent]
+  declarations: [PurchaseOrdersComponent, PurchaseOrderTableComponent, PurchaseOrderDetailComponent, PurchaseOrderEditComponent, PurchaseOrderDeleteComponent, PurchaseOrderParticularComponent, PurchaseOrderFilterComponent, PurchaseOrderOpenComponent, PurchaseOrderConfirmComponent, PurchaseOrderDispatchComponent, PurchaseOrderCloseComponent],
+  entryComponents: [PurchaseOrderFilterComponent, PurchaseOrderDeleteComponent, PurchaseOrderOpenComponent, PurchaseOrderConfirmComponent, PurchaseOrderCloseComponent]
 })
 export class PurchaseOrdersModule { }

@@ -41,12 +41,6 @@ export function reducer(state = initialState, action: purchaseOrderActions.Actio
         allPurchaseOrders: [...state.allPurchaseOrders.filter(purchaseOrder => purchaseOrder.id != state.currentPurchaseOrder.id ? purchaseOrder : null)],
         currentPurchaseOrder: new PurchaseOrder({})
       });
-    case purchaseOrderActions.DELETE_PURCHASE_ORDER_ACTION:
-      return Object.assign({}, state, {
-        currentPurchaseOrder: new PurchaseOrder({
-          id: action.payload
-        })
-      });
     case purchaseOrderActions.UPDATE_PURCHASE_ORDER_COMPLETE_ACTION:
       return Object.assign({}, state, {
         allPurchaseOrders: [...state.allPurchaseOrders.map(purchaseOrder => purchaseOrder.id != action.payload.id ? purchaseOrder : new PurchaseOrder(action.payload))]
@@ -65,15 +59,15 @@ export function reducer(state = initialState, action: purchaseOrderActions.Actio
       });
     case purchaseOrderActions.CONFIRM_PURCHASE_ORDER_COMPLETE_ACTION:
       return Object.assign({}, state, {
-        currentPurchaseOrder: new PurchaseOrder(action.payload)
+        currentPurchaseOrder: new PurchaseOrder({})
       });
     case purchaseOrderActions.DISPATCH_PURCHASE_ORDER_COMPLETE_ACTION:
       return Object.assign({}, state, {
-        currentPurchaseOrder: new PurchaseOrder(action.payload)
+        currentPurchaseOrder: new PurchaseOrder({})
       });
     case purchaseOrderActions.CLOSE_PURCHASE_ORDER_COMPLETE_ACTION:
       return Object.assign({}, state, {
-        currentPurchaseOrder: new PurchaseOrder(action.payload)
+        currentPurchaseOrder: new PurchaseOrder({})
       });
     case purchaseOrderActions.FETCH_PURCHASE_ORDER_FORMDATA_COMPLETE_ACTION:
       return Object.assign({}, state, {

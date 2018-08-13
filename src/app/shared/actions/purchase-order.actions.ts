@@ -122,15 +122,13 @@ export class UpdatePurchaseOrderFailedAction implements Action {
 
 export class DeletePurchaseOrderAction implements Action {
   readonly type = DELETE_PURCHASE_ORDER_ACTION;
-  constructor(public payload: any) {
-  }
 }
 
 export class DeletePurchaseOrderCompleteAction implements Action {
   readonly type = DELETE_PURCHASE_ORDER_COMPLETE_ACTION;
-  constructor(public payload: any) {
+  constructor() {
     swal({
-      title: "PurchaseOrder Updated!",
+      title: "Purchase Order Deleted!",
       type: "success",
       timer: 3000,
       showConfirmButton: false

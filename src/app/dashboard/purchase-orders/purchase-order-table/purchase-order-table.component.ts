@@ -62,22 +62,6 @@ export class PurchaseOrderTableComponent implements OnInit, OnDestroy {
     this._store.dispatch(new purchaseOrderActions.FetchAllPurchaseOrdersAction(this.queryParams));
   }
 
-  deletePurchaseOrder(id: number) {
-    swal({
-      title: 'Are you sure?',
-      text: 'Delete purchase order!',
-      type: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Yes, delete!'
-    }).then((result) => {
-      if (result.value) {
-        this._store.dispatch(new purchaseOrderActions.DeletePurchaseOrderAction(id));
-      }
-    });
-  }
-
   getPage(pageEvent: PageEvent) {
     this.pageEvent = pageEvent;
     console.log("Getting page..");

@@ -8,29 +8,27 @@
   <div class="d-flex justify-content-end mt-3">
 
     <ng-container *ngIf="loggedUser.role == 'store_purchases' && purchaseOrder.status == 'can_modify'">
-      <button class="mr-2" mat-stroked-button color="primary" (click)="openPurchaseOrder()">Open</button>
+      <button class="mr-2" mat-stroked-button color="warn" (click)="openPurchaseOrder()">Open</button>
     </ng-container>
 
     <ng-container *ngIf="loggedUser.role == 'accounts' && purchaseOrder.status == 'opened'">
-      <button class="mr-2" mat-stroked-button color="primary" (click)="confirmPurchaseOrder()">Confirm</button>
+      <button class="mr-2" mat-stroked-button color="warn" (click)="confirmPurchaseOrder()">Confirm</button>
     </ng-container>
 
     <ng-container *ngIf="loggedUser.role == 'store_dispatch' && purchaseOrder.status == 'processing'">
-      <a class="mr-2" mat-stroked-button color="primary" routerLink="../dispatch" [queryParams]="{id: purchaseOrder.id}">Dispatch ready</a>
+      <a class="mr-2" mat-stroked-button color="warn" routerLink="../dispatch" [queryParams]="{id: purchaseOrder.id}">Dispatch ready</a>
     </ng-container>
 
     <ng-container *ngIf="loggedUser.role == 'store_logistics' && purchaseOrder.status == 'dispatch_ready'">
-      <a class="mr-2" mat-stroked-button color="primary" (click)="closePurchaseOrder()">Confirm shipment</a>
+      <a class="mr-2" mat-stroked-button color="warn" (click)="closePurchaseOrder()">Confirm shipment</a>
     </ng-container>
 
     <ng-container *ngIf="(loggedUser.role == 'distributor' || loggedUser.role == 'store_purchases') && purchaseOrder.status == 'can_modify'">
-      <a mat-stroked-button color="warn" routerLink="../edit" [queryParams]="{id: purchaseOrder.id}">Edit</a>
+      <a mat-stroked-button color="primary" routerLink="../edit" [queryParams]="{id: purchaseOrder.id}">Edit</a>
     </ng-container>
 
-    <ng-container *ngIf="loggedUser.role == 'distributor'">
-      <button mat-icon-button color="warn" (click)="deletePurchaseOrder()">
-        <i class="fas fa-fw fa-trash-alt text-danger"></i>
-      </button>
+    <ng-container *ngIf="loggedUser.role == 'distributor' && purchaseOrder.status == 'can_modify'">
+      <button class="ml-2" mat-stroked-button color="warn" (click)="deletePurchaseOrder()">Delete</button>
     </ng-container>
 
   </div>
