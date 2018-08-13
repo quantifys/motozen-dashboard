@@ -99,6 +99,7 @@ export class SideNavComponent implements OnInit {
   }
 
   refreshRoutes() {
+    this.routes = [];
     ROUTES.filter(menuItem => {
       menuItem.users.map(user => {
         if (user == this.loggedUser.role) {
