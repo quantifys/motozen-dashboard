@@ -78,6 +78,13 @@ export const ROUTES: RouteInfo[] = [
     type: 'link',
     icontype: 'fa-credit-card',
     users: ['distributor', 'store_purchases', 'accounts', 'store_dispatch', 'store_logistics']
+  },
+  {
+    path: 'salary-slips',
+    title: 'Salary Slips',
+    type: 'link',
+    icontype: 'fa-users',
+    users: ['human_resource', 'accounts']
   }
 ];
 

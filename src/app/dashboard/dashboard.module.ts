@@ -46,6 +46,10 @@ const routes: Routes = [
         loadChildren: './purchase-orders/purchase-orders.module#PurchaseOrdersModule'
       },
       {
+        path: 'salary-slips',
+        loadChildren: './salary-slips/salary-slips.module#SalarySlipsModule'
+      },
+      {
         path: '',
         pathMatch: 'full',
         redirectTo: 'home'
