@@ -29,9 +29,6 @@ export const TRANSFER_INVENTORY_ACTION = '[Inventory] Transfer Inventory Action'
 export const TRANSFER_INVENTORY_COMPLETE_ACTION = '[Inventory] Transfer Inventory Complete Action';
 export const TRANSFER_INVENTORY_FAILED_ACTION = '[Inventory] Transfer Inventory Failed Action';
 
-export const OPEN_INVENTORY_MODAL_ACTION = '[Inventory] Open Inventory Modal Action';
-export const CLOSE_INVENTORY_MODAL_ACTION = '[Inventory] Close Inventory Modal Action';
-
 export class FetchAllInventoriesAction implements Action {
   readonly type = FETCH_ALL_INVENTORIES_ACTION;
   constructor(public payload?: any) {

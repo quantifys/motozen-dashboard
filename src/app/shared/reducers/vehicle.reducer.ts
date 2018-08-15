@@ -54,7 +54,6 @@ export function reducer(state = initialState, action: vehicleActions.Actions): S
         currentVehicleId: null
       });
     case vehicleActions.DELETE_VEHICLE_ICAT_ACTION:
-      console.log(action.payload);
       return Object.assign({}, state, {
         currentVehicleId: action.payload.vehicle_id,
         currentVehicleIcatId: action.payload.icat_id

@@ -12,7 +12,7 @@
       </thead>
       <tbody>
         <tr *ngFor="let certificate of certificates | paginate: config; let i = index">
-          <td>{{i+1}}</td>
+          <td>{{(i + 1) + (config.currentPage * config.itemsPerPage) - config.itemsPerPage}}</td>
           <td>{{certificate.certificate_number}}</td>
           <td>{{certificate.customer_name}}</td>
           <td>{{certificate.date_generated | date: 'mediumDate'}}</td>

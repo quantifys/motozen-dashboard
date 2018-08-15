@@ -42,6 +42,10 @@ const routes: Routes = [
         loadChildren: './expenses/expenses.module#ExpensesModule'
       },
       {
+        path: 'purchase-orders',
+        loadChildren: './purchase-orders/purchase-orders.module#PurchaseOrdersModule'
+      },
+      {
         path: '',
         pathMatch: 'full',
         redirectTo: 'home'

@@ -4,6 +4,7 @@ export * from './inventory.model';
 export * from './vehicle.model';
 export * from './certificate.model';
 export * from './cost.model';
+export * from './purchase-order.model';
 
 export class PageData {
   public total: number;

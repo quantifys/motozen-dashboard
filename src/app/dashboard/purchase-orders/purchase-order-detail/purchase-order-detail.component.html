@@ -1,0 +1,135 @@
+<section class="container">
+  <div class="d-flex align-items-center justify-content-between">
+    <button (click)="_location.back()" class="btn btn-primary text-light">
+      <i class="fas fa-arrow-left mr-2"></i>Go back</button>
+    <h4 class="text-grey-dark m-0">Purchase order details</h4>
+  </div>
+
+  <div class="d-flex justify-content-end mt-3">
+
+    <ng-container *ngIf="loggedUser.role == 'store_purchases' && purchaseOrder.status == 'can_modify'">
+      <button class="mr-2" mat-stroked-button color="warn" (click)="openPurchaseOrder()">Open</button>
+    </ng-container>
+
+    <ng-container *ngIf="loggedUser.role == 'accounts' && purchaseOrder.status == 'opened'">
+      <button class="mr-2" mat-stroked-button color="warn" (click)="confirmPurchaseOrder()">Confirm</button>
+    </ng-container>
+
+    <ng-container *ngIf="loggedUser.role == 'store_dispatch' && purchaseOrder.status == 'processing'">
+      <a class="mr-2" mat-stroked-button color="warn" routerLink="../dispatch" [queryParams]="{id: purchaseOrder.id}">Dispatch ready</a>
+      <a class="mr-2" mat-stroked-button color="primary" routerLink="../print-preview" [queryParams]="{id: purchaseOrder.id}">Print preview</a>
+    </ng-container>
+
+    <ng-container *ngIf="loggedUser.role == 'store_logistics' && purchaseOrder.status == 'dispatch_ready'">
+      <a class="mr-2" mat-stroked-button color="warn" (click)="closePurchaseOrder()">Confirm shipment</a>
+    </ng-container>
+
+    <ng-container *ngIf="(loggedUser.role == 'distributor' || loggedUser.role == 'store_purchases') && purchaseOrder.status == 'can_modify'">
+      <a mat-stroked-button color="primary" routerLink="../edit" [queryParams]="{id: purchaseOrder.id}">Edit</a>
+    </ng-container>
+
+    <ng-container *ngIf="loggedUser.role == 'distributor' && purchaseOrder.status == 'can_modify'">
+      <button class="ml-2" mat-stroked-button color="warn" (click)="deletePurchaseOrder()">Delete</button>
+    </ng-container>
+
+  </div>
+
+
+  <div class="row justify-content-center mt-4">
+    <div class="col-lg-4">
+      <div class="card" id="print">
+        <div class="card-body">
+          <h6 class="text-grey-dark font-weight-bold mb-3">
+            <i class="fas fa-info-circle mr-2 fa-fw text-primary"></i>Purchase order details</h6>
+          <h6 class="text-grey-dark">Serial Number:</h6>
+          <h6 class="ml-3">{{purchaseOrder.serial_no}}</h6>
+          <h6 class="text-grey-dark">Status:</h6>
+          <h6 class="ml-3">{{purchaseOrder.status | titlecase}}</h6>
+          <h6 class="text-grey-dark">Raised By:</h6>
+          <h6 class="ml-3">{{purchaseOrder.user.name}}</h6>
+          <h6 class="text-grey-dark">Raised On:</h6>
+          <h6 class="ml-3">{{purchaseOrder.created_at | date: 'fullDate'}}</h6>
+          <ng-container *ngIf="purchaseOrder.remarks">
+            <h6 class="text-grey-dark">Remarks:</h6>
+            <h6 class="ml-3">{{purchaseOrder.remarks}}</h6>
+          </ng-container>
+          <h6 class="text-grey-dark">Address:</h6>
+          <pre class="ml-3">{{purchaseOrder.address}}</pre>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-4">
+      <div class="card">
+        <div class="card-body">
+          <h6 class="text-grey-dark font-weight-bold mb-3">
+            <i class="fas fa-info-circle mr-2 fa-fw text-primary"></i>Amount details</h6>
+          <h6 class="text-grey-dark">Amount Paid:</h6>
+          <h6 class="ml-3">{{purchaseOrder.amount_paid != null ? (purchaseOrder.amount_paid | currency: 'INR') : '-'}}</h6>
+          <h6 class="text-grey-dark">Amount GST:</h6>
+          <h6 class="ml-3">{{purchaseOrder.amount_gst != null ? (purchaseOrder.amount_gst + '%') : '-'}}</h6>
+          <h6 class="text-grey-dark">Amount Total:</h6>
+          <h6 class="ml-3">{{purchaseOrder.getTotal() != null ? (purchaseOrder.getTotal() | currency: 'INR') : '-'}}</h6>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-4">
+      <div class="card">
+        <div class="card-body">
+          <h6 class="text-grey-dark font-weight-bold mb-3">
+            <i class="fas fa-info-circle mr-2 fa-fw text-primary"></i>Shipping details</h6>
+          <h6 class="text-grey-dark">Tracking Number:</h6>
+          <h6 class="ml-3">{{purchaseOrder.tracking_no ? purchaseOrder.tracking_no : '-'}}</h6>
+          <h6 class="text-grey-dark">Shipping Amount:</h6>
+          <h6 class="ml-3">{{purchaseOrder.shipping_amt != null ? (purchaseOrder.shipping_amt | currency: 'INR') : '-'}}</h6>
+          <h6 class="text-grey-dark">Shipping GST:</h6>
+          <h6 class="ml-3">{{purchaseOrder.shipping_gst != null ? (purchaseOrder.shipping_gst + '%') : '-'}}</h6>
+          <h6 class="text-grey-dark">Shipping Total:</h6>
+          <h6 class="ml-3">{{purchaseOrder.getShippingTotal() != null ? (purchaseOrder.getShippingTotal() | currency: 'INR') : '-'}}</h6>
+          <h6 class="text-grey-dark">Shipping GSTN:</h6>
+          <h6 class="ml-3">{{purchaseOrder.shipping_gstn ? purchaseOrder.shipping_gstn : '-'}}</h6>
+          <h6 class="text-grey-dark">Shipping Date:</h6>
+          <h6 class="ml-3">{{purchaseOrder.shipping_date ? (purchaseOrder.shipping_date | date: 'fullDate') : '-'}}</h6>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-12">
+      <div class="table-container mt-4">
+        <div class="table-responsive">
+          <table class="table table-hover w-100 rounded table-striped text-center m-0">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>MAKE</th>
+                <th>MODEL</th>
+                <th>VARIANT</th>
+                <th>CONNECTOR</th>
+                <th>QUANTITY</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let particular of purchaseOrder.particulars; let i = index">
+                <td>{{i+1}}</td>
+                <td>{{particular.vehicle.make}}</td>
+                <td>{{particular.vehicle.model}}</td>
+                <td>{{particular.vehicle.variant}}</td>
+                <td>{{particular.vehicle.connector.item_code}}</td>
+                <td>{{particular.quantity}}</td>
+              </tr>
+            </tbody>
+            <tfoot>
+              <tr>
+                <td colspan="4"></td>
+                <td class="text-muted">
+                  <strong>TOTAL QUANTITY</strong>
+                </td>
+                <td class="text-muted">
+                  <strong>{{purchaseOrder.total_quantity}}</strong>
+                </td>
+              </tr>
+            </tfoot>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

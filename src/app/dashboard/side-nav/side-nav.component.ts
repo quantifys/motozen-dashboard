@@ -71,6 +71,13 @@ export const ROUTES: RouteInfo[] = [
     type: 'link',
     icontype: 'fa-credit-card',
     users: ['accounts']
+  },
+  {
+    path: 'purchase-orders',
+    title: 'Purchase Orders',
+    type: 'link',
+    icontype: 'fa-credit-card',
+    users: ['distributor', 'store_purchases', 'accounts', 'store_dispatch', 'store_logistics']
   }
 ];
 
@@ -99,6 +106,7 @@ export class SideNavComponent implements OnInit {
   }
 
   refreshRoutes() {
+    this.routes = [];
     ROUTES.filter(menuItem => {
       menuItem.users.map(user => {
         if (user == this.loggedUser.role) {
