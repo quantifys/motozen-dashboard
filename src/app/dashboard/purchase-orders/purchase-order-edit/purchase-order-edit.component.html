@@ -28,7 +28,7 @@
                 </div>
               </div>
             </ng-container>
-            <div class="mb-4 text-right">
+            <div class="mb-4 text-right" *ngIf="particulars.length < 16">
               <button class="ml-auto" mat-button color="warn" (click)="addVehicle()">
                 <strong>ADD PARTICULAR</strong>
               </button>

@@ -17,6 +17,7 @@
 
     <ng-container *ngIf="loggedUser.role == 'store_dispatch' && purchaseOrder.status == 'processing'">
       <a class="mr-2" mat-stroked-button color="warn" routerLink="../dispatch" [queryParams]="{id: purchaseOrder.id}">Dispatch ready</a>
+      <a class="mr-2" mat-stroked-button color="primary" routerLink="../print-preview" [queryParams]="{id: purchaseOrder.id}">Print preview</a>
     </ng-container>
 
     <ng-container *ngIf="loggedUser.role == 'store_logistics' && purchaseOrder.status == 'dispatch_ready'">
@@ -36,7 +37,7 @@
 
   <div class="row justify-content-center mt-4">
     <div class="col-lg-4">
-      <div class="card">
+      <div class="card" id="print">
         <div class="card-body">
           <h6 class="text-grey-dark font-weight-bold mb-3">
             <i class="fas fa-info-circle mr-2 fa-fw text-primary"></i>Purchase order details</h6>

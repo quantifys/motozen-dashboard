@@ -63,7 +63,7 @@ export class PurchaseOrderDetailComponent implements OnInit, OnDestroy {
   confirmPurchaseOrder() {
     this.bottomSheet.open(PurchaseOrderConfirmComponent);
   }
-  
+
   closePurchaseOrder() {
     this.bottomSheet.open(PurchaseOrderCloseComponent);
   }

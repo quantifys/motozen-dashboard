@@ -1,0 +1,61 @@
+<section class="container">
+  <div class="d-flex align-items-center justify-content-between">
+    <button routerLink="../" [queryParams]="{id: purchaseOrder.id}" class="btn btn-primary text-light">
+      <i class="fas fa-arrow-left mr-2"></i>Go back</button>
+    <h4 class="text-grey-dark m-0">Purchase order details</h4>
+  </div>
+  <div class="d-flex justify-content-end mt-3">
+    <button class="mr-2" mat-stroked-button color="primary" (click)="downloadPurchaseOrder()">Download</button>
+  </div>
+
+  <div class="card mt-3">
+    <div class="card-body body-overflow">
+      <div id="page-container" class="page-container d-flex align-items-center flex-column">
+        <div class="page">
+          <h4 class="mb-0 text-center font-weight-bold">GEMENI ENTERPRISES</h4>
+          <h6 class="mt-2 mb-1 text-center pb-3 border-bottom font-weight-bold">DELIVERY NOTE</h6>
+          <p class="mb-0">Date: {{purchaseOrder.created_at | date: 'fullDate'}}</p>
+          <p class="mb-0">Purchase Order No.: {{purchaseOrder.serial_no}}</p>
+          <table class="table text-center mb-5">
+            <thead>
+              <tr>
+                <th>SR. NO.</th>
+                <th>DESCRIPTION</th>
+                <th>CONNECTOR CODE</th>
+                <th>QUANTITY</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let particular of purchaseOrder.particulars; let i = index">
+                <td>{{i+1}}</td>
+                <td>{{particular.vehicle.make}} {{particular.vehicle.model}} {{particular.vehicle.variant}}</td>
+                <td>{{particular.vehicle.connector.item_code}}</td>
+                <td>{{particular.quantity}}</td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="pt-5 mb-3 mr-4 text-right">
+            <h6 class="d-inline-block border-top pt-1 pl-5 pr-5">DISPATCH</h6>
+          </div>
+        </div>
+        <div class="page">
+          <h5 class="text-center mb-2 pt-2 shiplabel">SHIPPING LABEL</h5>
+          <div class="d-flex flex-column border border-dark m-3 p-3">
+            <h4 class="font-weight-bold mb-1">From:</h4>
+            <p class="mb-0">Gemeni Enterprises</p>
+            <p class="mb-0">309, 3rd Floor, Citi Centre,</p>
+            <p class="mb-0">Patto, Panaji, Goa - 403001.</p>
+            <div class="d-flex flex-column align-items-center m-2">
+              <div class="d-inline-block">
+                <h3 class="font-weight-bold mb-1">To:</h3>
+                <pre class="mb-0">{{purchaseOrder.address}}</pre>
+                <h4><strong>CONTACT:</strong> +91-{{purchaseOrder.user.details.contact}}</h4>
+              </div>
+            </div>
+          </div>
+          <div class="dashed mt-2"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

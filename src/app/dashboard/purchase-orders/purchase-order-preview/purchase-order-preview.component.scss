@@ -1,0 +1,20 @@
+#page-container {
+  width: calc(200mm - 30px);
+  overflow-x: auto;
+  padding: 15px;
+  .page {
+    height: 280mm;
+    width: 100%;
+    overflow-y: hidden;
+    .shiplabel {
+      border-top: 1px dotted #000;
+    }
+    .dashed {
+      border-bottom: 1px dotted #000000;
+    }
+  }
+}
+
+.body-overflow {
+  overflow-x: auto;
+}

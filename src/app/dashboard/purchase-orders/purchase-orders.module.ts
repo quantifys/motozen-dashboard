@@ -39,6 +39,10 @@ const routes: Routes = [
     }
   },
   {
+    path: 'print-preview',
+    loadChildren: './purchase-order-preview/purchase-order-preview.module#PurchaseOrderPreviewModule'
+  },
+  {
     path: "",
     component: PurchaseOrdersComponent,
     data: {
