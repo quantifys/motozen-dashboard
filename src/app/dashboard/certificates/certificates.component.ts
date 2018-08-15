@@ -51,7 +51,7 @@ export class CertificatesComponent implements OnInit, OnDestroy {
     this.userSubscription$ = this._store.select(fromRoot.getLoggedUser).subscribe(user => {
       this.loggedUser = user;
       if (!this._activatedRoute.snapshot.queryParams["status"]) {
-        if (user.role == 'distributor') {
+        if (user.role == 'distributor' || user.role == 'store_purchases') {
           this._router.navigate(["dashboard", "certificates"], { queryParams: { status: 'can_modify' } });
         }
       }
