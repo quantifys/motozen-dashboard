@@ -3,7 +3,7 @@ import swal from 'sweetalert2';
 
 const toast = (swal as any).mixin({
   toast: true,
-  position: 'top-end',
+  position: 'bottom-end',
   showConfirmButton: false,
   timer: 3000
 });
@@ -42,7 +42,12 @@ export const FETCH_SALARY_SLIP_FORMDATA_FAILED_ACTION = '[SalarySlip] Fetch Sala
 
 export class FetchAllSalarySlipsAction implements Action {
   readonly type = FETCH_ALL_SALARY_SLIPS_ACTION;
-  constructor(public payload: any) { }
+  constructor(public payload: any) {
+    toast({
+      title: 'Loading salary slips...'
+    });
+    toast.showLoading();
+  }
 }
 
 export class FetchAllSalarySlipsCompleteAction implements Action {
