@@ -5,13 +5,28 @@ import { MatTabsModule, MatButtonModule, MatPaginatorModule } from '@angular/mat
 
 import { SalarySlipsComponent } from './salary-slips.component';
 import { SalarySlipTableComponent } from './salary-slip-table/salary-slip-table.component';
+import { SalarySlipDetailComponent } from './salary-slip-detail/salary-slip-detail.component';
 
 const routes: Routes = [
+  // {
+  //   path: 'edit',
+  //   component: SalarySlipEditComponent,
+  //   data: {
+  //     title: "Salary slip edit - Dashboard | Gemeni India"
+  //   }
+  // },
+  {
+    path: 'view',
+    component: SalarySlipDetailComponent,
+    data: {
+      title: "Salary slip details - Dashboard | Gemeni India"
+    }
+  },
   {
     path: '',
     component: SalarySlipsComponent,
     data: {
-      title: "Salary Slip Management - Dashboard | Gemeni India"
+      title: "Salary slip management - Dashboard | Gemeni India"
     }
   }
 ];
@@ -24,6 +39,6 @@ const routes: Routes = [
     MatPaginatorModule,
     RouterModule.forChild(routes)
   ],
-  declarations: [SalarySlipsComponent, SalarySlipTableComponent]
+  declarations: [SalarySlipsComponent, SalarySlipTableComponent, SalarySlipDetailComponent]
 })
 export class SalarySlipsModule { }
