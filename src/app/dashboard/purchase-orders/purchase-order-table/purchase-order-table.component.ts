@@ -1,13 +1,12 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Subscription, BehaviorSubject } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PageEvent } from '@angular/material';
-import swal from 'sweetalert2';
 
 import * as fromRoot from '../../../shared/reducers';
 import * as purchaseOrderActions from '../../../shared/actions/purchase-order.actions';
-import { PurchaseOrder, User } from '../../../shared/models';
+import { PurchaseOrder } from '../../../shared/models';
 
 @Component({
   selector: 'purchase-order-table',
