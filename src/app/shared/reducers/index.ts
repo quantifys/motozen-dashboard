@@ -7,6 +7,7 @@ import * as fromInventory from "./inventory.reducer";
 import * as fromCertificate from "./certificate.reducer";
 import * as fromExpense from "./expense.reducer";
 import * as fromPurchaseOrder from "./purchase-order.reducer";
+import * as fromSalarySlip from "./salary-slip.reducer";
 
 export interface State {
   users: fromUser.State;
@@ -16,6 +17,7 @@ export interface State {
   certificates: fromCertificate.State;
   expenses: fromExpense.State;
   purchaseOrders: fromPurchaseOrder.State;
+  salarySlips: fromSalarySlip.State;
 }
 
 export const reducers: ActionReducerMap<State> = {
@@ -25,7 +27,8 @@ export const reducers: ActionReducerMap<State> = {
   inventories: fromInventory.reducer,
   certificates: fromCertificate.reducer,
   expenses: fromExpense.reducer,
-  purchaseOrders: fromPurchaseOrder.reducer
+  purchaseOrders: fromPurchaseOrder.reducer,
+  salarySlips: fromSalarySlip.reducer
 };
 
 export const users = (state: State) => state.users;
@@ -62,3 +65,9 @@ export const getAllPurchaseOrders = createSelector(purchaseOrders, (state: fromP
 export const getCurrentPurchaseOrder = createSelector(purchaseOrders, (state: fromPurchaseOrder.State) => state.currentPurchaseOrder);
 export const getPurchaseOrderFormdata = createSelector(purchaseOrders, (state: fromPurchaseOrder.State) => state.purchaseOrderFormData);
 export const getPurchaseOrderPageStatus = createSelector(purchaseOrders, (state: fromPurchaseOrder.State) => state.currentPurchaseOrderPageStatus);
+
+export const salarySlips = (state: State) => state.salarySlips;
+export const getAllSalarySlips = createSelector(salarySlips, (state: fromSalarySlip.State) => state.allSalarySlips);
+export const getCurrentSalarySlip = createSelector(salarySlips, (state: fromSalarySlip.State) => state.currentSalarySlip);
+export const getSalarySlipFormdata = createSelector(salarySlips, (state: fromSalarySlip.State) => state.salarySlipFormData);
+export const getSalarySlipPageStatus = createSelector(salarySlips, (state: fromSalarySlip.State) => state.salarySlipPageStatus);
