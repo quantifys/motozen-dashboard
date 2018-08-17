@@ -69,5 +69,4 @@ export const getPurchaseOrderPageStatus = createSelector(purchaseOrders, (state:
 export const salarySlips = (state: State) => state.salarySlips;
 export const getAllSalarySlips = createSelector(salarySlips, (state: fromSalarySlip.State) => state.allSalarySlips);
 export const getCurrentSalarySlip = createSelector(salarySlips, (state: fromSalarySlip.State) => state.currentSalarySlip);
-export const getSalarySlipFormdata = createSelector(salarySlips, (state: fromSalarySlip.State) => state.salarySlipFormData);
 export const getSalarySlipPageStatus = createSelector(salarySlips, (state: fromSalarySlip.State) => state.salarySlipPageStatus);

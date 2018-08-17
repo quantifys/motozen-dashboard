@@ -36,10 +36,6 @@ export const PAY_SALARY_SLIP_ACTION = '[SalarySlip] Pay Salary Slip Action';
 export const PAY_SALARY_SLIP_COMPLETE_ACTION = '[SalarySlip] Pay Salary Slip Complete Action';
 export const PAY_SALARY_SLIP_FAILED_ACTION = '[SalarySlip] Pay Salary Slip Failed Action';
 
-export const FETCH_SALARY_SLIP_FORMDATA_ACTION = '[SalarySlip] Fetch Salary Slip Form Data Action';
-export const FETCH_SALARY_SLIP_FORMDATA_COMPLETE_ACTION = '[SalarySlip] Fetch Salary Slip Form Data Complete Action';
-export const FETCH_SALARY_SLIP_FORMDATA_FAILED_ACTION = '[SalarySlip] Fetch Salary Slip Form Data Failed Action';
-
 export class FetchAllSalarySlipsAction implements Action {
   readonly type = FETCH_ALL_SALARY_SLIPS_ACTION;
   constructor(public payload: any) {
@@ -189,21 +185,6 @@ export class PaySalarySlipFailedAction implements Action {
   }
 }
 
-export class FetchSalarySlipFormDataAction implements Action {
-  readonly type = FETCH_SALARY_SLIP_FORMDATA_ACTION;
-}
-
-export class FetchSalarySlipFormDataCompleteAction implements Action {
-  readonly type = FETCH_SALARY_SLIP_FORMDATA_COMPLETE_ACTION;
-  constructor(public payload: any) {
-  }
-}
-
-export class FetchSalarySlipFormDataFailedAction implements Action {
-  readonly type = FETCH_SALARY_SLIP_FORMDATA_FAILED_ACTION;
-  constructor(public payload?: any) { }
-}
-
 export type Actions =
   FetchAllSalarySlipsAction
   | FetchAllSalarySlipsCompleteAction
@@ -225,7 +206,4 @@ export type Actions =
   | ConfirmSalarySlipFailedAction
   | PaySalarySlipAction
   | PaySalarySlipCompleteAction
-  | PaySalarySlipFailedAction
-  | FetchSalarySlipFormDataAction
-  | FetchSalarySlipFormDataCompleteAction
-  | FetchSalarySlipFormDataFailedAction;
+  | PaySalarySlipFailedAction;

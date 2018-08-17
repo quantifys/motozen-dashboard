@@ -5,14 +5,12 @@ import * as salarySlipActions from '../actions/salary-slip.actions';
 export interface State {
   allSalarySlips: SalarySlip[];
   currentSalarySlip: SalarySlip;
-  salarySlipFormData: any;
   salarySlipPageStatus: PageData;
 }
 
 const initialState: State = {
   allSalarySlips: [],
   currentSalarySlip: new SalarySlip({}),
-  salarySlipFormData: null,
   salarySlipPageStatus: new PageData({})
 };
 
@@ -60,10 +58,6 @@ export function reducer(state = initialState, action: salarySlipActions.Actions)
     case salarySlipActions.PAY_SALARY_SLIP_COMPLETE_ACTION:
       return Object.assign({}, state, {
         currentSalarySlip: new SalarySlip({})
-      });
-    case salarySlipActions.FETCH_SALARY_SLIP_FORMDATA_COMPLETE_ACTION:
-      return Object.assign({}, state, {
-        salarySlipFormData: action.payload
       });
     default:
       return state;

@@ -85,10 +85,4 @@ export class SalarySlipEffects {
       },
         catchError(error => of(new fromSalarySlip.UpdateSalarySlipFailedAction(error.json().message)))))));
 
-  @Effect()
-  fetchSalarySlipFormdata$: Observable<Action> = this._action$.pipe(ofType(fromSalarySlip.FETCH_SALARY_SLIP_FORMDATA_ACTION),
-    mergeMap((action: fromSalarySlip.FetchSalarySlipFormDataAction) => this._tokenService.get('salary_slips/new')
-      .pipe(map(response => new fromSalarySlip.FetchSalarySlipFormDataCompleteAction(response.json().message),
-        catchError(error => of(new fromSalarySlip.FetchSalarySlipFormDataFailedAction(error.json().message)))))));
-
 }
