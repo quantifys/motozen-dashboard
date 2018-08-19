@@ -7,6 +7,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { VendorsComponent } from './vendors.component';
 import { VendorTableComponent } from './vendor-table/vendor-table.component';
 import { VendorEditComponent } from './vendor-edit/vendor-edit.component';
+import { VendorDetailComponent } from './vendor-detail/vendor-detail.component';
 
 const routes: Routes = [
   {
@@ -16,13 +17,13 @@ const routes: Routes = [
       title: "Vendor edit - Dashboard | Gemeni India"
     }
   },
-  // {
-  //   path: 'view',
-  //   component: VendorDetailComponent,
-  //   data: {
-  //     title: "Vendor details - Dashboard | Gemeni India"
-  //   }
-  // },
+  {
+    path: 'view',
+    component: VendorDetailComponent,
+    data: {
+      title: "Vendor details - Dashboard | Gemeni India"
+    }
+  },
   {
     path: '',
     component: VendorsComponent,
@@ -43,6 +44,6 @@ const routes: Routes = [
     MatInputModule,
     RouterModule.forChild(routes)
   ],
-  declarations: [VendorsComponent, VendorTableComponent, VendorEditComponent]
+  declarations: [VendorsComponent, VendorTableComponent, VendorEditComponent, VendorDetailComponent]
 })
 export class VendorsModule { }
