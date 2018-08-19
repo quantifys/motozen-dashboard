@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Location } from '@angular/common';
 import { Subscription } from 'rxjs';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
@@ -17,7 +16,6 @@ import { User } from '../../../shared/models';
 })
 export class SalarySlipEditComponent implements OnInit {
 
-  public userSubscription$: Subscription = new Subscription();
   public salarySlipSubscription$: Subscription = new Subscription();
   public routerSubscription$: Subscription = new Subscription();
   public salarySlipForm: FormGroup;
