@@ -22,6 +22,7 @@ import { VehicleEffects } from './shared/effects/vehicle.effects';
 import { ExpenseEffects } from './shared/effects/expense.effects';
 import { PurchaseOrderEffects } from './shared/effects/purchase-order.effects';
 import { SalarySlipEffects } from './shared/effects/salary-slip.effects';
+import { VendorEffects } from './shared/effects/vendor.effects';
 
 @NgModule({
   declarations: [
@@ -41,7 +42,8 @@ import { SalarySlipEffects } from './shared/effects/salary-slip.effects';
       CertificateEffects,
       ExpenseEffects,
       PurchaseOrderEffects,
-      SalarySlipEffects
+      SalarySlipEffects,
+      VendorEffects
     ]),
     StoreDevtoolsModule.instrument({
       maxAge: 25, // Retains last 25 states

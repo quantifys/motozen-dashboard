@@ -8,6 +8,7 @@ import * as fromCertificate from "./certificate.reducer";
 import * as fromExpense from "./expense.reducer";
 import * as fromPurchaseOrder from "./purchase-order.reducer";
 import * as fromSalarySlip from "./salary-slip.reducer";
+import * as fromVendor from "./vendor.reducer";
 
 export interface State {
   users: fromUser.State;
@@ -18,6 +19,7 @@ export interface State {
   expenses: fromExpense.State;
   purchaseOrders: fromPurchaseOrder.State;
   salarySlips: fromSalarySlip.State;
+  vendors: fromVendor.State;
 }
 
 export const reducers: ActionReducerMap<State> = {
@@ -28,7 +30,8 @@ export const reducers: ActionReducerMap<State> = {
   certificates: fromCertificate.reducer,
   expenses: fromExpense.reducer,
   purchaseOrders: fromPurchaseOrder.reducer,
-  salarySlips: fromSalarySlip.reducer
+  salarySlips: fromSalarySlip.reducer,
+  vendors: fromVendor.reducer
 };
 
 export const users = (state: State) => state.users;
@@ -70,3 +73,8 @@ export const salarySlips = (state: State) => state.salarySlips;
 export const getAllSalarySlips = createSelector(salarySlips, (state: fromSalarySlip.State) => state.allSalarySlips);
 export const getCurrentSalarySlip = createSelector(salarySlips, (state: fromSalarySlip.State) => state.currentSalarySlip);
 export const getSalarySlipPageStatus = createSelector(salarySlips, (state: fromSalarySlip.State) => state.salarySlipPageStatus);
+
+export const vendors = (state: State) => state.vendors;
+export const getAllVendors = createSelector(vendors, (state: fromVendor.State) => state.allVendors);
+export const getCurrentVendor = createSelector(vendors, (state: fromVendor.State) => state.currentVendor);
+export const getVendorPageStatus = createSelector(vendors, (state: fromVendor.State) => state.vendorPageStatus);
