@@ -37,10 +37,8 @@ export class VendorEditComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.buildForm();
-    if (this.addVendor) {
-
-    } else {
-      this.vendorSubscription$ = this._store.select(fromRoot.getCurrentPurchaseOrder).subscribe(vendor => {
+    if (!this.addVendor) {
+      this.vendorSubscription$ = this._store.select(fromRoot.getCurrentVendor).subscribe(vendor => {
         this.vendorForm.patchValue(vendor);
       });
     }

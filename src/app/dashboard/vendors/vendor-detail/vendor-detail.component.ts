@@ -7,6 +7,7 @@ import { Store } from '@ngrx/store';
 import * as fromRoot from '../../../shared/reducers';
 import * as vendorActions from '../../../shared/actions/vendor.actions';
 import { Vendor, User } from '../../../shared/models';
+import swal from 'sweetalert2';
 
 @Component({
   selector: 'app-vendor-detail',
@@ -44,6 +45,22 @@ export class VendorDetailComponent implements OnInit, OnDestroy {
     this.userSubscription$.unsubscribe();
     this.routerSubscription$.unsubscribe();
     this.vendorSubscription$.unsubscribe();
+  }
+
+  deleteVendor() {
+    swal({
+      title: 'Are you sure?',
+      text: 'Delete vendor!',
+      type: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete!'
+    }).then((result) => {
+      if (result.value) {
+        this._store.dispatch(new vendorActions.DeleteVendorAction);
+      }
+    });
   }
 
 }
