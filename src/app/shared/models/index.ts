@@ -6,6 +6,7 @@ export * from './certificate.model';
 export * from './cost.model';
 export * from './purchase-order.model';
 export * from './salary-slip.model';
+export * from './vendor.model';
 
 export class PageData {
   public total: number;

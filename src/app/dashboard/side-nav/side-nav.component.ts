@@ -85,6 +85,13 @@ export const ROUTES: RouteInfo[] = [
     type: 'link',
     icontype: 'fa-users',
     users: ['human_resource', 'accounts']
+  },
+  {
+    path: 'vendors',
+    title: 'Vendors',
+    type: 'link',
+    icontype: 'fa-shipping-fast',
+    users: ['manufacturer', 'store_purchases']
   }
 ];
 

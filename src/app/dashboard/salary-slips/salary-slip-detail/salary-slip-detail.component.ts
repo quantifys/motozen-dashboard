@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 import { Subscription } from 'rxjs';
@@ -13,7 +13,7 @@ import { SalarySlip, User } from '../../../shared/models';
   templateUrl: './salary-slip-detail.component.html',
   styleUrls: ['./salary-slip-detail.component.scss']
 })
-export class SalarySlipDetailComponent implements OnInit {
+export class SalarySlipDetailComponent implements OnInit, OnDestroy {
 
   private userSubscription$: Subscription = new Subscription();
   private routerSubscription$: Subscription = new Subscription();
