@@ -80,6 +80,13 @@ export const ROUTES: RouteInfo[] = [
     users: ['distributor', 'store_purchases', 'accounts', 'store_dispatch', 'store_logistics']
   },
   {
+    path: 'receive-notes',
+    title: 'Receive Notes',
+    type: 'link',
+    icontype: 'fa-clipboard-check',
+    users: ['store_purchases']
+  },
+  {
     path: 'salary-slips',
     title: 'Salary Slips',
     type: 'link',

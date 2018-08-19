@@ -1,0 +1,21 @@
+<section class="container-fluid">
+  <div class="header d-flex align-items-center">
+    <h4 class="text-grey-dark m-0">Receive Notes List</h4>
+    <div class="ml-auto">
+      <button mat-stroked-button color="warn" (click)="openFilters()" disabled>Add Filters</button>
+      <a class="btn btn-primary ml-3" routerLink="edit" [queryParams]="{type: 'new'}">
+        <i class="fas fa-clipboard-check mr-2"></i>Raise Goods Receive Note</a>
+    </div>
+  </div>
+  <div class="content mt-4">
+    <nav mat-tab-nav-bar>
+      <a mat-tab-link routerLink="../" [queryParams]="getQueryParams('new')" routerLinkActive #new="routerLinkActive" [active]="new.isActive">
+        <strong>New</strong>
+      </a>
+      <a mat-tab-link routerLink="../" [queryParams]="getQueryParams('confirmed')" routerLinkActive #confirmed="routerLinkActive"
+        [active]="confirmed.isActive">
+        <strong>Confirmed</strong>
+      </a>
+    </nav>
+  </div>
+</section>
