@@ -50,6 +50,10 @@ const routes: Routes = [
         loadChildren: './salary-slips/salary-slips.module#SalarySlipsModule'
       },
       {
+        path: 'vendors',
+        loadChildren: './vendors/vendors.module#VendorsModule'
+      },
+      {
         path: '',
         pathMatch: 'full',
         redirectTo: 'home'
