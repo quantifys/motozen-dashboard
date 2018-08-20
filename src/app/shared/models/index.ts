@@ -5,6 +5,7 @@ export * from './vehicle.model';
 export * from './certificate.model';
 export * from './cost.model';
 export * from './purchase-order.model';
+export * from './receive-note.model';
 export * from './salary-slip.model';
 export * from './vendor.model';
 
