@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MatTabsModule, MatButtonModule, MatFormFieldModule, MatInputModule, MatSlideToggleModule } from '@angular/material';
+import { MatTabsModule, MatButtonModule, MatFormFieldModule, MatInputModule, MatSlideToggleModule, MatPaginatorModule } from '@angular/material';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { ReactiveFormsModule } from '@angular/forms';
 import { Routes, RouterModule } from '@angular/router';
@@ -8,6 +8,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { ReceiveNotesComponent } from './receive-notes.component';
 import { ReceiveNoteEditComponent } from './receive-note-edit/receive-note-edit.component';
 import { ReceiveNoteParticularComponent } from './receive-note-particular/receive-note-particular.component';
+import { ReceiveNoteTableComponent } from './receive-note-table/receive-note-table.component';
 
 const routes: Routes = [
   {
@@ -42,9 +43,10 @@ const routes: Routes = [
     MatFormFieldModule,
     MatInputModule,
     MatSlideToggleModule,
+    MatPaginatorModule,
     NgSelectModule,
     RouterModule.forChild(routes)
   ],
-  declarations: [ReceiveNotesComponent, ReceiveNoteEditComponent, ReceiveNoteParticularComponent]
+  declarations: [ReceiveNotesComponent, ReceiveNoteEditComponent, ReceiveNoteParticularComponent, ReceiveNoteTableComponent]
 })
 export class ReceiveNotesModule { }

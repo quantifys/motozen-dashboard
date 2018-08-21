@@ -31,7 +31,7 @@ export class ReceiveNotesComponent implements OnInit, OnDestroy {
         newParams["per_page"] = 10;
       }
       if (!this._activatedRoute.snapshot.queryParams["status"]) {
-        newParams["status"] = "new";
+        newParams["status"] = "can_modify";
       }
       user.role ? this._router.navigate(["dashboard", "receive-notes"], { queryParams: { ...this._activatedRoute.snapshot.queryParams, ...newParams } }) : null
     });

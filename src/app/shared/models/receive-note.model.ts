@@ -28,8 +28,14 @@ export class ReceiveNote {
     this.rn_particulars = data.rn_particulars ? data.rn_particulars.map(particular => new ReceiveNoteParticular(particular)) : [];
   }
 
-  getTotal(): number {
+  getFreightTotal(): number {
     return Math.ceil(this.freight * (1 + (this.freight_gst * 0.01)));
+  }
+
+  getParticularTotal(): number {
+    let total: number = 0;
+    this.rn_particulars.map(particular => total += particular.total);
+    return total;
   }
 }
 
