@@ -9,6 +9,7 @@ import { ReceiveNotesComponent } from './receive-notes.component';
 import { ReceiveNoteEditComponent } from './receive-note-edit/receive-note-edit.component';
 import { ReceiveNoteParticularComponent } from './receive-note-particular/receive-note-particular.component';
 import { ReceiveNoteTableComponent } from './receive-note-table/receive-note-table.component';
+import { ReceiveNoteDetailComponent } from './receive-note-detail/receive-note-detail.component';
 
 const routes: Routes = [
   {
@@ -18,13 +19,13 @@ const routes: Routes = [
       title: "Receive Note edit - Dashboard | Gemeni India"
     }
   },
-  // {
-  //   path: 'view',
-  //   component: ReceiveNoteDetailComponent,
-  //   data: {
-  //     title: "Receive Note details - Dashboard | Gemeni India"
-  //   }
-  // },
+  {
+    path: 'view',
+    component: ReceiveNoteDetailComponent,
+    data: {
+      title: "Receive Note details - Dashboard | Gemeni India"
+    }
+  },
   {
     path: '',
     component: ReceiveNotesComponent,
@@ -47,6 +48,6 @@ const routes: Routes = [
     NgSelectModule,
     RouterModule.forChild(routes)
   ],
-  declarations: [ReceiveNotesComponent, ReceiveNoteEditComponent, ReceiveNoteParticularComponent, ReceiveNoteTableComponent]
+  declarations: [ReceiveNotesComponent, ReceiveNoteEditComponent, ReceiveNoteParticularComponent, ReceiveNoteTableComponent, ReceiveNoteDetailComponent]
 })
 export class ReceiveNotesModule { }

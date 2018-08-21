@@ -43,10 +43,7 @@ export class ReceiveNoteEditComponent implements OnInit, OnDestroy {
     this.buildForm();
     this.formListener();
     this.formDataSubscription$ = this._store.select(fromRoot.getReceiveNoteFormdata).subscribe(data => {
-      if (data) {
-        console.log(data);
-        this.vendors = data["vendors"].filter(vendor => new Vendor(vendor));
-      }
+      data ? this.vendors = data["vendors"].filter(vendor => new Vendor(vendor)) : null
     });
     if (this.addReceiveNote) {
       this.addParticular();

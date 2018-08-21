@@ -55,4 +55,12 @@ export class ReceiveNoteParticular {
     this.total = data.total != null ? +data.total : null;
     this.inventory_item = data.inventory_item ? new Inventory(data.inventory_item) : new Inventory({})
   }
+
+  getPrice(): number {
+    return this.unit_price * this.quantity;
+  }
+
+  getGstAmount(): number {
+    return +(this.getPrice() * (this.gst * 0.01)).toFixed(2)
+  }
 }
