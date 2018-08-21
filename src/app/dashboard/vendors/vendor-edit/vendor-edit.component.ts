@@ -6,7 +6,6 @@ import { Store } from '@ngrx/store';
 
 import * as fromRoot from "../../../shared/reducers";
 import * as vendorActions from "../../../shared/actions/vendor.actions";
-import { User } from '../../../shared/models';
 
 @Component({
   selector: 'app-vendor-edit',

@@ -41,6 +41,12 @@ export class ReceiveNoteEffects {
         catchError(error => of(new fromReceiveNote.FetchReceiveNoteFailedAction(error.json().message)))))));
 
   @Effect()
+  fetchReceiveNoteFormData$: Observable<Action> = this._action$.pipe(ofType(fromReceiveNote.FETCH_RECEIVE_NOTE_FORM_DATA_ACTION),
+    mergeMap((action: fromReceiveNote.FetchReceiveNoteFormDataAction) => this._tokenService.get('receive_notes/new')
+      .pipe(map(response => new fromReceiveNote.FetchReceiveNoteFormDataCompleteAction(response.json().message),
+        catchError(error => of(new fromReceiveNote.FetchReceiveNoteFormDataFailedAction(error.json().message)))))));
+
+  @Effect()
   createNewReceiveNote$: Observable<Action> = this._action$.pipe(ofType(fromReceiveNote.CREATE_RECEIVE_NOTE_ACTION),
     mergeMap((action: fromReceiveNote.CreateReceiveNoteAction) => this._tokenService.post('receive_notes', action.payload)
       .pipe(map(response => {

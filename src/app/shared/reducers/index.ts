@@ -85,4 +85,5 @@ export const getVendorPageStatus = createSelector(vendors, (state: fromVendor.St
 export const receiveNotes = (state: State) => state.receiveNotes;
 export const getAllReceiveNotes = createSelector(receiveNotes, (state: fromReceiveNote.State) => state.allReceiveNotes);
 export const getCurrentReceiveNote = createSelector(receiveNotes, (state: fromReceiveNote.State) => state.currentReceiveNote);
+export const getReceiveNoteFormdata = createSelector(receiveNotes, (state: fromReceiveNote.State) => state.receiveNoteFormData);
 export const getReceiveNotePageStatus = createSelector(receiveNotes, (state: fromReceiveNote.State) => state.receiveNotePageStatus);

@@ -16,6 +16,10 @@ export const FETCH_RECEIVE_NOTE_ACTION = '[ReceiveNote] Fetch Receive Note Actio
 export const FETCH_RECEIVE_NOTE_COMPLETE_ACTION = '[ReceiveNote] Fetch Receive Note Complete Action';
 export const FETCH_RECEIVE_NOTE_FAILED_ACTION = '[ReceiveNote] Fetch Receive Note Failed Action';
 
+export const FETCH_RECEIVE_NOTE_FORM_DATA_ACTION = '[ReceiveNote] Fetch Receive Note Form Data Action';
+export const FETCH_RECEIVE_NOTE_FORM_DATA_COMPLETE_ACTION = '[ReceiveNote] Fetch Receive Note Form Data Complete Action';
+export const FETCH_RECEIVE_NOTE_FORM_DATA_FAILED_ACTION = '[ReceiveNote] Fetch Receive Note Form Data Failed Action';
+
 export const CREATE_RECEIVE_NOTE_ACTION = '[ReceiveNote] Create Receive Note Action';
 export const CREATE_RECEIVE_NOTE_COMPLETE_ACTION = '[ReceiveNote] Create Receive Note Complete Action';
 export const CREATE_RECEIVE_NOTE_FAILED_ACTION = '[ReceiveNote] Create Receive Note Failed Action';
@@ -69,6 +73,31 @@ export class FetchReceiveNoteCompleteAction implements Action {
 
 export class FetchReceiveNoteFailedAction implements Action {
   readonly type = FETCH_RECEIVE_NOTE_FAILED_ACTION;
+  constructor(public payload: any) { }
+}
+
+export class FetchReceiveNoteFormDataAction implements Action {
+  readonly type = FETCH_RECEIVE_NOTE_FORM_DATA_ACTION;
+  constructor(public payload?: any) {
+    toast({
+      title: 'Loading form data...'
+    });
+    toast.showLoading();
+  }
+}
+
+export class FetchReceiveNoteFormDataCompleteAction implements Action {
+  readonly type = FETCH_RECEIVE_NOTE_FORM_DATA_COMPLETE_ACTION;
+  constructor(public payload: any) {
+    toast({
+      type: 'success',
+      title: 'Form data loaded!'
+    });
+  }
+}
+
+export class FetchReceiveNoteFormDataFailedAction implements Action {
+  readonly type = FETCH_RECEIVE_NOTE_FORM_DATA_FAILED_ACTION;
   constructor(public payload: any) { }
 }
 
@@ -166,6 +195,9 @@ export type Actions =
   | FetchReceiveNoteAction
   | FetchReceiveNoteCompleteAction
   | FetchReceiveNoteFailedAction
+  | FetchReceiveNoteFormDataAction
+  | FetchReceiveNoteFormDataCompleteAction
+  | FetchReceiveNoteFormDataFailedAction
   | CreateReceiveNoteAction
   | CreateReceiveNoteCompleteAction
   | CreateReceiveNoteFailedAction

@@ -1,29 +1,99 @@
 <section class="container">
-    <div class="d-flex align-items-center justify-content-between">
-      <a routerLink="../" class="btn btn-primary text-light">
-        <i class="fas fa-arrow-left mr-2"></i>Go back</a>
-      <h4 class="text-grey-dark m-0">{{addVendor ? 'Create vendor' : 'Edit vendor'}}</h4>
-    </div>
-    <div class="row justify-content-center">
-      <div class="col-sm-12 col-md-10 col-lg-6">
-        <form [formGroup]="vendorForm" autocomplete="off">
-          <div class="card mt-5">
-            <div class="card-body">
-              <h5 class="text-grey-dark font-weight-bold">Vendor information</h5>
-              <mat-form-field class="w-100">
-                <input matInput placeholder="Company Name" formControlName="company_name">
-              </mat-form-field>
-              <mat-form-field class="w-100">
-                <input maxLength="15" matInput placeholder="GSTN" formControlName="gstn">
-                <mat-hint align="end">{{gstn.value ? gstn.value.length : 0}} / 15</mat-hint>
-              </mat-form-field>
-              <mat-form-field class="w-100">
-                <textarea matInput placeholder="Address" formControlName="address" rows="5"></textarea>
-              </mat-form-field>
-              <button class="btn btn-primary btn-save" [disabled]="vendorForm.invalid || vendorForm.pristine" (click)="saveChanges()">Save</button>
+  <div class="d-flex align-items-center justify-content-between">
+    <a routerLink="../" class="btn btn-primary text-light">
+      <i class="fas fa-arrow-left mr-2"></i>Go back</a>
+    <h4 class="text-grey-dark m-0">{{addReceiveNote ? 'Raise receive note' : 'Edit receive note'}}</h4>
+  </div>
+  <div class="row justify-content-center">
+    <div class="col-sm-12 col-lg-10">
+      <form [formGroup]="receiveNoteForm" autocomplete="off">
+        <div class="card mt-5">
+          <div class="card-body">
+            <h5 class="text-grey-dark font-weight-bold">Receive Note information</h5>
+            <div class="container-fluid">
+              <div class="row">
+                <div class="text-muted font-weight-bold col-lg-4">Item</div>
+                <div class="text-muted font-weight-bold col-lg-2">Unit price</div>
+                <div class="text-muted font-weight-bold col-lg-2">Quantity</div>
+                <div class="text-muted font-weight-bold col-lg-1">GST</div>
+                <div class="text-muted font-weight-bold col-lg-2">Total</div>
+                <div class="text-muted font-weight-bold col-lg-1"></div>
+              </div>
+              <ng-container formArrayName="rn_particulars">
+                <div class="row" receive-note-particular *ngFor="let particular of rn_particulars.controls; let i=index" [formGroupName]="i"
+                  [group]="particular">
+                  <div class="col-lg-1">
+                    <button *ngIf="rn_particulars.length > 1" (click)="removeParticular(i)" mat-icon-button color="warn">
+                      <i class="fas fa-trash-alt"></i>
+                    </button>
+                  </div>
+                </div>
+              </ng-container>
+              <div class="text-right" *ngIf="rn_particulars.length < 16">
+                <button class="ml-auto" mat-button color="warn" (click)="addParticular()">
+                  <strong>ADD PARTICULAR</strong>
+                </button>
+              </div>
             </div>
+            <div class="row">
+              <div class="col-lg-4">
+                <ng-select [items]="vendors" bindLabel="company_name" bindValue="id" formControlName="vendor_id" placeholder="Select Vendor"></ng-select>
+              </div>
+              <div class="col-lg-4">
+                <mat-form-field class="w-100">
+                  <input matInput type="number" placeholder="Expenses" formControlName="expenses">
+                </mat-form-field>
+              </div>
+              <div class="col-lg-4">
+                <mat-form-field class="w-100">
+                  <input matInput maxLength="15" placeholder="GSTN" formControlName="gstn">
+                  <mat-hint align="end">{{gstn.value ? gstn.value.length : 0}} / 15</mat-hint>
+                </mat-form-field>
+              </div>
+            </div>
+            <hr>
+            <div class="w-100 text-right" *ngIf="addReceiveNote">
+              <mat-slide-toggle color="warn" formControlName="freight_switch" (ngModelChange)="freightValidate($event)">
+                <strong class="text-secondary">Provide optional freight details</strong>
+              </mat-slide-toggle>
+            </div>
+            <ng-container *ngIf="freight_switch.value">
+              <div class="row">
+                <div class="col-lg-4">
+                  <mat-form-field class="w-100">
+                    <input matInput type="number" placeholder="Freight" formControlName="freight">
+                  </mat-form-field>
+                </div>
+                <div class="col-lg-3">
+                  <mat-form-field class="w-100">
+                    <input matInput type="number" placeholder="GST" formControlName="freight_gst">
+                  </mat-form-field>
+                </div>
+                <div class="col-lg-5">
+                  <mat-form-field class="w-100">
+                    <input matInput type="number" placeholder="Total" formControlName="freight_total">
+                  </mat-form-field>
+                </div>
+                <div class="col-lg-6">
+                  <mat-form-field class="w-100">
+                    <input matInput maxLength="15" placeholder="GSTN" formControlName="freight_gstn">
+                    <mat-hint align="end">{{freight_gstn.value ? freight_gstn.value.length : 0}} / 15</mat-hint>
+                  </mat-form-field>
+                </div>
+              </div>
+              <hr>
+            </ng-container>
+            <div class="mt-3 row justify-content-end">
+              <div class="col-lg-4">
+                <mat-form-field class="w-100">
+                  <input matInput placeholder="Grand total" formControlName="total">
+                </mat-form-field>
+              </div>
+            </div>
+            <button class="btn btn-primary btn-save" [disabled]="receiveNoteForm.invalid || receiveNoteForm.pristine" (click)="saveChanges()">Save</button>
           </div>
-        </form>
-      </div>
+        </div>
+      </form>
     </div>
-  </section>
+  </div>
+</section>

@@ -6,12 +6,14 @@ export interface State {
   allReceiveNotes: ReceiveNote[];
   currentReceiveNote: ReceiveNote;
   receiveNotePageStatus: PageData;
+  receiveNoteFormData: any;
 }
 
 const initialState: State = {
   allReceiveNotes: [],
   currentReceiveNote: new ReceiveNote({}),
-  receiveNotePageStatus: new PageData({})
+  receiveNotePageStatus: new PageData({}),
+  receiveNoteFormData: null
 };
 
 export function reducer(state = initialState, action: receiveNoteActions.Actions): State {
@@ -54,6 +56,10 @@ export function reducer(state = initialState, action: receiveNoteActions.Actions
     case receiveNoteActions.CONFIRM_RECEIVE_NOTE_COMPLETE_ACTION:
       return Object.assign({}, state, {
         currentReceiveNote: new ReceiveNote({})
+      });
+    case receiveNoteActions.FETCH_RECEIVE_NOTE_FORM_DATA_COMPLETE_ACTION:
+      return Object.assign({}, state, {
+        receiveNoteFormData: action.payload
       });
     default:
       return state;
