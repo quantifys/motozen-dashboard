@@ -46,6 +46,10 @@ const routes: Routes = [
         loadChildren: './purchase-orders/purchase-orders.module#PurchaseOrdersModule'
       },
       {
+        path: 'receive-notes',
+        loadChildren: './receive-notes/receive-notes.module#ReceiveNotesModule'
+      },
+      {
         path: 'salary-slips',
         loadChildren: './salary-slips/salary-slips.module#SalarySlipsModule'
       },

@@ -7,6 +7,7 @@ import * as fromInventory from "./inventory.reducer";
 import * as fromCertificate from "./certificate.reducer";
 import * as fromExpense from "./expense.reducer";
 import * as fromPurchaseOrder from "./purchase-order.reducer";
+import * as fromReceiveNote from "./receive-note.reducer";
 import * as fromSalarySlip from "./salary-slip.reducer";
 import * as fromVendor from "./vendor.reducer";
 
@@ -18,6 +19,7 @@ export interface State {
   certificates: fromCertificate.State;
   expenses: fromExpense.State;
   purchaseOrders: fromPurchaseOrder.State;
+  receiveNotes: fromReceiveNote.State;
   salarySlips: fromSalarySlip.State;
   vendors: fromVendor.State;
 }
@@ -30,6 +32,7 @@ export const reducers: ActionReducerMap<State> = {
   certificates: fromCertificate.reducer,
   expenses: fromExpense.reducer,
   purchaseOrders: fromPurchaseOrder.reducer,
+  receiveNotes: fromReceiveNote.reducer,
   salarySlips: fromSalarySlip.reducer,
   vendors: fromVendor.reducer
 };
@@ -78,3 +81,9 @@ export const vendors = (state: State) => state.vendors;
 export const getAllVendors = createSelector(vendors, (state: fromVendor.State) => state.allVendors);
 export const getCurrentVendor = createSelector(vendors, (state: fromVendor.State) => state.currentVendor);
 export const getVendorPageStatus = createSelector(vendors, (state: fromVendor.State) => state.vendorPageStatus);
+
+export const receiveNotes = (state: State) => state.receiveNotes;
+export const getAllReceiveNotes = createSelector(receiveNotes, (state: fromReceiveNote.State) => state.allReceiveNotes);
+export const getCurrentReceiveNote = createSelector(receiveNotes, (state: fromReceiveNote.State) => state.currentReceiveNote);
+export const getReceiveNoteFormdata = createSelector(receiveNotes, (state: fromReceiveNote.State) => state.receiveNoteFormData);
+export const getReceiveNotePageStatus = createSelector(receiveNotes, (state: fromReceiveNote.State) => state.receiveNotePageStatus);
