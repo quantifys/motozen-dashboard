@@ -22,6 +22,7 @@ export class ReceiveNoteEditComponent implements OnInit, OnDestroy {
   public receiveNoteForm: FormGroup;
   public addReceiveNote: boolean;
   public vendors: Vendor[] = [];
+  public deletedItems: number[] = [];
 
   constructor(
     private _store: Store<fromRoot.State>,
@@ -48,8 +49,11 @@ export class ReceiveNoteEditComponent implements OnInit, OnDestroy {
     if (this.addReceiveNote) {
       this.addParticular();
     } else {
-      this.receiveNoteSubscription$ = this._store.select(fromRoot.getCurrentVendor).subscribe(receiveNote => {
+      this.receiveNoteSubscription$ = this._store.select(fromRoot.getCurrentReceiveNote).subscribe(receiveNote => {
         this.receiveNoteForm.patchValue(receiveNote);
+        receiveNote.freight > 0 ? this.freight_switch.patchValue(true, { emitEvent: false }) : null
+        receiveNote.rn_particulars.map(particular => this.addParticular(particular));
+        this.vendor_id.patchValue(receiveNote.vendor.id);
       });
     }
   }
@@ -119,6 +123,10 @@ export class ReceiveNoteEditComponent implements OnInit, OnDestroy {
     return this.receiveNoteForm.get('freight_gstn') as FormControl;
   }
 
+  get vendor_id(): FormControl {
+    return this.receiveNoteForm.get('vendor_id') as FormControl;
+  }
+
   initParticular(data?: ReceiveNoteParticular): FormGroup {
     return this._fb.group({
       id: [data ? data.id : null],
@@ -137,12 +145,27 @@ export class ReceiveNoteEditComponent implements OnInit, OnDestroy {
     this.rn_particulars.push(this.initParticular(data));
   }
 
+  removeParticular(index: number) {
+    this.deletedItems.push(this.rn_particulars.at(index).get('id').value);
+    this.rn_particulars.removeAt(index);
+    this.rn_particulars.markAsDirty();
+  }
+
   freightValidate(event) {
     let controls: string[] = ["freight", "freight_gst", "freight_total"];
-    controls.map(control => {
-      event ? this.receiveNoteForm.get(control).setValidators(Validators.required) : this.receiveNoteForm.get(control).clearValidators()
-      this.receiveNoteForm.get(control).updateValueAndValidity();
-    });
+    if (event) {
+      this.receiveNoteForm.get("freight").setValidators([Validators.required, Validators.min(0)]);
+      this.receiveNoteForm.get("freight_total").setValidators([Validators.required, Validators.min(0)]);
+      this.receiveNoteForm.get("freight_gst").setValidators([Validators.required, Validators.min(0), Validators.max(30)]);
+      controls.map(control => {
+        this.receiveNoteForm.get(control).updateValueAndValidity();
+      });
+    } else {
+      controls.map(control => {
+        this.receiveNoteForm.get(control).clearValidators();
+        this.receiveNoteForm.get(control).updateValueAndValidity();
+      });
+    }
   }
 
   formListener() {
@@ -167,8 +190,14 @@ export class ReceiveNoteEditComponent implements OnInit, OnDestroy {
         receive_note: formData
       }));
     } else {
+      this.deletedItems.map(id => {
+        formData.rn_particulars.push({
+          id: id,
+          _destroy: 1
+        })
+      });
       this._store.dispatch(new receiveNoteActions.UpdateReceiveNoteAction({
-        receiveNote: formData
+        receive_note: formData
       }));
     }
   }

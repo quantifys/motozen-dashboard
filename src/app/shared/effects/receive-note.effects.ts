@@ -75,7 +75,7 @@ export class ReceiveNoteEffects {
 
   @Effect()
   updateReceiveNote$: Observable<Action> = this._action$.pipe(ofType(fromReceiveNote.UPDATE_RECEIVE_NOTE_ACTION),
-    mergeMap((action: fromReceiveNote.UpdateReceiveNoteAction) => this._tokenService.patch(`receive_notes/${action.payload.vendor.id}`, action.payload)
+    mergeMap((action: fromReceiveNote.UpdateReceiveNoteAction) => this._tokenService.patch(`receive_notes/${action.payload.receive_note.id}`, action.payload)
       .pipe(map(response => {
         this._router.navigate(["dashboard", "receive-notes", "view"], { queryParams: { id: response.json().message.id } });
         return new fromReceiveNote.UpdateReceiveNoteCompleteAction(response.json().message);

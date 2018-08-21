@@ -26,10 +26,18 @@ export class ReceiveNoteParticularComponent implements OnInit, OnDestroy {
     this._store.select(fromRoot.getReceiveNoteFormdata).subscribe(data => {
       data ? this.inventory = data["inventory_items"].filter(item => new Inventory(item)) : null
     });
+
+    if (this.id.value) {
+      this.calcTotal();
+    }
   }
 
   ngOnDestroy() {
     this.inventorySubscription$.unsubscribe();
+  }
+
+  get id(): FormControl {
+    return this.particularForm.get('id') as FormControl;
   }
 
   get quantity(): FormControl {
@@ -49,8 +57,11 @@ export class ReceiveNoteParticularComponent implements OnInit, OnDestroy {
   }
 
   formListener() {
-    this.particularForm.valueChanges.subscribe(value =>
-      this.total.patchValue(((this.unit_price.value * this.quantity.value) * (1 + (this.gst.value * .01))).toFixed(2), { emitEvent: false }));
+    this.particularForm.valueChanges.subscribe(value => this.calcTotal());
+  }
+
+  calcTotal() {
+    this.total.patchValue(((this.unit_price.value * this.quantity.value) * (1 + (this.gst.value * .01))).toFixed(2), { emitEvent: false })
   }
 
 }

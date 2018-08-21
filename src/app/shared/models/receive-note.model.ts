@@ -1,4 +1,5 @@
 import { Inventory } from "./inventory.model";
+import { Vendor } from "./vendor.model";
 
 export class ReceiveNote {
   public id: number;
@@ -12,6 +13,7 @@ export class ReceiveNote {
   public user_id: number;
   public created_at: Date;
   public status: string;
+  public vendor: Vendor;
   public rn_particulars: ReceiveNoteParticular[];
   constructor(data: any) {
     this.id = data.id ? data.id : null;
@@ -25,6 +27,7 @@ export class ReceiveNote {
     this.user_id = data.user_id ? data.user_id : null;
     this.created_at = data.created_at ? new Date(data.created_at) : new Date();
     this.status = data.status ? data.status : null;
+    this.vendor = data.vendor ? new Vendor(data.vendor) : new Vendor({});
     this.rn_particulars = data.rn_particulars ? data.rn_particulars.map(particular => new ReceiveNoteParticular(particular)) : [];
   }
 
