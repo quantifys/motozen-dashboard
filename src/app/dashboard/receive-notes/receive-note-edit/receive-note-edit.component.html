@@ -35,20 +35,22 @@
                 </button>
               </div>
             </div>
-            <div class="row">
-              <div class="col-lg-4">
-                <ng-select [items]="vendors" bindLabel="company_name" bindValue="id" formControlName="vendor_id" placeholder="Select Vendor"></ng-select>
-              </div>
-              <div class="col-lg-4">
-                <mat-form-field class="w-100">
-                  <input matInput type="number" placeholder="Expenses" formControlName="expenses">
-                </mat-form-field>
-              </div>
-              <div class="col-lg-4">
-                <mat-form-field class="w-100">
-                  <input matInput maxLength="15" placeholder="GSTN" formControlName="gstn">
-                  <mat-hint align="end">{{gstn.value ? gstn.value.length : 0}} / 15</mat-hint>
-                </mat-form-field>
+            <div class="container-fluid">
+              <div class="row">
+                <div class="col-lg-4">
+                  <ng-select [items]="vendors" bindLabel="company_name" bindValue="id" formControlName="vendor_id" placeholder="Select Vendor"></ng-select>
+                </div>
+                <div class="col-lg-4">
+                  <mat-form-field class="w-100">
+                    <input matInput type="number" placeholder="Expenses" formControlName="expenses">
+                  </mat-form-field>
+                </div>
+                <div class="col-lg-4">
+                  <mat-form-field class="w-100">
+                    <input matInput maxLength="15" placeholder="GSTN" formControlName="gstn">
+                    <mat-hint align="end">{{gstn.value ? gstn.value.length : 0}} / 15</mat-hint>
+                  </mat-form-field>
+                </div>
               </div>
             </div>
             <hr>

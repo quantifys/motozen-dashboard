@@ -148,17 +148,19 @@ export class ReceiveNoteEditComponent implements OnInit, OnDestroy {
   formListener() {
     this.formSubscription$ = this.receiveNoteForm.valueChanges.subscribe(value => {
       let total: number = 0;
-      this.rn_particulars.controls.map(group => total += Number(group.get('total').value));
+      this.rn_particulars.controls.map(group => total += Number(group.get('total').value >= 0 ? group.get('total').value : 0));
       this.freight_total.patchValue(+(this.freight.value * (1 + (this.freight_gst.value * 0.01))).toFixed(2), { emitEvent: false });
-      this.total.patchValue(Math.ceil(this.freight_total.value + this.expenses.value + Number(total.toFixed(2))), { emitEvent: false });
+      this.total.patchValue(Math.ceil((this.freight_switch.value ? this.freight_total.value : 0) + this.expenses.value + Number(total.toFixed(2))), { emitEvent: false });
     });
   }
 
   saveChanges() {
     let formData: any = this.receiveNoteForm.value;
     if (!formData.freight_switch) {
-      let controls: string[] = ["freight", "freight_gst", "freight_total", "freight_switch", "freight_gstn"];
+      let controls: string[] = ["freight_total", "freight_switch", "freight_gstn"];
       controls.map(control => delete formData[control]);
+      formData["freight"] = 0;
+      formData["freight_gst"] = 0;
     }
     if (this.addReceiveNote) {
       this._store.dispatch(new receiveNoteActions.CreateReceiveNoteAction({
