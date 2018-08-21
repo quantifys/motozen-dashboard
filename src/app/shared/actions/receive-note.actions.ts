@@ -168,7 +168,6 @@ export class DeleteReceiveNoteFailedAction implements Action {
 
 export class ConfirmReceiveNoteAction implements Action {
   readonly type = CONFIRM_RECEIVE_NOTE_ACTION;
-  constructor(public payload: any) { }
 }
 
 export class ConfirmReceiveNoteCompleteAction implements Action {

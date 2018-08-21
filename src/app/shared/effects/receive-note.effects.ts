@@ -13,7 +13,7 @@ import { ReceiveNote } from '../models';
 @Injectable()
 export class ReceiveNoteEffects {
 
-  private vendor: ReceiveNote = new ReceiveNote({});
+  private receiveNote: ReceiveNote = new ReceiveNote({});
 
   constructor(
     private _store: Store<fromRoot.State>,
@@ -21,7 +21,7 @@ export class ReceiveNoteEffects {
     private _tokenService: Angular2TokenService,
     private _router: Router
   ) {
-    this._store.select(fromRoot.getCurrentReceiveNote).subscribe(slip => this.vendor = slip);
+    this._store.select(fromRoot.getCurrentReceiveNote).subscribe(slip => this.receiveNote = slip);
   }
 
   @Effect()
@@ -57,7 +57,7 @@ export class ReceiveNoteEffects {
 
   @Effect()
   deleteReceiveNote$: Observable<Action> = this._action$.pipe(ofType(fromReceiveNote.DELETE_RECEIVE_NOTE_ACTION),
-    mergeMap((action: fromReceiveNote.DeleteReceiveNoteAction) => this._tokenService.delete(`receive_notes/${this.vendor.id}`)
+    mergeMap((action: fromReceiveNote.DeleteReceiveNoteAction) => this._tokenService.delete(`receive_notes/${this.receiveNote.id}`)
       .pipe(map(response => {
         this._router.navigate(["dashboard", "receive-notes"]);
         return new fromReceiveNote.DeleteReceiveNoteCompleteAction
@@ -66,7 +66,7 @@ export class ReceiveNoteEffects {
 
   @Effect()
   confirmReceiveNote$: Observable<Action> = this._action$.pipe(ofType(fromReceiveNote.CONFIRM_RECEIVE_NOTE_ACTION),
-    mergeMap((action: fromReceiveNote.ConfirmReceiveNoteAction) => this._tokenService.post(`receive_notes/${this.vendor.id}/confirm`, action.payload)
+    mergeMap((action: fromReceiveNote.ConfirmReceiveNoteAction) => this._tokenService.post(`receive_notes/${this.receiveNote.id}/confirm`, null)
       .pipe(map(response => {
         this._router.navigate(["dashboard", "receive-notes"])
         return new fromReceiveNote.ConfirmReceiveNoteCompleteAction(response.json().message);

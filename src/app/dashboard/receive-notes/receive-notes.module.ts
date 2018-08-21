@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MatTabsModule, MatButtonModule, MatFormFieldModule, MatInputModule, MatSlideToggleModule, MatPaginatorModule } from '@angular/material';
+import { MatTabsModule, MatButtonModule, MatFormFieldModule, MatInputModule, MatSlideToggleModule, MatPaginatorModule, MatBottomSheetModule } from '@angular/material';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { ReactiveFormsModule } from '@angular/forms';
 import { Routes, RouterModule } from '@angular/router';
@@ -10,6 +10,7 @@ import { ReceiveNoteEditComponent } from './receive-note-edit/receive-note-edit.
 import { ReceiveNoteParticularComponent } from './receive-note-particular/receive-note-particular.component';
 import { ReceiveNoteTableComponent } from './receive-note-table/receive-note-table.component';
 import { ReceiveNoteDetailComponent } from './receive-note-detail/receive-note-detail.component';
+import { ReceiveNoteConfirmComponent, ReceiveNoteDeleteComponent } from './receive-note-confirm/receive-note-confirm.component';
 
 const routes: Routes = [
   {
@@ -45,9 +46,11 @@ const routes: Routes = [
     MatInputModule,
     MatSlideToggleModule,
     MatPaginatorModule,
+    MatBottomSheetModule,
     NgSelectModule,
     RouterModule.forChild(routes)
   ],
-  declarations: [ReceiveNotesComponent, ReceiveNoteEditComponent, ReceiveNoteParticularComponent, ReceiveNoteTableComponent, ReceiveNoteDetailComponent]
+  declarations: [ReceiveNotesComponent, ReceiveNoteEditComponent, ReceiveNoteParticularComponent, ReceiveNoteTableComponent, ReceiveNoteDetailComponent, ReceiveNoteConfirmComponent, ReceiveNoteDeleteComponent],
+  entryComponents: [ReceiveNoteConfirmComponent, ReceiveNoteDeleteComponent]
 })
 export class ReceiveNotesModule { }

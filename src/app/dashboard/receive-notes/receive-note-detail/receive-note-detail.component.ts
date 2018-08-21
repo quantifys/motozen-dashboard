@@ -1,12 +1,14 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
+import { MatBottomSheet } from '@angular/material';
 import { Location } from '@angular/common';
 import { Subscription } from 'rxjs';
 import { Store } from '@ngrx/store';
 
 import * as fromRoot from '../../../shared/reducers';
 import * as receiveNoteActions from '../../../shared/actions/receive-note.actions';
-import { ReceiveNote, User } from '../../../shared/models';
+import { ReceiveNote } from '../../../shared/models';
+import { ReceiveNoteConfirmComponent, ReceiveNoteDeleteComponent } from '../receive-note-confirm/receive-note-confirm.component';
 
 @Component({
   selector: 'app-receive-note-detail',
@@ -23,7 +25,8 @@ export class ReceiveNoteDetailComponent implements OnInit, OnDestroy {
     private _activatedRoute: ActivatedRoute,
     private _router: Router,
     public _location: Location,
-    private _store: Store<fromRoot.State>
+    private _store: Store<fromRoot.State>,
+    private bottomSheet: MatBottomSheet
   ) {
     this.routerSubscription$ = this._activatedRoute.queryParams.subscribe(params => {
       if (params["id"]) {
@@ -41,6 +44,14 @@ export class ReceiveNoteDetailComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.routerSubscription$.unsubscribe();
     this.receiveNoteSubscription$.unsubscribe();
+  }
+
+  confirmReceiveNote() {
+    this.bottomSheet.open(ReceiveNoteConfirmComponent);
+  }
+
+  deleteReceiveNote() {
+    this.bottomSheet.open(ReceiveNoteDeleteComponent);
   }
 
 }
