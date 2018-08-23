@@ -14,6 +14,12 @@ export class RequisitionOrder {
     this.status = data.status ? data.status : null;
     this.req_particulars = data.req_particulars ? data.req_particulars.map(particular => new RequisitionOrderParticulars(particular)) : [];
   }
+
+  openReady(): boolean {
+    let flag: boolean = true;
+    this.req_particulars.map(particular => particular.quantity_available != null ? flag = flag && particular.quantity_available : null);
+    return flag;
+  }
 }
 
 export class RequisitionOrderParticulars {

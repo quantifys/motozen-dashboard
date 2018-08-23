@@ -5,6 +5,7 @@ import { MatTabsModule, MatButtonModule, MatPaginatorModule } from '@angular/mat
 
 import { RequisitionOrdersComponent } from './requisition-orders.component';
 import { RequisitionOrderTableComponent } from './requisition-order-table/requisition-order-table.component';
+import { RequisitionOrderDetailComponent } from './requisition-order-detail/requisition-order-detail.component';
 
 const routes: Routes = [
   // {
@@ -14,13 +15,13 @@ const routes: Routes = [
   //     title: "Requisition Order edit - Dashboard | Gemeni India"
   //   }
   // },
-  // {
-  //   path: 'view',
-  //   component: RequisitionOrderDetailComponent,
-  //   data: {
-  //     title: "Requisition Order details - Dashboard | Gemeni India"
-  //   }
-  // },
+  {
+    path: 'view',
+    component: RequisitionOrderDetailComponent,
+    data: {
+      title: "Requisition Order details - Dashboard | Gemeni India"
+    }
+  },
   {
     path: '',
     component: RequisitionOrdersComponent,
@@ -38,6 +39,6 @@ const routes: Routes = [
     MatPaginatorModule,
     RouterModule.forChild(routes)
   ],
-  declarations: [RequisitionOrdersComponent, RequisitionOrderTableComponent]
+  declarations: [RequisitionOrdersComponent, RequisitionOrderTableComponent, RequisitionOrderDetailComponent]
 })
 export class RequisitionOrdersModule { }
