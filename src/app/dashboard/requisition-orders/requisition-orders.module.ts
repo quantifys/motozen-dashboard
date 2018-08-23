@@ -1,9 +1,10 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
-import { MatTabsModule, MatButtonModule } from '@angular/material';
+import { MatTabsModule, MatButtonModule, MatPaginatorModule } from '@angular/material';
 
 import { RequisitionOrdersComponent } from './requisition-orders.component';
+import { RequisitionOrderTableComponent } from './requisition-order-table/requisition-order-table.component';
 
 const routes: Routes = [
   // {
@@ -34,8 +35,9 @@ const routes: Routes = [
     CommonModule,
     MatTabsModule,
     MatButtonModule,
+    MatPaginatorModule,
     RouterModule.forChild(routes)
   ],
-  declarations: [RequisitionOrdersComponent]
+  declarations: [RequisitionOrdersComponent, RequisitionOrderTableComponent]
 })
 export class RequisitionOrdersModule { }
