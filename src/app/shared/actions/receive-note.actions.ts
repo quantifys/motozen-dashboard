@@ -40,7 +40,7 @@ export class FetchAllReceiveNotesAction implements Action {
   readonly type = FETCH_ALL_RECEIVE_NOTES_ACTION;
   constructor(public payload: any) {
     toast({
-      title: 'Loading vendors...'
+      title: 'Loading receive notes...'
     });
     toast.showLoading();
   }
