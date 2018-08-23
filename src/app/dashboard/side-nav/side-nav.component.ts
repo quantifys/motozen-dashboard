@@ -87,6 +87,13 @@ export const ROUTES: RouteInfo[] = [
     users: ['store_purchases']
   },
   {
+    path: 'requisition-orders',
+    title: 'Requisition Orders',
+    type: 'link',
+    icontype: 'fa-book',
+    users: ['store_purchases', 'plant_supervisor']
+  },
+  {
     path: 'salary-slips',
     title: 'Salary Slips',
     type: 'link',

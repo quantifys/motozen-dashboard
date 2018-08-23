@@ -50,6 +50,10 @@ const routes: Routes = [
         loadChildren: './receive-notes/receive-notes.module#ReceiveNotesModule'
       },
       {
+        path: 'requisition-orders',
+        loadChildren: './requisition-orders/requisition-orders.module#RequisitionOrdersModule'
+      },
+      {
         path: 'salary-slips',
         loadChildren: './salary-slips/salary-slips.module#SalarySlipsModule'
       },
