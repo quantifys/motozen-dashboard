@@ -42,7 +42,7 @@ export const ROUTES: RouteInfo[] = [
     title: 'Devices',
     type: 'link',
     icontype: 'fa-desktop',
-    users: ['manufacturer', 'distributor']
+    users: ['manufacturer', 'distributor', 'dealer', 'store_purchases']
   },
   {
     path: 'vehicles',
@@ -56,14 +56,14 @@ export const ROUTES: RouteInfo[] = [
     title: 'Inventory',
     type: 'link',
     icontype: 'fa-sitemap',
-    users: ['manufacturer']
+    users: ['manufacturer', 'store_purchases', 'plant_supervisor']
   },
   {
     path: 'certificates',
     title: 'Certificates',
     type: 'link',
     icontype: 'fa-certificate',
-    users: ['distributor', 'store_purchases']
+    users: ['distributor', 'dealer', 'sales']
   },
   {
     path: 'expenses',
@@ -77,7 +77,7 @@ export const ROUTES: RouteInfo[] = [
     title: 'Purchase Orders',
     type: 'link',
     icontype: 'fa-credit-card',
-    users: ['distributor', 'store_purchases', 'accounts', 'store_dispatch', 'store_logistics']
+    users: ['distributor', 'store_purchases', 'accounts', 'store_dispatch', 'store_logistics', 'sales']
   },
   {
     path: 'receive-notes',
