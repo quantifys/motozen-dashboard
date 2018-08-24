@@ -14,6 +14,10 @@ const routes: Routes = [
     path: '',
     pathMatch: 'full',
     redirectTo: 'login'
+  },
+  {
+    path: '**',
+    loadChildren: './error/error.module#ErrorModule'
   }
 ];
 
