@@ -5,14 +5,14 @@ export class RequisitionOrder {
   public serial_no: string;
   public created_at: Date;
   public status: string;
-  public req_particulars: RequisitionOrderParticulars[];
+  public req_particulars: RequisitionOrderParticular[];
 
   constructor(data: any) {
     this.id = data.id ? data.id : null;
     this.serial_no = data.serial_no ? data.serial_no : null;
     this.created_at = data.created_at ? new Date(data.created_at) : new Date();
     this.status = data.status ? data.status : null;
-    this.req_particulars = data.req_particulars ? data.req_particulars.map(particular => new RequisitionOrderParticulars(particular)) : [];
+    this.req_particulars = data.req_particulars ? data.req_particulars.map(particular => new RequisitionOrderParticular(particular)) : [];
   }
 
   openReady(): boolean {
@@ -22,7 +22,7 @@ export class RequisitionOrder {
   }
 }
 
-export class RequisitionOrderParticulars {
+export class RequisitionOrderParticular {
   public id: number;
   public quantity: number;
   public inventory_item: Inventory;

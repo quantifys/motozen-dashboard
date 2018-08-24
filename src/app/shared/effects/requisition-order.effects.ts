@@ -42,7 +42,7 @@ export class RequisitionOrderEffects {
 
   @Effect()
   fetchRequisitionOrderFormData$: Observable<Action> = this._action$.pipe(ofType(fromRequisitionOrder.FETCH_REQUISITION_ORDER_FORM_DATA_ACTION),
-    mergeMap((action: fromRequisitionOrder.FetchRequisitionOrderFormDataAction) => this._tokenService.get('req_orders/new')
+    mergeMap((action: fromRequisitionOrder.FetchRequisitionOrderFormDataAction) => this._tokenService.get('inventory_items')
       .pipe(map(response => new fromRequisitionOrder.FetchRequisitionOrderFormDataCompleteAction(response.json().message),
         catchError(error => of(new fromRequisitionOrder.FetchRequisitionOrderFormDataFailedAction(error.json().message)))))));
 
@@ -50,7 +50,7 @@ export class RequisitionOrderEffects {
   createNewRequisitionOrder$: Observable<Action> = this._action$.pipe(ofType(fromRequisitionOrder.CREATE_REQUISITION_ORDER_ACTION),
     mergeMap((action: fromRequisitionOrder.CreateRequisitionOrderAction) => this._tokenService.post('req_orders', action.payload)
       .pipe(map(response => {
-        this._router.navigate(["dashboard", "requisition-order", "view"], { queryParams: { id: response.json().message.id } })
+        this._router.navigate(["dashboard", "requisition-orders", "view"], { queryParams: { id: response.json().message.id } })
         return new fromRequisitionOrder.CreateRequisitionOrderCompleteAction(response.json().message)
       },
         catchError(error => of(new fromRequisitionOrder.CreateRequisitionOrderFailedAction(error.json().message)))))));
@@ -59,7 +59,7 @@ export class RequisitionOrderEffects {
   deleteRequisitionOrder$: Observable<Action> = this._action$.pipe(ofType(fromRequisitionOrder.DELETE_REQUISITION_ORDER_ACTION),
     mergeMap((action: fromRequisitionOrder.DeleteRequisitionOrderAction) => this._tokenService.delete(`req_orders/${this.requisitionOrder.id}`)
       .pipe(map(response => {
-        this._router.navigate(["dashboard", "requisition-order"]);
+        this._router.navigate(["dashboard", "requisition-orders"]);
         return new fromRequisitionOrder.DeleteRequisitionOrderCompleteAction
       },
         catchError(error => of(new fromRequisitionOrder.DeleteRequisitionOrderFailedAction(error.json().message)))))));
@@ -68,7 +68,7 @@ export class RequisitionOrderEffects {
   confirmRequisitionOrder$: Observable<Action> = this._action$.pipe(ofType(fromRequisitionOrder.CONFIRM_REQUISITION_ORDER_ACTION),
     mergeMap((action: fromRequisitionOrder.ConfirmRequisitionOrderAction) => this._tokenService.post(`req_orders/${this.requisitionOrder.id}/confirm`, null)
       .pipe(map(response => {
-        this._router.navigate(["dashboard", "requisition-order"])
+        this._router.navigate(["dashboard", "requisition-orders"])
         return new fromRequisitionOrder.ConfirmRequisitionOrderCompleteAction(response.json().message);
       },
         catchError(error => of(new fromRequisitionOrder.ConfirmRequisitionOrderFailedAction(error.json().message)))))));
@@ -77,7 +77,7 @@ export class RequisitionOrderEffects {
   updateRequisitionOrder$: Observable<Action> = this._action$.pipe(ofType(fromRequisitionOrder.UPDATE_REQUISITION_ORDER_ACTION),
     mergeMap((action: fromRequisitionOrder.UpdateRequisitionOrderAction) => this._tokenService.patch(`req_orders/${action.payload.receive_note.id}`, action.payload)
       .pipe(map(response => {
-        this._router.navigate(["dashboard", "requisition-order", "view"], { queryParams: { id: response.json().message.id } });
+        this._router.navigate(["dashboard", "requisition-orders", "view"], { queryParams: { id: response.json().message.id } });
         return new fromRequisitionOrder.UpdateRequisitionOrderCompleteAction(response.json().message);
       },
         catchError(error => of(new fromRequisitionOrder.UpdateRequisitionOrderFailedAction(error.json().message)))))));
