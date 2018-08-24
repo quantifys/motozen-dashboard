@@ -22,6 +22,7 @@ import { VehicleEffects } from './shared/effects/vehicle.effects';
 import { ExpenseEffects } from './shared/effects/expense.effects';
 import { PurchaseOrderEffects } from './shared/effects/purchase-order.effects';
 import { ReceiveNoteEffects } from './shared/effects/receive-note.effects';
+import { RequisitionOrderEffects } from './shared/effects/requisition-order.effects';
 import { SalarySlipEffects } from './shared/effects/salary-slip.effects';
 import { VendorEffects } from './shared/effects/vendor.effects';
 
@@ -44,6 +45,7 @@ import { VendorEffects } from './shared/effects/vendor.effects';
       ExpenseEffects,
       PurchaseOrderEffects,
       ReceiveNoteEffects,
+      RequisitionOrderEffects,
       SalarySlipEffects,
       VendorEffects
     ]),

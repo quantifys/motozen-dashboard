@@ -8,6 +8,7 @@ import * as fromCertificate from "./certificate.reducer";
 import * as fromExpense from "./expense.reducer";
 import * as fromPurchaseOrder from "./purchase-order.reducer";
 import * as fromReceiveNote from "./receive-note.reducer";
+import * as fromRequisitionOrder from "./requisition-order.reducer";
 import * as fromSalarySlip from "./salary-slip.reducer";
 import * as fromVendor from "./vendor.reducer";
 
@@ -20,6 +21,7 @@ export interface State {
   expenses: fromExpense.State;
   purchaseOrders: fromPurchaseOrder.State;
   receiveNotes: fromReceiveNote.State;
+  requisitionOrders: fromRequisitionOrder.State;
   salarySlips: fromSalarySlip.State;
   vendors: fromVendor.State;
 }
@@ -33,6 +35,7 @@ export const reducers: ActionReducerMap<State> = {
   expenses: fromExpense.reducer,
   purchaseOrders: fromPurchaseOrder.reducer,
   receiveNotes: fromReceiveNote.reducer,
+  requisitionOrders: fromRequisitionOrder.reducer,
   salarySlips: fromSalarySlip.reducer,
   vendors: fromVendor.reducer
 };
@@ -87,3 +90,9 @@ export const getAllReceiveNotes = createSelector(receiveNotes, (state: fromRecei
 export const getCurrentReceiveNote = createSelector(receiveNotes, (state: fromReceiveNote.State) => state.currentReceiveNote);
 export const getReceiveNoteFormdata = createSelector(receiveNotes, (state: fromReceiveNote.State) => state.receiveNoteFormData);
 export const getReceiveNotePageStatus = createSelector(receiveNotes, (state: fromReceiveNote.State) => state.receiveNotePageStatus);
+
+export const requisitionOrders = (state: State) => state.requisitionOrders;
+export const getAllRequisitionOrders = createSelector(requisitionOrders, (state: fromRequisitionOrder.State) => state.allRequisitionOrders);
+export const getCurrentRequisitionOrder = createSelector(requisitionOrders, (state: fromRequisitionOrder.State) => state.currentRequisitionOrder);
+export const getRequisitionOrderFormdata = createSelector(requisitionOrders, (state: fromRequisitionOrder.State) => state.requisitionOrderFormData);
+export const getRequisitionOrderPageStatus = createSelector(requisitionOrders, (state: fromRequisitionOrder.State) => state.requisitionOrderPageStatus);

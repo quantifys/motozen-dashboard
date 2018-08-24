@@ -1,0 +1,59 @@
+<section class="container">
+  <div class="d-flex align-items-center justify-content-between">
+    <button (click)="_location.back()" class="btn btn-primary text-light">
+      <i class="fas fa-arrow-left mr-2"></i>Go back</button>
+    <h4 class="text-grey-dark m-0">Requisition order details</h4>
+  </div>
+
+  <div class="d-flex justify-content-end mt-3">
+    <ng-container *ngIf="requisitionOrder.status == 'can_modify'">
+      <a *ngIf="loggedUser.role == 'plant_supervisor'" mat-stroked-button color="primary" routerLink="../edit" [queryParams]="{id: requisitionOrder.id}">Edit</a>
+      <button class="ml-2" mat-stroked-button color="warn" (click)="deleteRequisitionOrder()">Delete</button>
+      <button *ngIf="loggedUser.role == 'store_purchases'" class="ml-2" mat-stroked-button color="warn" [disabled]="!requisitionOrder.openReady()" (click)="openRequisitionOrder()">Mark open</button>
+    </ng-container>
+    <ng-container *ngIf="requisitionOrder.status == 'opened'">
+      <button mat-stroked-button color="warn" (click)="closeRequisitionOrder()">Close</button>
+    </ng-container>
+  </div>
+
+
+  <div class="row justify-content-center mt-4">
+    <div class="col-lg-4">
+      <div class="card">
+        <div class="card-body">
+          <h6 class="text-grey-dark font-weight-bold mb-3">
+            <i class="fas fa-info-circle mr-2 fa-fw text-primary"></i>Requisition order details</h6>
+          <h6 class="text-grey-dark">Serial Number:</h6>
+          <h6 class="ml-3">{{requisitionOrder.serial_no}}</h6>
+          <h6 class="text-grey-dark">Status:</h6>
+          <h6 class="ml-3">{{requisitionOrder.status == 'can_modify' ? 'Awaiting confirmation' : (requisitionOrder.status
+            | titlecase)}}</h6>
+          <h6 class="text-grey-dark">Raised On:</h6>
+          <h6 class="ml-3">{{requisitionOrder.created_at | date: 'fullDate'}}</h6>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-12">
+      <div class="table-container mt-4">
+        <div class="table-responsive">
+          <table class="table table-hover w-100 rounded table-striped text-center m-0">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>ITEM ID</th>
+                <th>QUANTITY</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let particular of requisitionOrder.req_particulars; let i = index">
+                <td>{{i+1}}</td>
+                <td>{{particular.inventory_item.item_code}} - {{particular.inventory_item.description}}</td>
+                <td>{{particular.quantity}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
