@@ -75,7 +75,7 @@ export class RequisitionOrderEffects {
 
   @Effect()
   updateRequisitionOrder$: Observable<Action> = this._action$.pipe(ofType(fromRequisitionOrder.UPDATE_REQUISITION_ORDER_ACTION),
-    mergeMap((action: fromRequisitionOrder.UpdateRequisitionOrderAction) => this._tokenService.patch(`req_orders/${action.payload.receive_note.id}`, action.payload)
+    mergeMap((action: fromRequisitionOrder.UpdateRequisitionOrderAction) => this._tokenService.patch(`req_orders/${action.payload.req_order.id}`, action.payload)
       .pipe(map(response => {
         this._router.navigate(["dashboard", "requisition-orders", "view"], { queryParams: { id: response.json().message.id } });
         return new fromRequisitionOrder.UpdateRequisitionOrderCompleteAction(response.json().message);

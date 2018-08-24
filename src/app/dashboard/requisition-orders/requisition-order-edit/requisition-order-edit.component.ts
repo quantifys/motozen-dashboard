@@ -44,8 +44,7 @@ export class RequisitionOrderEditComponent implements OnInit, OnDestroy {
     } else {
       this.requisitionOrderSubscription$ = this._store.select(fromRoot.getCurrentRequisitionOrder).subscribe(requisitionOrder => {
         this.requisitionOrderForm.patchValue(requisitionOrder);
-        // requisitionOrder.freight > 0 ? this.freight_switch.patchValue(true, { emitEvent: false }) : null
-        // requisitionOrder.rn_particulars.map(particular => this.addParticular(particular));
+        requisitionOrder.req_particulars.map(particular => this.addParticular(particular));
       });
     }
   }
@@ -84,7 +83,18 @@ export class RequisitionOrderEditComponent implements OnInit, OnDestroy {
     if (this.addRequisitionOrder) {
       this._store.dispatch(new requisitionOrderActions.CreateRequisitionOrderAction({
         req_order: this.requisitionOrderForm.value
-      }))
+      }));
+    } else {
+      let formData: any = this.requisitionOrderForm.value;
+      this.deletedItems.map(id => {
+        formData.req_particulars.push({
+          id: id,
+          _destroy: 1
+        })
+      });
+      this._store.dispatch(new requisitionOrderActions.UpdateRequisitionOrderAction({
+        req_order: formData
+      }));
     }
   }
 
