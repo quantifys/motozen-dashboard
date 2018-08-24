@@ -65,13 +65,22 @@ export class RequisitionOrderEffects {
         catchError(error => of(new fromRequisitionOrder.DeleteRequisitionOrderFailedAction(error.json().message)))))));
 
   @Effect()
-  confirmRequisitionOrder$: Observable<Action> = this._action$.pipe(ofType(fromRequisitionOrder.CONFIRM_REQUISITION_ORDER_ACTION),
-    mergeMap((action: fromRequisitionOrder.ConfirmRequisitionOrderAction) => this._tokenService.post(`req_orders/${this.requisitionOrder.id}/confirm`, null)
+  openRequisitionOrder$: Observable<Action> = this._action$.pipe(ofType(fromRequisitionOrder.OPEN_REQUISITION_ORDER_ACTION),
+    mergeMap((action: fromRequisitionOrder.OpenRequisitionOrderAction) => this._tokenService.post(`req_orders/${this.requisitionOrder.id}/open`, null)
       .pipe(map(response => {
         this._router.navigate(["dashboard", "requisition-orders"])
-        return new fromRequisitionOrder.ConfirmRequisitionOrderCompleteAction(response.json().message);
+        return new fromRequisitionOrder.OpenRequisitionOrderCompleteAction(response.json().message);
       },
-        catchError(error => of(new fromRequisitionOrder.ConfirmRequisitionOrderFailedAction(error.json().message)))))));
+        catchError(error => of(new fromRequisitionOrder.OpenRequisitionOrderFailedAction(error.json().message)))))));
+
+  @Effect()
+  closeRequisitionOrder$: Observable<Action> = this._action$.pipe(ofType(fromRequisitionOrder.CLOSE_REQUISITION_ORDER_ACTION),
+    mergeMap((action: fromRequisitionOrder.CloseRequisitionOrderAction) => this._tokenService.post(`req_orders/${this.requisitionOrder.id}/close`, null)
+      .pipe(map(response => {
+        this._router.navigate(["dashboard", "requisition-orders"])
+        return new fromRequisitionOrder.CloseRequisitionOrderCompleteAction(response.json().message);
+      },
+        catchError(error => of(new fromRequisitionOrder.CloseRequisitionOrderFailedAction(error.json().message)))))));
 
   @Effect()
   updateRequisitionOrder$: Observable<Action> = this._action$.pipe(ofType(fromRequisitionOrder.UPDATE_REQUISITION_ORDER_ACTION),

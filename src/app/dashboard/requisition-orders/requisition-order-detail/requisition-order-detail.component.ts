@@ -3,10 +3,12 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 import { Subscription } from 'rxjs';
 import { Store } from '@ngrx/store';
+import { MatBottomSheet } from '@angular/material';
 
 import * as fromRoot from '../../../shared/reducers';
 import * as requisitionOrderActions from '../../../shared/actions/requisition-order.actions';
 import { RequisitionOrder, User } from '../../../shared/models';
+import { RequisitionOrderOpenComponent, RequisitionOrderCloseComponent, RequisitionOrderDeleteComponent } from '../requisition-order-controls/requisition-order-controls.component';
 
 @Component({
   selector: 'app-requisition-order-detail',
@@ -25,7 +27,8 @@ export class RequisitionOrderDetailComponent implements OnInit {
     private _activatedRoute: ActivatedRoute,
     private _router: Router,
     public _location: Location,
-    private _store: Store<fromRoot.State>
+    private _store: Store<fromRoot.State>,
+    private bottomSheet: MatBottomSheet
   ) {
     this.userSubscription$ = this._store.select(fromRoot.getLoggedUser).subscribe(user => this.loggedUser = user);
     this.routerSubscription$ = this._activatedRoute.queryParams.subscribe(params => {
@@ -48,12 +51,15 @@ export class RequisitionOrderDetailComponent implements OnInit {
   }
 
   openRequisitionOrder() {
+    this.bottomSheet.open(RequisitionOrderOpenComponent);
   }
 
   closeRequisitionOrder() {
+    this.bottomSheet.open(RequisitionOrderCloseComponent);
   }
 
   deleteRequisitionOrder() {
+    this.bottomSheet.open(RequisitionOrderDeleteComponent);
   }
 
 }

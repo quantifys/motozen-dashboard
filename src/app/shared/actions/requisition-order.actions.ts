@@ -32,9 +32,13 @@ export const DELETE_REQUISITION_ORDER_ACTION = '[RequisitionOrder] Delete Requis
 export const DELETE_REQUISITION_ORDER_COMPLETE_ACTION = '[RequisitionOrder] Delete Requisition Order Complete Action';
 export const DELETE_REQUISITION_ORDER_FAILED_ACTION = '[RequisitionOrder] Delete Requisition Order Failed Action';
 
-export const CONFIRM_REQUISITION_ORDER_ACTION = '[RequisitionOrder] Confirm Requisition Order Action';
-export const CONFIRM_REQUISITION_ORDER_COMPLETE_ACTION = '[RequisitionOrder] Confirm Requisition Order Complete Action';
-export const CONFIRM_REQUISITION_ORDER_FAILED_ACTION = '[RequisitionOrder] Confirm Requisition Order Failed Action';
+export const OPEN_REQUISITION_ORDER_ACTION = '[RequisitionOrder] Open Requisition Order Action';
+export const OPEN_REQUISITION_ORDER_COMPLETE_ACTION = '[RequisitionOrder] Open Requisition Order Complete Action';
+export const OPEN_REQUISITION_ORDER_FAILED_ACTION = '[RequisitionOrder] Open Requisition Order Failed Action';
+
+export const CLOSE_REQUISITION_ORDER_ACTION = '[RequisitionOrder] Close Requisition Order Action';
+export const CLOSE_REQUISITION_ORDER_COMPLETE_ACTION = '[RequisitionOrder] Close Requisition Order Complete Action';
+export const CLOSE_REQUISITION_ORDER_FAILED_ACTION = '[RequisitionOrder] Close Requisition Order Failed Action';
 
 export class FetchAllRequisitionOrdersAction implements Action {
   readonly type = FETCH_ALL_REQUISITION_ORDERS_ACTION;
@@ -166,22 +170,43 @@ export class DeleteRequisitionOrderFailedAction implements Action {
   }
 }
 
-export class ConfirmRequisitionOrderAction implements Action {
-  readonly type = CONFIRM_REQUISITION_ORDER_ACTION;
+export class OpenRequisitionOrderAction implements Action {
+  readonly type = OPEN_REQUISITION_ORDER_ACTION;
 }
 
-export class ConfirmRequisitionOrderCompleteAction implements Action {
-  readonly type = CONFIRM_REQUISITION_ORDER_COMPLETE_ACTION;
+export class OpenRequisitionOrderCompleteAction implements Action {
+  readonly type = OPEN_REQUISITION_ORDER_COMPLETE_ACTION;
   constructor(public payload: any) {
     toast({
       type: 'success',
-      title: 'Requisition order confirmed!'
+      title: 'Requisition order opened!'
     });
   }
 }
 
-export class ConfirmRequisitionOrderFailedAction implements Action {
-  readonly type = CONFIRM_REQUISITION_ORDER_FAILED_ACTION;
+export class OpenRequisitionOrderFailedAction implements Action {
+  readonly type = OPEN_REQUISITION_ORDER_FAILED_ACTION;
+  constructor(public payload: any) {
+    swal("There was an error.", payload, "error");
+  }
+}
+
+export class CloseRequisitionOrderAction implements Action {
+  readonly type = CLOSE_REQUISITION_ORDER_ACTION;
+}
+
+export class CloseRequisitionOrderCompleteAction implements Action {
+  readonly type = CLOSE_REQUISITION_ORDER_COMPLETE_ACTION;
+  constructor(public payload: any) {
+    toast({
+      type: 'success',
+      title: 'Requisition order closed!'
+    });
+  }
+}
+
+export class CloseRequisitionOrderFailedAction implements Action {
+  readonly type = CLOSE_REQUISITION_ORDER_FAILED_ACTION;
   constructor(public payload: any) {
     swal("There was an error.", payload, "error");
   }
@@ -206,6 +231,9 @@ export type Actions =
   | DeleteRequisitionOrderAction
   | DeleteRequisitionOrderCompleteAction
   | DeleteRequisitionOrderFailedAction
-  | ConfirmRequisitionOrderAction
-  | ConfirmRequisitionOrderCompleteAction
-  | ConfirmRequisitionOrderFailedAction;
+  | OpenRequisitionOrderAction
+  | OpenRequisitionOrderCompleteAction
+  | OpenRequisitionOrderFailedAction
+  | CloseRequisitionOrderAction
+  | CloseRequisitionOrderCompleteAction
+  | CloseRequisitionOrderFailedAction;
