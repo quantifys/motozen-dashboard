@@ -5,7 +5,7 @@ import { Action } from '@ngrx/store';
 import { Observable, of } from 'rxjs';
 import { catchError, map, mergeMap } from 'rxjs/operators';
 
-import * as fromTransaction from '../actions/transaction.action';
+import * as fromTransaction from '../actions/transaction.actions';
 
 @Injectable()
 export class TransactionEffects {

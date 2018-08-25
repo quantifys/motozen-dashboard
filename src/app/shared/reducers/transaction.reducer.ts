@@ -1,6 +1,6 @@
 import { Transaction, PageData } from '../models';
 
-import * as transactionActions from '../actions/transaction.action';
+import * as transactionActions from '../actions/transaction.actions';
 
 export interface State {
   allTransactions: Transaction[];
