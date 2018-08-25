@@ -10,6 +10,7 @@ import * as fromPurchaseOrder from "./purchase-order.reducer";
 import * as fromReceiveNote from "./receive-note.reducer";
 import * as fromRequisitionOrder from "./requisition-order.reducer";
 import * as fromSalarySlip from "./salary-slip.reducer";
+import * as fromTransaction from "./transaction.reducer";
 import * as fromVendor from "./vendor.reducer";
 
 export interface State {
@@ -23,6 +24,7 @@ export interface State {
   receiveNotes: fromReceiveNote.State;
   requisitionOrders: fromRequisitionOrder.State;
   salarySlips: fromSalarySlip.State;
+  transactions: fromTransaction.State;
   vendors: fromVendor.State;
 }
 
@@ -37,6 +39,7 @@ export const reducers: ActionReducerMap<State> = {
   receiveNotes: fromReceiveNote.reducer,
   requisitionOrders: fromRequisitionOrder.reducer,
   salarySlips: fromSalarySlip.reducer,
+  transactions: fromTransaction.reducer,
   vendors: fromVendor.reducer
 };
 
@@ -79,6 +82,11 @@ export const salarySlips = (state: State) => state.salarySlips;
 export const getAllSalarySlips = createSelector(salarySlips, (state: fromSalarySlip.State) => state.allSalarySlips);
 export const getCurrentSalarySlip = createSelector(salarySlips, (state: fromSalarySlip.State) => state.currentSalarySlip);
 export const getSalarySlipPageStatus = createSelector(salarySlips, (state: fromSalarySlip.State) => state.salarySlipPageStatus);
+
+export const transactions = (state: State) => state.transactions;
+export const getAllTransactions = createSelector(transactions, (state: fromTransaction.State) => state.allTransactions);
+export const getCurrentTransaction = createSelector(transactions, (state: fromTransaction.State) => state.currentTransaction);
+export const getTransactionPageStatus = createSelector(transactions, (state: fromTransaction.State) => state.transactionPageStatus);
 
 export const vendors = (state: State) => state.vendors;
 export const getAllVendors = createSelector(vendors, (state: fromVendor.State) => state.allVendors);
