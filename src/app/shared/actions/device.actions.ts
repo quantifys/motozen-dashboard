@@ -114,12 +114,12 @@ export class DeleteDeviceFailedAction implements Action {
   constructor(public payload?: any) { }
 }
 
-export class TransferDeviceAction implements Action {
+export class TransferDevicesAction implements Action {
   readonly type = TRANSFER_DEVICE_ACTION;
   constructor(public payload:any) { }
 }
 
-export class TransferDeviceCompleteAction implements Action {
+export class TransferDevicesCompleteAction implements Action {
   readonly type = TRANSFER_DEVICE_COMPLETE_ACTION;
   constructor(public payload:any) {
     swal({
@@ -131,7 +131,7 @@ export class TransferDeviceCompleteAction implements Action {
   }
 }
 
-export class TransferDeviceFailedAction implements Action {
+export class TransferDevicesFailedAction implements Action {
   readonly type = TRANSFER_DEVICE_FAILED_ACTION;
   constructor(public payload:any) {
     swal("There was an error transferring the device.", payload, "error");
@@ -154,6 +154,6 @@ export type Actions =
   | DeleteDeviceAction
   | DeleteDeviceCompleteAction
   | DeleteDeviceFailedAction
-  | TransferDeviceAction
-  | TransferDeviceCompleteAction
-  | TransferDeviceFailedAction;
+  | TransferDevicesAction
+  | TransferDevicesCompleteAction
+  | TransferDevicesFailedAction;

@@ -52,6 +52,11 @@ export function reducer(state = initialState, action: deviceActions.Actions): St
       return Object.assign({}, state, {
         currentDevice: new Device({})
       });
+    case deviceActions.TRANSFER_DEVICE_COMPLETE_ACTION:
+      devices = state.allDevices.filter(device => action.payload.find(id => device.id == id) ? null : device);
+      return Object.assign({}, state, {
+        allDevices: [...devices]
+      });
     default:
       return state;
   }

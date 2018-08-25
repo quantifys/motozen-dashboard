@@ -1,0 +1,22 @@
+<section class="container">
+  <div class="d-flex align-items-center justify-content-between">
+    <a routerLink="../" class="btn btn-primary text-light">
+      <i class="fas fa-arrow-left mr-2"></i>Go back</a>
+    <h4 class="text-grey-dark m-0">Transfer Stock</h4>
+  </div>
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <div class="card mt-5">
+        <div class="card-body">
+          <h5 class="text-grey-dark font-weight-bold mb-3">Transfer Details</h5>
+          <form [formGroup]="transferForm">
+            <ng-select id="user_id" [items]="users" bindLabel="name" bindValue="id" formControlName="user_id" placeholder="Select dealer"></ng-select>
+            <ng-select id="device_ids" [items]="devices" [hideSelected]="true" bindLabel="sld_number" bindValue="id" formControlName="device_ids" placeholder="Choose devices for transfer"
+              [multiple]="true"></ng-select>
+            <button class="btn btn-primary btn-save" [disabled]="transferForm.invalid" (click)="saveChanges()">Save</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

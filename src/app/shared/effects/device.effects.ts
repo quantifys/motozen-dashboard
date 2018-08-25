@@ -48,8 +48,14 @@ export class DeviceEffects {
     mergeMap((action: fromDevice.UpdateDeviceAction) => this._tokenService.patch(`devices/${action.payload.device.id}`, action.payload)
       .pipe(map(response => {
         this._router.navigate(["dashboard", "devices", "view"], { queryParams: { id: response.json().message.id } });
-        return new fromDevice.UpdateDeviceCompleteAction(response.json().message); 
+        return new fromDevice.UpdateDeviceCompleteAction(response.json().message);
       },
         catchError(error => of(new fromDevice.UpdateDeviceFailedAction(error.json().message)))))));
+
+  @Effect()
+  transferDevices$: Observable<Action> = this._action$.pipe(ofType(fromDevice.TRANSFER_DEVICE_ACTION),
+    mergeMap((action: fromDevice.TransferDevicesAction) => this._tokenService.post('devices/transfer', action.payload)
+      .pipe(map(response => new fromDevice.TransferDevicesCompleteAction(action.payload.device_ids),
+        catchError(error => of(new fromDevice.TransferDevicesFailedAction(error.json().message)))))));
 
 }
