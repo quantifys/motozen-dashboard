@@ -1,15 +1,44 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Subscription } from 'rxjs';
+import { Store } from '@ngrx/store';
+
+import * as fromRoot from '../../shared/reducers';
+import { User } from '../../shared/models';
 
 @Component({
   selector: 'app-incomes',
   templateUrl: './incomes.component.html',
   styleUrls: ['./incomes.component.scss']
 })
-export class IncomesComponent implements OnInit {
+export class IncomesComponent implements OnInit, OnDestroy {
 
-  constructor() { }
+  private userSubscription$: Subscription = new Subscription();
+  public loggedUser: User = new User({});
+
+  constructor(
+    private _store: Store<fromRoot.State>,
+    private _router: Router,
+    private _activatedRoute: ActivatedRoute
+  ) { }
 
   ngOnInit() {
+    this.userSubscription$ = this._store.select(fromRoot.getLoggedUser).subscribe(user => {
+      this.loggedUser = user;
+      if (!this._activatedRoute.snapshot.queryParams["category"]) {
+        if (user.role == 'accounts') {
+          this._router.navigate(["dashboard", "incomes"], { queryParams: { category: 'direct' } });
+        }
+      }
+    });
+  }
+
+  ngOnDestroy() {
+    this.userSubscription$.unsubscribe();
+  }
+
+  getQueryParams(type: string): any {
+    return { ...this._activatedRoute.snapshot.queryParams, category: type }
   }
 
 }

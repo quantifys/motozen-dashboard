@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Routes, RouterModule } from '@angular/router';
+import { MatTabsModule, MatButtonModule } from '@angular/material';
 
 import { IncomesComponent } from './incomes.component';
 
@@ -31,6 +32,8 @@ const routes: Routes = [
 @NgModule({
   imports: [
     CommonModule,
+    MatTabsModule,
+    MatButtonModule,
     RouterModule.forChild(routes)
   ],
   declarations: [IncomesComponent]
