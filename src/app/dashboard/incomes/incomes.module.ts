@@ -6,6 +6,7 @@ import { MatTabsModule, MatButtonModule, MatFormFieldModule, MatInputModule, Mat
 
 import { IncomesComponent } from './incomes.component';
 import { IncomeEditComponent } from './income-edit/income-edit.component';
+import { IncomeDetailComponent } from './income-detail/income-detail.component';
 
 const routes: Routes = [
   {
@@ -15,13 +16,13 @@ const routes: Routes = [
       title: "Income edit - Dashboard | Gemeni India"
     }
   },
-  // {
-  //   path: 'view',
-  //   component: IncomeDetailComponent,
-  //   data: {
-  //     title: "Income details - Dashboard | Gemeni India"
-  //   }
-  // },
+  {
+    path: 'view',
+    component: IncomeDetailComponent,
+    data: {
+      title: "Income details - Dashboard | Gemeni India"
+    }
+  },
   {
     path: "",
     component: IncomesComponent,
@@ -42,6 +43,6 @@ const routes: Routes = [
     MatRadioModule,
     RouterModule.forChild(routes)
   ],
-  declarations: [IncomesComponent, IncomeEditComponent]
+  declarations: [IncomesComponent, IncomeEditComponent, IncomeDetailComponent]
 })
 export class IncomesModule { }
