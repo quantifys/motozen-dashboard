@@ -58,6 +58,10 @@ const routes: Routes = [
         loadChildren: './salary-slips/salary-slips.module#SalarySlipsModule'
       },
       {
+        path: 'transactions',
+        loadChildren: './transactions/transactions.module#TransactionsModule'
+      },
+      {
         path: 'vendors',
         loadChildren: './vendors/vendors.module#VendorsModule'
       },

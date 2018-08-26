@@ -8,6 +8,7 @@ export * from './purchase-order.model';
 export * from './receive-note.model';
 export * from './requisition-order.model';
 export * from './salary-slip.model';
+export * from './transaction.model';
 export * from './vendor.model';
 
 export class PageData {
