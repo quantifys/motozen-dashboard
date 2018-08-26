@@ -150,7 +150,7 @@ export class UpdateIncomeFailedAction implements Action {
 
 export class DeleteIncomeAction implements Action {
   readonly type = DELETE_INCOME_ACTION;
-  constructor(public payload: any) {
+  constructor(public payload?: any) {
     toast({
       title: 'Deleting income...'
     });
@@ -160,7 +160,7 @@ export class DeleteIncomeAction implements Action {
 
 export class DeleteIncomeCompleteAction implements Action {
   readonly type = DELETE_INCOME_COMPLETE_ACTION;
-  constructor(public payload: any) {
+  constructor(public payload?: any) {
     toast({
       type: 'success',
       title: 'Income deleted!'

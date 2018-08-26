@@ -2,19 +2,27 @@ import { Router } from '@angular/router';
 import { Angular2TokenService } from 'angular2-token';
 import { Effect, Actions, ofType } from '@ngrx/effects';
 import { Injectable } from '@angular/core';
-import { Action } from '@ngrx/store';
+import { Action, Store } from '@ngrx/store';
 import { Observable, of } from 'rxjs';
 import { catchError, map, mergeMap } from 'rxjs/operators';
 
+import * as fromRoot from '../../shared/reducers';
 import * as fromIncome from '../actions/income.actions';
+import { Cost } from '../models';
 
 @Injectable()
 export class IncomeEffects {
+
+  private income: Cost = new Cost({});
+
   constructor(
+    private _store: Store<fromRoot.State>,
     private _action$: Actions,
     private _tokenService: Angular2TokenService,
     private _router: Router
-  ) { }
+  ) {
+    this._store.select(fromRoot.getCurrentIncome).subscribe(slip => this.income = slip);
+  }
 
   @Effect()
   fetchAllIncomes$: Observable<Action> = this._action$.pipe(ofType(fromIncome.FETCH_ALL_INCOMES_ACTION),
@@ -43,8 +51,11 @@ export class IncomeEffects {
 
   @Effect()
   deleteIncome$: Observable<Action> = this._action$.pipe(ofType(fromIncome.DELETE_INCOME_ACTION),
-    mergeMap((action: fromIncome.DeleteIncomeAction) => this._tokenService.delete(`incomes/${action.payload}`)
-      .pipe(map(response => new fromIncome.DeleteIncomeCompleteAction(action.payload),
+    mergeMap((action: fromIncome.DeleteIncomeAction) => this._tokenService.delete(`incomes/${this.income.id}`)
+    .pipe(map(response => {
+      this._router.navigate(["dashboard", "incomes"]);
+      return new fromIncome.DeleteIncomeCompleteAction
+    },
         catchError(error => of(new fromIncome.DeleteIncomeFailedAction(error.json().message)))))));
 
   @Effect()
