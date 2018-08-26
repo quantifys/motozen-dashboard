@@ -1,12 +1,13 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { PageEvent } from '@angular/material';
+import { PageEvent, MatBottomSheet } from '@angular/material';
 import { Store } from '@ngrx/store';
 
 import * as fromRoot from '../../shared/reducers';
 import * as transactionActions from '../../shared/actions/transaction.actions';
 import { User, Transaction } from '../../shared/models';
+import { TransactionFilterComponent } from './transaction-filter/transaction-filter.component';
 
 @Component({
   selector: 'app-transactions',
@@ -27,7 +28,8 @@ export class TransactionsComponent implements OnInit, OnDestroy {
   constructor(
     private _store: Store<fromRoot.State>,
     private _activatedRoute: ActivatedRoute,
-    private _router: Router
+    private _router: Router,
+    private bottomSheet: MatBottomSheet
   ) {
     this.userSubscription$ = this._store.select(fromRoot.getLoggedUser).subscribe(user => {
       this.loggedUser = user;
@@ -85,6 +87,10 @@ export class TransactionsComponent implements OnInit, OnDestroy {
   fetchTransactions() {
     this.loading = true;
     this._store.dispatch(new transactionActions.FetchAllTransactionsAction(this.queryParams));
+  }
+
+  openFilters() {
+    this.bottomSheet.open(TransactionFilterComponent);
   }
 
 }
