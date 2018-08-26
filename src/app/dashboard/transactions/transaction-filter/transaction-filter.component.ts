@@ -28,8 +28,40 @@ export const MY_FORMATS = {
 })
 export class TransactionFilterComponent implements OnInit {
 
-  public filterForm: FormGroup;
+  public transactables: any[] = [
+    {
+      display: 'Salary slip',
+      value: 'SalarySlip'
+    },
+    {
+      display: 'Income',
+      value: 'Income'
+    },
+    {
+      display: 'Expense',
+      value: 'Expense'
+    },
+    {
+      display: 'Receive note',
+      value: 'ReceiveNote'
+    },
+    {
+      display: 'Purchase order',
+      value: 'PurchaseOrder'
+    }
+  ];
+  public categories: any[] = [
+    {
+      display: 'Expense',
+      value: 'expense'
+    },
+    {
+      display: 'Income',
+      value: 'income'
+    }
+  ];
 
+  public filterForm: FormGroup;
   public startMax: Date = new Date(moment().subtract(1, 'days').format());
   public endMin: Date;
   public endMax: Date = new Date();
@@ -50,6 +82,12 @@ export class TransactionFilterComponent implements OnInit {
       if (params["end"]) {
         this.end.patchValue(new Date(params["end"]), { emitEvent: false });
       }
+      if (params["transactable_type"]) {
+        this.transactable_type.patchValue(params["transactable_type"], { emitEvent: false });
+      }
+      if (params["category"]) {
+        this.category.patchValue(params["category"], { emitEvent: false });
+      }
     });
     this.start.valueChanges.subscribe(value => {
       this.end.value ? null : this.end.patchValue(new Date(), { emitEvent: false });
@@ -63,7 +101,9 @@ export class TransactionFilterComponent implements OnInit {
   buildForm() {
     this.filterForm = this._fb.group({
       start: [null, Validators.required],
-      end: [null, Validators.required]
+      end: [null, Validators.required],
+      transactable_type: null,
+      category: null
     });
   }
 
@@ -75,12 +115,24 @@ export class TransactionFilterComponent implements OnInit {
     return this.filterForm.get('end') as FormControl;
   }
 
+  get transactable_type(): FormControl {
+    return this.filterForm.get('transactable_type') as FormControl;
+  }
+
+  get category(): FormControl {
+    return this.filterForm.get('category') as FormControl;
+  }
+
   closeSheet() {
+    let newParams: any = {};
+    this.transactable_type.value ? newParams["transactable_type"] = this.transactable_type.value : null
+    this.category.value ? newParams["category"] = this.category.value : null
     this._router.navigate(["dashboard", "transactions"], {
       queryParams: {
         ...this._activatedRoute.snapshot.queryParams,
         end: moment(this.end.value).format('YYYY-MM-DD'),
-        start: moment(this.start.value).format('YYYY-MM-DD')
+        start: moment(this.start.value).format('YYYY-MM-DD'),
+        ...newParams
       },
     });
     this.bottomSheetRef.dismiss();

@@ -10,6 +10,9 @@
     <mat-datepicker-toggle matSuffix [for]="end"></mat-datepicker-toggle>
     <mat-datepicker #end></mat-datepicker>
   </mat-form-field>
+  <ng-select id="transactable_type" [items]="transactables" bindLabel="display" bindValue="value" formControlName="transactable_type"
+    placeholder="Select transactable type"></ng-select>
+  <ng-select id="category" [items]="categories" bindLabel="display" bindValue="value" formControlName="category" placeholder="Select your category"></ng-select>
   <div class="text-right">
     <button mat-button color="warn" (click)="closeSheet()" [disabled]="filterForm.invalid || filterForm.pristine">Apply Filter</button>
   </div>
