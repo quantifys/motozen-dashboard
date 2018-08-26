@@ -14,6 +14,7 @@
     placeholder="Select transactable type"></ng-select>
   <ng-select id="category" [items]="categories" bindLabel="display" bindValue="value" formControlName="category" placeholder="Select your category"></ng-select>
   <div class="text-right">
-    <button mat-button color="warn" (click)="closeSheet()" [disabled]="filterForm.invalid || filterForm.pristine">Apply Filter</button>
+    <button mat-stroked-button color="warn" (click)="clearFilters()">Clear Filters</button>
+    <button class="ml-2" mat-button color="warn" (click)="closeSheet()" [disabled]="filterForm.invalid || filterForm.pristine">Apply Filter</button>
   </div>
 </form>

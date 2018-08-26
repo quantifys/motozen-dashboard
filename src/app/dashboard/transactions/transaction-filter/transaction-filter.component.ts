@@ -129,10 +129,21 @@ export class TransactionFilterComponent implements OnInit {
     this.category.value ? newParams["category"] = this.category.value : null
     this._router.navigate(["dashboard", "transactions"], {
       queryParams: {
-        ...this._activatedRoute.snapshot.queryParams,
+        page: this._activatedRoute.snapshot.queryParams["page"],
+        per_page: this._activatedRoute.snapshot.queryParams["per_page"],
         end: moment(this.end.value).format('YYYY-MM-DD'),
         start: moment(this.start.value).format('YYYY-MM-DD'),
         ...newParams
+      },
+    });
+    this.bottomSheetRef.dismiss();
+  }
+
+  clearFilters() {
+    this._router.navigate(["dashboard", "transactions"], {
+      queryParams: {
+        page: this._activatedRoute.snapshot.queryParams["page"],
+        per_page: this._activatedRoute.snapshot.queryParams["per_page"]
       },
     });
     this.bottomSheetRef.dismiss();
