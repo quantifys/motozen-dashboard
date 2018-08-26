@@ -101,6 +101,13 @@ export const ROUTES: RouteInfo[] = [
     users: ['human_resource', 'accounts']
   },
   {
+    path: 'incomes',
+    title: 'Incomes',
+    type: 'link',
+    icontype: 'fa-hand-holding-usd',
+    users: ['accounts']
+  },
+  {
     path: 'transactions',
     title: 'Transactions',
     type: 'link',

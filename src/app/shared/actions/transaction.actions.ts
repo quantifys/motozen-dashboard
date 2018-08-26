@@ -40,7 +40,7 @@ export class FetchAllTransactionsFailedAction implements Action {
   readonly type = FETCH_ALL_TRANSACTIONS_FAILED_ACTION;
   constructor(public payload: any) {
     toast({
-      type: 'success',
+      type: 'error',
       title: payload
     });
   }

@@ -7,7 +7,6 @@ import { Store } from "@ngrx/store";
 
 import * as fromRoot from "../../../shared/reducers";
 import * as expenseActions from "../../../shared/actions/expense.actions";
-import { Cost } from '../../../shared/models';
 
 @Component({
   selector: 'app-expense-edit',
@@ -18,7 +17,6 @@ export class ExpenseEditComponent implements OnInit, OnDestroy {
 
   public addExpense: boolean = false;
   public expenseForm: FormGroup;
-  public expenses: Cost[] = [];
   public expenseSubscription$: Subscription;
   public formSubscription$: Subscription;
 
