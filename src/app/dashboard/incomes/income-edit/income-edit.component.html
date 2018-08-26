@@ -1,0 +1,37 @@
+<section class="container">
+  <div class="d-flex align-items-center justify-content-between">
+    <a (click)="_location.back()" class="btn btn-primary text-light">
+      <i class="fas fa-arrow-left mr-2"></i>Go back</a>
+    <h4 class="text-grey-dark m-0">{{addIncome ? 'Add income' : 'Edit income'}}</h4>
+  </div>
+
+  <div class="row justify-content-center">
+    <div class="col-sm-12 col-lg-10 col-xl-8">
+      <div class="card mt-5">
+        <div class="card-body">
+          <form [formGroup]="incomeForm" autocomplete="off">
+            <h5 class="text-grey-dark font-weight-bold mb-4">Income information</h5>
+            <h6 class="text-muted">
+              <strong>Select category</strong>
+            </h6>
+            <mat-radio-group class="d-flex ml-2 mb-1" formControlName="category">
+              <mat-radio-button value="direct">Direct income</mat-radio-button>
+              <mat-radio-button class="ml-5" value="indirect">Indirect income</mat-radio-button>
+            </mat-radio-group>
+            <mat-form-field class="w-100">
+              <textarea matInput placeholder="Description" rows="4" formControlName="description"></textarea>
+            </mat-form-field>
+            <div class="row">
+              <div class="col-lg-3">
+                <mat-form-field class="w-100">
+                  <input matInput type="number" placeholder="Total" formControlName="total">
+                </mat-form-field>
+              </div>
+            </div>
+            <button class="btn btn-primary btn-save" [disabled]="incomeForm.invalid || incomeForm.pristine" (click)="saveChanges()">Save</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

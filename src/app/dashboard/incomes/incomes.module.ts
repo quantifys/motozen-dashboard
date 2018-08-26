@@ -1,18 +1,20 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { ReactiveFormsModule } from '@angular/forms';
 import { Routes, RouterModule } from '@angular/router';
-import { MatTabsModule, MatButtonModule } from '@angular/material';
+import { MatTabsModule, MatButtonModule, MatFormFieldModule, MatInputModule, MatRadioModule } from '@angular/material';
 
 import { IncomesComponent } from './incomes.component';
+import { IncomeEditComponent } from './income-edit/income-edit.component';
 
 const routes: Routes = [
-  // {
-  //   path: 'edit',
-  //   component: IncomeEditComponent,
-  //   data: {
-  //     title: "Income edit - Dashboard | Gemeni India"
-  //   }
-  // },
+  {
+    path: 'edit',
+    component: IncomeEditComponent,
+    data: {
+      title: "Income edit - Dashboard | Gemeni India"
+    }
+  },
   // {
   //   path: 'view',
   //   component: IncomeDetailComponent,
@@ -32,10 +34,14 @@ const routes: Routes = [
 @NgModule({
   imports: [
     CommonModule,
+    ReactiveFormsModule,
     MatTabsModule,
     MatButtonModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatRadioModule,
     RouterModule.forChild(routes)
   ],
-  declarations: [IncomesComponent]
+  declarations: [IncomesComponent, IncomeEditComponent]
 })
 export class IncomesModule { }
