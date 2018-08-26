@@ -19,11 +19,12 @@ import { DeviceEffects } from './shared/effects/device.effects';
 import { InventoryEffects } from './shared/effects/inventory.effects';
 import { CertificateEffects } from './shared/effects/certificate.effects';
 import { VehicleEffects } from './shared/effects/vehicle.effects';
-import { ExpenseEffects } from './shared/effects/expense.effects';
 import { PurchaseOrderEffects } from './shared/effects/purchase-order.effects';
 import { ReceiveNoteEffects } from './shared/effects/receive-note.effects';
 import { RequisitionOrderEffects } from './shared/effects/requisition-order.effects';
 import { SalarySlipEffects } from './shared/effects/salary-slip.effects';
+import { IncomeEffects } from './shared/effects/income.effects';
+import { ExpenseEffects } from './shared/effects/expense.effects';
 import { TransactionEffects } from './shared/effects/transaction.effects';
 import { VendorEffects } from './shared/effects/vendor.effects';
 
@@ -43,12 +44,13 @@ import { VendorEffects } from './shared/effects/vendor.effects';
       VehicleEffects,
       InventoryEffects,
       CertificateEffects,
-      ExpenseEffects,
       PurchaseOrderEffects,
       ReceiveNoteEffects,
       RequisitionOrderEffects,
-      SalarySlipEffects,
+      IncomeEffects,
+      ExpenseEffects,
       TransactionEffects,
+      SalarySlipEffects,
       VendorEffects
     ]),
     StoreDevtoolsModule.instrument({
