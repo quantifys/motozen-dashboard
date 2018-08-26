@@ -11,7 +11,10 @@ $grey: #D8D8D8;
 $grey-dark: #B6B6B7;
 $white: #F8F9FA;
 $white-dark: #F0F0F0;
-$shadow: rgba(46, 61, 73, .2);
+$shadow: rgba(46,
+61,
+73,
+.2);
 * {
   font-family: 'Varela Round', sans-serif;
 }
@@ -29,8 +32,10 @@ a {
     color: $primary;
     &:hover {
       color: $primary-dark !important;
-      text-decoration: none;
     }
+  }
+  &:hover {
+    text-decoration: none;
   }
 }
 

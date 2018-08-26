@@ -23,14 +23,24 @@ export class UsersComponent implements OnInit, OnDestroy {
   ) {
     this.userSubscription$ = this._store.select(fromRoot.getLoggedUser).subscribe(user => {
       this.loggedUser = user;
-      if (!this._activatedRoute.snapshot.queryParams["type"]) {
+      if (user.role) {
+        let newParams: any = {};
         if (user.role == 'manufacturer') {
-          this._router.navigate(["dashboard", "users"], {queryParams: {type: 'employees'}});
-        } else if (user.role == 'sales'){
-          this._router.navigate(["dashboard", "users"], {queryParams: {type: 'distributor'}});
-        } else if (user.role == 'human_resource'){
-          this._router.navigate(["dashboard", "users"], {queryParams: {type: 'store_purchases'}});
+          newParams["group"] = 'employees';
+        } else if (user.role == 'sales') {
+          newParams["role"] = 'distributor';
+        } else if (user.role == 'human_resource') {
+          newParams["role"] = 'store_purchases';
+        } else {
+          this._router.navigate(["dashboard", "403-forbidden"]);
         }
+        if (!this._activatedRoute.snapshot.queryParams["page"]) {
+          newParams["page"] = 1;
+        }
+        if (!this._activatedRoute.snapshot.queryParams["per_page"]) {
+          newParams["per_page"] = 10;
+        }
+        this._router.navigate(["dashboard", "users"], { queryParams: { ...this._activatedRoute.snapshot.queryParams, ...newParams } })
       }
     });
   }
@@ -40,6 +50,14 @@ export class UsersComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.userSubscription$.unsubscribe();
+  }
+
+  getQueryParams(type: string): any {
+    if (type == 'employees' || type == 'customers') {
+      return { ...this._activatedRoute.snapshot.queryParams, group: type, role: null };
+    } else {
+      return { ...this._activatedRoute.snapshot.queryParams, role: type, group: null };
+    }
   }
 
 }

@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Routes, RouterModule } from '@angular/router';
 import { NgStringPipesModule } from 'ngx-pipes';
-import { NgxPaginationModule } from 'ngx-pagination';
+import { MatTabsModule, MatPaginatorModule } from '@angular/material';
 import { ReactiveFormsModule } from '@angular/forms';
 import { NgSelectModule } from '@ng-select/ng-select';
 
@@ -39,8 +39,9 @@ const routes: Routes = [
   imports: [
     CommonModule,
     ReactiveFormsModule,
+    MatTabsModule,
+    MatPaginatorModule,
     NgStringPipesModule,
-    NgxPaginationModule,
     NgSelectModule,
     RouterModule.forChild(routes)
   ],

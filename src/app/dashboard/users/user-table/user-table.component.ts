@@ -1,9 +1,9 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { PaginationInstance } from 'ngx-pagination';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import swal from 'sweetalert2';
+import { PageEvent } from '@angular/material';
 import { Store } from '@ngrx/store';
 
 import * as fromRoot from '../../../shared/reducers';
@@ -23,33 +23,27 @@ export class UserTableComponent implements OnInit, OnDestroy {
   public passwordForm: FormGroup;
   private routerSubscription$: Subscription = new Subscription();
   public users: User[] = [];
-  public type: string = '';
+  public queryParams: any = {};
   public loading: boolean = false;
-  public config: PaginationInstance = {
-    itemsPerPage: 20,
-    currentPage: 1,
-    totalItems: this.users.length
-  };
+  public pageEvent: PageEvent = new PageEvent();
 
   constructor(
     private _store: Store<fromRoot.State>,
     private _activatedRoute: ActivatedRoute,
+    private _router: Router,
     private _fb: FormBuilder
   ) {
     this.routerSubscription$ = this._activatedRoute.queryParams.subscribe(params => {
-      this.type = params["type"];
-      let formData: any = null;
-      if (params["type"] == 'employees' || params["type"] == 'customers') {
-        formData = {
-          group: params["type"]
-        }
-      } else {
-        formData = {
-          role: params["type"]
-        };
+      this.queryParams = params;
+      if (params["page"]) {
+        this.pageEvent.pageIndex = +params["page"] - 1;
       }
-      this.loading = true;
-      this._store.dispatch(new userActions.FilterUsersAction(formData));
+      if (params["per_page"]) {
+        this.pageEvent.pageSize = +params["per_page"];
+      }
+      if (params["page"] && params["per_page"] && (params["role"] || params["group"])) {
+        this.fetchUsers();
+      }
     });
   }
 
@@ -84,6 +78,22 @@ export class UserTableComponent implements OnInit, OnDestroy {
   }
   get password_confirmation(): FormControl {
     return this.passwordForm.get("password_confirmation") as FormControl;
+  }
+
+  fetchUsers() {
+    this.loading = true;
+    this._store.dispatch(new userActions.FilterUsersAction(this.queryParams));
+  }
+
+  getPage(pageEvent: PageEvent) {
+    this.pageEvent = pageEvent;
+    this._router.navigate(["dashboard", "users"], {
+      queryParams: {
+        ...this.queryParams,
+        page: pageEvent.pageIndex + 1,
+        per_page: pageEvent.pageSize
+      }
+    });
   }
 
   deleteUser(id: number) {
