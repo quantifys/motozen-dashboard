@@ -10,6 +10,9 @@ section {
   .menu {
     list-style: none;
     border-top: 2px solid $grey;
+    a:hover {
+      text-decoration: none;
+    }
     a.active {
       pointer-events: none;
       cursor: default;
