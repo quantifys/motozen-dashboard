@@ -21,6 +21,8 @@
             <h6 class="ml-3">{{income.category | titlecase}}</h6>
             <h6 class="text-grey-dark">Description:</h6>
             <h6 class="ml-3">{{income.description}}</h6>
+            <h6 class="text-grey-dark">Added on:</h6>
+            <h6 class="ml-3">{{income.created_at | date: 'fullDate'}}</h6>
             <hr>
             <div class="d-flex justify-content-between align-items-center">
               <h6 class="text-grey-dark">Total:</h6>
