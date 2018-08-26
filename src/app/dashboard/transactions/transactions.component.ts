@@ -31,21 +31,18 @@ export class TransactionsComponent implements OnInit, OnDestroy {
   ) {
     this.userSubscription$ = this._store.select(fromRoot.getLoggedUser).subscribe(user => {
       this.loggedUser = user;
-      if (user) {
-        if (user.role == 'manufacturer' || user.role == 'accounts') {
-          this.fetchTransactions();
-          let newParams: any = {};
-          if (!this._activatedRoute.snapshot.queryParams["page"]) {
-            newParams["page"] = 1;
-          } else {
-            this.pageEvent.pageIndex = +this._activatedRoute.snapshot.queryParams["page"] - 1;
-          }
-          if (!this._activatedRoute.snapshot.queryParams["per_page"]) {
-            newParams["per_page"] = 10;
-          } else {
-            this.pageEvent.pageSize = +this._activatedRoute.snapshot.queryParams["per_page"];
-          }
-        }
+      this.checkParams();
+    });
+    this._activatedRoute.queryParams.subscribe(params => {
+      this.queryParams = params;
+      if (params["page"]) {
+        this.pageEvent.pageIndex = +params["page"] - 1;
+      }
+      if (params["per_page"]) {
+        this.pageEvent.pageSize = +params["per_page"];
+      }
+      if (params["page"] && params["per_page"]) {
+        this.fetchTransactions();
       }
     });
   }
@@ -62,6 +59,27 @@ export class TransactionsComponent implements OnInit, OnDestroy {
     this.userSubscription$.unsubscribe();
     this.transactionSubscription$.unsubscribe();
     this.pageSubscription$.unsubscribe();
+  }
+
+  checkParams() {
+    if (this.loggedUser.role) {
+      if (this.loggedUser.role == 'manufacturer' || this.loggedUser.role == 'accounts') {
+        let newParams: any = {};
+        if (!this._activatedRoute.snapshot.queryParams["page"]) {
+          newParams["page"] = 1;
+        } else {
+          this.pageEvent.pageIndex = +this._activatedRoute.snapshot.queryParams["page"] - 1;
+        }
+        if (!this._activatedRoute.snapshot.queryParams["per_page"]) {
+          newParams["per_page"] = 10;
+        } else {
+          this.pageEvent.pageSize = +this._activatedRoute.snapshot.queryParams["per_page"];
+        }
+        this._router.navigate(["dashboard", "transactions"], { queryParams: { ...this._activatedRoute.snapshot.queryParams, ...newParams } })
+      } else {
+        this._router.navigate(["dashboard", "403-forbidden"]);
+      }
+    }
   }
 
   fetchTransactions() {
