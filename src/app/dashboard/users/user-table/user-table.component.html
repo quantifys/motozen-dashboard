@@ -24,9 +24,6 @@
         <td *ngIf="queryParams.group == 'employees' || queryParams.group == 'customers'">{{user.getRole() | ucfirst}}</td>
         <td>{{user.details.contact}}</td>
         <td>
-          <a class="action border-0 btn btn-outline-primary btn-sm" title="More info" routerLink="view" [queryParams]="{id: user.id}">
-            <i class="fas fa-fw fa-info"></i>
-          </a>
           <button class="action border-0 btn btn-outline-info btn-sm" title="Change password" (click)="changePassword(user.id)">
             <i class="fas fa-fw fa-lock"></i>
           </button>
