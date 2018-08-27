@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Routes, RouterModule } from '@angular/router';
 import { NgStringPipesModule } from 'ngx-pipes';
-import { MatButtonModule } from '@angular/material';
 
 import { DashboardComponent } from './dashboard.component';
 import { SideNavComponent } from './side-nav/side-nav.component';
@@ -82,7 +81,6 @@ const routes: Routes = [
 @NgModule({
   imports: [
     CommonModule,
-    MatButtonModule,
     NgStringPipesModule,
     RouterModule.forChild(routes)
   ],
