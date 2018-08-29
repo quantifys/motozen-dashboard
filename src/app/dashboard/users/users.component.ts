@@ -27,10 +27,13 @@ export class UsersComponent implements OnInit, OnDestroy {
         let newParams: any = {};
         if (user.role == 'manufacturer') {
           newParams["group"] = 'employees';
+          newParams["role"] = null;
         } else if (user.role == 'sales') {
           newParams["role"] = 'distributor';
+          newParams["group"] = null;
         } else if (user.role == 'human_resource') {
           newParams["role"] = 'store_purchases';
+          newParams["group"] = null;
         } else {
           this._router.navigate(["dashboard", "403-forbidden"]);
         }
