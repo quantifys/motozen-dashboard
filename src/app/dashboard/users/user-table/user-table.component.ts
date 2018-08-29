@@ -49,7 +49,6 @@ export class UserTableComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.buildForm();
-    this.initializer();
     this._store.select(fromRoot.getAllUsers).subscribe(users => {
       this.loading = false;
       this.users = users;
@@ -112,24 +111,10 @@ export class UserTableComponent implements OnInit, OnDestroy {
     });
   }
 
-  changePassword(id: number) {
-    this.id.patchValue(id, { emitEvent: false });
-    this._store.dispatch(new userActions.OpenUserModalAction);
-  }
-
-  closeUserModal() {
-    this._store.dispatch(new userActions.CloseUserModalAction);
-  }
-
   saveChanges() {
     this._store.dispatch(new userActions.UpdateUserAction({
       user: this.passwordForm.value
     }));
-  }
-
-  initializer() {
-    this._store.select(fromRoot.showUserModal).subscribe(res => res ? $("#userModal").modal("show") : $("#userModal").modal("hide"));
-    $("#userModal").on("hidden.bs.modal", () => this.closeUserModal());
   }
 
 }

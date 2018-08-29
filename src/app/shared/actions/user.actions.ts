@@ -40,9 +40,6 @@ export const FETCH_USER_FAILED_ACTION = "[User] Fetch User Failed Action";
 
 export const CLEAR_CURRENT_USER_ACTION = "[User] Clear Current User Action";
 
-export const OPEN_USER_MODAL_ACTION = "[User] Open User Modal Action";
-export const CLOSE_USER_MODAL_ACTION = "[User] Close User Modal Action";
-
 export class LoginUserAction implements Action {
   readonly type = LOGIN_USER_ACTION;
   constructor(public payload: any) { }
@@ -199,14 +196,6 @@ export class ClearCurrentUserAction implements Action {
   readonly type = CLEAR_CURRENT_USER_ACTION;
 }
 
-export class OpenUserModalAction implements Action {
-  readonly type = OPEN_USER_MODAL_ACTION;
-}
-
-export class CloseUserModalAction implements Action {
-  readonly type = CLOSE_USER_MODAL_ACTION;
-}
-
 export type Actions =
   LoginUserAction
   | LoginUserCompleteAction
@@ -235,6 +224,4 @@ export type Actions =
   | FetchUserAction
   | FetchUserCompleteAction
   | FetchUserFailedAction
-  | ClearCurrentUserAction
-  | OpenUserModalAction
-  | CloseUserModalAction;
+  | ClearCurrentUserAction;

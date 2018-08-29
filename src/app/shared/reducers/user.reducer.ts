@@ -5,14 +5,12 @@ import * as userActions from '../actions/user.actions';
 export interface State {
   allUsers: User[];
   loggedUser: User;
-  showUserModal: boolean;
   currentUser: User;
 }
 
 const initialState: State = {
   allUsers: [],
   loggedUser: new User({}),
-  showUserModal: false,
   currentUser: new User({})
 };
 
@@ -62,20 +60,11 @@ export function reducer(state = initialState, action: userActions.Actions): Stat
       });
     case userActions.UPDATE_USER_COMPLETE_ACTION:
       return Object.assign({}, state, {
-        allUsers: [...state.allUsers.map(user => user.id != action.payload.id ? user : new User(action.payload))],
-        showUserModal: false
+        allUsers: [...state.allUsers.map(user => user.id != action.payload.id ? user : new User(action.payload))]
       });
     case userActions.CLEAR_CURRENT_USER_ACTION:
       return Object.assign({}, state, {
         currentUser: new User({})
-      });
-    case userActions.OPEN_USER_MODAL_ACTION:
-      return Object.assign({}, state, {
-        showUserModal: true
-      });
-    case userActions.CLOSE_USER_MODAL_ACTION:
-      return Object.assign({}, state, {
-        showUserModal: false
       });
     case userActions.CREATE_NEW_USER_COMPLETE_ACTION:
       return Object.assign({}, state, {

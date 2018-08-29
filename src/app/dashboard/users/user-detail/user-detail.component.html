@@ -1,7 +1,7 @@
 <section class="container-fluid">
   <div class="d-flex align-items-center justify-content-between">
-    <button (click)="_location.back()" class="btn btn-primary text-light">
-      <i class="fas fa-arrow-left mr-2"></i>Go back</button>
+    <a routerLink="../" class="btn btn-primary text-light">
+      <i class="fas fa-arrow-left mr-2"></i>Go back</a>
     <h4 class="text-grey-dark m-0">User details</h4>
   </div>
   <div class="details">
@@ -39,7 +39,7 @@
             <h6 class="text-grey-dark">Phone:</h6>
             <h6 class="ml-3">{{user.details.contact}}</h6>
             <h6 class="text-grey-dark">Address:</h6>
-            <h6 style="white-space: pre-line" class="ml-3">{{user.details.address}}</h6>
+            <h6 style="white-space: pre-line" class="ml-3">{{user.details.address ? user.details.address : '-'}}</h6>
             <ng-container *ngIf="user.details.gstn">
               <h6 class="text-grey-dark">GSTN:</h6>
               <h6 style="white-space: pre-line" class="ml-3">{{user.details.gstn | uppercase}}</h6>
