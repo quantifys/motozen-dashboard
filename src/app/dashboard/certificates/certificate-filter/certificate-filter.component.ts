@@ -1,9 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { DateAdapter, MAT_DATE_LOCALE, MAT_DATE_FORMATS, MatBottomSheetRef } from '@angular/material';
 import { MomentDateAdapter } from '@angular/material-moment-adapter';
+import { Store } from '@ngrx/store';
 import { FormBuilder, FormGroup, FormControl } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import moment from 'moment';
+
+import * as fromRoot from '../../../shared/reducers';
+import * as userActions from '../../../shared/actions/user.actions';
+import { User } from '../../../shared/models';
 
 export const MY_FORMATS = {
   parse: {
@@ -29,6 +34,8 @@ export const MY_FORMATS = {
 export class CertificateFilterComponent implements OnInit {
 
   public filterForm: FormGroup;
+  public loggedUser: User = new User({});
+  public users: User[] = [];
 
   public startMax: Date = new Date(moment().subtract(1, 'days').format());
   public endMin: Date;
@@ -37,9 +44,14 @@ export class CertificateFilterComponent implements OnInit {
   constructor(
     private _fb: FormBuilder,
     private _router: Router,
+    private _store: Store<fromRoot.State>,
     private _activatedRoute: ActivatedRoute,
-    private bottomSheetRef: MatBottomSheetRef<CertificateFilterComponent>
-  ) { }
+    private _bottomSheetRef: MatBottomSheetRef<CertificateFilterComponent>
+  ) {
+    this._store.dispatch(new userActions.FetchAllUsersAction);
+    this._store.select(fromRoot.getLoggedUser).subscribe(user => this.loggedUser = user);
+    this._store.select(fromRoot.getAllUsers).subscribe(users => this.users = users);
+  }
 
   ngOnInit() {
     this.buildForm();
@@ -49,6 +61,9 @@ export class CertificateFilterComponent implements OnInit {
       }
       if (params["end"]) {
         this.end.patchValue(new Date(params["end"]), { emitEvent: false });
+      }
+      if (params["user_id"]) {
+        this.user_id.patchValue(+params["user_id"], { emitEvent: false });
       }
     });
     this.start.valueChanges.subscribe(value => {
@@ -63,7 +78,10 @@ export class CertificateFilterComponent implements OnInit {
   buildForm() {
     this.filterForm = this._fb.group({
       start: null,
-      end: null
+      end: null,
+      user_id: null,
+      search: null,
+      search_type: null
     });
   }
 
@@ -75,15 +93,28 @@ export class CertificateFilterComponent implements OnInit {
     return this.filterForm.get('end') as FormControl;
   }
 
+  get user_id(): FormControl {
+    return this.filterForm.get('user_id') as FormControl;
+  }
+
+  get search(): FormControl {
+    return this.filterForm.get('search') as FormControl;
+  }
+
+  get search_type(): FormControl {
+    return this.filterForm.get('search_type') as FormControl;
+  }
+
   closeSheet() {
     this._router.navigate(["dashboard", "certificates"], {
       queryParams: {
         ...this._activatedRoute.snapshot.queryParams,
-        end: moment(this.end.value).format('YYYY-MM-DD'),
-        start: moment(this.start.value).format('YYYY-MM-DD')
+        end: this.end.value ? moment(this.end.value).format('YYYY-MM-DD') : null,
+        start: this.start.value ? moment(this.start.value).format('YYYY-MM-DD') : null,
+        user_id: this.user_id.value ? this.user_id.value : null
       },
     });
-    this.bottomSheetRef.dismiss();
+    this._bottomSheetRef.dismiss();
   }
 
 }

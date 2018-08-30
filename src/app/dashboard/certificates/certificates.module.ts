@@ -2,7 +2,8 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Routes, RouterModule } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
-import { MatFormFieldModule, MatInputModule, MatAutocompleteModule, MatDatepickerModule, MatSelectModule, MatNativeDateModule, MatTabsModule, MatPaginatorModule, MatButtonModule, MatBottomSheetModule } from '@angular/material';
+import { MatFormFieldModule, MatInputModule, MatAutocompleteModule, MatDatepickerModule, MatSelectModule, MatNativeDateModule, MatTabsModule, MatPaginatorModule, MatButtonModule, MatBottomSheetModule, MatRadioModule, MatIconModule } from '@angular/material';
+import { NgSelectModule } from '@ng-select/ng-select';
 
 import { CertificatesComponent } from './certificates.component';
 import { CertificateTableComponent } from './certificate-table/certificate-table.component';
@@ -50,6 +51,9 @@ const routes: Routes = [
     MatPaginatorModule,
     MatButtonModule,
     MatBottomSheetModule,
+    MatRadioModule,
+    MatIconModule,
+    NgSelectModule,
     RouterModule.forChild(routes)
   ],
   declarations: [CertificatesComponent, CertificateTableComponent, CertificateEditComponent, MonthPickerComponent, CertificateDetailComponent, CertificateFilterComponent, CertificateDeleteComponent, CertificateIssueComponent],

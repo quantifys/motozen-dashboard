@@ -42,3 +42,12 @@ export class Rto {
     return this.id + ": " + this.office;
   }
 }
+
+export class State {
+  public code: string;
+  public name: string;
+  constructor(data: any) {
+    this.code = data.code ? data.code : null;
+    this.name = data.name ? data.name : null;
+  }
+}

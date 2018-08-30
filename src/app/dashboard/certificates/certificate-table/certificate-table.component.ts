@@ -3,7 +3,6 @@ import { Subscription } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { PageEvent } from '@angular/material';
-import swal from 'sweetalert2';
 
 import * as fromRoot from '../../../shared/reducers';
 import * as certificateActions from '../../../shared/actions/certificate.actions';

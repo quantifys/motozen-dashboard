@@ -1,8 +1,10 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Subscription } from 'rxjs';
+import { Subscription, timer } from 'rxjs';
+import { debounce } from 'rxjs/operators';
 import { Store } from '@ngrx/store';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatBottomSheet } from '@angular/material';
+import { FormBuilder, FormGroup, FormControl } from '@angular/forms';
 
 import * as fromRoot from '../../shared/reducers';
 import { User } from '../../shared/models';
@@ -17,10 +19,12 @@ export class CertificatesComponent implements OnInit, OnDestroy {
 
   private userSubscription$: Subscription = new Subscription();
   public loggedUser: User = new User({});
+  public searchForm: FormGroup;
 
   constructor(
     private _store: Store<fromRoot.State>,
     private _router: Router,
+    private _fb: FormBuilder,
     private _activatedRoute: ActivatedRoute,
     private bottomSheet: MatBottomSheet
   ) {
@@ -28,7 +32,7 @@ export class CertificatesComponent implements OnInit, OnDestroy {
       this.loggedUser = user;
       if (user.role) {
         if (user.role == 'distributor' || user.role == 'dealer' || user.role == 'sales') {
-          let newParams: any = { };
+          let newParams: any = {};
           if (!this._activatedRoute.snapshot.queryParams["status"]) {
             newParams["status"] = "can_modify";
           }
@@ -37,6 +41,10 @@ export class CertificatesComponent implements OnInit, OnDestroy {
           }
           if (!this._activatedRoute.snapshot.queryParams["per_page"]) {
             newParams["per_page"] = 10;
+          }
+          if (this._activatedRoute.snapshot.queryParams["reg"] || this._activatedRoute.snapshot.queryParams["sld"]) {
+            this.search_type.patchValue(this._activatedRoute.snapshot.queryParams["reg"] ? "reg" : "sld", { emitEvent: false });
+            this.search.patchValue(this._activatedRoute.snapshot.queryParams["reg"] ? this._activatedRoute.snapshot.queryParams["reg"] : this._activatedRoute.snapshot.queryParams["sld"], { emitEvent: false });
           }
           this._router.navigate(["dashboard", "certificates"], { queryParams: { ...this._activatedRoute.snapshot.queryParams, ...newParams } });
         } else {
@@ -47,10 +55,27 @@ export class CertificatesComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    this.buildForm();
+    this.formListener();
   }
 
   ngOnDestroy() {
     this.userSubscription$.unsubscribe();
+  }
+
+  buildForm() {
+    this.searchForm = this._fb.group({
+      search: null,
+      search_type: 'reg'
+    });
+  }
+
+  get search(): FormControl {
+    return this.searchForm.get('search') as FormControl;
+  }
+
+  get search_type(): FormControl {
+    return this.searchForm.get('search_type') as FormControl;
   }
 
   getQueryParams(type: string): any {
@@ -59,6 +84,21 @@ export class CertificatesComponent implements OnInit, OnDestroy {
 
   openFilters() {
     this.bottomSheet.open(CertificateFilterComponent);
+  }
+
+  formListener() {
+    this.search.valueChanges.pipe(debounce(() => timer(400))).subscribe(value => this.makeSearchRequest());
+    this.search_type.valueChanges.subscribe(value => this.makeSearchRequest());
+  }
+
+  makeSearchRequest() {
+    this._router.navigate(["dashboard", "certificates"], {
+      queryParams: {
+        ...this._activatedRoute.snapshot.queryParams,
+        reg: this.search_type.value == 'reg' ? this.search.value : null,
+        sld: this.search_type.value == 'sld' ? this.search.value : null
+      }
+    });
   }
 
 }

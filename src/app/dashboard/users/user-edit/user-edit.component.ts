@@ -6,13 +6,8 @@ import * as fromRoot from '../../../shared/reducers';
 import * as userActions from '../../../shared/actions/user.actions';
 import { PasswordValidation } from '../../../shared/validators/password.validator';
 import { ActivatedRoute } from '@angular/router';
-import { User } from '../../../shared/models';
+import { User, State } from '../../../shared/models';
 import { RtoService } from '../../../shared/services/rto.service';
-
-interface State {
-  code: string;
-  name: string;
-}
 
 @Component({
   selector: 'app-user-edit',
