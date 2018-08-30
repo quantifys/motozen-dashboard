@@ -98,7 +98,7 @@ export class ValidateUserTokenFailedAction implements Action {
 
 export class SignoutUserAction implements Action {
   readonly type = SIGNOUT_USER_ACTION;
-  constructor(public payload: any) {
+  constructor(public payload?: any) {
     toast({
       title: 'Signing out...'
     });

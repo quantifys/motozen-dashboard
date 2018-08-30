@@ -99,7 +99,10 @@ export class UserEditComponent implements OnInit {
     this.buildForm();
     this.formListener();
     this.passwordValidate();
-    this._store.select(fromRoot.getLoggedUser).subscribe(user => this.loggedUser = user);
+    this._store.select(fromRoot.getLoggedUser).subscribe(user => {
+      this.loggedUser = user
+      this.filterRoles();
+    });
     this._store.select(fromRoot.getAllUsers).subscribe(distributors => this.distributors = distributors);
     this.states = this._rtoService.getStates();
     this._store.select(fromRoot.getCurrentUser).subscribe(user => {
@@ -219,6 +222,16 @@ export class UserEditComponent implements OnInit {
 
   get password_confirmation(): FormControl {
     return this.userForm.get("password_confirmation") as FormControl;
+  }
+
+  filterRoles() {
+    if (this.loggedUser.role == 'human_resource') {
+      this.roles = this.roles.filter(role => (role.value != 'dealer' && role.value != 'distributor' && role.value != 'admin' && role.value != 'manufacturer'));
+    } else if (this.loggedUser.role == 'sales') {
+      this.roles = this.roles.filter(role => (role.value == 'dealer' || role.value == 'distributor'));
+    } else if (this.loggedUser.role == 'admin') {
+      this.roles = this.roles.filter(role => role.value != 'manufacturer');
+    }
   }
 
   checkEsic(): boolean {

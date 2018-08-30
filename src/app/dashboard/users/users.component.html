@@ -1,4 +1,4 @@
-<section class="container-fluid">
+<section class="container">
   <div class="header d-flex align-items-center">
     <h4 class="text-grey-dark m-0">User Management</h4>
     <div class="ml-auto">
@@ -7,7 +7,7 @@
       </a>
     </div>
   </div>
-  <div class="content mt-4">
+  <div class="content mt-4" dynamicHeight>
     <nav mat-tab-nav-bar>
       <ng-container *ngIf="loggedUser.role == 'manufacturer' || loggedUser.role == 'admin'">
         <a mat-tab-link routerLink="../" [queryParams]="getQueryParams('employees')" routerLinkActive #employees="routerLinkActive"
