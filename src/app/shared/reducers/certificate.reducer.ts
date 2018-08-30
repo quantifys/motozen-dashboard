@@ -36,7 +36,7 @@ export function reducer(state = initialState, action: certificateActions.Actions
       return Object.assign({}, state, {
         currentCertificate: new Certificate(action.payload)
       });
-    case certificateActions.ISSUE_CERTIFICATE_ACTION:
+    case certificateActions.ISSUE_CERTIFICATE_COMPLETE_ACTION:
       certificates = action.payload.map(certificate => new Certificate(certificate));
       return Object.assign({}, state, {
         allCertificates: [...state.allCertificates.map(certificate => certificate.id != action.payload.id ? certificate : new Certificate(action.payload))]

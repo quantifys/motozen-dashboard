@@ -10,6 +10,7 @@ import { CertificateEditComponent } from './certificate-edit/certificate-edit.co
 import { MonthPickerComponent } from './month-picker/month-picker.component';
 import { CertificateDetailComponent } from './certificate-detail/certificate-detail.component';
 import { CertificateFilterComponent } from './certificate-filter/certificate-filter.component';
+import { CertificateIssueComponent, CertificateDeleteComponent } from './certificate-controls/certificate-controls.component';
 
 const routes: Routes = [
   {
@@ -51,7 +52,7 @@ const routes: Routes = [
     MatBottomSheetModule,
     RouterModule.forChild(routes)
   ],
-  declarations: [CertificatesComponent, CertificateTableComponent, CertificateEditComponent, MonthPickerComponent, CertificateDetailComponent, CertificateFilterComponent],
-  entryComponents: [CertificateFilterComponent]
+  declarations: [CertificatesComponent, CertificateTableComponent, CertificateEditComponent, MonthPickerComponent, CertificateDetailComponent, CertificateFilterComponent, CertificateDeleteComponent, CertificateIssueComponent],
+  entryComponents: [CertificateFilterComponent, CertificateDeleteComponent, CertificateIssueComponent]
 })
 export class CertificatesModule { }

@@ -2,10 +2,11 @@ import { Router } from '@angular/router';
 import { Angular2TokenService } from 'angular2-token';
 import { Effect, Actions, ofType } from '@ngrx/effects';
 import { Injectable } from '@angular/core';
-import { Action } from '@ngrx/store';
+import { Action, Store } from '@ngrx/store';
 import { Observable, of } from 'rxjs';
-import { catchError, map, mergeMap, exhaustMap } from 'rxjs/operators';
+import { catchError, map, exhaustMap } from 'rxjs/operators';
 
+import * as fromRoot from '../../shared/reducers';
 import * as fromCertificate from '../actions/certificate.actions';
 import { Certificate } from '../models';
 
@@ -16,9 +17,12 @@ export class CertificateEffects {
 
   constructor(
     private _action$: Actions,
+    private _store: Store<fromRoot.State>,
     private _tokenService: Angular2TokenService,
     private _router: Router
-  ) { }
+  ) {
+    this._store.select(fromRoot.getCurrentCertificate).subscribe(certificate => this.certificate = certificate);
+  }
 
   @Effect()
   fetchCertificates$: Observable<Action> = this._action$.ofType(fromCertificate.FETCH_ALL_CERTIFICATES_ACTION).pipe(
@@ -47,7 +51,7 @@ export class CertificateEffects {
   @Effect()
   issueCertificate$: Observable<Action> = this._action$.ofType(fromCertificate.ISSUE_CERTIFICATE_ACTION).pipe(
     map((action: fromCertificate.IssueCertificateAction) => action.payload),
-    exhaustMap(id => this._tokenService.post(`certificates/${id}/issue`, null)
+    exhaustMap(() => this._tokenService.post(`certificates/${this.certificate.id}/issue`, null)
       .pipe(
         map(response => new fromCertificate.IssueCertificateCompleteAction(response.json().message)),
         catchError(error => of(new fromCertificate.IssueCertificateFailedAction(error.json().message)))

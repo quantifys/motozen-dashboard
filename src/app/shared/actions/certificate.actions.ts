@@ -102,7 +102,7 @@ export class FetchCertificateFailedAction implements Action {
 
 export class IssueCertificateAction implements Action {
 	readonly type = ISSUE_CERTIFICATE_ACTION;
-	constructor(public payload: any) {
+	constructor(public payload?: any) {
     toast({
       title: 'Issuing certificate...'
     });
@@ -192,7 +192,7 @@ export class UpdateCertificateFailedAction implements Action {
 
 export class DeleteCertificateAction implements Action {
 	readonly type = DELETE_CERTIFICATE_ACTION;
-	constructor(public payload: any) {
+	constructor(public payload?: any) {
     toast({
       title: 'Deleting certificate...'
     });
