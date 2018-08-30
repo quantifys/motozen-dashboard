@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Routes, RouterModule } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
-import { MatFormFieldModule, MatInputModule, MatAutocompleteModule, MatDatepickerModule, MatSelectModule, MatNativeDateModule, MatTabsModule, MatPaginatorModule, MatButtonModule, MatBottomSheetModule, MatRadioModule, MatIconModule } from '@angular/material';
+import { MatFormFieldModule, MatInputModule, MatDatepickerModule, MatNativeDateModule, MatTabsModule, MatPaginatorModule, MatButtonModule, MatBottomSheetModule, MatRadioModule, MatIconModule } from '@angular/material';
 import { NgSelectModule } from '@ng-select/ng-select';
 
 import { CertificatesComponent } from './certificates.component';
@@ -43,9 +43,7 @@ const routes: Routes = [
     ReactiveFormsModule,
     MatInputModule,
     MatFormFieldModule,
-    MatAutocompleteModule,
     MatDatepickerModule,
-    MatSelectModule,
     MatNativeDateModule,
     MatTabsModule,
     MatPaginatorModule,

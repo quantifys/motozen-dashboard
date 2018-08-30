@@ -32,10 +32,12 @@ export class Config {
 export class Rto {
   public id: string;
   public office: string;
+  public full_name: string;
 
   constructor(data: any) {
     this.id = data.id;
     this.office = data.office;
+    this.full_name = this.id + ": " + this.office;
   }
 
   getFullName(): string {

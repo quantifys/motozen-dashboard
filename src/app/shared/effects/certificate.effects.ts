@@ -73,8 +73,8 @@ export class CertificateEffects {
 
   @Effect()
   deleteCertificate$: Observable<Action> = this._action$.ofType(fromCertificate.DELETE_CERTIFICATE_ACTION).pipe(
-    map((action: fromCertificate.DeleteCertificateAction) => action.payload),
-    exhaustMap(id => this._tokenService.delete(`certificates/${id}`)
+    map((action: fromCertificate.DeleteCertificateAction) => action),
+    exhaustMap(() => this._tokenService.delete(`certificates/${this.certificate.id}`)
       .pipe(
         map(() => {
           this._router.navigate(["dashboard", "certificates"]);

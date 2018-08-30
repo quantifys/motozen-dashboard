@@ -43,14 +43,8 @@ export function reducer(state = initialState, action: certificateActions.Actions
       });
     case certificateActions.DELETE_CERTIFICATE_COMPLETE_ACTION:
       return Object.assign({}, state, {
-        allCertificates: [...state.allCertificates.filter(certificate => certificate.id != state.currentCertificate.id ? certificate : null)],
+        allCertificates: [...state.allCertificates.filter(certificate => certificate.id != action.payload ? certificate : null)],
         currentCertificate: new Certificate({})
-      });
-    case certificateActions.DELETE_CERTIFICATE_ACTION:
-      return Object.assign({}, state, {
-        currentCertificate: new Certificate({
-          id: action.payload
-        })
       });
     case certificateActions.UPDATE_CERTIFICATE_COMPLETE_ACTION:
       return Object.assign({}, state, {
@@ -60,13 +54,13 @@ export function reducer(state = initialState, action: certificateActions.Actions
       return Object.assign({}, state, {
         allCertificates: [...state.allCertificates, new Certificate(action.payload)]
       });
-    case certificateActions.DELETE_CERTIFICATE_FAILED_ACTION:
-      return Object.assign({}, state, {
-        currentCertificate: new Certificate({})
-      });
     case certificateActions.FETCH_CERTIFICATE_FORMDATA_COMPLETE_ACTION:
       return Object.assign({}, state, {
         certificateFormdata: action.payload
+      });
+    case certificateActions.CLEAR_CERTIFICATE_DATA_ACTION:
+      return Object.assign({}, state, {
+        currentCertificate: new Certificate({})
       });
     default:
       return state;

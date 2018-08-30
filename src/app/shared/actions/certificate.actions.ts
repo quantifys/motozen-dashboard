@@ -40,6 +40,8 @@ export const FETCH_CERTIFICATE_FORMDATA_ACTION = '[Certificate] Fetch Certificat
 export const FETCH_CERTIFICATE_FORMDATA_COMPLETE_ACTION = '[Certificate] Fetch Certificate Form Data Complete Action';
 export const FETCH_CERTIFICATE_FORMDATA_FAILED_ACTION = '[Certificate] Fetch Certificate Form Data Failed Action';
 
+export const CLEAR_CERTIFICATE_DATA_ACTION = '[Certificate] Clear Certificate Data Action';
+
 export class FetchAllCertificatesAction implements Action {
 	readonly type = FETCH_ALL_CERTIFICATES_ACTION;
 	constructor(public payload: any) {
@@ -280,6 +282,10 @@ export class FetchCertificateFormdataFailedAction implements Action {
 	}
 }
 
+export class ClearCertificateDataAction implements Action {
+	readonly type = CLEAR_CERTIFICATE_DATA_ACTION;
+}
+
 export type Actions =
 	FetchAllCertificatesAction
 	| FetchAllCertificatesCompleteAction
@@ -304,4 +310,5 @@ export type Actions =
 	| RenewCertificateFailedAction
 	| FetchCertificateFormdataAction
 	| FetchCertificateFormdataCompleteAction
-	| FetchCertificateFormdataFailedAction;
+	| FetchCertificateFormdataFailedAction
+	| ClearCertificateDataAction;

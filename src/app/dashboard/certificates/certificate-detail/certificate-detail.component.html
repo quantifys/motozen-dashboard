@@ -37,8 +37,7 @@
           <h6 class="text-grey-dark font-weight-bold mb-3">
             <i class="fas fa-info-circle mr-2 fa-fw text-primary"></i>Device details</h6>
           <h6 class="text-grey-dark">SLD Number:</h6>
-          <h6 class="ml-3">{{certificate.device.sld_number}}<a routerLink="../../devices/view" [queryParams]="{id: certificate.device.id}"><i
-                class="fas fa-link ml-1"></i></a></h6>
+          <h6 class="ml-3"><a routerLink="../../devices/view" class="text-primary" [queryParams]="{id: certificate.device.id}">{{certificate.device.sld_number}}</a></h6>
           <h6 class="text-grey-dark">Cut-off Speed:</h6>
           <h6 class="ml-3">{{certificate.cutoff_speed}}kmph</h6>
           <h6 class="text-grey-dark">Seal Number / No. of Seals:</h6>
@@ -76,7 +75,7 @@
           <h6 class="text-grey-dark">Manufacturing month & year:</h6>
           <h6 class="ml-3">{{certificate.mfg_month_year | date: 'MMMM, yyyy'}}</h6>
           <h6 class="text-grey-dark">Registration month & year:</h6>
-          <h6 class="ml-3">{{certificate.reg_month_year | date: 'MMMM, yyyy'}}</h6>
+          <h6 class="ml-3">{{certificate.reg_month_year | date: 'fullDate'}}</h6>
         </div>
       </div>
     </div>
