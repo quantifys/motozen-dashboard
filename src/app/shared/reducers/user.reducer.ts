@@ -49,7 +49,7 @@ export function reducer(state = initialState, action: userActions.Actions): Stat
       });
     case userActions.DELETE_USER_COMPLETE_ACTION:
       return Object.assign({}, state, {
-        allUsers: [...state.allUsers.filter(user => user.id != action.payload.id ? user : null)],
+        allUsers: [...state.allUsers.filter(user => user.id != action.payload ? user : null)],
         currentUser: new User({})
       });
     case userActions.UPDATE_USER_COMPLETE_ACTION:

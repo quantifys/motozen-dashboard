@@ -2,6 +2,13 @@ import { Action } from "@ngrx/store";
 import swal from "sweetalert2";
 import { User } from "../models/index";
 
+const toast = (swal as any).mixin({
+  toast: true,
+  position: 'bottom-end',
+  showConfirmButton: false,
+  timer: 3000
+});
+
 export const LOGIN_USER_ACTION = "[User] Login User Action";
 export const LOGIN_USER_COMPLETE_ACTION = "[User] Login User Complete Action";
 export const LOGIN_USER_FAILURE_ACTION = "[User] Login User Failure Action";
@@ -42,18 +49,31 @@ export const CLEAR_CURRENT_USER_ACTION = "[User] Clear Current User Action";
 
 export class LoginUserAction implements Action {
   readonly type = LOGIN_USER_ACTION;
-  constructor(public payload: any) { }
+  constructor(public payload: any) {
+    toast({
+      title: 'Logging in...'
+    });
+    toast.showLoading();
+  }
 }
 
 export class LoginUserCompleteAction implements Action {
   readonly type = LOGIN_USER_COMPLETE_ACTION;
-  constructor(public payload: User) { }
+  constructor(public payload: User) {
+    toast({
+      type: 'success',
+      title: 'User logged in!'
+    });
+  }
 }
 
 export class LoginUserFailedAction implements Action {
   readonly type = LOGIN_USER_FAILURE_ACTION;
   constructor(public payload: any) {
-    swal("Oops", "Login failed.", "error");
+    toast({
+      type: 'error',
+      title: payload
+    });
   }
 }
 
@@ -69,126 +89,221 @@ export class ValidateUserTokenCompleteAction implements Action {
 export class ValidateUserTokenFailedAction implements Action {
   readonly type = VALIDATE_USER_TOKEN_FAILED_ACTION;
   constructor(public payload: any) {
-    swal("User signed out!", "There was an error connecting to the server.", "info");
+    toast({
+      type: 'error',
+      title: payload
+    });
   }
 }
 
 export class SignoutUserAction implements Action {
   readonly type = SIGNOUT_USER_ACTION;
+  constructor(public payload: any) {
+    toast({
+      title: 'Signing out...'
+    });
+    toast.showLoading();
+  }
 }
 
 export class SignoutUserCompleteAction implements Action {
   readonly type = SIGNOUT_USER_COMPLETE_ACTION;
   constructor(public payload?: any) {
-    swal("Great!", "Logged out successfully", "success");
+    toast({
+      type: 'success',
+      title: 'User signed out!'
+    });
   }
 }
 
 export class SignoutUserFailedAction implements Action {
   readonly type = SIGNOUT_USER_FAILED_ACTION;
   constructor(public payload: any) {
-    swal("Oops!", "Signout failed!", "error");
+    toast({
+      type: 'error',
+      title: payload
+    });
   }
 }
 
 export class CreateNewUserAction implements Action {
   readonly type = CREATE_NEW_USER_ACTION;
-  constructor(public payload: any) { }
+  constructor(public payload: any) {
+    toast({
+      title: 'Adding new user...'
+    });
+    toast.showLoading();
+  }
 }
 
 export class CreateNewUserCompleteAction implements Action {
   readonly type = CREATE_NEW_USER_COMPLETE_ACTION;
   constructor(public payload: any) {
-    swal('Great!', 'User was created!', 'success');
+    toast({
+      type: 'success',
+      title: 'User added!'
+    });
   }
 }
 
 export class CreateNewUserFailedAction implements Action {
   readonly type = CREATE_NEW_USER_FAILED_ACTION;
   constructor(public payload: any) {
-    swal("Oops!!!", payload, 'error');
+    toast({
+      type: 'error',
+      title: payload
+    });
   }
 }
 
 export class UpdateUserAction implements Action {
   readonly type = UPDATE_USER_ACTION;
-  constructor(public payload: any) { }
+  constructor(public payload: any) {
+    toast({
+      title: 'Updating user...'
+    });
+    toast.showLoading();
+  }
 }
 
 export class UpdateUserCompleteAction implements Action {
   readonly type = UPDATE_USER_COMPLETE_ACTION;
   constructor(public payload: any) {
-    swal('Great!', 'User was updated.', 'success');
+    toast({
+      type: 'success',
+      title: 'User updated!'
+    });
   }
 }
 
 export class UpdateUserFailedAction implements Action {
   readonly type = UPDATE_USER_FAILED_ACTION;
   constructor(public payload: any) {
-    swal("There was an error.", payload, 'error');
+    toast({
+      type: 'error',
+      title: payload
+    });
   }
 }
 
 export class DeleteUserAction implements Action {
   readonly type = DELETE_USER_ACTION;
+  constructor() {
+    toast({
+      title: 'Deleting user...'
+    });
+    toast.showLoading();
+  }
 }
 
 export class DeleteUserCompleteAction implements Action {
   readonly type = DELETE_USER_COMPLETE_ACTION;
   constructor(public payload: any) {
-    swal('Great!', 'User was deleted.', 'success');
+    toast({
+      type: 'success',
+      title: 'User deleted!'
+    });
   }
 }
 
 export class DeleteUserFailedAction implements Action {
   readonly type = DELETE_USER_FAILED_ACTION;
   constructor(public payload: any) {
-    swal("There was an error.", payload, 'error');
+    toast({
+      type: 'error',
+      title: payload
+    });
   }
 }
 
 export class FilterUsersAction implements Action {
   readonly type = FILTER_USERS_ACTION;
-  constructor(public payload: any) { }
+  constructor(public payload: any) {
+    toast({
+      title: 'Fetching users...'
+    });
+    toast.showLoading();
+  }
 }
 
 export class FilterUsersCompleteAction implements Action {
   readonly type = FILTER_USERS_COMPLETE_ACTION;
-  constructor(public payload: any) { }
+  constructor(public payload: any) {
+    toast({
+      type: 'success',
+      title: 'Users fetched!'
+    });
+  }
 }
 
 export class FilterUsersFailedAction implements Action {
   readonly type = FILTER_USERS_FAILED_ACTION;
-  constructor(public payload: any) { }
+  constructor(public payload: any) {
+    toast({
+      type: 'error',
+      title: payload
+    });
+  }
 }
 
 export class FetchAllUsersAction implements Action {
   readonly type = FETCH_ALL_USERS_ACTION;
+  constructor(public payload?: any) {
+    toast({
+      title: 'Fetching users...'
+    });
+    toast.showLoading();
+  }
 }
 
 export class FetchAllUsersCompleteAction implements Action {
   readonly type = FETCH_ALL_USERS_COMPLETE_ACTION;
-  constructor(public payload: any) { }
+  constructor(public payload: any) {
+    toast({
+      type: 'success',
+      title: 'Users fetched!'
+    });
+  }
 }
 
 export class FetchAllUsersFailedAction implements Action {
   readonly type = FETCH_ALL_USERS_FAILED_ACTION;
-  constructor(public payload: any) { }
+  constructor(public payload: any) {
+    toast({
+      type: 'error',
+      title: payload
+    });
+  }
 }
 
 export class FetchUserAction implements Action {
   readonly type = FETCH_USER_ACTION;
-  constructor(public payload: any) { }
+  constructor(public payload: any) {
+    toast({
+      title: 'Fetching user...'
+    });
+    toast.showLoading();
+  }
 }
 
 export class FetchUserCompleteAction implements Action {
   readonly type = FETCH_USER_COMPLETE_ACTION;
-  constructor(public payload: any) { }
+  constructor(public payload: any) {
+    toast({
+      type: 'success',
+      title: 'User fetched!'
+    });
+  }
 }
 
 export class FetchUserFailedAction implements Action {
   readonly type = FETCH_USER_FAILED_ACTION;
-  constructor(public payload: any) { }
+  constructor(public payload: any) {
+    toast({
+      type: 'error',
+      title: payload
+    });
+  }
 }
 
 export class ClearCurrentUserAction implements Action {
