@@ -7,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ForbiddenComponent implements OnInit {
 
+  public year: number = (new Date()).getFullYear();
+  
   constructor() { }
 
   ngOnInit() {

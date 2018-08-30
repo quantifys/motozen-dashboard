@@ -1,7 +1,9 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ForbiddenComponent } from './forbidden.component';
 import { Routes, RouterModule } from '@angular/router';
+import { MatButtonModule } from '@angular/material';
+
+import { ForbiddenComponent } from './forbidden.component';
 
 const routes: Routes = [
   {
@@ -16,6 +18,7 @@ const routes: Routes = [
 @NgModule({
   imports: [
     CommonModule,
+    MatButtonModule,
     RouterModule.forChild(routes)
   ],
   declarations: [ForbiddenComponent]
