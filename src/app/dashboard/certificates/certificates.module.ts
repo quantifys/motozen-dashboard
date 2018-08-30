@@ -1,15 +1,15 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Routes, RouterModule } from '@angular/router';
-import { NgxPaginationModule } from 'ngx-pagination';
 import { ReactiveFormsModule } from '@angular/forms';
-import { MatFormFieldModule, MatInputModule, MatAutocompleteModule, MatDatepickerModule, MatSelectModule, MatNativeDateModule, MatTabsModule, MatPaginatorModule } from '@angular/material';
+import { MatFormFieldModule, MatInputModule, MatAutocompleteModule, MatDatepickerModule, MatSelectModule, MatNativeDateModule, MatTabsModule, MatPaginatorModule, MatButtonModule, MatBottomSheetModule } from '@angular/material';
 
 import { CertificatesComponent } from './certificates.component';
 import { CertificateTableComponent } from './certificate-table/certificate-table.component';
 import { CertificateEditComponent } from './certificate-edit/certificate-edit.component';
 import { MonthPickerComponent } from './month-picker/month-picker.component';
 import { CertificateDetailComponent } from './certificate-detail/certificate-detail.component';
+import { CertificateFilterComponent } from './certificate-filter/certificate-filter.component';
 
 const routes: Routes = [
   {
@@ -47,8 +47,11 @@ const routes: Routes = [
     MatNativeDateModule,
     MatTabsModule,
     MatPaginatorModule,
+    MatButtonModule,
+    MatBottomSheetModule,
     RouterModule.forChild(routes)
   ],
-  declarations: [CertificatesComponent, CertificateTableComponent, CertificateEditComponent, MonthPickerComponent, CertificateDetailComponent]
+  declarations: [CertificatesComponent, CertificateTableComponent, CertificateEditComponent, MonthPickerComponent, CertificateDetailComponent, CertificateFilterComponent],
+  entryComponents: [CertificateFilterComponent]
 })
 export class CertificatesModule { }

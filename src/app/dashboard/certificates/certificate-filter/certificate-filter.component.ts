@@ -18,15 +18,15 @@ export const MY_FORMATS = {
 };
 
 @Component({
-  selector: 'app-purchase-order-filter',
-  templateUrl: './purchase-order-filter.component.html',
-  styleUrls: ['./purchase-order-filter.component.scss'],
+  selector: 'app-certificate-filter',
+  templateUrl: './certificate-filter.component.html',
+  styleUrls: ['./certificate-filter.component.scss'],
   providers: [
     { provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE] },
     { provide: MAT_DATE_FORMATS, useValue: MY_FORMATS }
   ]
 })
-export class PurchaseOrderFilterComponent implements OnInit {
+export class CertificateFilterComponent implements OnInit {
 
   public filterForm: FormGroup;
 
@@ -38,7 +38,7 @@ export class PurchaseOrderFilterComponent implements OnInit {
     private _fb: FormBuilder,
     private _router: Router,
     private _activatedRoute: ActivatedRoute,
-    private bottomSheetRef: MatBottomSheetRef<PurchaseOrderFilterComponent>
+    private bottomSheetRef: MatBottomSheetRef<CertificateFilterComponent>
   ) { }
 
   ngOnInit() {
@@ -76,7 +76,7 @@ export class PurchaseOrderFilterComponent implements OnInit {
   }
 
   closeSheet() {
-    this._router.navigate(["dashboard", "purchase-orders"], {
+    this._router.navigate(["dashboard", "certificates"], {
       queryParams: {
         ...this._activatedRoute.snapshot.queryParams,
         end: moment(this.end.value).format('YYYY-MM-DD'),
