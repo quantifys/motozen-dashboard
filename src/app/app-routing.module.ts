@@ -16,6 +16,10 @@ const routes: Routes = [
     redirectTo: 'login'
   },
   {
+    path: '403-forbidden',
+    loadChildren: './forbidden/forbidden.module#ForbiddenModule'
+  },
+  {
     path: '**',
     loadChildren: './error/error.module#ErrorModule'
   }
