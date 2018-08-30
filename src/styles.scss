@@ -17,6 +17,29 @@ $shadow: rgba(46,
 .2);
 * {
   font-family: 'Varela Round', sans-serif;
+  
+  // scollbar styles
+  &::-webkit-scrollbar-track {
+    border-radius: 10px;
+    background-color: #CCCCCC;
+  }
+  &::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+    background-color: #F5F5F5;
+    &:hover {
+      width: 10px;
+      height: 10px;
+    }
+  }
+  &::-webkit-scrollbar-thumb {
+    &:hover {
+      width: 10px;
+      height: 10px;
+    }
+    border-radius: 10px;
+    background-color: $primary;
+  }
 }
 
 html,
@@ -217,4 +240,10 @@ form {
   -o-transition: all 0.2s 0.1s ease-out;
   -ms-transition: all 0.2s 0.1s ease-out;
   transition: all 0.2s 0.1s ease-out;
+}
+
+nav {
+  &.mat-tab-nav-bar {
+    overflow-x: auto;
+  }
 }
