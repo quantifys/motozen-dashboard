@@ -2,19 +2,27 @@ import { Router } from '@angular/router';
 import { Angular2TokenService } from 'angular2-token';
 import { Effect, Actions, ofType } from '@ngrx/effects';
 import { Injectable } from '@angular/core';
-import { Action } from '@ngrx/store';
+import { Action, Store } from '@ngrx/store';
 import { Observable, of } from 'rxjs';
 import { catchError, map, mergeMap } from 'rxjs/operators';
 
+import * as fromRoot from '../../shared/reducers';
 import * as fromUser from '../actions/user.actions';
+import { User } from '../models';
 
 @Injectable()
 export class UserEffects {
+
+  private user: User = new User({});
+
   constructor(
+    private _store: Store<fromRoot.State>,
     private _action$: Actions,
     private _tokenService: Angular2TokenService,
     private _router: Router
-  ) { }
+  ) {
+    this._store.select(fromRoot.getCurrentUser).subscribe(user => this.user = user);
+  }
 
   @Effect()
   loginUser$: Observable<Action> = this._action$.pipe(ofType(fromUser.LOGIN_USER_ACTION),
@@ -69,13 +77,13 @@ export class UserEffects {
 
   @Effect()
   deleteUser$: Observable<Action> = this._action$.pipe(ofType(fromUser.DELETE_USER_ACTION),
-    mergeMap((action: fromUser.DeleteUserAction) => this._tokenService.delete(`users/${action.payload}`)
+    mergeMap((action: fromUser.DeleteUserAction) => this._tokenService.delete(`users/${this.user.id}`)
       .pipe(map(response => new fromUser.DeleteUserCompleteAction(response.json().message),
         catchError(error => of(new fromUser.DeleteUserFailedAction(error.json().message)))))));
 
   @Effect()
   updateUser$: Observable<Action> = this._action$.pipe(ofType(fromUser.UPDATE_USER_ACTION),
-    mergeMap((action: fromUser.UpdateUserAction) => this._tokenService.patch(`users/${action.payload.user.id}`, action.payload)
+    mergeMap((action: fromUser.UpdateUserAction) => this._tokenService.patch(`users/${this.user.id}`, action.payload)
       .pipe(map(response => {
         this._router.navigate(["dashboard", "users", "view"], { queryParams: { id: response.json().message.id } });
         return new fromUser.UpdateUserCompleteAction(response.json().message); 

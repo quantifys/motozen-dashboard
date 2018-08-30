@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Location } from '@angular/common';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { Store } from '@ngrx/store';
 
@@ -80,7 +79,6 @@ export class UserEditComponent implements OnInit {
 
   constructor(
     private _store: Store<fromRoot.State>,
-    public _location: Location,
     private _rtoService: RtoService,
     private _fb: FormBuilder,
     private _activatedRoute: ActivatedRoute

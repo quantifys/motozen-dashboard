@@ -1,0 +1,23 @@
+<div class="container-fluid mt-3">
+  <ng-container *ngIf="type">
+    <h5 class="text-center border-bottom mb-3 pb-2">Are you sure you want to delete this user?</h5>
+    <div class="text-center mb-3">
+      <button mat-stroked-button color="warn" (click)="action()">Yes</button>
+      <button class="ml-1" mat-button (click)="close()">No</button>
+    </div>
+  </ng-container>
+  <ng-container *ngIf="!type">
+    <h5 class="text-center border-bottom mb-3 pb-2">Password details?</h5>
+    <form class="mb-3" [formGroup]="passwordForm">
+      <mat-form-field class="w-100">
+        <input matInput placeholder="Password" formControlName="password" type="password">
+      </mat-form-field>
+      <mat-form-field class="w-100">
+        <input matInput placeholder="Confirm password" formControlName="password_confirmation" type="password">
+        <mat-error *ngIf="password_confirmation.hasError('MatchPassword')">Passwords do not match</mat-error>
+      </mat-form-field>
+      <button mat-stroked-button color="warn" (click)="action()">Yes</button>
+      <button class="ml-1" mat-button (click)="close()">No</button>
+    </form>
+  </ng-container>
+</div>

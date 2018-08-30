@@ -95,22 +95,6 @@ export class UserTableComponent implements OnInit, OnDestroy {
     });
   }
 
-  deleteUser(id: number) {
-    swal({
-      title: 'Are you sure?',
-      text: 'Delete user!',
-      type: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Yes, delete!'
-    }).then((result) => {
-      if (result.value) {
-        this._store.dispatch(new userActions.DeleteUserAction(id));
-      }
-    });
-  }
-
   saveChanges() {
     this._store.dispatch(new userActions.UpdateUserAction({
       user: this.passwordForm.value

@@ -106,7 +106,7 @@ export class CreateNewUserCompleteAction implements Action {
 export class CreateNewUserFailedAction implements Action {
   readonly type = CREATE_NEW_USER_FAILED_ACTION;
   constructor(public payload: any) {
-    swal("Oops!!!", 'New user could not be created', 'error');
+    swal("Oops!!!", payload, 'error');
   }
 }
 
@@ -131,7 +131,6 @@ export class UpdateUserFailedAction implements Action {
 
 export class DeleteUserAction implements Action {
   readonly type = DELETE_USER_ACTION;
-  constructor(public payload: any) { }
 }
 
 export class DeleteUserCompleteAction implements Action {

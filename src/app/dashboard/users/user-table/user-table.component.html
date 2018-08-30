@@ -8,7 +8,6 @@
         <th>EMAIL</th>
         <th *ngIf="queryParams.group == 'employees' || queryParams.group == 'customers'">ROLE</th>
         <th>CONTACT</th>
-        <th>ACTIONS</th>
       </tr>
     </thead>
     <tbody>
@@ -23,17 +22,6 @@
         <td>{{user.email}}</td>
         <td *ngIf="queryParams.group == 'employees' || queryParams.group == 'customers'">{{user.getRole() | ucfirst}}</td>
         <td>{{user.details.contact}}</td>
-        <td>
-          <button class="action border-0 btn btn-outline-info btn-sm" title="Change password" (click)="changePassword(user.id)">
-            <i class="fas fa-fw fa-lock"></i>
-          </button>
-          <a class="action border-0 btn btn-outline-warning btn-sm" title="Update" routerLink="edit" [queryParams]="{id: user.id}">
-            <i class="fas fa-fw fa-wrench"></i>
-          </a>
-          <button class="action border-0 btn btn-outline-danger btn-sm" title="Delete" (click)="deleteUser(user.id)">
-            <i class="fas fa-fw fa-trash-alt"></i>
-          </button>
-        </td>
       </tr>
     </tbody>
   </table>
