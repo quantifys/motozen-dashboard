@@ -19,34 +19,21 @@
     </div>
   </div>
   <div class="content mt-4">
-    <ul class="nav nav-pills justify-content-center align-items-center" id="pills-tab" role="tablist">
-      <li class="nav-item">
-        <a class="nav-link text-center" [routerLink]="['../']" [queryParams]="getQueryParams('can_modify')" routerLinkActive="active">
-          <i class="fas fa-chess-knight mb-2"></i>
-          <h6 class="m-0">New</h6>
-        </a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link text-center" [routerLink]="['../']" [queryParams]="getQueryParams('is_valid')" routerLinkActive="active">
-          <i class="fas fa-chess-rook mb-2"></i>
-          <h6 class="m-0">Issued</h6>
-        </a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link text-center" [routerLink]="['../']" [queryParams]="getQueryParams('renewable')" routerLinkActive="active">
-          <i class="fas fa-chess-queen mb-2"></i>
-          <h6 class="m-0">Expiring soon</h6>
-        </a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link text-center" [routerLink]="['../']" [queryParams]="getQueryParams('expired')" routerLinkActive="active">
-          <i class="fas fa-chess-king mb-2"></i>
-          <h6 class="m-0">Expired</h6>
-        </a>
-      </li>
-    </ul>
-    <div class="mt-3">
-      <certificate-table></certificate-table>
-    </div>
+    <nav mat-tab-nav-bar>
+      <a mat-tab-link routerLink="../" [queryParams]="getQueryParams('can_modify')" routerLinkActive #new="routerLinkActive" [active]="new.isActive">
+        <strong>New</strong>
+      </a>
+      <a mat-tab-link routerLink="../" [queryParams]="getQueryParams('is_valid')" routerLinkActive #issued="routerLinkActive" [active]="issued.isActive">
+        <strong>Issued</strong>
+      </a>
+      <a mat-tab-link routerLink="../" [queryParams]="getQueryParams('renewable')" routerLinkActive #expiring="routerLinkActive"
+        [active]="expiring.isActive">
+        <strong>Expiring soon</strong>
+      </a>
+      <a mat-tab-link routerLink="../" [queryParams]="getQueryParams('expired')" routerLinkActive #expired="routerLinkActive" [active]="expired.isActive">
+        <strong>Expired</strong>
+      </a>
+    </nav>
+    <certificate-table></certificate-table>
   </div>
 </section>

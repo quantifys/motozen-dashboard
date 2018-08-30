@@ -50,9 +50,22 @@ export class CertificatesComponent implements OnInit, OnDestroy {
   ) {
     this.userSubscription$ = this._store.select(fromRoot.getLoggedUser).subscribe(user => {
       this.loggedUser = user;
-      if (!this._activatedRoute.snapshot.queryParams["status"]) {
-        if (user.role == 'distributor' || user.role == 'store_purchases') {
-          this._router.navigate(["dashboard", "certificates"], { queryParams: { status: 'can_modify' } });
+
+      if (user.role) {
+        if (user.role == 'distributor' || user.role == 'dealer' || user.role == 'sales') {
+          let newParams: any = { };
+          if (!this._activatedRoute.snapshot.queryParams["status"]) {
+            newParams["status"] = "can_modify";
+          }
+          if (!this._activatedRoute.snapshot.queryParams["page"]) {
+            newParams["page"] = 1;
+          }
+          if (!this._activatedRoute.snapshot.queryParams["per_page"]) {
+            newParams["per_page"] = 10;
+          }
+          this._router.navigate(["dashboard", "certificates"], { queryParams: { ...this._activatedRoute.snapshot.queryParams, ...newParams } });
+        } else {
+          this._router.navigate(["403-forbidden"]);
         }
       }
     });
