@@ -210,3 +210,11 @@ form {
     padding-top: 0;
   }
 }
+
+.animate {
+  -webkit-transition: all 0.2s 0.1s ease-out;
+  -moz-transition: all 0.2s 0.1s ease-out;
+  -o-transition: all 0.2s 0.1s ease-out;
+  -ms-transition: all 0.2s 0.1s ease-out;
+  transition: all 0.2s 0.1s ease-out;
+}
