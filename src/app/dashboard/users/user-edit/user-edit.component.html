@@ -23,7 +23,7 @@
                     <input matInput type="email" placeholder="Email" formControlName="email">
                   </mat-form-field>
                 </div>
-                <div class="col-lg-6">
+                <div class="col-lg-6" *ngIf="addUser">
                   <ng-select id="role" [items]="roles" bindLabel="display" bindValue="value" formControlName="role" placeholder="Select role"></ng-select>
                 </div>
                 <div class="col-lg-6" *ngIf="role.value == 'dealer'">

@@ -23,27 +23,29 @@ export class UsersComponent implements OnInit, OnDestroy {
   ) {
     this.userSubscription$ = this._store.select(fromRoot.getLoggedUser).subscribe(user => {
       this.loggedUser = user;
-      if (user.role && (user.role == 'manufacturer' || user.role == 'sales' || user.role == 'human_resource')) {
-        let newParams: any = {};
-        if (user.role == 'manufacturer') {
-          newParams["group"] = 'employees';
-          newParams["role"] = null;
-        } else if (user.role == 'sales') {
-          newParams["role"] = 'distributor';
-          newParams["group"] = null;
-        } else if (user.role == 'human_resource') {
-          newParams["role"] = 'store_purchases';
-          newParams["group"] = null;
+      if (user.role) {
+        if (user.role == 'manufacturer' || user.role == 'sales' || user.role == 'human_resource') {
+          let newParams: any = {};
+          if (user.role == 'manufacturer') {
+            newParams["group"] = 'employees';
+            newParams["role"] = null;
+          } else if (user.role == 'sales') {
+            newParams["role"] = 'distributor';
+            newParams["group"] = null;
+          } else if (user.role == 'human_resource') {
+            newParams["role"] = 'store_purchases';
+            newParams["group"] = null;
+          }
+          if (!this._activatedRoute.snapshot.queryParams["page"]) {
+            newParams["page"] = 1;
+          }
+          if (!this._activatedRoute.snapshot.queryParams["per_page"]) {
+            newParams["per_page"] = 10;
+          }
+          this._router.navigate(["dashboard", "users"], { queryParams: { ...this._activatedRoute.snapshot.queryParams, ...newParams } });
+        } else {
+          this._router.navigate(["403-forbidden"]);
         }
-        if (!this._activatedRoute.snapshot.queryParams["page"]) {
-          newParams["page"] = 1;
-        }
-        if (!this._activatedRoute.snapshot.queryParams["per_page"]) {
-          newParams["per_page"] = 10;
-        }
-        this._router.navigate(["dashboard", "users"], { queryParams: { ...this._activatedRoute.snapshot.queryParams, ...newParams } })
-      } else {
-        this._router.navigate(["403-forbidden"]);
       }
     });
   }
