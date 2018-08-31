@@ -55,6 +55,10 @@ export function reducer(state = initialState, action: vehicleActions.Actions): S
       return Object.assign({}, state, {
         currentVehicle: new Vehicle(action.payload)
       });
+    case vehicleActions.CLEAR_VEHICLE_DATA_ACTION:
+      return Object.assign({}, state, {
+        currentVehicle: new Vehicle({})
+      });
     default:
       return state;
   }

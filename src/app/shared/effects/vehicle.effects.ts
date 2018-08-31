@@ -4,7 +4,7 @@ import { Effect, Actions, ofType } from '@ngrx/effects';
 import { Injectable } from '@angular/core';
 import { Action, Store } from '@ngrx/store';
 import { Observable, of } from 'rxjs';
-import { catchError, map, mergeMap, exhaustMap } from 'rxjs/operators';
+import { catchError, map, exhaustMap } from 'rxjs/operators';
 
 import * as fromRoot from '../../shared/reducers';
 import * as fromVehicle from '../actions/vehicle.actions';

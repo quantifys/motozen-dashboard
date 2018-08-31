@@ -2,11 +2,11 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Routes, RouterModule } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
-import { MatFormFieldModule, MatInputModule, MatOptionModule, MatButtonModule, MatPaginatorModule } from '@angular/material';
+import { MatFormFieldModule, MatInputModule, MatButtonModule, MatPaginatorModule, MatIconModule, MatBottomSheetModule } from '@angular/material';
 import { NgSelectModule } from '@ng-select/ng-select';
 
 import { VehiclesComponent } from './vehicles.component';
-import { VehicleDetailComponent } from './vehicle-detail/vehicle-detail.component';
+import { VehicleDetailComponent, VehicleDeleteComponent } from './vehicle-detail/vehicle-detail.component';
 import { VehicleEditComponent } from './vehicle-edit/vehicle-edit.component';
 import { VehicleTableComponent } from './vehicle-table/vehicle-table.component';
 
@@ -39,12 +39,14 @@ const routes: Routes = [
     ReactiveFormsModule,
     MatFormFieldModule,
     MatInputModule,
-    MatOptionModule,
     MatButtonModule,
     MatPaginatorModule,
+    MatIconModule,
     NgSelectModule,
+    MatBottomSheetModule,
     RouterModule.forChild(routes)
   ],
-  declarations: [VehiclesComponent, VehicleDetailComponent, VehicleEditComponent, VehicleTableComponent]
+  declarations: [VehiclesComponent, VehicleDetailComponent, VehicleEditComponent, VehicleTableComponent, VehicleDeleteComponent],
+  entryComponents: [VehicleDeleteComponent]
 })
 export class VehiclesModule { }
