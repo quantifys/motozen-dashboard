@@ -31,6 +31,8 @@ export const DELETE_VEHICLE_ICAT_FAILED_ACTION = "[Vehicle] Delete Vehicle Icat 
 
 export class FetchAllVehiclesAction implements Action {
   readonly type = FETCH_ALL_VEHICLES_ACTION;
+  constructor(public payload?: any) {
+  }
 }
 
 export class FetchAllVehiclesCompleteAction implements Action {
@@ -168,7 +170,7 @@ export class UpdateVehicleIcatAction implements Action {
 
 export class UpdateVehicleIcatCompleteAction implements Action {
   readonly type = UPDATE_VEHICLE_ICAT_COMPLETE_ACTION;
-  constructor(public payload?: any) {
+  constructor(public payload: any) {
     swal({
       title: "Vehicle Updated!",
       type: "success",
@@ -180,7 +182,7 @@ export class UpdateVehicleIcatCompleteAction implements Action {
 
 export class UpdateVehicleIcatFailedAction implements Action {
   readonly type = UPDATE_VEHICLE_ICAT_FAILED_ACTION;
-  constructor(public payload?: any) {
+  constructor(public payload: any) {
     swal("There was an error.", payload, "error");
   }
 }

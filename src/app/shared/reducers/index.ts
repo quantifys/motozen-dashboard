@@ -58,6 +58,7 @@ export const getCurrentDevice = createSelector(devices, (state: fromDevice.State
 export const vehicles = (state: State) => state.vehicles;
 export const getAllVehicles = createSelector(vehicles, (state: fromVehicle.State) => state.allVehicles);
 export const getCurrentVehicle = createSelector(vehicles, (state: fromVehicle.State) => state.currentVehicle);
+export const getVehiclePageStatus = createSelector(vehicles, (state: fromVehicle.State) => state.vehiclePageStatus);
 
 export const inventories = (state: State) => state.inventories;
 export const getAllInventories = createSelector(inventories, (state: fromInventory.State) => state.allInventories);
