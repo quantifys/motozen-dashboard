@@ -110,7 +110,7 @@ export class VehicleEditComponent implements OnInit {
     let file = $event.target.files[0];
     reader.readAsDataURL(file);
     reader.onload = () => {
-      this.icats.at(index).patchValue(reader.result.split(',')[1], {emitEvent: false})
+      this.icats.at(index).patchValue((reader.result + "").split(',')[1], {emitEvent: false})
       this.icats.at(index).markAsDirty();
     }
   }
@@ -148,7 +148,7 @@ export class VehicleEditComponent implements OnInit {
       confirmButtonText: "Yes, delete vehicle!"
     }).then(result => {
       if (result.value) {
-        this._store.dispatch(new vehicleActions.DeleteVehicleAction(id));
+        this._store.dispatch(new vehicleActions.DeleteVehicleAction);
       }
     });
   }
