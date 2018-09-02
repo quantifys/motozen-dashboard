@@ -23,7 +23,7 @@ export class InventoryComponent implements OnInit, OnDestroy {
   ) {
     this.userSubscription$ = this._store.select(fromRoot.getLoggedUser).subscribe(user => {
       this.loggedUser = user;
-      if (user.role) {
+      if (user.role == 'manufacturer' || user.role == 'store_purchases' || user.role == 'plant_supervisor') {
         let newParams: any = {};
         if (!this._activatedRoute.snapshot.queryParams["page"]) {
           newParams["page"] = 1;
@@ -35,6 +35,8 @@ export class InventoryComponent implements OnInit, OnDestroy {
           newParams["category"] = "automotive_connector";
         }
         this._router.navigate(["dashboard", "inventory"], { queryParams: { ...this._activatedRoute.snapshot.queryParams, ...newParams } })
+      } else {
+        this._router.navigate(["403-forbidden"]);
       }
     });
   }
