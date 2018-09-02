@@ -27,7 +27,7 @@ export class VehicleEffects {
   @Effect()
   fetchVehicles$: Observable<Action> = this._action$.ofType(fromVehicle.FETCH_ALL_VEHICLES_ACTION).pipe(
     map((action: fromVehicle.FetchAllVehiclesAction) => action.payload),
-    exhaustMap(body => this._tokenService.get(`vehicles`)
+    exhaustMap(body => this._tokenService.post(`vehicles/list`, body)
       .pipe(
         map(response => new fromVehicle.FetchAllVehiclesCompleteAction({
           data: response.json().message,

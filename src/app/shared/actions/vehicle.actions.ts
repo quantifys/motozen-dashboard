@@ -40,7 +40,7 @@ export const CLEAR_VEHICLE_DATA_ACTION = "[Vehicle] Clear Vehicle Data Action";
 
 export class FetchAllVehiclesAction implements Action {
   readonly type = FETCH_ALL_VEHICLES_ACTION;
-  constructor(public payload?: any) {
+  constructor(public payload: any) {
     toast({
       title: 'Fetching vehicles...'
     });
