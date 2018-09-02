@@ -1,6 +1,13 @@
 import { Action } from '@ngrx/store';
 import swal from 'sweetalert2';
 
+const toast = (swal as any).mixin({
+  toast: true,
+  position: 'bottom-end',
+  showConfirmButton: false,
+  timer: 3000
+});
+
 export const FETCH_ALL_INVENTORIES_ACTION = '[Inventory] Fetch All Inventories Action';
 export const FETCH_ALL_INVENTORIES_COMPLETE_ACTION = '[Inventory] Fetch All Inventories Complete Action';
 export const FETCH_ALL_INVENTORIES_FAILED_ACTION = '[Inventory] Fetch All Inventories Failed Action';
@@ -25,75 +32,114 @@ export const DELETE_INVENTORY_ACTION = '[Inventory] Delete Inventory Action';
 export const DELETE_INVENTORY_COMPLETE_ACTION = '[Inventory] Delete Inventory Complete Action';
 export const DELETE_INVENTORY_FAILED_ACTION = '[Inventory] Delete Inventory Failed Action';
 
-export const TRANSFER_INVENTORY_ACTION = '[Inventory] Transfer Inventory Action';
-export const TRANSFER_INVENTORY_COMPLETE_ACTION = '[Inventory] Transfer Inventory Complete Action';
-export const TRANSFER_INVENTORY_FAILED_ACTION = '[Inventory] Transfer Inventory Failed Action';
+export const CLEAR_INVENTORY_DATA_ACTION = '[Inventory] Clear Inventory Data Action';
 
 export class FetchAllInventoriesAction implements Action {
   readonly type = FETCH_ALL_INVENTORIES_ACTION;
-  constructor(public payload?: any) {
-    swal({
+  constructor() {
+    toast({
       title: 'Fetching inventory...'
     });
-    swal.showLoading();
+    toast.showLoading();
   }
 }
 
 export class FetchAllInventoriesCompleteAction implements Action {
   readonly type = FETCH_ALL_INVENTORIES_COMPLETE_ACTION;
   constructor(public payload: any) {
-    swal.close();
+    toast({
+      type: 'success',
+      title: 'Inventory list loaded!'
+    });
   }
 }
 
 export class FetchAllInventoriesFailedAction implements Action {
   readonly type = FETCH_ALL_INVENTORIES_FAILED_ACTION;
-  constructor(public payload?: any) { }
+  constructor(public payload: any) {
+    toast({
+      type: 'error',
+      title: payload
+    });
+  }
 }
 
 export class FetchInventoryAction implements Action {
   readonly type = FETCH_INVENTORY_ACTION;
-  constructor(public payload: any) { }
+  constructor(public payload: any) {
+    toast({
+      title: 'Fetching inventory item...'
+    });
+    toast.showLoading();
+  }
 }
 
 export class FetchInventoryCompleteAction implements Action {
   readonly type = FETCH_INVENTORY_COMPLETE_ACTION;
-  constructor(public payload?: any) { }
+  constructor(public payload: any) {
+    toast({
+      type: 'success',
+      title: 'Inventory item loaded!'
+    });
+  }
 }
 
 export class FetchInventoryFailedAction implements Action {
   readonly type = FETCH_INVENTORY_FAILED_ACTION;
-  constructor(public payload?: any) { }
+  constructor(public payload: any) {
+    toast({
+      type: 'error',
+      title: payload
+    });
+  }
 }
 
 export class FilterInventoryAction implements Action {
   readonly type = FILTER_INVENTORY_ACTION;
-  constructor(public payload: any) { }
+  constructor(public payload: any) {
+    toast({
+      title: 'Fetching inventory...'
+    });
+    toast.showLoading();
+  }
 }
 
 export class FilterInventoryCompleteAction implements Action {
   readonly type = FILTER_INVENTORY_COMPLETE_ACTION;
-  constructor(public payload?: any) { }
+  constructor(public payload: any) {
+    toast({
+      type: 'success',
+      title: 'Inventory list loaded!'
+    });
+  }
 }
 
 export class FilterInventoryFailedAction implements Action {
   readonly type = FILTER_INVENTORY_FAILED_ACTION;
-  constructor(public payload?: any) { }
+  constructor(public payload: any) {
+    toast({
+      type: 'error',
+      title: payload
+    });
+  }
 }
 
 export class CreateInventoryAction implements Action {
   readonly type = CREATE_INVENTORY_ACTION;
-  constructor(public payload:any) { }
+  constructor(public payload:any) {
+    toast({
+      title: 'Adding inventory...'
+    });
+    toast.showLoading();
+  }
 }
 
 export class CreateInventoryCompleteAction implements Action {
   readonly type = CREATE_INVENTORY_COMPLETE_ACTION;
   constructor(public payload:any) {
-    swal({
-      title: "Inventory Created!",
-      type: "success",
-      timer: 3000,
-      showConfirmButton: false
+    toast({
+      type: 'success',
+      title: 'Inventory added!'
     });
   }
 }
@@ -101,62 +147,75 @@ export class CreateInventoryCompleteAction implements Action {
 export class CreateInventoryFailedAction implements Action {
   readonly type = CREATE_INVENTORY_FAILED_ACTION;
   constructor(public payload:any) {
-    swal("There was an error.", payload, "error");
+    toast({
+      type: 'error',
+      title: payload
+    });
   }
 }
 
 export class UpdateInventoryAction implements Action {
   readonly type = UPDATE_INVENTORY_ACTION;
-  constructor(public payload: any) { }
+  constructor(public payload: any) {
+    toast({
+      title: 'Updating inventory...'
+    });
+    toast.showLoading();
+  }
 }
 
 export class UpdateInventoryCompleteAction implements Action {
   readonly type = UPDATE_INVENTORY_COMPLETE_ACTION;
-  constructor(public payload?: any) { }
-}
-
-export class UpdateInventoryFailedAction implements Action {
-  readonly type = UPDATE_INVENTORY_FAILED_ACTION;
-  constructor(public payload?: any) { }
-}
-
-export class DeleteInventoryAction implements Action {
-  readonly type = DELETE_INVENTORY_ACTION;
-  constructor(public payload: any) { }
-}
-
-export class DeleteInventoryCompleteAction implements Action {
-  readonly type = DELETE_INVENTORY_COMPLETE_ACTION;
-  constructor(public payload?: any) { }
-}
-
-export class DeleteInventoryFailedAction implements Action {
-  readonly type = DELETE_INVENTORY_FAILED_ACTION;
-  constructor(public payload?: any) { }
-}
-
-export class TransferInventoryAction implements Action {
-  readonly type = TRANSFER_INVENTORY_ACTION;
-  constructor(public payload:any) { }
-}
-
-export class TransferInventoryCompleteAction implements Action {
-  readonly type = TRANSFER_INVENTORY_COMPLETE_ACTION;
-  constructor(public payload:any) {
-    swal({
-      title: "Inventories are transferred!",
-      type: "success",
-      timer: 3000,
-      showConfirmButton: false
+  constructor(public payload: any) {
+    toast({
+      type: 'success',
+      title: 'Inventory updated!'
     });
   }
 }
 
-export class TransferInventoryFailedAction implements Action {
-  readonly type = TRANSFER_INVENTORY_FAILED_ACTION;
-  constructor(public payload:any) {
-    swal("There was an error transferring the device.", payload, "error");
+export class UpdateInventoryFailedAction implements Action {
+  readonly type = UPDATE_INVENTORY_FAILED_ACTION;
+  constructor(public payload: any) {
+    toast({
+      type: 'error',
+      title: payload
+    });
   }
+}
+
+export class DeleteInventoryAction implements Action {
+  readonly type = DELETE_INVENTORY_ACTION;
+  constructor() {
+    toast({
+      title: 'Deleting inventory...'
+    });
+    toast.showLoading();
+  }
+}
+
+export class DeleteInventoryCompleteAction implements Action {
+  readonly type = DELETE_INVENTORY_COMPLETE_ACTION;
+  constructor(public payload: any) {
+    toast({
+      type: 'success',
+      title: 'Inventory deleted!'
+    });
+  }
+}
+
+export class DeleteInventoryFailedAction implements Action {
+  readonly type = DELETE_INVENTORY_FAILED_ACTION;
+  constructor(public payload: any) {
+    toast({
+      type: 'error',
+      title: payload
+    });
+  }
+}
+
+export class ClearInventoryDataAction implements Action {
+  readonly type = CLEAR_INVENTORY_DATA_ACTION;
 }
 
 export type Actions =
@@ -178,6 +237,4 @@ export type Actions =
   | DeleteInventoryAction
   | DeleteInventoryCompleteAction
   | DeleteInventoryFailedAction
-  | TransferInventoryAction
-  | TransferInventoryCompleteAction
-  | TransferInventoryFailedAction;
+  | ClearInventoryDataAction;
