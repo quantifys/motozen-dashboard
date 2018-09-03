@@ -1,14 +1,13 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { NgxPaginationModule } from 'ngx-pagination';
 import { ReactiveFormsModule } from '@angular/forms';
-import { MatRadioModule, MatFormFieldModule, MatInputModule } from '@angular/material';
+import { MatRadioModule, MatFormFieldModule, MatInputModule, MatTabsModule, MatPaginatorModule, MatButtonModule, MatBottomSheetModule } from '@angular/material';
 import { Routes, RouterModule } from '@angular/router';
 
 import { ExpensesComponent } from './expenses.component';
-import { ExpensesTableComponent } from './expenses-table/expenses-table.component';
 import { ExpenseEditComponent } from './expense-edit/expense-edit.component';
-import { ExpenseDetailComponent } from './expense-detail/expense-detail.component';
+import { ExpenseDetailComponent, ExpenseDeleteComponent } from './expense-detail/expense-detail.component';
+import { ExpenseTableComponent } from './expense-table/expense-table.component';
 
 export const routes: Routes = [
   {
@@ -37,13 +36,17 @@ export const routes: Routes = [
 @NgModule({
   imports: [
     CommonModule,
-    NgxPaginationModule,
     ReactiveFormsModule,
     MatRadioModule,
+    MatTabsModule,
+    MatPaginatorModule,
     MatFormFieldModule,
     MatInputModule,
+    MatButtonModule,
+    MatBottomSheetModule,
     RouterModule.forChild(routes)
   ],
-  declarations: [ExpensesComponent, ExpensesTableComponent, ExpenseEditComponent, ExpenseDetailComponent]
+  declarations: [ExpensesComponent, ExpenseEditComponent, ExpenseDetailComponent, ExpenseTableComponent, ExpenseDeleteComponent],
+  entryComponents: [ExpenseDeleteComponent]
 })
 export class ExpensesModule { }

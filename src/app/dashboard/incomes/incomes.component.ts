@@ -37,6 +37,8 @@ export class IncomesComponent implements OnInit, OnDestroy {
           newParams["category"] = 'direct';
         }
         this._router.navigate(["dashboard", "incomes"], { queryParams: { ...this._activatedRoute.snapshot.queryParams, ...newParams } })
+      } else {
+        this._router.navigate(["403-forbidden"]);
       }
     });
   }
