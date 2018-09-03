@@ -28,7 +28,7 @@ export function reducer(state = initialState, action: transactionActions.Actions
       });
     case transactionActions.FETCH_TRANSACTION_COMPLETE_ACTION:
       return Object.assign({}, state, {
-        currentTransaction: new Transaction({})
+        currentTransaction: new Transaction(action.payload)
       });
     default:
       return state;
