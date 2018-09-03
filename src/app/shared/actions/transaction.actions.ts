@@ -48,17 +48,32 @@ export class FetchAllTransactionsFailedAction implements Action {
 
 export class FetchTransactionAction implements Action {
   readonly type = FETCH_TRANSACTION_ACTION;
-  constructor(public payload: any) { }
+  constructor(public payload: any) {
+    toast({
+      title: 'Loading transaction...'
+    });
+    toast.showLoading();
+  }
 }
 
 export class FetchTransactionCompleteAction implements Action {
   readonly type = FETCH_TRANSACTION_COMPLETE_ACTION;
-  constructor(public payload: any) { }
+  constructor(public payload: any) {
+    toast({
+      type: 'success',
+      title: 'Transaction fetched!'
+    });
+  }
 }
 
 export class FetchTransactionFailedAction implements Action {
   readonly type = FETCH_TRANSACTION_FAILED_ACTION;
-  constructor(public payload: any) { }
+  constructor(public payload: any) {
+    toast({
+      type: 'error',
+      title: payload
+    });
+  }
 }
 
 export type Actions =

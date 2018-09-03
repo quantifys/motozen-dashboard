@@ -7,6 +7,7 @@ import { MatButtonModule, MatPaginatorModule, MatBottomSheetModule, MatDatepicke
 
 import { TransactionsComponent } from './transactions.component';
 import { TransactionFilterComponent } from './transaction-filter/transaction-filter.component';
+import { TransactionTableComponent } from './transaction-table/transaction-table.component';
 
 const routes: Routes = [
   {
@@ -32,7 +33,7 @@ const routes: Routes = [
     NgSelectModule,
     RouterModule.forChild(routes)
   ],
-  declarations: [TransactionsComponent, TransactionFilterComponent],
+  declarations: [TransactionsComponent, TransactionFilterComponent, TransactionTableComponent],
   entryComponents: [TransactionFilterComponent]
 })
 export class TransactionsModule { }
