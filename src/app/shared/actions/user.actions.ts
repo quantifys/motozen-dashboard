@@ -33,10 +33,6 @@ export const DELETE_USER_ACTION = "[User] Delete User Action";
 export const DELETE_USER_COMPLETE_ACTION = "[User] Delete User Complete Action";
 export const DELETE_USER_FAILED_ACTION = "[User] Delete User Failed Action";
 
-export const FILTER_USERS_ACTION = "[User] Filter Users Action";
-export const FILTER_USERS_COMPLETE_ACTION = "[User] Filter Users Complete Action";
-export const FILTER_USERS_FAILED_ACTION = "[User] Filter Users Failed Action";
-
 export const FETCH_ALL_USERS_ACTION = "[User] Fetch All Users Action";
 export const FETCH_ALL_USERS_COMPLETE_ACTION = "[User] Fetch All Users Complete Action";
 export const FETCH_ALL_USERS_FAILED_ACTION = "[User] Fetch All Users Failed Action";
@@ -216,39 +212,9 @@ export class DeleteUserFailedAction implements Action {
   }
 }
 
-export class FilterUsersAction implements Action {
-  readonly type = FILTER_USERS_ACTION;
-  constructor(public payload: any) {
-    toast({
-      title: 'Fetching users...'
-    });
-    toast.showLoading();
-  }
-}
-
-export class FilterUsersCompleteAction implements Action {
-  readonly type = FILTER_USERS_COMPLETE_ACTION;
-  constructor(public payload: any) {
-    toast({
-      type: 'success',
-      title: 'Users fetched!'
-    });
-  }
-}
-
-export class FilterUsersFailedAction implements Action {
-  readonly type = FILTER_USERS_FAILED_ACTION;
-  constructor(public payload: any) {
-    toast({
-      type: 'error',
-      title: payload
-    });
-  }
-}
-
 export class FetchAllUsersAction implements Action {
   readonly type = FETCH_ALL_USERS_ACTION;
-  constructor(public payload?: any) {
+  constructor(public payload: any) {
     toast({
       title: 'Fetching users...'
     });
@@ -329,9 +295,6 @@ export type Actions =
   | DeleteUserAction
   | DeleteUserCompleteAction
   | DeleteUserFailedAction
-  | FilterUsersAction
-  | FilterUsersCompleteAction
-  | FilterUsersFailedAction
   | FetchAllUsersAction
   | FetchAllUsersCompleteAction
   | FetchAllUsersFailedAction

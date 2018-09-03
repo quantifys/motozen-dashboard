@@ -28,7 +28,7 @@ export class DeviceTransferComponent implements OnInit {
   ngOnInit() {
     this.buildForm();
     this._store.dispatch(new deviceActions.FetchAllDevicesAction(null));
-    this._store.dispatch(new userActions.FilterUsersAction({
+    this._store.dispatch(new userActions.FetchAllUsersAction({
       role: 'dealer'
     }));
     this._store.select(fromRoot.getAllUsers).subscribe(users => this.users = users);

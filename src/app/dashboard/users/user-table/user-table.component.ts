@@ -2,7 +2,6 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
-import swal from 'sweetalert2';
 import { PageEvent } from '@angular/material';
 import { Store } from '@ngrx/store';
 
@@ -22,6 +21,7 @@ export class UserTableComponent implements OnInit, OnDestroy {
 
   public passwordForm: FormGroup;
   private routerSubscription$: Subscription = new Subscription();
+  private pageSubscription$: Subscription = new Subscription();
   public users: User[] = [];
   public queryParams: any = {};
   public loading: boolean = false;
@@ -53,20 +53,25 @@ export class UserTableComponent implements OnInit, OnDestroy {
       this.loading = false;
       this.users = users;
     });
+    this.pageSubscription$ = this._store.select(fromRoot.getUserPageStatus).subscribe(pageData => this.pageEvent.length = pageData.total);
   }
 
   ngOnDestroy() {
     this.routerSubscription$.unsubscribe();
+    this.pageSubscription$.unsubscribe();
   }
 
   buildForm() {
-    this.passwordForm = this._fb.group({
-      id: [null, Validators.required],
-      password: [null, [Validators.required, Validators.minLength(6)]],
-      password_confirmation: [null, [Validators.required, Validators.minLength(6)]]
-    }, {
-      validator: PasswordValidation.MatchPassword
-    });
+    this.passwordForm = this._fb.group(
+      {
+        id: [null, Validators.required],
+        password: [null, [Validators.required, Validators.minLength(6)]],
+        password_confirmation: [null, [Validators.required, Validators.minLength(6)]]
+      },
+      {
+        validator: PasswordValidation.MatchPassword
+      }
+    );
   }
 
   get id(): FormControl {
@@ -81,7 +86,7 @@ export class UserTableComponent implements OnInit, OnDestroy {
 
   fetchUsers() {
     this.loading = true;
-    this._store.dispatch(new userActions.FilterUsersAction(this.queryParams));
+    this._store.dispatch(new userActions.FetchAllUsersAction(this.queryParams));
   }
 
   getPage(pageEvent: PageEvent) {

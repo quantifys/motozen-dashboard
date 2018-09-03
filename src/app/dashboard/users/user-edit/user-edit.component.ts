@@ -79,7 +79,7 @@ export class UserEditComponent implements OnInit {
     private _activatedRoute: ActivatedRoute
   ) {
     this._store.dispatch(new userActions.ClearCurrentUserAction);
-    this._store.dispatch(new userActions.FilterUsersAction({ role: 'distributor' }));
+    this._store.dispatch(new userActions.FetchAllUsersAction({ role: 'distributor' }));
     this._activatedRoute.queryParams.subscribe(params => {
       if (params["id"]) {
         this.addUser = false;

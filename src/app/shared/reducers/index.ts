@@ -50,6 +50,7 @@ export const users = (state: State) => state.users;
 export const getAllUsers = createSelector(users, (state: fromUser.State) => state.allUsers.filter(user => user.id != state.loggedUser.id));
 export const getLoggedUser = createSelector(users, (state: fromUser.State) => state.loggedUser);
 export const getCurrentUser = createSelector(users, (state: fromUser.State) => state.currentUser);
+export const getUserPageStatus = createSelector(users, (state: fromUser.State) => state.userPageStatus);
 
 export const devices = (state: State) => state.devices;
 export const getAllDevices = createSelector(devices, (state: fromDevice.State) => state.allDevices);
@@ -70,7 +71,7 @@ export const certificates = (state: State) => state.certificates;
 export const getAllCertificates = createSelector(certificates, (state: fromCertificate.State) => state.allCertificates);
 export const getCurrentCertificate = createSelector(certificates, (state: fromCertificate.State) => state.currentCertificate);
 export const getCertificateFormdata = createSelector(certificates, (state: fromCertificate.State) => state.certificateFormdata);
-export const getCertificatePageStatus = createSelector(certificates, (state: fromCertificate.State) => state.currentCertificatePageStatus);
+export const getCertificatePageStatus = createSelector(certificates, (state: fromCertificate.State) => state.certificatePageStatus);
 
 export const expenses = (state: State) => state.expenses;
 export const getAllExpenses = createSelector(expenses, (state: fromExpense.State) => state.allExpenses);

@@ -61,11 +61,15 @@ export class UserEffects {
   );
 
   @Effect()
-  fetchUsers$: Observable<Action> = this._action$.ofType(fromUser.FETCH_ALL_USERS_ACTION).pipe(
-    map((action: fromUser.FetchAllUsersAction) => action),
-    exhaustMap(() => this._tokenService.get('users')
+  fetchAllUsers$: Observable<Action> = this._action$.ofType(fromUser.FETCH_ALL_USERS_ACTION).pipe(
+    map((action: fromUser.FetchAllUsersAction) => action.payload),
+    exhaustMap(body => this._tokenService.post(`users/list`, body)
       .pipe(
-        map(response => new fromUser.FetchAllUsersCompleteAction(response.json().message)),
+        map(response => new fromUser.FetchAllUsersCompleteAction({
+          data: response.json().message,
+          total: response.headers.get('total'),
+          per_page: response.headers.get('per-page')
+        })),
         catchError(error => of(new fromUser.FetchAllUsersFailedAction(error.json().message)))
       ))
   );
@@ -77,16 +81,6 @@ export class UserEffects {
       .pipe(
         map(response => new fromUser.FetchUserCompleteAction(response.json().message)),
         catchError(error => of(new fromUser.FetchUserFailedAction(error.json().message)))
-      ))
-  );
-
-  @Effect()
-  filterUsers$: Observable<Action> = this._action$.ofType(fromUser.FILTER_USERS_ACTION).pipe(
-    map((action: fromUser.FilterUsersAction) => action.payload),
-    exhaustMap(body => this._tokenService.post('users/list', body)
-      .pipe(
-        map(response => new fromUser.FilterUsersCompleteAction(response.json().message)),
-        catchError(error => of(new fromUser.FilterUsersFailedAction(error.json().message)))
       ))
   );
 

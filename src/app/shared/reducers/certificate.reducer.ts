@@ -6,14 +6,14 @@ export interface State {
   allCertificates: Certificate[];
   currentCertificate: Certificate;
   certificateFormdata: any;
-  currentCertificatePageStatus: PageData;
+  certificatePageStatus: PageData;
 }
 
 const initialState: State = {
   allCertificates: [],
   currentCertificate: new Certificate({}),
   certificateFormdata: null,
-  currentCertificatePageStatus: new PageData({})
+  certificatePageStatus: new PageData({})
 };
 
 export function reducer(state = initialState, action: certificateActions.Actions): State {
@@ -23,7 +23,7 @@ export function reducer(state = initialState, action: certificateActions.Actions
       certificates = action.payload.data.map(certificate => new Certificate(certificate));
       return Object.assign({}, state, {
         allCertificates: [...certificates],
-        currentCertificatePageStatus: new PageData({
+        certificatePageStatus: new PageData({
           total: action.payload.total,
           per_page: action.payload.per_page,
         })
