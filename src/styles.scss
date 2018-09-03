@@ -91,12 +91,6 @@ button {
   background-image: linear-gradient(to top left, $primary 0%, $primary-dark 100%);
 }
 
-.ngx-pagination {
-  .current {
-    background-image: linear-gradient(to top left, $primary 0%, $primary-dark 100%) !important;
-  }
-}
-
 .modal-backdrop {
   background-image: linear-gradient(to top left, $primary 0%, $primary-dark 100%) !important;
 }
