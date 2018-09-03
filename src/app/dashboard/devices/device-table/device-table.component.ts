@@ -1,13 +1,12 @@
 import { Component, OnInit, OnDestroy, OnChanges } from '@angular/core';
-import { PaginationInstance } from 'ngx-pagination';
-import swal from 'sweetalert2';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { Store } from '@ngrx/store';
 
 import * as fromRoot from '../../../shared/reducers';
 import * as deviceActions from '../../../shared/actions/device.actions';
 import { Device } from '../../../shared/models/device.model';
+import { PageEvent } from '@angular/material';
 
 @Component({
   selector: 'device-table',
@@ -17,54 +16,59 @@ import { Device } from '../../../shared/models/device.model';
 export class DeviceTableComponent implements OnInit, OnDestroy {
 
   private routerSubscription$: Subscription = new Subscription();
+  private pageSubscription$: Subscription = new Subscription();
+  private devicesSubscription$: Subscription = new Subscription();
+  public queryParams: any = {};
   public devices: Device[] = [];
   public loading: boolean = false;
-  public status: string = '';
-  public config: PaginationInstance = {
-    itemsPerPage: 20,
-    currentPage: 1,
-    totalItems: this.devices.length
-  };
+  public pageEvent: PageEvent = new PageEvent();
 
   constructor(
     private _store: Store<fromRoot.State>,
-    private _activatedRoute: ActivatedRoute
+    private _activatedRoute: ActivatedRoute,
+    private _router: Router
   ) {
     this.routerSubscription$ = this._activatedRoute.queryParams.subscribe(params => {
-      if (params["status"]) {
-        this.status = params["status"];
+      this.queryParams = params;
+      if (params["page"]) {
+        this.pageEvent.pageIndex = +params["page"] - 1;
+      }
+      if (params["per_page"]) {
+        this.pageEvent.pageSize = +params["per_page"];
+      }
+      if (params["page"] && params["per_page"] && params["status"]) {
         this.fetchDevices();
       }
     });
   }
 
   ngOnInit() {
-    this._store.select(fromRoot.getAllDevices).subscribe(devices => this.devices = devices.filter(device => device.status == this.status));
+    this.devicesSubscription$ = this._store.select(fromRoot.getAllDevices).subscribe(devices => {
+      this.loading = false;
+      this.devices = devices;
+    });
+    this.pageSubscription$ = this._store.select(fromRoot.getDevicePageStatus).subscribe(pageData => this.pageEvent.length = pageData.total);
   }
 
   ngOnDestroy() {
     this.routerSubscription$.unsubscribe();
+    this.pageSubscription$.unsubscribe();
+    this.devicesSubscription$.unsubscribe();
   }
+
 
   fetchDevices() {
-    let formData = {
-      status: this.status
-    };
-    this._store.dispatch(new deviceActions.FetchAllDevicesAction(formData));
+    this.loading = true;
+    this._store.dispatch(new deviceActions.FetchAllDevicesAction(this.queryParams));
   }
 
-  deleteDevice(id: number) {
-    swal({
-      title: 'Are you sure?',
-      text: 'Delete device!',
-      type: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Yes, delete!'
-    }).then((result) => {
-      if (result.value) {
-        this._store.dispatch(new deviceActions.DeleteDeviceAction(id));
+  getPage(pageEvent: PageEvent) {
+    this.pageEvent = pageEvent;
+    this._router.navigate(["dashboard", "devices"], {
+      queryParams: {
+        ...this.queryParams,
+        page: pageEvent.pageIndex + 1,
+        per_page: pageEvent.pageSize
       }
     });
   }

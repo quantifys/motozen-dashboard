@@ -54,6 +54,7 @@ export const getCurrentUser = createSelector(users, (state: fromUser.State) => s
 export const devices = (state: State) => state.devices;
 export const getAllDevices = createSelector(devices, (state: fromDevice.State) => state.allDevices);
 export const getCurrentDevice = createSelector(devices, (state: fromDevice.State) => state.currentDevice);
+export const getDevicePageStatus = createSelector(devices, (state: fromDevice.State) => state.devicePageStatus);
 
 export const vehicles = (state: State) => state.vehicles;
 export const getAllVehicles = createSelector(vehicles, (state: fromVehicle.State) => state.allVehicles);

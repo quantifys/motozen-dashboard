@@ -2,42 +2,31 @@
   <div class="header d-flex align-items-center">
     <h4 class="text-grey-dark m-0">Device List</h4>
     <div class="ml-auto">
-      <a routerLink="transfer" mat-button class="mr-2" color="warn">Transfer stock</a>
-      <a class="btn btn-primary" routerLink="edit" [queryParams]="{type: 'new'}">
+      <a class="btn btn-primary" routerLink="transfer" *ngIf="loggedUser.role == 'distributor'">
+        <i class="fas fa-desktop mr-2"></i>Transfer stock</a>
+      <a class="btn btn-primary" routerLink="edit" [queryParams]="{type: 'new'}" *ngIf="loggedUser.role == 'store_purchases'">
         <i class="fas fa-desktop mr-2"></i>Add Devices</a>
     </div>
   </div>
   <div class="content mt-4">
-    <ul class="nav nav-pills justify-content-center align-items-center" id="pills-tab" role="tablist">
-      <ng-container *ngIf="loggedUser.role == 'manufacturer'">
-        <li class="nav-item">
-          <a class="nav-link text-center" [routerLink]="['../']" [queryParams]="{status: 'unsold'}" routerLinkActive="active">
-            <i class="fas fa-chess-rook mb-2"></i>
-            <h6 class="m-0">Unsold</h6>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link text-center" [routerLink]="['../']" [queryParams]="{status: 'dispatch'}" routerLinkActive="active">
-            <i class="fas fa-chess-knight mb-2"></i>
-            <h6 class="m-0">Dispatched</h6>
-          </a>
-        </li>
+    <nav mat-tab-nav-bar>
+      <ng-container *ngIf="loggedUser.role == 'manufacturer' || loggedUser.role == 'store_purchases'">
+        <a mat-tab-link routerLink="../" [queryParams]="getQueryParams('unsold')" routerLinkActive #unsold="routerLinkActive" [active]="unsold.isActive">
+          <strong>Unsold</strong>
+        </a>
+        <a mat-tab-link routerLink="../" [queryParams]="getQueryParams('dispatch')" routerLinkActive #dispatch="routerLinkActive"
+          [active]="dispatch.isActive">
+          <strong>Dispatched</strong>
+        </a>
       </ng-container>
-      <li class="nav-item">
-        <a class="nav-link text-center" [routerLink]="['../']" [queryParams]="{status: 'sold'}" routerLinkActive="active">
-          <i class="fas fa-chess-queen mb-2"></i>
-          <h6 class="m-0">{{loggedUser.role != 'manufacturer' ? 'Current stock' : 'Sold'}}</h6>
-        </a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link text-center" [routerLink]="['../']" [queryParams]="{status: 'certified'}" routerLinkActive="active">
-          <i class="fas fa-chess-king mb-2"></i>
-          <h6 class="m-0">Certified</h6>
-        </a>
-      </li>
-    </ul>
-    <div class="mt-3">
-      <device-table></device-table>
-    </div>
+      <a mat-tab-link routerLink="../" [queryParams]="getQueryParams('sold')" routerLinkActive #sold="routerLinkActive" [active]="sold.isActive">
+        <strong>{{(loggedUser.role != 'manufacturer' && loggedUser.role != 'store_purchases') ? 'Current stock' : 'Sold'}}</strong>
+      </a>
+      <a mat-tab-link routerLink="../" [queryParams]="getQueryParams('certified')" routerLinkActive #certified="routerLinkActive"
+        [active]="certified.isActive">
+        <strong>Certified</strong>
+      </a>
+    </nav>
+    <device-table></device-table>
   </div>
 </section>
