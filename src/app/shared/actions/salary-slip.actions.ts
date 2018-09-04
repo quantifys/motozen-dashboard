@@ -40,6 +40,10 @@ export const FETCH_SALARY_SLIP_FORMDATA_ACTION = '[SalarySlip] Fetch Salary Slip
 export const FETCH_SALARY_SLIP_FORMDATA_COMPLETE_ACTION = '[SalarySlip] Fetch Salary Slip Form Data Complete Action';
 export const FETCH_SALARY_SLIP_FORMDATA_FAILED_ACTION = '[SalarySlip] Fetch Salary Slip Form Data Failed Action';
 
+export const FETCH_SALARY_SLIP_FILTER_FORMDATA_ACTION = '[SalarySlip] Fetch Salary Slip Filter Form Data Action';
+export const FETCH_SALARY_SLIP_FILTER_FORMDATA_COMPLETE_ACTION = '[SalarySlip] Fetch Salary Slip Filter Form Data Complete Action';
+export const FETCH_SALARY_SLIP_FILTER_FORMDATA_FAILED_ACTION = '[SalarySlip] Fetch Salary Slip Filter Form Data Failed Action';
+
 export class FetchAllSalarySlipsAction implements Action {
   readonly type = FETCH_ALL_SALARY_SLIPS_ACTION;
   constructor(public payload: any) {
@@ -280,6 +284,36 @@ export class FetchSalarySlipFormDataFailedAction implements Action {
   }
 }
 
+export class FetchSalarySlipFilterFormDataAction implements Action {
+  readonly type = FETCH_SALARY_SLIP_FILTER_FORMDATA_ACTION;
+  constructor() {
+    toast({
+      title: 'Loading filter data...'
+    });
+    toast.showLoading();
+  }
+}
+
+export class FetchSalarySlipFilterFormDataCompleteAction implements Action {
+  readonly type = FETCH_SALARY_SLIP_FILTER_FORMDATA_COMPLETE_ACTION;
+  constructor(public payload: any) {
+    toast({
+      type: 'success',
+      title: 'Filter data loaded!'
+    });
+  }
+}
+
+export class FetchSalarySlipFilterFormDataFailedAction implements Action {
+  readonly type = FETCH_SALARY_SLIP_FILTER_FORMDATA_FAILED_ACTION;
+  constructor(public payload: any) {
+    toast({
+      type: 'error',
+      title: payload
+    });
+  }
+}
+
 export type Actions =
   FetchAllSalarySlipsAction
   | FetchAllSalarySlipsCompleteAction
@@ -304,4 +338,7 @@ export type Actions =
   | PaySalarySlipFailedAction
   | FetchSalarySlipFormDataAction
   | FetchSalarySlipFormDataCompleteAction
-  | FetchSalarySlipFormDataFailedAction;
+  | FetchSalarySlipFormDataFailedAction
+  | FetchSalarySlipFilterFormDataAction
+  | FetchSalarySlipFilterFormDataCompleteAction
+  | FetchSalarySlipFilterFormDataFailedAction;

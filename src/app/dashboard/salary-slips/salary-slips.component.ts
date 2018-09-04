@@ -1,10 +1,12 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { MatBottomSheet } from '@angular/material';
 import { Subscription } from 'rxjs';
 import { Store } from '@ngrx/store';
 
 import * as fromRoot from '../../shared/reducers';
 import { User } from '../../shared/models';
+import { SalarySlipFilterComponent } from './salary-slip-filter/salary-slip-filter.component';
 
 @Component({
   selector: 'app-salary-slips',
@@ -19,7 +21,8 @@ export class SalarySlipsComponent implements OnInit, OnDestroy {
   constructor(
     private _store: Store<fromRoot.State>,
     private _activatedRoute: ActivatedRoute,
-    private _router: Router
+    private _router: Router,
+    private bottomSheet: MatBottomSheet
   ) {
     this.userSubscription$ = this._store.select(fromRoot.getLoggedUser).subscribe(user => {
       this.loggedUser = user;
@@ -59,7 +62,7 @@ export class SalarySlipsComponent implements OnInit, OnDestroy {
   }
 
   openFilters() {
-    
+    this.bottomSheet.open(SalarySlipFilterComponent);
   }
 
 }

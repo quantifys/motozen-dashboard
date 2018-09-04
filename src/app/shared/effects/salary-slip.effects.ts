@@ -98,6 +98,16 @@ export class SalarySlipEffects {
   );
 
   @Effect()
+  fetchingSalarySlipFilterData$: Observable<Action> = this._action$.ofType(fromSalarySlip.FETCH_SALARY_SLIP_FILTER_FORMDATA_ACTION).pipe(
+    map((action: fromSalarySlip.FetchSalarySlipFilterFormDataAction) => action),
+    exhaustMap(() => this._tokenService.get("salary_slips/list/filter-data")
+      .pipe(
+        map(response => new fromSalarySlip.FetchSalarySlipFilterFormDataCompleteAction(response.json().message)),
+        catchError(error => of(new fromSalarySlip.FetchSalarySlipFilterFormDataFailedAction(error.json().message)))
+      ))
+  );
+
+  @Effect()
   confirmSalarySlip$: Observable<Action> = this._action$.ofType(fromSalarySlip.CONFIRM_SALARY_SLIP_ACTION).pipe(
     map((action: fromSalarySlip.ConfirmSalarySlipAction) => action.payload),
     exhaustMap(body => this._tokenService.post(`req_orders/${this.salarySlip.id}/confirm`, body)

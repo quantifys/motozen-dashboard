@@ -64,6 +64,10 @@ export function reducer(state = initialState, action: salarySlipActions.Actions)
       return Object.assign({}, state, {
         employees: [...action.payload.employees.filter(user => new User(user))]
       });
+    case salarySlipActions.FETCH_SALARY_SLIP_FILTER_FORMDATA_COMPLETE_ACTION:
+      return Object.assign({}, state, {
+        employees: [...action.payload.employees.filter(user => new User(user))]
+      });
     default:
       return state;
   }
