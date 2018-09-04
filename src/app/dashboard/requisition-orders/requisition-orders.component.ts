@@ -1,10 +1,12 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
+import { MatBottomSheet } from '@angular/material';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { Store } from '@ngrx/store';
 
 import * as fromRoot from '../../shared/reducers';
 import { User } from '../../shared/models';
+import { DateFilterComponent } from '../date-filter/date-filter.component';
 
 @Component({
   selector: 'app-requisition-orders',
@@ -19,7 +21,8 @@ export class RequisitionOrdersComponent implements OnInit, OnDestroy {
   constructor(
     private _store: Store<fromRoot.State>,
     private _activatedRoute: ActivatedRoute,
-    private _router: Router
+    private _router: Router,
+    private _bottomSheet: MatBottomSheet
   ) {
     this.userSubscription$ = this._store.select(fromRoot.getLoggedUser).subscribe(user => {
       this.loggedUser = user;
@@ -49,7 +52,11 @@ export class RequisitionOrdersComponent implements OnInit, OnDestroy {
   }
 
   openFilters() {
-    
+    this._bottomSheet.open(DateFilterComponent, {
+      data: {
+        route: 'requisition-orders'
+      }
+    });
   }
 
 }

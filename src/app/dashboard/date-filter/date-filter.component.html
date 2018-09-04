@@ -1,0 +1,23 @@
+<form class="container mt-3 mb-3" [formGroup]="filterForm">
+  <h5 class="text-center border-bottom mb-3 pb-2">Choose preferred settings</h5>
+  <div class="row justify-content-center">
+    <div class="col-sm-12 col-md-6">
+      <mat-form-field class="w-100">
+        <input matInput [max]="startMax" [matDatepicker]="start" placeholder="START DATE" formControlName="start">
+        <mat-datepicker-toggle matSuffix [for]="start"></mat-datepicker-toggle>
+        <mat-datepicker #start></mat-datepicker>
+      </mat-form-field>
+    </div>
+    <div class="col-sm-12 col-md-6">
+      <mat-form-field class="w-100">
+        <input matInput [min]="endMin" [max]="endMax" [matDatepicker]="end" placeholder="END DATE" formControlName="end">
+        <mat-datepicker-toggle matSuffix [for]="end"></mat-datepicker-toggle>
+        <mat-datepicker #end></mat-datepicker>
+      </mat-form-field>
+    </div>
+  </div>
+  <hr>
+  <div class="text-right">
+    <button mat-button color="warn" (click)="closeSheet()">Apply Filter</button>
+  </div>
+</form>
