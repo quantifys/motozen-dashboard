@@ -58,7 +58,7 @@ export class InventoryTableComponent implements OnInit, OnDestroy {
 
   fetchInventories() {
     this.loading = true;
-    this._store.dispatch(new inventoryActions.FilterInventoryAction(this.queryParams));
+    this._store.dispatch(new inventoryActions.FetchAllInventoriesAction(this.queryParams));
   }
 
   getPage(pageEvent: PageEvent) {

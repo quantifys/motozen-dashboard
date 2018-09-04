@@ -1,10 +1,10 @@
 import { Router } from '@angular/router';
 import { Angular2TokenService } from 'angular2-token';
-import { Effect, Actions, ofType } from '@ngrx/effects';
+import { Effect, Actions } from '@ngrx/effects';
 import { Injectable } from '@angular/core';
 import { Action, Store } from '@ngrx/store';
 import { Observable, of } from 'rxjs';
-import { catchError, map, mergeMap, exhaustMap } from 'rxjs/operators';
+import { catchError, map, exhaustMap } from 'rxjs/operators';
 
 import * as fromRoot from '../../shared/reducers';
 import * as fromUser from '../actions/user.actions';

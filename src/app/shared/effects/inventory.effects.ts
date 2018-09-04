@@ -26,8 +26,8 @@ export class InventoryEffects {
 
   @Effect()
   fetchInventories$: Observable<Action> = this._action$.ofType(fromInventory.FETCH_ALL_INVENTORIES_ACTION).pipe(
-    map((action: fromInventory.FetchAllInventoriesAction) => action),
-    exhaustMap(() => this._tokenService.get('inventory_items')
+    map((action: fromInventory.FetchAllInventoriesAction) => action.payload),
+    exhaustMap(body => this._tokenService.post(`inventory_items/list`, body)
       .pipe(
         map(response => new fromInventory.FetchAllInventoriesCompleteAction(response.json().message)),
         catchError(error => of(new fromInventory.FetchAllInventoriesFailedAction(error.json().message)))
@@ -41,20 +41,6 @@ export class InventoryEffects {
       .pipe(
         map(response => new fromInventory.FetchInventoryCompleteAction(response.json().message)),
         catchError(error => of(new fromInventory.FetchInventoryFailedAction(error.json().message)))
-      ))
-  );
-
-  @Effect()
-  filterInventory$: Observable<Action> = this._action$.ofType(fromInventory.FILTER_INVENTORY_ACTION).pipe(
-    map((action: fromInventory.FilterInventoryAction) => action.payload),
-    exhaustMap(body => this._tokenService.get(`inventory_items?category=${body.category}`)
-      .pipe(
-        map(response => new fromInventory.FilterInventoryCompleteAction({
-          data: response.json().message,
-          total: response.headers.get('total'),
-          per_page: response.headers.get('per-page')
-        })),
-        catchError(error => of(new fromInventory.FilterInventoryFailedAction(error.json().message)))
       ))
   );
 

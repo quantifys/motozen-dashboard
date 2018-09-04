@@ -36,6 +36,10 @@ export const PAY_SALARY_SLIP_ACTION = '[SalarySlip] Pay Salary Slip Action';
 export const PAY_SALARY_SLIP_COMPLETE_ACTION = '[SalarySlip] Pay Salary Slip Complete Action';
 export const PAY_SALARY_SLIP_FAILED_ACTION = '[SalarySlip] Pay Salary Slip Failed Action';
 
+export const FETCH_SALARY_SLIP_FORMDATA_ACTION = '[SalarySlip] Fetch Salary Slip Form Data Action';
+export const FETCH_SALARY_SLIP_FORMDATA_COMPLETE_ACTION = '[SalarySlip] Fetch Salary Slip Form Data Complete Action';
+export const FETCH_SALARY_SLIP_FORMDATA_FAILED_ACTION = '[SalarySlip] Fetch Salary Slip Form Data Failed Action';
+
 export class FetchAllSalarySlipsAction implements Action {
   readonly type = FETCH_ALL_SALARY_SLIPS_ACTION;
   constructor(public payload: any) {
@@ -58,27 +62,52 @@ export class FetchAllSalarySlipsCompleteAction implements Action {
 
 export class FetchAllSalarySlipsFailedAction implements Action {
   readonly type = FETCH_ALL_SALARY_SLIPS_FAILED_ACTION;
-  constructor(public payload: any) { }
+  constructor(public payload: any) {
+    toast({
+      type: 'error',
+      title: payload
+    });
+  }
 }
 
 export class FetchSalarySlipAction implements Action {
   readonly type = FETCH_SALARY_SLIP_ACTION;
-  constructor(public payload: any) { }
+  constructor(public payload: any) {
+    toast({
+      title: 'Loading salary slip...'
+    });
+    toast.showLoading();
+  }
 }
 
 export class FetchSalarySlipCompleteAction implements Action {
   readonly type = FETCH_SALARY_SLIP_COMPLETE_ACTION;
-  constructor(public payload: any) { }
+  constructor(public payload: any) {
+    toast({
+      type: 'success',
+      title: 'Salary slip fetched!'
+    });
+  }
 }
 
 export class FetchSalarySlipFailedAction implements Action {
   readonly type = FETCH_SALARY_SLIP_FAILED_ACTION;
-  constructor(public payload: any) { }
+  constructor(public payload: any) {
+    toast({
+      type: 'error',
+      title: payload
+    });
+  }
 }
 
 export class CreateSalarySlipAction implements Action {
   readonly type = CREATE_SALARY_SLIP_ACTION;
-  constructor(public payload: any) { }
+  constructor(public payload: any) {
+    toast({
+      title: 'Adding salary slip...'
+    });
+    toast.showLoading();
+  }
 }
 
 export class CreateSalarySlipCompleteAction implements Action {
@@ -94,13 +123,21 @@ export class CreateSalarySlipCompleteAction implements Action {
 export class CreateSalarySlipFailedAction implements Action {
   readonly type = CREATE_SALARY_SLIP_FAILED_ACTION;
   constructor(public payload: any) {
-    swal("There was an error.", payload, "error");
+    toast({
+      type: 'error',
+      title: payload
+    });
   }
 }
 
 export class UpdateSalarySlipAction implements Action {
   readonly type = UPDATE_SALARY_SLIP_ACTION;
-  constructor(public payload: any) { }
+  constructor(public payload: any) {
+    toast({
+      title: 'Updating salary slip...'
+    });
+    toast.showLoading();
+  }
 }
 
 export class UpdateSalarySlipCompleteAction implements Action {
@@ -116,17 +153,26 @@ export class UpdateSalarySlipCompleteAction implements Action {
 export class UpdateSalarySlipFailedAction implements Action {
   readonly type = UPDATE_SALARY_SLIP_FAILED_ACTION;
   constructor(public payload?: any) {
-    swal("There was an error.", payload, "error");
+    toast({
+      type: 'error',
+      title: payload
+    });
   }
 }
 
 export class DeleteSalarySlipAction implements Action {
   readonly type = DELETE_SALARY_SLIP_ACTION;
+  constructor() {
+    toast({
+      title: 'Deleting salary slip...'
+    });
+    toast.showLoading();
+  }
 }
 
 export class DeleteSalarySlipCompleteAction implements Action {
   readonly type = DELETE_SALARY_SLIP_COMPLETE_ACTION;
-  constructor() {
+  constructor(public payload: any) {
     toast({
       type: 'success',
       title: 'Salary slip deleted!'
@@ -137,13 +183,21 @@ export class DeleteSalarySlipCompleteAction implements Action {
 export class DeleteSalarySlipFailedAction implements Action {
   readonly type = DELETE_SALARY_SLIP_FAILED_ACTION;
   constructor(public payload: any) {
-    swal("There was an error.", payload, "error");
+    toast({
+      type: 'error',
+      title: payload
+    });
   }
 }
 
 export class ConfirmSalarySlipAction implements Action {
   readonly type = CONFIRM_SALARY_SLIP_ACTION;
-  constructor(public payload: any) { }
+  constructor(public payload: any) {
+    toast({
+      title: 'Confirming salary slip...'
+    });
+    toast.showLoading();
+  }
 }
 
 export class ConfirmSalarySlipCompleteAction implements Action {
@@ -159,13 +213,21 @@ export class ConfirmSalarySlipCompleteAction implements Action {
 export class ConfirmSalarySlipFailedAction implements Action {
   readonly type = CONFIRM_SALARY_SLIP_FAILED_ACTION;
   constructor(public payload: any) {
-    swal("There was an error.", payload, "error");
+    toast({
+      type: 'error',
+      title: payload
+    });
   }
 }
 
 export class PaySalarySlipAction implements Action {
   readonly type = PAY_SALARY_SLIP_ACTION;
-  constructor(public payload: any) { }
+  constructor(public payload: any) {
+    toast({
+      title: 'Marking paid...'
+    });
+    toast.showLoading();
+  }
 }
 
 export class PaySalarySlipCompleteAction implements Action {
@@ -173,7 +235,7 @@ export class PaySalarySlipCompleteAction implements Action {
   constructor(public payload: any) {
     toast({
       type: 'success',
-      title: 'Salary slip paid!'
+      title: 'Salary slip marked paid!'
     });
   }
 }
@@ -181,7 +243,40 @@ export class PaySalarySlipCompleteAction implements Action {
 export class PaySalarySlipFailedAction implements Action {
   readonly type = PAY_SALARY_SLIP_FAILED_ACTION;
   constructor(public payload: any) {
-    swal("There was an error.", payload, "error");
+    toast({
+      type: 'error',
+      title: payload
+    });
+  }
+}
+
+export class FetchSalarySlipFormDataAction implements Action {
+  readonly type = FETCH_SALARY_SLIP_FORMDATA_ACTION;
+  constructor() {
+    toast({
+      title: 'Loading salary slip form data...'
+    });
+    toast.showLoading();
+  }
+}
+
+export class FetchSalarySlipFormDataCompleteAction implements Action {
+  readonly type = FETCH_SALARY_SLIP_FORMDATA_COMPLETE_ACTION;
+  constructor(public payload: any) {
+    toast({
+      type: 'success',
+      title: 'Salary slips form data fetched!'
+    });
+  }
+}
+
+export class FetchSalarySlipFormDataFailedAction implements Action {
+  readonly type = FETCH_SALARY_SLIP_FORMDATA_FAILED_ACTION;
+  constructor(public payload: any) {
+    toast({
+      type: 'error',
+      title: payload
+    });
   }
 }
 
@@ -206,4 +301,7 @@ export type Actions =
   | ConfirmSalarySlipFailedAction
   | PaySalarySlipAction
   | PaySalarySlipCompleteAction
-  | PaySalarySlipFailedAction;
+  | PaySalarySlipFailedAction
+  | FetchSalarySlipFormDataAction
+  | FetchSalarySlipFormDataCompleteAction
+  | FetchSalarySlipFormDataFailedAction;

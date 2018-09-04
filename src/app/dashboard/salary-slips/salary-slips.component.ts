@@ -58,4 +58,8 @@ export class SalarySlipsComponent implements OnInit, OnDestroy {
     return { ...this._activatedRoute.snapshot.queryParams, status: status }
   }
 
+  openFilters() {
+    
+  }
+
 }

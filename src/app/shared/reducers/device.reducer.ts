@@ -1,17 +1,20 @@
-import { Device, PageData } from '../models';
-
+import { Device, PageData, User } from '../models';
 import * as deviceActions from '../actions/device.actions';
 
 export interface State {
   allDevices: Device[];
   currentDevice: Device;
   devicePageStatus: PageData;
+  dealers: User[];
+  devices: Device[];
 }
 
 const initialState: State = {
   allDevices: [],
   currentDevice: new Device({}),
-  devicePageStatus: new PageData({})
+  devicePageStatus: new PageData({}),
+  dealers: [],
+  devices: []
 };
 
 export function reducer(state = initialState, action: deviceActions.Actions): State {
@@ -52,6 +55,11 @@ export function reducer(state = initialState, action: deviceActions.Actions): St
       devices = state.allDevices.filter(device => action.payload.find(id => device.id == id) ? null : device);
       return Object.assign({}, state, {
         allDevices: [...devices]
+      });
+    case deviceActions.FETCH_DEVICE_TRANSFER_FORMDATA_COMPLETE_ACTION:
+      return Object.assign({}, state, {
+        dealers: [...action.payload.dealers.filter(user => new User(user))],
+        devices: [...action.payload.dealers.filter(device => new Device(device))]
       });
     case deviceActions.CLEAR_DEVICE_DATA_ACTION:
       return Object.assign({}, state, {

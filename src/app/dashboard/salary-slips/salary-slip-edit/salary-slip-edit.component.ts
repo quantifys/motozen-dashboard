@@ -6,7 +6,6 @@ import { Store } from '@ngrx/store';
 
 import * as fromRoot from "../../../shared/reducers";
 import * as salarySlipActions from "../../../shared/actions/salary-slip.actions";
-import * as userActions from "../../../shared/actions/user.actions";
 import { User } from '../../../shared/models';
 
 @Component({
@@ -27,7 +26,7 @@ export class SalarySlipEditComponent implements OnInit {
     private _activatedRoute: ActivatedRoute,
     private _fb: FormBuilder
   ) {
-    this._store.dispatch(new userActions.FetchAllUsersAction);
+    this._store.dispatch(new salarySlipActions.FetchSalarySlipFormDataAction);
     this.routerSubscription$ = this._activatedRoute.queryParams.subscribe(params => {
       if (params["id"]) {
         this.addSalarySlip = false;
@@ -41,10 +40,8 @@ export class SalarySlipEditComponent implements OnInit {
   ngOnInit() {
     this.buildForm();
     this.formListener();
-    this._store.select(fromRoot.getAllUsers).subscribe(users => this.users = users);
-    if (this.addSalarySlip) {
-
-    } else {
+    this._store.select(fromRoot.getSalarySlipEmployees).subscribe(users => this.users = users);
+    if (!this.addSalarySlip) {
       this.salarySlipSubscription$ = this._store.select(fromRoot.getCurrentPurchaseOrder).subscribe(salarySlip => {
         this.salarySlipForm.patchValue(salarySlip);
       });

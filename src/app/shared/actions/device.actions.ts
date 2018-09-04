@@ -32,6 +32,10 @@ export const TRANSFER_DEVICE_ACTION = '[Device] Transfer Device Action';
 export const TRANSFER_DEVICE_COMPLETE_ACTION = '[Device] Transfer Device Complete Action';
 export const TRANSFER_DEVICE_FAILED_ACTION = '[Device] Transfer Device Failed Action';
 
+export const FETCH_DEVICE_TRANSFER_FORMDATA_ACTION = '[Device] Fetch Device Transfer Form Data Action';
+export const FETCH_DEVICE_TRANSFER_FORMDATA_COMPLETE_ACTION = '[Device] Fetch Device Transfer Form Data Complete Action';
+export const FETCH_DEVICE_TRANSFER_FORMDATA_FAILED_ACTION = '[Device] Fetch Device Transfer Form Data Failed Action';
+
 export const CLEAR_DEVICE_DATA_ACTION = '[Device] Clear Device Data Action';
 
 export class FetchAllDevicesAction implements Action {
@@ -214,6 +218,36 @@ export class TransferDevicesFailedAction implements Action {
   }
 }
 
+export class FetchDeviceTransferFormDataAction implements Action {
+  readonly type = FETCH_DEVICE_TRANSFER_FORMDATA_ACTION;
+  constructor() {
+    toast({
+      title: 'Fetching device transfer data...'
+    });
+    toast.showLoading();
+  }
+}
+
+export class FetchDeviceTransferFormDataCompleteAction implements Action {
+  readonly type = FETCH_DEVICE_TRANSFER_FORMDATA_COMPLETE_ACTION;
+  constructor(public payload: any) {
+    toast({
+      type: 'success',
+      title: 'Device transfer data loaded!'
+    });
+  }
+}
+
+export class FetchDeviceTransferFormDataFailedAction implements Action {
+  readonly type = FETCH_DEVICE_TRANSFER_FORMDATA_FAILED_ACTION;
+  constructor(public payload: any) {
+    toast({
+      type: 'error',
+      title: payload
+    });
+  }
+}
+
 export class ClearDeviceDataAction implements Action {
   readonly type = CLEAR_DEVICE_DATA_ACTION;
 }
@@ -237,4 +271,7 @@ export type Actions =
   | TransferDevicesAction
   | TransferDevicesCompleteAction
   | TransferDevicesFailedAction
-  | ClearDeviceDataAction;
+  | ClearDeviceDataAction
+  | FetchDeviceTransferFormDataAction
+  | FetchDeviceTransferFormDataCompleteAction
+  | FetchDeviceTransferFormDataFailedAction;

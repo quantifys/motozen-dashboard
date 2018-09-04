@@ -56,6 +56,8 @@ export const devices = (state: State) => state.devices;
 export const getAllDevices = createSelector(devices, (state: fromDevice.State) => state.allDevices);
 export const getCurrentDevice = createSelector(devices, (state: fromDevice.State) => state.currentDevice);
 export const getDevicePageStatus = createSelector(devices, (state: fromDevice.State) => state.devicePageStatus);
+export const getDeviceDealers = createSelector(devices, (state: fromDevice.State) => state.dealers);
+export const getTransferableDevices = createSelector(devices, (state: fromDevice.State) => state.devices);
 
 export const vehicles = (state: State) => state.vehicles;
 export const getAllVehicles = createSelector(vehicles, (state: fromVehicle.State) => state.allVehicles);
@@ -71,6 +73,7 @@ export const certificates = (state: State) => state.certificates;
 export const getAllCertificates = createSelector(certificates, (state: fromCertificate.State) => state.allCertificates);
 export const getCurrentCertificate = createSelector(certificates, (state: fromCertificate.State) => state.currentCertificate);
 export const getCertificateFormdata = createSelector(certificates, (state: fromCertificate.State) => state.certificateFormdata);
+export const getCertificateFilterUsers = createSelector(certificates, (state: fromCertificate.State) => state.certificateFilterUsers);
 export const getCertificatePageStatus = createSelector(certificates, (state: fromCertificate.State) => state.certificatePageStatus);
 
 export const expenses = (state: State) => state.expenses;
@@ -93,6 +96,7 @@ export const salarySlips = (state: State) => state.salarySlips;
 export const getAllSalarySlips = createSelector(salarySlips, (state: fromSalarySlip.State) => state.allSalarySlips);
 export const getCurrentSalarySlip = createSelector(salarySlips, (state: fromSalarySlip.State) => state.currentSalarySlip);
 export const getSalarySlipPageStatus = createSelector(salarySlips, (state: fromSalarySlip.State) => state.salarySlipPageStatus);
+export const getSalarySlipEmployees = createSelector(salarySlips, (state: fromSalarySlip.State) => state.employees);
 
 export const transactions = (state: State) => state.transactions;
 export const getAllTransactions = createSelector(transactions, (state: fromTransaction.State) => state.allTransactions);

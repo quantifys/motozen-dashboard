@@ -51,4 +51,8 @@ export class IncomesComponent implements OnInit, OnDestroy {
     return { ...this._activatedRoute.snapshot.queryParams, category: type }
   }
 
+  openFilters() {
+    
+  }
+
 }

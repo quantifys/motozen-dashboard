@@ -48,4 +48,8 @@ export class RequisitionOrdersComponent implements OnInit, OnDestroy {
     return { ...this._activatedRoute.snapshot.queryParams, status: status }
   }
 
+  openFilters() {
+    
+  }
+
 }

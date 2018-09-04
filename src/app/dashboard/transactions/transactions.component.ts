@@ -26,17 +26,19 @@ export class TransactionsComponent implements OnInit, OnDestroy {
   ) {
     this.userSubscription$ = this._store.select(fromRoot.getLoggedUser).subscribe(user => {
       this.loggedUser = user;
-      if (user.role == 'manufacturer' || user.role == 'accounts') {
-        let newParams: any = {};
-        if (!this._activatedRoute.snapshot.queryParams["page"]) {
-          newParams["page"] = 1;
+      if (user.role) {
+        if (user.role == 'manufacturer' || user.role == 'accounts') {
+          let newParams: any = {};
+          if (!this._activatedRoute.snapshot.queryParams["page"]) {
+            newParams["page"] = 1;
+          }
+          if (!this._activatedRoute.snapshot.queryParams["per_page"]) {
+            newParams["per_page"] = 10;
+          }
+          this._router.navigate(["dashboard", "transactions"], { queryParams: { ...this._activatedRoute.snapshot.queryParams, ...newParams } });
+        } else {
+          this._router.navigate(["403-forbidden"]);
         }
-        if (!this._activatedRoute.snapshot.queryParams["per_page"]) {
-          newParams["per_page"] = 10;
-        }
-        this._router.navigate(["dashboard", "transactions"], { queryParams: { ...this._activatedRoute.snapshot.queryParams, ...newParams } })
-      } else {
-        this._router.navigate(["403-forbidden"]);
       }
     });
   }

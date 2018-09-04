@@ -16,10 +16,6 @@ export const FETCH_INVENTORY_ACTION = '[Inventory] Fetch Inventory Action';
 export const FETCH_INVENTORY_COMPLETE_ACTION = '[Inventory] Fetch Inventory Complete Action';
 export const FETCH_INVENTORY_FAILED_ACTION = '[Inventory] Fetch Inventory Failed Action';
 
-export const FILTER_INVENTORY_ACTION = '[Inventory] Filter Inventory Action';
-export const FILTER_INVENTORY_COMPLETE_ACTION = '[Inventory] Filter Inventory Complete Action';
-export const FILTER_INVENTORY_FAILED_ACTION = '[Inventory] Filter Inventory Failed Action';
-
 export const CREATE_INVENTORY_ACTION = '[Inventory] Create Inventory Action';
 export const CREATE_INVENTORY_COMPLETE_ACTION = '[Inventory] Create Inventory Complete Action';
 export const CREATE_INVENTORY_FAILED_ACTION = '[Inventory] Create Inventory Failed Action';
@@ -36,7 +32,7 @@ export const CLEAR_INVENTORY_DATA_ACTION = '[Inventory] Clear Inventory Data Act
 
 export class FetchAllInventoriesAction implements Action {
   readonly type = FETCH_ALL_INVENTORIES_ACTION;
-  constructor() {
+  constructor(public payload: any) {
     toast({
       title: 'Fetching inventory...'
     });
@@ -86,36 +82,6 @@ export class FetchInventoryCompleteAction implements Action {
 
 export class FetchInventoryFailedAction implements Action {
   readonly type = FETCH_INVENTORY_FAILED_ACTION;
-  constructor(public payload: any) {
-    toast({
-      type: 'error',
-      title: payload
-    });
-  }
-}
-
-export class FilterInventoryAction implements Action {
-  readonly type = FILTER_INVENTORY_ACTION;
-  constructor(public payload: any) {
-    toast({
-      title: 'Fetching inventory...'
-    });
-    toast.showLoading();
-  }
-}
-
-export class FilterInventoryCompleteAction implements Action {
-  readonly type = FILTER_INVENTORY_COMPLETE_ACTION;
-  constructor(public payload: any) {
-    toast({
-      type: 'success',
-      title: 'Inventory list loaded!'
-    });
-  }
-}
-
-export class FilterInventoryFailedAction implements Action {
-  readonly type = FILTER_INVENTORY_FAILED_ACTION;
   constructor(public payload: any) {
     toast({
       type: 'error',
@@ -225,9 +191,6 @@ export type Actions =
   | FetchInventoryAction
   | FetchInventoryCompleteAction
   | FetchInventoryFailedAction
-  | FilterInventoryAction
-  | FilterInventoryCompleteAction
-  | FilterInventoryFailedAction
   | CreateInventoryAction
   | CreateInventoryCompleteAction
   | CreateInventoryFailedAction

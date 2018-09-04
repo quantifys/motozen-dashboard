@@ -27,7 +27,7 @@ export class ExpenseEffects {
   @Effect()
   fetchAllExpenses$: Observable<Action> = this._action$.ofType(fromExpense.FETCH_ALL_EXPENSES_ACTION).pipe(
     map((action: fromExpense.FetchAllExpensesAction) => action.payload),
-    exhaustMap(body => this._tokenService.get('expenses')
+    exhaustMap(body => this._tokenService.post(`expenses/list`, body)
       .pipe(
         map(response => new fromExpense.FetchAllExpensesCompleteAction({
           data: response.json().message,

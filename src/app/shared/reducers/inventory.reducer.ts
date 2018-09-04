@@ -29,15 +29,6 @@ export function reducer(state = initialState, action: inventoryActions.Actions):
       return Object.assign({}, state, {
         currentInventory: new Inventory(action.payload)
       });
-    case inventoryActions.FILTER_INVENTORY_COMPLETE_ACTION:
-      inventories = action.payload.data.map(inventory => new Inventory(inventory));
-      return Object.assign({}, state, {
-        allInventories: [...inventories],
-        inventoryPageStatus: new PageData({
-          total: action.payload.total,
-          per_page: action.payload.per_page,
-        })
-      });
     case inventoryActions.DELETE_INVENTORY_COMPLETE_ACTION:
       return Object.assign({}, state, {
         allInventories: [...state.allInventories.filter(inventory => inventory.id != action.payload ? inventory : null)],

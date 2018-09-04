@@ -107,4 +107,14 @@ export class CertificateEffects {
       ))
   );
 
+  @Effect()
+  fetchCertificateFilterFormdata$: Observable<Action> = this._action$.ofType(fromCertificate.FETCH_CERTIFICATE_FILTER_FORMDATA_ACTION).pipe(
+    map((action: fromCertificate.FetchCertificateFilterFormdataAction) => action),
+    exhaustMap(() => this._tokenService.get("certificates/list/filter-data")
+      .pipe(
+        map(response => new fromCertificate.FetchCertificateFilterFormdataCompleteAction(response.json().message)),
+        catchError(error => of(new fromCertificate.FetchCertificateFilterFormdataFailedAction(error.json().message)))
+      ))
+  );
+
 }

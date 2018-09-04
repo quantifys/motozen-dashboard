@@ -30,7 +30,9 @@ export class VehicleEditComponent implements OnInit {
     private _fb: FormBuilder,
     public _location: Location
   ) {
-    this._store.dispatch(new inventoryActions.FetchAllInventoriesAction);
+    this._store.dispatch(new inventoryActions.FetchAllInventoriesAction({
+      category: 'automotive_connector'
+    }));
     this._activatedRoute.queryParams.subscribe(params => {
       if (params["id"]) {
         this.addVehicle = false;
@@ -43,7 +45,7 @@ export class VehicleEditComponent implements OnInit {
 
   ngOnInit() {
     this.buildForm();
-    this._store.select(fromRoot.getAllInventories).subscribe(inventory => this.inventory = inventory.filter(item => item.category == 'automotive_connector'));
+    this._store.select(fromRoot.getAllInventories).subscribe(inventory => this.inventory = inventory);
     this.vehicleSubscription$ = this._store.select(fromRoot.getCurrentVehicle).subscribe(vehicle => {
       this.vehicleForm.patchValue(vehicle);
       this.connector_id.patchValue(vehicle.connector.id);

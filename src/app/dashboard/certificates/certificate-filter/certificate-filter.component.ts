@@ -7,7 +7,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import moment from 'moment';
 
 import * as fromRoot from '../../../shared/reducers';
-import * as userActions from '../../../shared/actions/user.actions';
+import * as certificateActions from '../../../shared/actions/certificate.actions';
 import { User } from '../../../shared/models';
 
 export const MY_FORMATS = {
@@ -48,9 +48,9 @@ export class CertificateFilterComponent implements OnInit {
     private _activatedRoute: ActivatedRoute,
     private _bottomSheetRef: MatBottomSheetRef<CertificateFilterComponent>
   ) {
-    this._store.dispatch(new userActions.FetchAllUsersAction);
+    this._store.dispatch(new certificateActions.FetchCertificateFilterFormdataAction);
     this._store.select(fromRoot.getLoggedUser).subscribe(user => this.loggedUser = user);
-    this._store.select(fromRoot.getAllUsers).subscribe(users => this.users = users);
+    this._store.select(fromRoot.getCertificateFilterUsers).subscribe(users => this.users = users);
   }
 
   ngOnInit() {

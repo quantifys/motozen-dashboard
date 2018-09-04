@@ -100,4 +100,14 @@ export class DeviceEffects {
       ))
   );
 
+  @Effect()
+  fetchDeviceTransferFormData$: Observable<Action> = this._action$.ofType(fromDevice.FETCH_DEVICE_TRANSFER_FORMDATA_ACTION).pipe(
+    map((action: fromDevice.FetchDeviceTransferFormDataAction) => action),
+    exhaustMap(() => this._tokenService.get('devices/transfer/new')
+      .pipe(
+        map(response => new fromDevice.FetchDeviceTransferFormDataCompleteAction(response.json().message)),
+        catchError(error => of(new fromDevice.FetchDeviceTransferFormDataFailedAction(error.json().message)))
+      ))
+  );
+
 }

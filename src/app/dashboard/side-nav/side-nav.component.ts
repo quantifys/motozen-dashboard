@@ -66,11 +66,11 @@ export const ROUTES: RouteInfo[] = [
     users: ['distributor', 'dealer', 'sales']
   },
   {
-    path: 'expenses',
-    title: 'Expenses',
+    path: 'vendors',
+    title: 'Vendors',
     type: 'link',
-    icontype: 'fa-credit-card',
-    users: ['accounts']
+    icontype: 'fa-shipping-fast',
+    users: ['manufacturer', 'store_purchases']
   },
   {
     path: 'purchase-orders',
@@ -101,6 +101,13 @@ export const ROUTES: RouteInfo[] = [
     users: ['human_resource', 'accounts']
   },
   {
+    path: 'expenses',
+    title: 'Expenses',
+    type: 'link',
+    icontype: 'fa-credit-card',
+    users: ['accounts']
+  },
+  {
     path: 'incomes',
     title: 'Incomes',
     type: 'link',
@@ -113,13 +120,6 @@ export const ROUTES: RouteInfo[] = [
     type: 'link',
     icontype: 'fa-file-invoice-dollar',
     users: ['manufacturer', 'accounts']
-  },
-  {
-    path: 'vendors',
-    title: 'Vendors',
-    type: 'link',
-    icontype: 'fa-shipping-fast',
-    users: ['manufacturer', 'store_purchases']
   }
 ];
 

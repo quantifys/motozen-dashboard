@@ -58,22 +58,38 @@ export class FetchAllReceiveNotesCompleteAction implements Action {
 
 export class FetchAllReceiveNotesFailedAction implements Action {
   readonly type = FETCH_ALL_RECEIVE_NOTES_FAILED_ACTION;
-  constructor(public payload: any) { }
+  constructor(public payload: any) {
+		toast({
+			type: 'error',
+			title: payload
+		});
+  }
 }
 
 export class FetchReceiveNoteAction implements Action {
   readonly type = FETCH_RECEIVE_NOTE_ACTION;
-  constructor(public payload: any) { }
+  constructor(public payload: any) {
+    toast({
+      title: 'Loading receive note...'
+    });
+    toast.showLoading();
+  }
 }
 
 export class FetchReceiveNoteCompleteAction implements Action {
   readonly type = FETCH_RECEIVE_NOTE_COMPLETE_ACTION;
-  constructor(public payload: any) { }
+  constructor(public payload: any) {
+  }
 }
 
 export class FetchReceiveNoteFailedAction implements Action {
   readonly type = FETCH_RECEIVE_NOTE_FAILED_ACTION;
-  constructor(public payload: any) { }
+  constructor(public payload: any) {
+		toast({
+			type: 'error',
+			title: payload
+		});
+  }
 }
 
 export class FetchReceiveNoteFormDataAction implements Action {
@@ -98,12 +114,22 @@ export class FetchReceiveNoteFormDataCompleteAction implements Action {
 
 export class FetchReceiveNoteFormDataFailedAction implements Action {
   readonly type = FETCH_RECEIVE_NOTE_FORM_DATA_FAILED_ACTION;
-  constructor(public payload: any) { }
+  constructor(public payload: any) {
+		toast({
+			type: 'error',
+			title: payload
+		});
+  }
 }
 
 export class CreateReceiveNoteAction implements Action {
   readonly type = CREATE_RECEIVE_NOTE_ACTION;
-  constructor(public payload: any) { }
+  constructor(public payload: any) {
+    toast({
+      title: 'Adding receive note...'
+    });
+    toast.showLoading();
+  }
 }
 
 export class CreateReceiveNoteCompleteAction implements Action {
@@ -119,13 +145,21 @@ export class CreateReceiveNoteCompleteAction implements Action {
 export class CreateReceiveNoteFailedAction implements Action {
   readonly type = CREATE_RECEIVE_NOTE_FAILED_ACTION;
   constructor(public payload: any) {
-    swal("There was an error.", payload, "error");
+		toast({
+			type: 'error',
+			title: payload
+		});
   }
 }
 
 export class UpdateReceiveNoteAction implements Action {
   readonly type = UPDATE_RECEIVE_NOTE_ACTION;
-  constructor(public payload: any) { }
+  constructor(public payload: any) {
+    toast({
+      title: 'Updating receive note...'
+    });
+    toast.showLoading();
+  }
 }
 
 export class UpdateReceiveNoteCompleteAction implements Action {
@@ -141,17 +175,26 @@ export class UpdateReceiveNoteCompleteAction implements Action {
 export class UpdateReceiveNoteFailedAction implements Action {
   readonly type = UPDATE_RECEIVE_NOTE_FAILED_ACTION;
   constructor(public payload?: any) {
-    swal("There was an error.", payload, "error");
+		toast({
+			type: 'error',
+			title: payload
+		});
   }
 }
 
 export class DeleteReceiveNoteAction implements Action {
   readonly type = DELETE_RECEIVE_NOTE_ACTION;
+  constructor() {
+    toast({
+      title: 'Deleting receive note...'
+    });
+    toast.showLoading();
+  }
 }
 
 export class DeleteReceiveNoteCompleteAction implements Action {
   readonly type = DELETE_RECEIVE_NOTE_COMPLETE_ACTION;
-  constructor() {
+  constructor(public payload: any) {
     toast({
       type: 'success',
       title: 'Receive Note deleted!'
@@ -162,12 +205,21 @@ export class DeleteReceiveNoteCompleteAction implements Action {
 export class DeleteReceiveNoteFailedAction implements Action {
   readonly type = DELETE_RECEIVE_NOTE_FAILED_ACTION;
   constructor(public payload: any) {
-    swal("There was an error.", payload, "error");
+		toast({
+			type: 'error',
+			title: payload
+		});
   }
 }
 
 export class ConfirmReceiveNoteAction implements Action {
   readonly type = CONFIRM_RECEIVE_NOTE_ACTION;
+  constructor() {
+    toast({
+      title: 'Confirming receive note...'
+    });
+    toast.showLoading();
+  }
 }
 
 export class ConfirmReceiveNoteCompleteAction implements Action {
@@ -183,7 +235,10 @@ export class ConfirmReceiveNoteCompleteAction implements Action {
 export class ConfirmReceiveNoteFailedAction implements Action {
   readonly type = CONFIRM_RECEIVE_NOTE_FAILED_ACTION;
   constructor(public payload: any) {
-    swal("There was an error.", payload, "error");
+		toast({
+			type: 'error',
+			title: payload
+		});
   }
 }
 
