@@ -12,11 +12,12 @@
       <div class="col-md-6">
         <form [formGroup]="searchForm" autocomplete="off">
           <mat-form-field color="warn" class="w-100">
-            <input matInput [placeholder]="search_type.value == 'reg' ? 'Search by Registration No,' : 'Search by device SLD No.'" formControlName="search">
+            <input matInput [placeholder]="getSearchPlaceholder()" formControlName="search">
             <mat-icon color="warn" matSuffix>search</mat-icon>
           </mat-form-field>
           <mat-radio-group formControlName="search_type">
-            <mat-radio-button color="warn" value="reg">Reg. No.</mat-radio-button>
+            <mat-radio-button color="warn" value="cert">Certificate No.</mat-radio-button>
+            <mat-radio-button color="warn" class="ml-4" value="reg">Reg. No.</mat-radio-button>
             <mat-radio-button color="warn" class="ml-4" value="sld">SLD No.</mat-radio-button>
           </mat-radio-group>
         </form>

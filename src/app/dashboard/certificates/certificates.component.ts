@@ -42,9 +42,9 @@ export class CertificatesComponent implements OnInit, OnDestroy {
           if (!this._activatedRoute.snapshot.queryParams["per_page"]) {
             newParams["per_page"] = 10;
           }
-          if (this._activatedRoute.snapshot.queryParams["reg"] || this._activatedRoute.snapshot.queryParams["sld"]) {
-            this.search_type.patchValue(this._activatedRoute.snapshot.queryParams["reg"] ? "reg" : "sld", { emitEvent: false });
-            this.search.patchValue(this._activatedRoute.snapshot.queryParams["reg"] ? this._activatedRoute.snapshot.queryParams["reg"] : this._activatedRoute.snapshot.queryParams["sld"], { emitEvent: false });
+          if (this._activatedRoute.snapshot.queryParams["reg"] || this._activatedRoute.snapshot.queryParams["sld"] || this._activatedRoute.snapshot.queryParams["cert"]) {
+            this.search_type.patchValue(this._activatedRoute.snapshot.queryParams["reg"] ? "reg" : this._activatedRoute.snapshot.queryParams["cert"] ? "cert" : "sld", { emitEvent: false });
+            this.search.patchValue(this._activatedRoute.snapshot.queryParams["reg"] ? this._activatedRoute.snapshot.queryParams["reg"] : this._activatedRoute.snapshot.queryParams["cert"] ? this._activatedRoute.snapshot.queryParams["cert"] : this._activatedRoute.snapshot.queryParams["sld"], { emitEvent: false });
           }
           this._router.navigate(["dashboard", "certificates"], { queryParams: { ...this._activatedRoute.snapshot.queryParams, ...newParams } });
         } else {
@@ -66,7 +66,7 @@ export class CertificatesComponent implements OnInit, OnDestroy {
   buildForm() {
     this.searchForm = this._fb.group({
       search: null,
-      search_type: 'reg'
+      search_type: 'cert'
     });
   }
 
@@ -96,9 +96,21 @@ export class CertificatesComponent implements OnInit, OnDestroy {
       queryParams: {
         ...this._activatedRoute.snapshot.queryParams,
         reg: this.search_type.value == 'reg' ? this.search.value : null,
+        certificate_number: this.search_type.value == 'cert' ? this.search.value : null,
         sld: this.search_type.value == 'sld' ? this.search.value : null
       }
     });
+  }
+
+  getSearchPlaceholder(): string {
+    switch (this.search_type.value) {
+      case 'reg':
+        return "Search by Registration No.";
+      case 'sld':
+        return "Search by SLD No.";
+      default:
+        return "Search by Certificate No.";
+    }
   }
 
 }
