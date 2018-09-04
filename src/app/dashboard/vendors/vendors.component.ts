@@ -47,9 +47,5 @@ export class VendorsComponent implements OnInit, OnDestroy {
   getQueryParams(status: string): any {
     return { ...this._activatedRoute.snapshot.queryParams, status: status }
   }
-
-  openFilters() {
-    
-  }
   
 }

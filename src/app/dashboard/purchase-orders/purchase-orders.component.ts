@@ -48,11 +48,11 @@ export class PurchaseOrdersComponent implements OnInit, OnDestroy {
           case "store_dispatch":
             newParams["status"] = "processing";
             break;
-          case "store_dispatch":
+          case "store_logistics":
             newParams["status"] = "dispatch_ready";
             break;
           default:
-            this._router.navigate(["404-not-authorized"]);
+            this._router.navigate(["403-forbidden"]);
             break;
         }
       }

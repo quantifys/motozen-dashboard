@@ -90,7 +90,8 @@ export const purchaseOrders = (state: State) => state.purchaseOrders;
 export const getAllPurchaseOrders = createSelector(purchaseOrders, (state: fromPurchaseOrder.State) => state.allPurchaseOrders);
 export const getCurrentPurchaseOrder = createSelector(purchaseOrders, (state: fromPurchaseOrder.State) => state.currentPurchaseOrder);
 export const getPurchaseOrderFormdata = createSelector(purchaseOrders, (state: fromPurchaseOrder.State) => state.purchaseOrderFormData);
-export const getPurchaseOrderPageStatus = createSelector(purchaseOrders, (state: fromPurchaseOrder.State) => state.currentPurchaseOrderPageStatus);
+export const getPurchaseOrderPageStatus = createSelector(purchaseOrders, (state: fromPurchaseOrder.State) => state.purchaseOrderPageStatus);
+export const getPurchaseOrderDistributors = createSelector(purchaseOrders, (state: fromPurchaseOrder.State) => state.distributors);
 
 export const salarySlips = (state: State) => state.salarySlips;
 export const getAllSalarySlips = createSelector(salarySlips, (state: fromSalarySlip.State) => state.allSalarySlips);

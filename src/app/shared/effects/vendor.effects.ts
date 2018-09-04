@@ -27,7 +27,7 @@ export class VendorEffects {
   @Effect()
   fetchVendors$: Observable<Action> = this._action$.ofType(fromVendor.FETCH_ALL_VENDORS_ACTION).pipe(
     map((action: fromVendor.FetchAllVendorsAction) => action.payload),
-    exhaustMap(body => this._tokenService.post('vendor/list', body)
+    exhaustMap(body => this._tokenService.post('vendors/list', body)
       .pipe(
         map(response => new fromVendor.FetchAllVendorsCompleteAction({
           data: response.json().message,
@@ -41,7 +41,7 @@ export class VendorEffects {
   @Effect()
   fetchVendor$: Observable<Action> = this._action$.ofType(fromVendor.FETCH_VENDOR_ACTION).pipe(
     map((action: fromVendor.FetchVendorAction) => action.payload),
-    exhaustMap(id => this._tokenService.get(`vendor/${id}`)
+    exhaustMap(id => this._tokenService.get(`vendors/${id}`)
       .pipe(
         map(response => new fromVendor.FetchVendorCompleteAction(response.json().message)),
         catchError(error => of(new fromVendor.FetchVendorFailedAction(error.json().message)))
@@ -49,9 +49,9 @@ export class VendorEffects {
   );
 
   @Effect()
-  openVendor$: Observable<Action> = this._action$.ofType(fromVendor.ACTIVATE_VENDOR_ACTION).pipe(
+  activateVendor$: Observable<Action> = this._action$.ofType(fromVendor.ACTIVATE_VENDOR_ACTION).pipe(
     map((action: fromVendor.ActivateVendorAction) => action),
-    exhaustMap(() => this._tokenService.post(`vendor/${this.requisitionOrder.id}/open`, null)
+    exhaustMap(() => this._tokenService.post(`vendors/${this.requisitionOrder.id}/activate`, null)
       .pipe(
         map(response => new fromVendor.ActivateVendorCompleteAction(response.json().message)),
         catchError(error => of(new fromVendor.ActivateVendorFailedAction(error.json().message)))
@@ -59,9 +59,9 @@ export class VendorEffects {
   );
 
   @Effect()
-  closeVendor$: Observable<Action> = this._action$.ofType(fromVendor.DISABLE_VENDOR_ACTION).pipe(
+  disableVendor$: Observable<Action> = this._action$.ofType(fromVendor.DISABLE_VENDOR_ACTION).pipe(
     map((action: fromVendor.DisableVendorAction) => action),
-    exhaustMap(() => this._tokenService.post(`vendor/${this.requisitionOrder.id}/close`, null)
+    exhaustMap(() => this._tokenService.post(`vendors/${this.requisitionOrder.id}/disable`, null)
       .pipe(
         map(response => new fromVendor.DisableVendorCompleteAction(response.json().message)),
         catchError(error => of(new fromVendor.DisableVendorFailedAction(error.json().message)))
@@ -71,7 +71,7 @@ export class VendorEffects {
   @Effect()
   createNewVendor$: Observable<Action> = this._action$.ofType(fromVendor.CREATE_VENDOR_ACTION).pipe(
     map((action: fromVendor.CreateVendorAction) => action.payload),
-    exhaustMap(body => this._tokenService.post('vendor', body)
+    exhaustMap(body => this._tokenService.post('vendors', body)
       .pipe(
         map(response => {
           this._router.navigate(["dashboard", "vendors", "view"], { queryParams: { id: response.json().message.id } });
@@ -84,7 +84,7 @@ export class VendorEffects {
   @Effect()
   deleteVendor$: Observable<Action> = this._action$.ofType(fromVendor.DELETE_VENDOR_ACTION).pipe(
     map((action: fromVendor.DeleteVendorAction) => action),
-    exhaustMap(() => this._tokenService.delete(`vendor/${this.requisitionOrder.id}`)
+    exhaustMap(() => this._tokenService.delete(`vendors/${this.requisitionOrder.id}`)
       .pipe(
         map(() => {
           this._router.navigate(["dashboard", "vendors"]);
@@ -97,7 +97,7 @@ export class VendorEffects {
   @Effect()
   updateVendor$: Observable<Action> = this._action$.ofType(fromVendor.UPDATE_VENDOR_ACTION).pipe(
     map((action: fromVendor.UpdateVendorAction) => action.payload),
-    exhaustMap(body => this._tokenService.patch(`vendor/${this.requisitionOrder.id}`, body)
+    exhaustMap(body => this._tokenService.patch(`vendors/${this.requisitionOrder.id}`, body)
       .pipe(
         map(response => {
           this._router.navigate(["dashboard", "vendors", "view"], { queryParams: { id: response.json().message.id } });

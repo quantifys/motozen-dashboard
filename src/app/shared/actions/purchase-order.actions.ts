@@ -48,6 +48,10 @@ export const FETCH_PURCHASE_ORDER_FORMDATA_ACTION = '[PurchaseOrder] Fetch Purch
 export const FETCH_PURCHASE_ORDER_FORMDATA_COMPLETE_ACTION = '[PurchaseOrder] Fetch Purchase Order Form Data Complete Action';
 export const FETCH_PURCHASE_ORDER_FORMDATA_FAILED_ACTION = '[PurchaseOrder] Fetch Purchase Order Form Data Failed Action';
 
+export const FETCH_PURCHASE_ORDER_FILTER_DATA_ACTION = '[PurchaseOrder] Fetch Purchase Order Filter Data Action';
+export const FETCH_PURCHASE_ORDER_FILTER_DATA_COMPLETE_ACTION = '[PurchaseOrder] Fetch Purchase Order Filter Data Complete Action';
+export const FETCH_PURCHASE_ORDER_FILTER_DATA_FAILED_ACTION = '[PurchaseOrder] Fetch Purchase Order Filter Data Failed Action';
+
 export class FetchAllPurchaseOrdersAction implements Action {
   readonly type = FETCH_ALL_PURCHASE_ORDERS_ACTION;
   constructor(public payload: any) {
@@ -348,6 +352,36 @@ export class FetchPurchaseOrderFormDataFailedAction implements Action {
   }
 }
 
+export class FetchPurchaseOrderFilterDataAction implements Action {
+  readonly type = FETCH_PURCHASE_ORDER_FILTER_DATA_ACTION;
+  constructor() {
+    toast({
+      title: 'Loading filter data...'
+    });
+    toast.showLoading();
+  }
+}
+
+export class FetchPurchaseOrderFilterDataCompleteAction implements Action {
+  readonly type = FETCH_PURCHASE_ORDER_FILTER_DATA_COMPLETE_ACTION;
+  constructor(public payload: any) {
+    toast({
+      type: 'success',
+      title: 'Filter data loaded!'
+    });
+  }
+}
+
+export class FetchPurchaseOrderFilterDataFailedAction implements Action {
+  readonly type = FETCH_PURCHASE_ORDER_FILTER_DATA_FAILED_ACTION;
+  constructor(public payload: any) {
+    toast({
+      type: 'error',
+      title: payload
+    });
+  }
+}
+
 export type Actions =
   FetchAllPurchaseOrdersAction
   | FetchAllPurchaseOrdersCompleteAction
@@ -378,4 +412,7 @@ export type Actions =
   | ClosePurchaseOrderFailedAction
   | FetchPurchaseOrderFormDataAction
   | FetchPurchaseOrderFormDataCompleteAction
-  | FetchPurchaseOrderFormDataFailedAction;
+  | FetchPurchaseOrderFormDataFailedAction
+  | FetchPurchaseOrderFilterDataAction
+  | FetchPurchaseOrderFilterDataCompleteAction
+  | FetchPurchaseOrderFilterDataFailedAction;

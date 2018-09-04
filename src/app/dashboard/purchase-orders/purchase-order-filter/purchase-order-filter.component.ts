@@ -5,6 +5,11 @@ import { FormBuilder, FormGroup, FormControl } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import moment from 'moment';
 
+import * as fromRoot from "../../../shared/reducers";
+import * as purchaseOrderActions from "../../../shared/actions/purchase-order.actions";
+import { User } from '../../../shared/models';
+import { Store } from '@ngrx/store';
+
 export const MY_FORMATS = {
   parse: {
     dateInput: 'LL',
@@ -29,26 +34,39 @@ export const MY_FORMATS = {
 export class PurchaseOrderFilterComponent implements OnInit {
 
   public filterForm: FormGroup;
-
+  public users: User[] = [];
+  public loggedUser: User = new User({});
   public startMax: Date = new Date(moment().subtract(1, 'days').format());
   public endMin: Date;
   public endMax: Date = new Date();
 
   constructor(
+    private _store: Store<fromRoot.State>,
     private _fb: FormBuilder,
     private _router: Router,
     private _activatedRoute: ActivatedRoute,
     private bottomSheetRef: MatBottomSheetRef<PurchaseOrderFilterComponent>
-  ) { }
+  ) {
+    this._store.select(fromRoot.getLoggedUser).subscribe(user => {
+      this.loggedUser = user;
+      if (user.role && user.role != 'distributor') {
+        this._store.dispatch(new purchaseOrderActions.FetchPurchaseOrderFilterDataAction);
+      }
+    });
+  }
 
   ngOnInit() {
     this.buildForm();
+    this._store.select(fromRoot.getPurchaseOrderDistributors).subscribe(users => this.users = users);
     this._activatedRoute.queryParams.subscribe(params => {
       if (params["start"]) {
         this.start.patchValue(new Date(params["start"]), { emitEvent: false });
       }
       if (params["end"]) {
         this.end.patchValue(new Date(params["end"]), { emitEvent: false });
+      }
+      if (params["user_id"]) {
+        this.user_id.patchValue(params["user_id"], { emitEvent: false });
       }
     });
     this.start.valueChanges.subscribe(value => {
@@ -63,7 +81,8 @@ export class PurchaseOrderFilterComponent implements OnInit {
   buildForm() {
     this.filterForm = this._fb.group({
       start: null,
-      end: null
+      end: null,
+      user_id: null
     });
   }
 
@@ -75,12 +94,17 @@ export class PurchaseOrderFilterComponent implements OnInit {
     return this.filterForm.get('end') as FormControl;
   }
 
+  get user_id(): FormControl {
+    return this.filterForm.get('user_id') as FormControl;
+  }
+
   closeSheet() {
     this._router.navigate(["dashboard", "purchase-orders"], {
       queryParams: {
         ...this._activatedRoute.snapshot.queryParams,
         end: moment(this.end.value).format('YYYY-MM-DD'),
-        start: moment(this.start.value).format('YYYY-MM-DD')
+        start: moment(this.start.value).format('YYYY-MM-DD'),
+        user_id: this.user_id.value
       },
     });
     this.bottomSheetRef.dismiss();

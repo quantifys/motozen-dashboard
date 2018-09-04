@@ -188,7 +188,7 @@ export class DeleteVendorFailedAction implements Action {
 
 export class ActivateVendorAction implements Action {
   readonly type = ACTIVATE_VENDOR_ACTION;
-  constructor(public payload: any) {
+  constructor(public payload?: any) {
     toast({
       title: 'Activating vendor...'
     });
@@ -218,7 +218,7 @@ export class ActivateVendorFailedAction implements Action {
 
 export class DisableVendorAction implements Action {
   readonly type = DISABLE_VENDOR_ACTION;
-  constructor(public payload: any) {
+  constructor(public payload?: any) {
     toast({
       title: 'Disabling vendor...'
     });

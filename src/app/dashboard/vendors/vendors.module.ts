@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
-import { MatTabsModule, MatButtonModule, MatPaginatorModule, MatFormFieldModule, MatInputModule } from '@angular/material';
+import { MatTabsModule, MatButtonModule, MatPaginatorModule, MatFormFieldModule, MatInputModule, MatSlideToggleModule } from '@angular/material';
 import { Routes, RouterModule } from '@angular/router';
 
 import { VendorsComponent } from './vendors.component';
@@ -42,6 +42,7 @@ const routes: Routes = [
     MatPaginatorModule,
     MatFormFieldModule,
     MatInputModule,
+    MatSlideToggleModule,
     RouterModule.forChild(routes)
   ],
   declarations: [VendorsComponent, VendorTableComponent, VendorEditComponent, VendorDetailComponent]

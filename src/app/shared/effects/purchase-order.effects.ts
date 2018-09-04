@@ -137,4 +137,14 @@ export class PurchaseOrderEffects {
       ))
   );
 
+  @Effect()
+  fetchPurchaseOrderFilterdata$: Observable<Action> = this._action$.ofType(fromPurchaseOrder.FETCH_PURCHASE_ORDER_FILTER_DATA_ACTION).pipe(
+    map((action: fromPurchaseOrder.FetchPurchaseOrderFilterDataAction) => action),
+    exhaustMap(() => this._tokenService.get('purchase_orders/list/filter-data')
+      .pipe(
+        map(response => new fromPurchaseOrder.FetchPurchaseOrderFilterDataCompleteAction(response.json().message)),
+        catchError(error => of(new fromPurchaseOrder.FetchPurchaseOrderFilterDataFailedAction(error.json().message)))
+      ))
+  );
+
 }
