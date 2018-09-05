@@ -63,7 +63,7 @@ export const ROUTES: RouteInfo[] = [
     title: 'Certificates',
     type: 'link',
     icontype: 'fa-certificate',
-    users: ['distributor', 'dealer', 'sales']
+    users: ['distributor', 'dealer', 'sales', 'admin']
   },
   {
     path: 'vendors',

@@ -6,7 +6,7 @@ import { Store } from '@ngrx/store';
 
 import * as fromRoot from '../../../shared/reducers';
 import * as certificateActions from '../../../shared/actions/certificate.actions';
-import { Certificate } from '../../../shared/models';
+import { Certificate, User } from '../../../shared/models';
 import { CertificateIssueComponent, CertificateDeleteComponent } from '../certificate-controls/certificate-controls.component';
 import { CertificateService } from '../../../shared/services/certificate.service';
 
@@ -18,6 +18,7 @@ import { CertificateService } from '../../../shared/services/certificate.service
 export class CertificateDetailComponent implements OnInit {
 
   public certificate: Certificate = new Certificate({});
+  public loggedUser: User = new User({});
 
   constructor(
     private _activatedRoute: ActivatedRoute,
@@ -38,6 +39,7 @@ export class CertificateDetailComponent implements OnInit {
 
   ngOnInit() {
     this._store.select(fromRoot.getCurrentCertificate).subscribe(certificate => this.certificate = certificate);
+    this._store.select(fromRoot.getLoggedUser).subscribe(user => this.loggedUser = user);
   }
 
   issueCertificate() {
