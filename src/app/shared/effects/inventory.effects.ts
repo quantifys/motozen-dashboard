@@ -66,10 +66,7 @@ export class InventoryEffects {
           this._router.navigate(["dashboard", "inventory"]);
           return new fromInventory.DeleteInventoryCompleteAction(this.item.id)
         }),
-        catchError(error => {
-          console.log(error);
-          return of(new fromInventory.DeleteInventoryFailedAction(error.json().message));
-        })
+        catchError(error => of(new fromInventory.DeleteInventoryFailedAction(error.json().message)))
       ))
   );
 

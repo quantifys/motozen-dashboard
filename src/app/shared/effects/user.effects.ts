@@ -33,7 +33,10 @@ export class UserEffects {
           this._router.navigate(['/dashboard']);
           return new fromUser.LoginUserCompleteAction(response.json().data)
         }),
-        catchError(error => of(new fromUser.LoginUserFailedAction(error.json().errors[0])))
+        catchError(error => {
+          let errMessage: any = error.json();
+          return of(new fromUser.LoginUserFailedAction(errMessage.errors ? errMessage.errors[0] : "Error connecting to the server."))
+        })
       ))
   );
 

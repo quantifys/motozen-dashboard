@@ -3,9 +3,9 @@ import { Store } from "@ngrx/store";
 
 import * as pdfMake from 'pdfmake/build/pdfmake';
 import * as pdfFonts from 'pdfmake/build/vfs_fonts';
-import * as fromRoot from "../../shared/reducers";
 
-import { PurchaseOrder } from "../models/index";
+import * as fromRoot from "../../shared/reducers";
+import { PurchaseOrder } from "../models";
 
 @Injectable({
   providedIn: 'root'
