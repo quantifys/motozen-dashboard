@@ -26,17 +26,23 @@ export class RequisitionOrdersComponent implements OnInit, OnDestroy {
   ) {
     this.userSubscription$ = this._store.select(fromRoot.getLoggedUser).subscribe(user => {
       this.loggedUser = user;
-      let newParams: any = {};
-      if (!this._activatedRoute.snapshot.queryParams["page"]) {
-        newParams["page"] = 1;
+      if (user.role) {
+        if (user.role == 'store_purchases' || user.role == 'plant_supervisor') {
+          let newParams: any = {};
+          if (!this._activatedRoute.snapshot.queryParams["page"]) {
+            newParams["page"] = 1;
+          }
+          if (!this._activatedRoute.snapshot.queryParams["per_page"]) {
+            newParams["per_page"] = 10;
+          }
+          if (!this._activatedRoute.snapshot.queryParams["status"]) {
+            newParams["status"] = "can_modify";
+          }
+          this._router.navigate(["dashboard", "requisition-orders"], { queryParams: { ...this._activatedRoute.snapshot.queryParams, ...newParams } })
+        } else {
+          this._router.navigate(["403-forbidden"]);
+        }
       }
-      if (!this._activatedRoute.snapshot.queryParams["per_page"]) {
-        newParams["per_page"] = 10;
-      }
-      if (!this._activatedRoute.snapshot.queryParams["status"]) {
-        newParams["status"] = "can_modify";
-      }
-      user.role ? this._router.navigate(["dashboard", "requisition-orders"], { queryParams: { ...this._activatedRoute.snapshot.queryParams, ...newParams } }) : null
     });
   }
 

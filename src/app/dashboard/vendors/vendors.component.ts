@@ -23,17 +23,23 @@ export class VendorsComponent implements OnInit, OnDestroy {
   ) {
     this.userSubscription$ = this._store.select(fromRoot.getLoggedUser).subscribe(user => {
       this.loggedUser = user;
-      let newParams: any = {};
-      if (!this._activatedRoute.snapshot.queryParams["page"]) {
-        newParams["page"] = 1;
+      if (user.role) {
+        if (user.role == 'manufacturer' || user.role == 'store_purchases') {
+          let newParams: any = {};
+          if (!this._activatedRoute.snapshot.queryParams["page"]) {
+            newParams["page"] = 1;
+          }
+          if (!this._activatedRoute.snapshot.queryParams["per_page"]) {
+            newParams["per_page"] = 10;
+          }
+          if (!this._activatedRoute.snapshot.queryParams["status"]) {
+            newParams["status"] = "active";
+          }
+          this._router.navigate(["dashboard", "vendors"], { queryParams: { ...this._activatedRoute.snapshot.queryParams, ...newParams } })
+        } else {
+          this._router.navigate(["403-forbidden"]);
+        }
       }
-      if (!this._activatedRoute.snapshot.queryParams["per_page"]) {
-        newParams["per_page"] = 10;
-      }
-      if (!this._activatedRoute.snapshot.queryParams["status"]) {
-        newParams["status"] = "active";
-      }
-      user.role ? this._router.navigate(["dashboard", "vendors"], { queryParams: { ...this._activatedRoute.snapshot.queryParams, ...newParams } }) : null
     });
   }
 
@@ -47,5 +53,5 @@ export class VendorsComponent implements OnInit, OnDestroy {
   getQueryParams(status: string): any {
     return { ...this._activatedRoute.snapshot.queryParams, status: status }
   }
-  
+
 }

@@ -25,20 +25,22 @@ export class ExpensesComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.userSubscription$ = this._store.select(fromRoot.getLoggedUser).subscribe(user => {
       this.loggedUser = user;
-      if (user.role == 'accounts') {
-        let newParams: any = {};
-        if (!this._activatedRoute.snapshot.queryParams["page"]) {
-          newParams["page"] = 1;
+      if (user.role) {
+        if (user.role == 'accounts') {
+          let newParams: any = {};
+          if (!this._activatedRoute.snapshot.queryParams["page"]) {
+            newParams["page"] = 1;
+          }
+          if (!this._activatedRoute.snapshot.queryParams["per_page"]) {
+            newParams["per_page"] = 10;
+          }
+          if (!this._activatedRoute.snapshot.queryParams["category"]) {
+            newParams["category"] = 'direct';
+          }
+          this._router.navigate(["dashboard", "expenses"], { queryParams: { ...this._activatedRoute.snapshot.queryParams, ...newParams } })
+        } else {
+          this._router.navigate(["403-forbidden"]);
         }
-        if (!this._activatedRoute.snapshot.queryParams["per_page"]) {
-          newParams["per_page"] = 10;
-        }
-        if (!this._activatedRoute.snapshot.queryParams["category"]) {
-          newParams["category"] = 'direct';
-        }
-        this._router.navigate(["dashboard", "expenses"], { queryParams: { ...this._activatedRoute.snapshot.queryParams, ...newParams } })
-      } else {
-        this._router.navigate(["403-forbidden"]);
       }
     });
   }

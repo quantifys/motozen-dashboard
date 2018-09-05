@@ -23,17 +23,19 @@ export class VehiclesComponent implements OnInit, OnDestroy {
   ) {
     this.userSubscription$ = this._store.select(fromRoot.getLoggedUser).subscribe(user => {
       this.loggedUser = user;
-      if (user.role == 'manufacturer' || user.role == 'sales') {
-        let newParams: any = {};
-        if (!this._activatedRoute.snapshot.queryParams["page"]) {
-          newParams["page"] = 1;
+      if (user.role) {
+        if (user.role == 'manufacturer' || user.role == 'sales') {
+          let newParams: any = {};
+          if (!this._activatedRoute.snapshot.queryParams["page"]) {
+            newParams["page"] = 1;
+          }
+          if (!this._activatedRoute.snapshot.queryParams["per_page"]) {
+            newParams["per_page"] = 10;
+          }
+          this._router.navigate(["dashboard", "vehicles"], { queryParams: { ...this._activatedRoute.snapshot.queryParams, ...newParams } });
+        } else {
+          this._router.navigate(["403-forbidden"]);
         }
-        if (!this._activatedRoute.snapshot.queryParams["per_page"]) {
-          newParams["per_page"] = 10;
-        }
-        this._router.navigate(["dashboard", "vehicles"], { queryParams: { ...this._activatedRoute.snapshot.queryParams, ...newParams } });
-      } else {
-        this._router.navigate(["403-forbidden"]);
       }
     });
   }
