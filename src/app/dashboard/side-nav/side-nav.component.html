@@ -4,7 +4,7 @@
       <h4 class="text-primary font-weight-bold">GEMENI INDIA</h4>
       <img src="../../../assets/images/user.png" alt="User" class="img-fluid w-50">
       <h5 class="font-weight-bold mt-2 mb-0">{{loggedUser.name}}</h5>
-      <p class="text-muted">{{loggedUser.getRole() | ucfirst}}</p>
+      <p class="text-muted">{{loggedUser.getRole() | titlecase}}</p>
     </div>
     <ul class="menu p-0">
       <li *ngFor="let route of routes">

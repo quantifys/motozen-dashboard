@@ -4,7 +4,6 @@ import { DevicesComponent } from './devices.component';
 import { Routes, RouterModule } from '@angular/router';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { MatTabsModule, MatPaginatorModule, MatIconModule, MatButtonModule, MatFormFieldModule, MatInputModule, MatBottomSheetModule } from '@angular/material';
-import { NgStringPipesModule } from 'ngx-pipes';
 import { ReactiveFormsModule } from '@angular/forms';
 
 import { DeviceTableComponent } from './device-table/device-table.component';
@@ -56,7 +55,6 @@ const routes: Routes = [
     MatPaginatorModule,
     MatBottomSheetModule,
     NgSelectModule,
-    NgStringPipesModule,
     RouterModule.forChild(routes)
   ],
   declarations: [DevicesComponent, DeviceTableComponent, DeviceEditComponent, DeviceDetailComponent, SldComponent, DeviceTransferComponent, DeviceDeleteComponent],

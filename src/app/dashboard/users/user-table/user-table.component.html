@@ -18,9 +18,9 @@
             {{user.serial_no}}
           </a>
         </td>
-        <td>{{user.name | ucwords}}</td>
+        <td>{{user.name | titlecase}}</td>
         <td>{{user.email}}</td>
-        <td *ngIf="queryParams.group == 'employees' || queryParams.group == 'customers'">{{user.getRole() | ucfirst}}</td>
+        <td *ngIf="queryParams.group == 'employees' || queryParams.group == 'customers'">{{user.getRole() | titlecase}}</td>
         <td>{{user.details.contact}}</td>
       </tr>
     </tbody>

@@ -4,7 +4,6 @@ import { Routes, RouterModule } from '@angular/router';
 import { MatDatepickerModule, NativeDateModule, MatFormFieldModule, MatInputModule, MatButtonModule } from '@angular/material';
 import { ReactiveFormsModule } from '@angular/forms';
 import { Angular2TokenService } from 'angular2-token';
-import { NgStringPipesModule } from 'ngx-pipes';
 
 import { DashboardComponent } from './dashboard.component';
 import { SideNavComponent } from './side-nav/side-nav.component';
@@ -90,7 +89,6 @@ const routes: Routes = [
     MatDatepickerModule,
     MatButtonModule,
     NativeDateModule,
-    NgStringPipesModule,
     RouterModule.forChild(routes)
   ],
   declarations: [DashboardComponent, SideNavComponent, DateFilterComponent],

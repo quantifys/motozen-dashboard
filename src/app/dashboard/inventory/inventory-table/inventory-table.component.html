@@ -13,7 +13,7 @@
         <td>{{(i + 1) + ((pageEvent.pageIndex + 1) * pageEvent.pageSize) - pageEvent.pageSize}}</td>
         <td>
           <a class="text-primary" routerLink="view" [queryParams]="{id: item.id}">
-            {{item.description | ucwords}}
+            {{item.description | titlecase}}
           </a>
         </td>
         <td>{{item.item_code}}</td>
