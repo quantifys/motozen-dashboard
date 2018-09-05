@@ -12,8 +12,6 @@ import { environment } from '../environments/environment';
 import { AppComponent } from './app.component';
 import { reducers } from './shared/reducers';
 
-import { RtoService } from './shared/services/rto.service';
-
 import { UserEffects } from './shared/effects/user.effects';
 import { DeviceEffects } from './shared/effects/device.effects';
 import { InventoryEffects } from './shared/effects/inventory.effects';
@@ -27,6 +25,9 @@ import { IncomeEffects } from './shared/effects/income.effects';
 import { ExpenseEffects } from './shared/effects/expense.effects';
 import { TransactionEffects } from './shared/effects/transaction.effects';
 import { VendorEffects } from './shared/effects/vendor.effects';
+
+import { RtoService } from './shared/services/rto.service';
+import { CertificateService } from './shared/services/certificate.service';
 
 @NgModule({
   declarations: [
@@ -58,7 +59,7 @@ import { VendorEffects } from './shared/effects/vendor.effects';
       logOnly: environment.production // Restrict extension to log-only mode
     })
   ],
-  providers: [Angular2TokenService, RtoService],
+  providers: [Angular2TokenService, RtoService, CertificateService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
