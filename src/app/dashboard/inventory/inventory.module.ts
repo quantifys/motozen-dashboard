@@ -1,15 +1,14 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Routes, RouterModule } from '@angular/router';
-import { NgxPaginationModule } from 'ngx-pagination';
-import { NgStringPipesModule } from 'ngx-pipes';
 import { NgSelectModule } from '@ng-select/ng-select';
+import { MatTabsModule, MatFormFieldModule, MatInputModule, MatPaginatorModule, MatButtonModule, MatBottomSheetModule } from '@angular/material';
 import { ReactiveFormsModule } from '@angular/forms';
 
 import { InventoryComponent } from './inventory.component';
 import { InventoryTableComponent } from './inventory-table/inventory-table.component';
 import { InventoryEditComponent } from './inventory-edit/inventory-edit.component';
-import { InventoryDetailComponent } from './inventory-detail/inventory-detail.component';
+import { InventoryDetailComponent, InventoryDeleteComponent } from './inventory-detail/inventory-detail.component';
 
 const routes: Routes = [
   {
@@ -39,11 +38,16 @@ const routes: Routes = [
   imports: [
     CommonModule,
     ReactiveFormsModule,
-    NgxPaginationModule,
-    NgStringPipesModule,
+    MatTabsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatPaginatorModule,
+    MatButtonModule,
+    MatBottomSheetModule,
     NgSelectModule,
     RouterModule.forChild(routes)
   ],
-  declarations: [InventoryComponent, InventoryTableComponent, InventoryEditComponent, InventoryDetailComponent]
+  declarations: [InventoryComponent, InventoryTableComponent, InventoryEditComponent, InventoryDetailComponent, InventoryDeleteComponent],
+  entryComponents: [InventoryDeleteComponent]
 })
 export class InventoryModule { }

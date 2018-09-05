@@ -45,6 +45,7 @@ export class InventoryEditComponent implements OnInit {
     private _fb: FormBuilder,
     public _location: Location
   ) {
+    this._store.dispatch(new inventoryActions.ClearInventoryDataAction);
     this._activatedRoute.queryParams.subscribe(params => {
       if (params["id"]) {
         this.addItem = false;

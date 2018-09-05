@@ -23,11 +23,21 @@ export class DevicesComponent implements OnInit, OnDestroy {
   ) {
     this.userSubscription$ = this._store.select(fromRoot.getLoggedUser).subscribe(user => {
       this.loggedUser = user;
-      if (!this._activatedRoute.snapshot.queryParams["status"]) {
-        if (user.role == 'manufacturer') {
-          this._router.navigate(["dashboard", "devices"], {queryParams: {status: 'unsold'}});
-        } else if (user.role == 'distributor' || user.role == 'dealer') {
-          this._router.navigate(["dashboard", "devices"], {queryParams: {status: 'sold'}});
+      if (user.role) {
+        if (user.role == 'distributor' || user.role == 'dealer' || user.role == 'manufacturer' || user.role == 'store_purchases') {
+          let newParams: any = {};
+          if (!this._activatedRoute.snapshot.queryParams["status"]) {
+            newParams["status"] = (user.role == 'manufacturer' || user.role == 'store_purchases') ? "unsold" : "sold";
+          }
+          if (!this._activatedRoute.snapshot.queryParams["page"]) {
+            newParams["page"] = 1;
+          }
+          if (!this._activatedRoute.snapshot.queryParams["per_page"]) {
+            newParams["per_page"] = 10;
+          }
+          this._router.navigate(["dashboard", "devices"], { queryParams: { ...this._activatedRoute.snapshot.queryParams, ...newParams } });
+        } else {
+          this._router.navigate(["403-forbidden"]);
         }
       }
     });
@@ -38,6 +48,10 @@ export class DevicesComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.userSubscription$.unsubscribe();
+  }
+
+  getQueryParams(type: string): any {
+    return { ...this._activatedRoute.snapshot.queryParams, status: type }
   }
 
 }

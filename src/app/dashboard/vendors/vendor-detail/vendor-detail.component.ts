@@ -16,7 +16,6 @@ import swal from 'sweetalert2';
 })
 export class VendorDetailComponent implements OnInit, OnDestroy {
 
-  private userSubscription$: Subscription = new Subscription();
   private routerSubscription$: Subscription = new Subscription();
   private vendorSubscription$: Subscription = new Subscription();
   public vendor: Vendor = new Vendor({});
@@ -42,25 +41,12 @@ export class VendorDetailComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.userSubscription$.unsubscribe();
     this.routerSubscription$.unsubscribe();
     this.vendorSubscription$.unsubscribe();
   }
 
-  deleteVendor() {
-    swal({
-      title: 'Are you sure?',
-      text: 'Delete vendor!',
-      type: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Yes, delete!'
-    }).then((result) => {
-      if (result.value) {
-        this._store.dispatch(new vendorActions.DeleteVendorAction);
-      }
-    });
+  toggleActive(event) {
+    event.checked ? this._store.dispatch(new vendorActions.ActivateVendorAction) : this._store.dispatch(new vendorActions.DisableVendorAction)
   }
 
 }

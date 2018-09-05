@@ -1,0 +1,38 @@
+<div class="table-container">
+  <table class="table table-hover w-100 rounded table-striped text-center m-0">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>SERIAL NO</th>
+        <th>DATE</th>
+        <th>AMOUNT</th>
+        <th>GST</th>
+        <th>GST AMOUNT</th>
+        <th>TOTAL</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let transaction of transactions; let i = index">
+        <td>{{(i + 1) + ((pageEvent.pageIndex + 1) * pageEvent.pageSize) - pageEvent.pageSize}}</td>
+        <td>
+          <a routerLink="view" class="text-danger" [queryParams]="{id: transaction.id}">
+            {{transaction.transactable.serial_no}}
+          </a>
+        </td>
+        <td>{{transaction.created_at | date: 'mediumDate'}}</td>
+        <td>{{transaction.amount ? (transaction.amount | currency: 'INR') : '-'}}</td>
+        <td>{{transaction.gst ? (transaction.gst + '%') : '-'}}</td>
+        <td>{{transaction.gst ? (transaction.gstAmount() | currency: 'INR') : '-'}}</td>
+        <td>{{transaction.total() ? (transaction.total() | currency: 'INR') : '-'}}</td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="alert alert-primary text-center rounded-0 border-0 text-light mb-0" *ngIf="transactions.length == 0 && !loading">
+    <strong>No transactions found!</strong>
+  </div>
+  <div class="alert alert-primary text-center rounded-0 border-0 text-light mb-0" *ngIf="loading">
+    <strong>Loading...</strong>
+  </div>
+  <mat-paginator [length]="pageEvent.length" [pageSize]="pageEvent.pageSize" [pageIndex]="pageEvent.pageIndex" [pageSizeOptions]="[5, 10, 25, 100]"
+    (page)="getPage($event)"></mat-paginator>
+</div>

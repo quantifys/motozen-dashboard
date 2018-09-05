@@ -62,22 +62,42 @@ export class FetchAllRequisitionOrdersCompleteAction implements Action {
 
 export class FetchAllRequisitionOrdersFailedAction implements Action {
   readonly type = FETCH_ALL_REQUISITION_ORDERS_FAILED_ACTION;
-  constructor(public payload: any) { }
+  constructor(public payload: any) {
+		toast({
+			type: 'error',
+			title: payload
+		});
+  }
 }
 
 export class FetchRequisitionOrderAction implements Action {
   readonly type = FETCH_REQUISITION_ORDER_ACTION;
-  constructor(public payload: any) { }
+  constructor(public payload: any) {
+    toast({
+      title: 'Loading requisition order...'
+    });
+    toast.showLoading();
+  }
 }
 
 export class FetchRequisitionOrderCompleteAction implements Action {
   readonly type = FETCH_REQUISITION_ORDER_COMPLETE_ACTION;
-  constructor(public payload: any) { }
+  constructor(public payload: any) {
+    toast({
+      type: 'success',
+      title: 'Requisition order loaded!'
+    });
+  }
 }
 
 export class FetchRequisitionOrderFailedAction implements Action {
   readonly type = FETCH_REQUISITION_ORDER_FAILED_ACTION;
-  constructor(public payload: any) { }
+  constructor(public payload: any) {
+		toast({
+			type: 'error',
+			title: payload
+		});
+  }
 }
 
 export class FetchRequisitionOrderFormDataAction implements Action {
@@ -102,12 +122,22 @@ export class FetchRequisitionOrderFormDataCompleteAction implements Action {
 
 export class FetchRequisitionOrderFormDataFailedAction implements Action {
   readonly type = FETCH_REQUISITION_ORDER_FORM_DATA_FAILED_ACTION;
-  constructor(public payload: any) { }
+  constructor(public payload: any) {
+		toast({
+			type: 'error',
+			title: payload
+		});
+  }
 }
 
 export class CreateRequisitionOrderAction implements Action {
   readonly type = CREATE_REQUISITION_ORDER_ACTION;
-  constructor(public payload: any) { }
+  constructor(public payload: any) {
+    toast({
+      title: 'Raising requisition order...'
+    });
+    toast.showLoading();
+  }
 }
 
 export class CreateRequisitionOrderCompleteAction implements Action {
@@ -115,7 +145,7 @@ export class CreateRequisitionOrderCompleteAction implements Action {
   constructor(public payload: any) {
     toast({
       type: 'success',
-      title: 'Requisition order added!'
+      title: 'Requisition order raised!'
     });
   }
 }
@@ -123,13 +153,21 @@ export class CreateRequisitionOrderCompleteAction implements Action {
 export class CreateRequisitionOrderFailedAction implements Action {
   readonly type = CREATE_REQUISITION_ORDER_FAILED_ACTION;
   constructor(public payload: any) {
-    swal("There was an error.", payload, "error");
+		toast({
+			type: 'error',
+			title: payload
+		});
   }
 }
 
 export class UpdateRequisitionOrderAction implements Action {
   readonly type = UPDATE_REQUISITION_ORDER_ACTION;
-  constructor(public payload: any) { }
+  constructor(public payload: any) {
+    toast({
+      title: 'Updating requisition order...'
+    });
+    toast.showLoading();
+  }
 }
 
 export class UpdateRequisitionOrderCompleteAction implements Action {
@@ -145,17 +183,26 @@ export class UpdateRequisitionOrderCompleteAction implements Action {
 export class UpdateRequisitionOrderFailedAction implements Action {
   readonly type = UPDATE_REQUISITION_ORDER_FAILED_ACTION;
   constructor(public payload?: any) {
-    swal("There was an error.", payload, "error");
+		toast({
+			type: 'error',
+			title: payload
+		});
   }
 }
 
 export class DeleteRequisitionOrderAction implements Action {
   readonly type = DELETE_REQUISITION_ORDER_ACTION;
+  constructor() {
+    toast({
+      title: 'Deleting requisition order...'
+    });
+    toast.showLoading();
+  }
 }
 
 export class DeleteRequisitionOrderCompleteAction implements Action {
   readonly type = DELETE_REQUISITION_ORDER_COMPLETE_ACTION;
-  constructor() {
+  constructor(public payload: any) {
     toast({
       type: 'success',
       title: 'Requisition order deleted!'
@@ -166,12 +213,21 @@ export class DeleteRequisitionOrderCompleteAction implements Action {
 export class DeleteRequisitionOrderFailedAction implements Action {
   readonly type = DELETE_REQUISITION_ORDER_FAILED_ACTION;
   constructor(public payload: any) {
-    swal("There was an error.", payload, "error");
+		toast({
+			type: 'error',
+			title: payload
+		});
   }
 }
 
 export class OpenRequisitionOrderAction implements Action {
   readonly type = OPEN_REQUISITION_ORDER_ACTION;
+  constructor() {
+    toast({
+      title: 'Marking requisition order open...'
+    });
+    toast.showLoading();
+  }
 }
 
 export class OpenRequisitionOrderCompleteAction implements Action {
@@ -187,12 +243,21 @@ export class OpenRequisitionOrderCompleteAction implements Action {
 export class OpenRequisitionOrderFailedAction implements Action {
   readonly type = OPEN_REQUISITION_ORDER_FAILED_ACTION;
   constructor(public payload: any) {
-    swal("There was an error.", payload, "error");
+		toast({
+			type: 'error',
+			title: payload
+		});
   }
 }
 
 export class CloseRequisitionOrderAction implements Action {
   readonly type = CLOSE_REQUISITION_ORDER_ACTION;
+  constructor() {
+    toast({
+      title: 'Marking requisition order closed...'
+    });
+    toast.showLoading();
+  }
 }
 
 export class CloseRequisitionOrderCompleteAction implements Action {
@@ -208,7 +273,10 @@ export class CloseRequisitionOrderCompleteAction implements Action {
 export class CloseRequisitionOrderFailedAction implements Action {
   readonly type = CLOSE_REQUISITION_ORDER_FAILED_ACTION;
   constructor(public payload: any) {
-    swal("There was an error.", payload, "error");
+		toast({
+			type: 'error',
+			title: payload
+		});
   }
 }
 

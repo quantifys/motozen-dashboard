@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { Router, ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
 
 import * as fromRoot from '../../shared/reducers';
@@ -13,47 +13,30 @@ import { User } from '../../shared/models';
 })
 export class InventoryComponent implements OnInit, OnDestroy {
 
-  private userSubscription$: Subscription = new Subscription();
   public loggedUser: User = new User({});
-  public categories: any[] = [
-    {
-      display: 'Connectors',
-      value: 'automotive_connector',
-      icon: 'fa-plug'
-    },
-    {
-      display: 'Tool',
-      value: 'tool',
-      icon: 'fa-gavel'
-    },
-    {
-      display: 'Raw material',
-      value: 'raw_material',
-      icon: 'fa-shopping-bag'
-    },
-    {
-      display: 'Finished product',
-      value: 'finished_product',
-      icon: 'fa-box'
-    },
-    {
-      display: 'Others',
-      value: 'other',
-      icon: 'fa-boxes'
-    }
-  ];
+  private userSubscription$: Subscription = new Subscription();
 
   constructor(
     private _store: Store<fromRoot.State>,
-    private _router: Router,
-    private _activatedRoute: ActivatedRoute
+    private _activatedRoute: ActivatedRoute,
+    private _router: Router
   ) {
     this.userSubscription$ = this._store.select(fromRoot.getLoggedUser).subscribe(user => {
       this.loggedUser = user;
-      if (!this._activatedRoute.snapshot.queryParams["status"]) {
-        if (user.role == 'manufacturer') {
-          this._router.navigate(["dashboard", "inventory"], { queryParams: { category: 'automotive_connector' } });
+      if (user.role == 'manufacturer' || user.role == 'store_purchases' || user.role == 'plant_supervisor') {
+        let newParams: any = {};
+        if (!this._activatedRoute.snapshot.queryParams["page"]) {
+          newParams["page"] = 1;
         }
+        if (!this._activatedRoute.snapshot.queryParams["per_page"]) {
+          newParams["per_page"] = 10;
+        }
+        if (!this._activatedRoute.snapshot.queryParams["category"]) {
+          newParams["category"] = "automotive_connector";
+        }
+        this._router.navigate(["dashboard", "inventory"], { queryParams: { ...this._activatedRoute.snapshot.queryParams, ...newParams } })
+      } else {
+        this._router.navigate(["403-forbidden"]);
       }
     });
   }
@@ -63,6 +46,10 @@ export class InventoryComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.userSubscription$.unsubscribe();
+  }
+
+  getQueryParams(status: string): any {
+    return { ...this._activatedRoute.snapshot.queryParams, category: status }
   }
 
 }

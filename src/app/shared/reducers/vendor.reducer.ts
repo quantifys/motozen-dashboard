@@ -53,11 +53,11 @@ export function reducer(state = initialState, action: vendorActions.Actions): St
       });
     case vendorActions.ACTIVATE_VENDOR_COMPLETE_ACTION:
       return Object.assign({}, state, {
-        currentVendor: new Vendor({})
+        currentVendor: new Vendor(action.payload)
       });
     case vendorActions.DISABLE_VENDOR_COMPLETE_ACTION:
       return Object.assign({}, state, {
-        currentVendor: new Vendor({})
+        currentVendor: new Vendor(action.payload)
       });
     default:
       return state;

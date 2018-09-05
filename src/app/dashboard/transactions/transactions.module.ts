@@ -7,8 +7,17 @@ import { MatButtonModule, MatPaginatorModule, MatBottomSheetModule, MatDatepicke
 
 import { TransactionsComponent } from './transactions.component';
 import { TransactionFilterComponent } from './transaction-filter/transaction-filter.component';
+import { TransactionTableComponent } from './transaction-table/transaction-table.component';
+import { TransactionDetailComponent } from './transaction-detail/transaction-detail.component';
 
 const routes: Routes = [
+  {
+    path: 'view',
+    component: TransactionDetailComponent,
+    data: {
+      title: "Transaction details - Dashboard | Gemeni India"
+    }
+  },
   {
     path: '',
     component: TransactionsComponent,
@@ -32,7 +41,7 @@ const routes: Routes = [
     NgSelectModule,
     RouterModule.forChild(routes)
   ],
-  declarations: [TransactionsComponent, TransactionFilterComponent],
+  declarations: [TransactionsComponent, TransactionFilterComponent, TransactionTableComponent, TransactionDetailComponent],
   entryComponents: [TransactionFilterComponent]
 })
 export class TransactionsModule { }

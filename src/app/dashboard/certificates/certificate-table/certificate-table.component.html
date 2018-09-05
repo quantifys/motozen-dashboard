@@ -1,43 +1,34 @@
 <div class="table-container">
-    <table class="table table-hover w-100 rounded table-striped text-center m-0">
-      <thead>
-        <tr>
-          <th>#</th>
-          <th>FITMENT NO</th>
-          <th>CUSTOMER</th>
-          <th>DATE GENERATED</th>
-          <th>DUE DATE</th>
-          <th>ACTIONS</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let certificate of certificates | paginate: config; let i = index">
-          <td>{{(i + 1) + (config.currentPage * config.itemsPerPage) - config.itemsPerPage}}</td>
-          <td>{{certificate.certificate_number}}</td>
-          <td>{{certificate.customer_name}}</td>
-          <td>{{certificate.date_generated | date: 'mediumDate'}}</td>
-          <td>{{certificate.due_date | date: 'mediumDate'}}</td>
-          <td>
-            <a class="action border-0 btn btn-outline-primary btn-sm" title="More info" routerLink="view" [queryParams]="{id: certificate.id}">
-              <i class="fas fa-fw fa-info"></i>
-            </a>
-            <a class="action border-0 btn btn-outline-warning btn-sm" title="Update" routerLink="edit" [queryParams]="{id: certificate.id}">
-              <i class="fas fa-fw fa-wrench"></i>
-            </a>
-            <button class="action border-0 btn btn-outline-danger btn-sm" title="Delete" (click)="deleteCertificate(certificate.id)">
-              <i class="fas fa-fw fa-trash-alt"></i>
-            </button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-    <div class="alert alert-primary text-center rounded-0 border-0 text-light" *ngIf="certificates.length == 0 && !loading">
-      <strong>No certificates found!</strong>
-    </div>
-    <div class="alert alert-primary text-center rounded-0 border-0 text-light" *ngIf="loading">
-      <strong>Loading...</strong>
-    </div>
-    <div class="d-flex justify-content-end mt-3">
-      <pagination-controls (pageChange)="getPage($event)" [id]="config.id"></pagination-controls>
-    </div>
+  <table class="table table-hover w-100 rounded table-striped text-center m-0">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>FITMENT NO</th>
+        <th>CUSTOMER</th>
+        <th>DATE GENERATED</th>
+        <th>DUE DATE</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let certificate of certificates; let i = index">
+        <td>{{(i + 1) + ((pageEvent.pageIndex + 1) * pageEvent.pageSize) - pageEvent.pageSize}}</td>
+        <td>
+          <a routerLink="view" class="text-danger" [queryParams]="{id: certificate.id}">
+            {{certificate.certificate_number}}
+          </a>
+        </td>
+        <td>{{certificate.customer_name}}</td>
+        <td>{{certificate.date_generated | date: 'mediumDate'}}</td>
+        <td>{{certificate.due_date | date: 'mediumDate'}}</td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="alert alert-primary text-center rounded-0 border-0 text-light mb-0" *ngIf="certificates.length == 0 && !loading">
+    <strong>No certificates found!</strong>
   </div>
+  <div class="alert alert-primary text-center rounded-0 border-0 text-light" *ngIf="loading">
+    <strong>Loading...</strong>
+  </div>
+  <mat-paginator [length]="pageEvent.length" [pageSize]="pageEvent.pageSize" [pageIndex]="pageEvent.pageIndex" [pageSizeOptions]="[5, 10, 25, 100]"
+    (page)="getPage($event)"></mat-paginator>
+</div>

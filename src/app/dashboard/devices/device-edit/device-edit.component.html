@@ -6,7 +6,7 @@
   </div>
 
   <div class="row justify-content-center">
-    <div class="col-md-8">
+    <div class="col-sm-12 col-md-0 col-lg-8">
       <div class="card mt-5">
         <div class="card-body">
           <h5 class="text-grey-dark font-weight-bold mb-3">{{addDevice ? 'Add list of devices' : 'Change device SLD number'}}</h5>
@@ -53,10 +53,13 @@
 
 
 <ng-template #editDevice>
-  <form [formGroup]="deviceEditForm">
-    <div class="form-group">
-      <label for="sld_number">SLD number</label>
-      <input type="text" formControlName="sld_number" class="form-control">
+  <form class="container-fluid" [formGroup]="deviceEditForm">
+    <div class="row">
+      <div class="col-sm-12 col-md-8 col-lg-6 col-xl-4">
+        <mat-form-field class="w-100">
+          <input type="text" formControlName="sld_number" matInput placeholder="SLD number">
+        </mat-form-field>
+      </div>
     </div>
     <button class="btn btn-primary btn-save" [disabled]="deviceEditForm.invalid" (click)="saveChanges()">Save</button>
   </form>

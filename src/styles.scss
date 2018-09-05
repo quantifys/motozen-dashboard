@@ -11,12 +11,35 @@ $grey: #D8D8D8;
 $grey-dark: #B6B6B7;
 $white: #F8F9FA;
 $white-dark: #F0F0F0;
-$shadow: rgba(46, 61, 73, .2);
+$shadow: rgba(46,
+61,
+73,
+.2);
 * {
   font-family: 'Varela Round', sans-serif;
-  -webkit-transition: all 0.2s ease-in-out;
-  -moz-transition: all 0.2s ease-in-out;
-  transition: all 0.2s ease-in-out;
+  
+  // scollbar styles
+  &::-webkit-scrollbar-track {
+    border-radius: 10px;
+    background-color: #CCCCCC;
+  }
+  &::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+    background-color: #F5F5F5;
+    &:hover {
+      width: 10px;
+      height: 10px;
+    }
+  }
+  &::-webkit-scrollbar-thumb {
+    &:hover {
+      width: 10px;
+      height: 10px;
+    }
+    border-radius: 10px;
+    background-color: $primary;
+  }
 }
 
 html,
@@ -28,9 +51,13 @@ body {
 }
 
 a {
-  color: $primary;
+  &.text-primary {
+    color: $primary;
+    &:hover {
+      color: $primary-dark !important;
+    }
+  }
   &:hover {
-    color: $primary-dark;
     text-decoration: none;
   }
 }
@@ -62,12 +89,6 @@ button {
 
 .bg-primary {
   background-image: linear-gradient(to top left, $primary 0%, $primary-dark 100%);
-}
-
-.ngx-pagination {
-  .current {
-    background-image: linear-gradient(to top left, $primary 0%, $primary-dark 100%) !important;
-  }
 }
 
 .modal-backdrop {
@@ -204,5 +225,19 @@ form {
 .datepicker {
   .mat-form-field-appearance-standard .mat-form-field-flex {
     padding-top: 0;
+  }
+}
+
+.animate {
+  -webkit-transition: all 0.2s 0.1s ease-out;
+  -moz-transition: all 0.2s 0.1s ease-out;
+  -o-transition: all 0.2s 0.1s ease-out;
+  -ms-transition: all 0.2s 0.1s ease-out;
+  transition: all 0.2s 0.1s ease-out;
+}
+
+nav {
+  &.mat-tab-nav-bar {
+    overflow-x: auto;
   }
 }

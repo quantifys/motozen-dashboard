@@ -1,153 +1,155 @@
-<section class="container-fluid">
+<section class="container">
   <div class="d-flex align-items-center justify-content-between">
-    <a (click)="_location.back()" class="btn btn-primary text-light">
+    <a routerLink="../" class="btn btn-primary text-light">
       <i class="fas fa-arrow-left mr-2"></i>Go back</a>
     <h4 class="text-grey-dark m-0">{{addUser ? 'Add' : 'Edit'}} user</h4>
   </div>
 
   <div class="row justify-content-center">
-    <div class="col-md-8">
+    <div class="col-sm-12 col-lg-10 col-xl-8">
       <div class="card mt-5">
         <div class="card-body">
           <form [formGroup]="userForm" autocomplete="off">
             <h5 class="text-grey-dark font-weight-bold mb-3">General information</h5>
-            <div class="form-group">
-              <label for="name">Full Name</label>
-              <input type="text" class="form-control" [ngClass]="name.valid ? 'is-valid' : 'is-invalid'" id="name" formControlName="name"
-                placeholder="John Doe">
+            <div class="container-fluid">
+              <div class="row">
+                <div class="col-lg-6">
+                  <mat-form-field class="w-100">
+                    <input matInput placeholder="Full name" formControlName="name">
+                  </mat-form-field>
+                </div>
+                <div class="col-lg-6">
+                  <mat-form-field class="w-100">
+                    <input matInput type="email" placeholder="Email" formControlName="email">
+                  </mat-form-field>
+                </div>
+                <div class="col-lg-6" *ngIf="addUser">
+                  <ng-select id="role" [items]="roles" bindLabel="display" bindValue="value" formControlName="role" placeholder="Select role"></ng-select>
+                </div>
+                <div class="col-lg-6" *ngIf="role.value == 'dealer'">
+                  <ng-select [items]="distributors" bindLabel="name" bindValue="id" formControlName="distributor_id" placeholder="Select distributor"></ng-select>
+                </div>
+              </div>
             </div>
-            <div class="row">
-              <div class="form-group col-sm-6">
-                <label for="email">Email</label>
-                <input type="email" class="form-control" [ngClass]="email.valid ? 'is-valid' : 'is-invalid'" id="email" formControlName="email"
-                  placeholder="johndoe@company.com">
-              </div>
-              <div class="form-group col-sm-6">
-                <label for="role">Role</label>
-                <ng-select id="role" [items]="roles" bindLabel="display" bindValue="value" formControlName="role" placeholder="Select role"></ng-select>
-              </div>
-              <div class="form-group col-sm-6" *ngIf="role.value == 'dealer'">
-                <label for="distributor_id">Distributor</label>
-                <ng-select [items]="distributors" bindLabel="email" bindValue="id" formControlName="distributor_id" placeholder="Select distributor"></ng-select>
-              </div>
-            </div>
-            <ng-container *ngIf="role.value != 'manufacturer' && role.value != null">
+            <ng-container *ngIf="role.value != 'manufacturer' && role.value" formGroupName="details">
               <hr>
               <h5 class="text-grey-dark font-weight-bold mb-3">Contact details</h5>
-              <div formGroupName="details">
-                <div class="form-group">
-                  <label for="contact">Phone</label>
-                  <input type="tel" class="form-control" [ngClass]="contact.valid ? 'is-valid' : 'is-invalid'" id="contact" formControlName="contact"
-                    placeholder="+91-8368381828">
+              <div class="container-fluid">
+                <div class="row">
+                  <div class="col-lg-6" *ngIf="role.value != 'manufacturer'">
+                    <mat-form-field class="w-100">
+                      <span matPrefix>+91 &nbsp;</span>
+                      <input matInput type="tel" maxlength="10" placeholder="Phone" formControlName="contact">
+                      <mat-hint align="end">{{contact.value ? contact.value.length : '0'}} / 10</mat-hint>
+                      <mat-icon class="text-primary" matSuffix>phone</mat-icon>
+                    </mat-form-field>
+                  </div>
                 </div>
-                <ng-container *ngIf="role.value == 'dealer' || role.value == 'distributor'">
-                  <ng-container *ngIf="addUser; else fullAddress">
-                    <div class="form-group">
-                      <label for="address_l1">Address line 1</label>
-                      <input class="form-control" [ngClass]="address_l1.valid ? 'is-valid' : 'is-invalid'" id="address_l1" type="text" formControlName="address_l1"
-                      />
+                <div class="row" *ngIf="role.value == 'distributor' || role.value == 'dealer'">
+                  <ng-container *ngIf="addUser">
+                    <div class="col-lg-6">
+                      <mat-form-field class="w-100">
+                        <input matInput placeholder="Address line 1" formControlName="address_l1">
+                      </mat-form-field>
                     </div>
-                    <div class="form-group">
-                      <label for="address_l2">Address line 2</label>
-                      <input class="form-control" [ngClass]="address_l2.valid ? 'is-valid' : 'is-invalid'" id="address_l2" type="text" formControlName="address_l2"
-                      />
+                    <div class="col-lg-6">
+                      <mat-form-field class="w-100">
+                        <input matInput placeholder="Address line 2" formControlName="address_l2">
+                      </mat-form-field>
+                    </div>
+                    <div class="col-lg-4">
+                      <mat-form-field class="w-100">
+                        <input matInput placeholder="Locality" formControlName="locality">
+                      </mat-form-field>
+                    </div>
+                    <div class="col-lg-4">
+                      <mat-form-field class="w-100">
+                        <input matInput placeholder="City" formControlName="city">
+                      </mat-form-field>
+                    </div>
+                    <div class="col-lg-4">
+                      <mat-form-field class="w-100">
+                        <input matInput maxlength="6" placeholder="Pincode" formControlName="pincode">
+                        <mat-hint align="end">{{pincode.value ? pincode.value.length : '0'}} / 6</mat-hint>
+                      </mat-form-field>
                     </div>
                   </ng-container>
-                  <ng-template #fullAddress>
-                    <div class="form-group">
-                      <label for="address">Address</label>
-                      <textarea class="form-control" [ngClass]="address.valid ? 'is-valid' : 'is-invalid'" id="address" rows="5" formControlName="address"></textarea>
-                    </div>
-                  </ng-template>
-                  <div class="row">
-                    <ng-container *ngIf="addUser">
-                      <div class="col-md-4">
-                        <div class="form-group">
-                          <label for="locality">Locality</label>
-                          <input class="form-control" [ngClass]="locality.valid ? 'is-valid' : 'is-invalid'" id="locality" type="text" formControlName="locality"
-                          />
-                        </div>
-                      </div>
-                      <div class="col-md-4">
-                        <div class="form-group">
-                          <label for="city">City</label>
-                          <input class="form-control" [ngClass]="city.valid ? 'is-valid' : 'is-invalid'" id="city" type="text" formControlName="city"
-                          />
-                        </div>
-                      </div>
-                    </ng-container>
-                    <div class="col-md-4">
-                      <div class="form-group">
-                        <label id="state">State</label>
-                        <input type="text" class="form-control" formControlName="state" *ngIf="role.value == 'dealer'; else stateSelect" readonly="true">
-                        <ng-template #stateSelect>
-                          <ng-select id="state" [items]="states" bindLabel="name" formControlName="state" placeholder="Select state"></ng-select>
-                        </ng-template>
-                      </div>
-                    </div>
-                    <div class="col-sm-6 form-group" *ngIf="addUser">
-                      <label for="pincode">Pincode</label>
-                      <input class="form-control" [ngClass]="pincode.valid ? 'is-valid' : 'is-invalid'" id="pincode" type="number" formControlName="pincode"
-                      />
-                    </div>
+                  <div class="col-lg-12" *ngIf="!addUser">
+                    <mat-form-field class="w-100">
+                      <textarea matInput placeholder="Address" rows="5" formControlName="address"></textarea>
+                    </mat-form-field>
                   </div>
-                </ng-container>
-                <hr>
-                <h5 class="text-grey-dark font-weight-bold mb-3">Company information</h5>
-                <div class="form-group" *ngIf="role.value == 'dealer' || role.value == 'distributor'">
-                  <label for="gstn">GSTN</label>
-                  <input type="text" class="form-control" [ngClass]="gstn.valid ? 'is-valid' : 'is-invalid'" id="gstn" formControlName="gstn"
-                    placeholder="22AAAAA0000A1Z5">
-                  <div class="alert alert-danger" *ngIf="gstn.invalid && gstn.touched">
-                    <span *ngIf="gstn.hasError('required')">Please enter your GST number.</span>
-                    <p class="mb-0" *ngIf="!gstn.hasError('required') && gstn.hasError('pattern')">Please verify your GST number.</p>
-                    <span *ngIf="!gstn.hasError('required') && (gstn.hasError('minlength') || gstn.hasError('maxlength'))">GST number should be 15 characters in length.</span>
+                  <div class="col-lg-4">
+                    <mat-form-field class="w-100" *ngIf="role.value == 'dealer'">
+                      <input matInput placeholder="State" readonly formControlName="state">
+                    </mat-form-field>
+                    <ng-select *ngIf="role.value == 'distributor'" id="state" [items]="states" bindLabel="name" formControlName="state"
+                      placeholder="Select state"></ng-select>
                   </div>
                 </div>
-                <ng-container *ngIf="role.value != 'distributor' && role.value != 'dealer'">
-                  <div class="row">
-                    <div class="form-group col-sm-6">
-                      <label for="base_salary">Base salary</label>
-                      <input type="number" class="form-control" [ngClass]="base_salary.valid ? 'is-valid' : 'is-invalid'" id="base_salary" formControlName="base_salary"
-                        placeholder="10000">
-                    </div>
-                    <div class="form-group col-sm-6">
-                      <label for="hra">HRA</label>
-                      <input type="number" class="form-control" [ngClass]="hra.valid ? 'is-valid' : 'is-invalid'" id="hra" formControlName="hra"
-                        placeholder="1500">
-                    </div>
+
+
+
+              </div>
+              <hr>
+              <h5 class="text-grey-dark font-weight-bold mb-3">Company information</h5>
+              <div class="container-fluid">
+                <div class="row" *ngIf="role.value == 'distributor' || role.value == 'dealer'">
+                  <div class="col-lg-6">
+                    <mat-form-field class="w-100">
+                      <input matInput placeholder="GSTN" maxlength="15" formControlName="gstn">
+                      <mat-hint align="end">{{gstn.value ? gstn.value.length : '0'}} / 15</mat-hint>
+                      <mat-error *ngIf="(gstn.hasError('minlength') || gstn.hasError('pattern')) && !gstn.hasError('required')">Please
+                        enter a valid GSTN</mat-error>
+                      <mat-error *ngIf="gstn.hasError('required')">GSTN is <strong>required</strong></mat-error>
+                    </mat-form-field>
                   </div>
-                  <div class="row">
-                    <div class="form-group col-sm-4">
-                      <label for="transport_allowance">Transport allowance</label>
-                      <input type="number" class="form-control" [ngClass]="transport_allowance.valid ? 'is-valid' : 'is-invalid'" id="transport_allowance"
-                        formControlName="transport_allowance" placeholder="500">
-                    </div>
-                    <div class="form-group col-sm-4">
-                      <label for="gpf">GPF</label>
-                      <input type="number" class="form-control" [ngClass]="gpf.valid ? 'is-valid' : 'is-invalid'" formControlName="gpf" placeholder="3000">
-                    </div>
-                    <div class="form-group col-sm-4">
-                      <label for="esic">ESIC</label>
-                      <input type="number" class="form-control" id="esic" formControlName="esic" placeholder="400">
-                    </div>
+                </div>
+                <div class="row" *ngIf="role.value != 'distributor' && role.value != 'dealer'">
+                  <div class="col-sm-6">
+                    <mat-form-field class="w-100">
+                      <input matInput placeholder="Base salary" type="number" formControlName="base_salary">
+                    </mat-form-field>
                   </div>
-                </ng-container>
+                  <div class="col-sm-6">
+                    <mat-form-field class="w-100">
+                      <input matInput placeholder="HRA" type="number" formControlName="hra">
+                    </mat-form-field>
+                  </div>
+                  <div class="col-sm-4">
+                    <mat-form-field class="w-100">
+                      <input matInput placeholder="Transport allowance" type="number" formControlName="transport_allowance">
+                    </mat-form-field>
+                  </div>
+                  <div class="col-sm-4">
+                    <mat-form-field class="w-100">
+                      <input matInput placeholder="GPF" type="number" formControlName="gpf">
+                    </mat-form-field>
+                  </div>
+                  <div class="col-sm-4" *ngIf="checkEsic()">
+                    <mat-form-field class="w-100">
+                      <input matInput placeholder="ESIC" type="number" formControlName="esic">
+                    </mat-form-field>
+                  </div>
+                </div>
               </div>
             </ng-container>
             <ng-container *ngIf="addUser">
               <hr>
               <h5 class="text-grey-dark font-weight-bold mb-3">Security information</h5>
-              <div class="row">
-                <div class="form-group col-sm-6">
-                  <label for="password">Password</label>
-                  <input type="password" class="form-control" [ngClass]="password.valid ? 'is-valid' : 'is-invalid'" id="password" formControlName="password"
-                    placeholder="boiledcabbage">
-                </div>
-                <div class="form-group col-sm-6">
-                  <label for="password_confirmation">Confirm password</label>
-                  <input type="password" class="form-control" [ngClass]="password_confirmation.valid ? 'is-valid' : 'is-invalid'" id="password_confirmation"
-                    formControlName="password_confirmation" placeholder="boiledcabbage">
+              <div class="container-fluid">
+                <div class="row">
+                  <div class="col-sm-6">
+                    <mat-form-field class="w-100">
+                      <input matInput type="password" placeholder="Password" formControlName="password">
+                    </mat-form-field>
+                  </div>
+                  <div class="col-sm-6">
+                    <mat-form-field class="w-100">
+                      <input matInput type="password" placeholder="Confirm password" formControlName="password_confirmation">
+                      <mat-error *ngIf="password_confirmation.hasError('MatchPassword')">Passwords do not match</mat-error>
+                    </mat-form-field>
+                  </div>
                 </div>
               </div>
             </ng-container>

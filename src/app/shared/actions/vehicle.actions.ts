@@ -1,6 +1,13 @@
 import { Action } from '@ngrx/store';
 import swal from 'sweetalert2';
 
+const toast = (swal as any).mixin({
+  toast: true,
+  position: 'bottom-end',
+  showConfirmButton: false,
+  timer: 3000
+});
+
 export const FETCH_ALL_VEHICLES_ACTION = '[Vehicle] Fetch All Vehicles Action';
 export const FETCH_ALL_VEHICLES_COMPLETE_ACTION = '[Vehicle] Fetch All Vehicles Complete Action';
 export const FETCH_ALL_VEHICLES_FAILED_ACTION = '[Vehicle] Fetch All Vehicles Failed Action';
@@ -29,49 +36,84 @@ export const DELETE_VEHICLE_ICAT_ACTION = "[Vehicle] Delete Vehicle Icat Action"
 export const DELETE_VEHICLE_ICAT_COMPLETE_ACTION = "[Vehicle] Delete Vehicle Icat Complete Action";
 export const DELETE_VEHICLE_ICAT_FAILED_ACTION = "[Vehicle] Delete Vehicle Icat Failed Action";
 
+export const CLEAR_VEHICLE_DATA_ACTION = "[Vehicle] Clear Vehicle Data Action";
+
 export class FetchAllVehiclesAction implements Action {
   readonly type = FETCH_ALL_VEHICLES_ACTION;
+  constructor(public payload: any) {
+    toast({
+      title: 'Fetching vehicles...'
+    });
+    toast.showLoading();
+  }
 }
 
 export class FetchAllVehiclesCompleteAction implements Action {
   readonly type = FETCH_ALL_VEHICLES_COMPLETE_ACTION;
   constructor(public payload: any) {
+    toast({
+      type: 'success',
+      title: 'Vehicle list loaded!'
+    });
   }
 }
 
 export class FetchAllVehiclesFailedAction implements Action {
   readonly type = FETCH_ALL_VEHICLES_FAILED_ACTION;
-  constructor(public payload?: any) { }
+  constructor(public payload: any) {
+    toast({
+      type: 'error',
+      title: payload
+    });
+  }
 }
 
 export class FetchVehicleAction implements Action {
   readonly type = FETCH_VEHICLE_ACTION;
-  constructor(public payload: any) { }
+  constructor(public payload: any) {
+    toast({
+      title: 'Fetching vehicle...'
+    });
+    toast.showLoading();
+  }
 }
 
 export class FetchVehicleCompleteAction implements Action {
   readonly type = FETCH_VEHICLE_COMPLETE_ACTION;
-  constructor(public payload?: any) { }
+  constructor(public payload?: any) {
+    toast({
+      type: 'success',
+      title: 'Vehicle loaded!'
+    });
+  }
 }
 
 export class FetchVehicleFailedAction implements Action {
   readonly type = FETCH_VEHICLE_FAILED_ACTION;
-  constructor(public payload?: any) { }
+  constructor(public payload?: any) {
+    toast({
+      type: 'error',
+      title: payload
+    });
+  }
 }
 
 export class CreateVehicleAction implements Action {
   readonly type = CREATE_VEHICLE_ACTION;
-  constructor(public payload: any) { }
+  constructor(public payload: any) {
+    toast({
+      title: 'Adding vehicle...'
+    });
+    toast.showLoading();
+  }
 }
 
 export class CreateVehicleCompleteAction implements Action {
   readonly type = CREATE_VEHICLE_COMPLETE_ACTION;
   constructor(public payload: any) {
-    swal({
-      title: "Vehicle Created!",
-      type: "success",
-      timer: 3000,
-      showConfirmButton: false
+    toast({
+      type: 'success',
+      title: 'Vehicle added!'
     });
   }
 }
@@ -79,23 +121,29 @@ export class CreateVehicleCompleteAction implements Action {
 export class CreateVehicleFailedAction implements Action {
   readonly type = CREATE_VEHICLE_FAILED_ACTION;
   constructor(public payload: any) {
-    swal("There was an error.", payload, "error");
+    toast({
+      type: 'error',
+      title: payload
+    });
   }
 }
 
 export class UpdateVehicleAction implements Action {
   readonly type = UPDATE_VEHICLE_ACTION;
-  constructor(public payload: any) { }
+  constructor(public payload: any) {
+    toast({
+      title: 'Updating vehicle...'
+    });
+    toast.showLoading();
+  }
 }
 
 export class UpdateVehicleCompleteAction implements Action {
   readonly type = UPDATE_VEHICLE_COMPLETE_ACTION;
   constructor(public payload: any) {
-    swal({
-      title: "Vehicle Updated!",
-      type: "success",
-      timer: 3000,
-      showConfirmButton: false
+    toast({
+      type: 'success',
+      title: 'Vehicle updated!'
     });
   }
 }
@@ -103,24 +151,29 @@ export class UpdateVehicleCompleteAction implements Action {
 export class UpdateVehicleFailedAction implements Action {
   readonly type = UPDATE_VEHICLE_FAILED_ACTION;
   constructor(public payload?: any) {
-    swal("There was an error.", payload, "error");
+    toast({
+      type: 'error',
+      title: payload
+    });
   }
 }
 
 export class DeleteVehicleAction implements Action {
   readonly type = DELETE_VEHICLE_ACTION;
-  constructor(public payload: any) {
+  constructor() {
+    toast({
+      title: 'Deleting vehicle...'
+    });
+    toast.showLoading();
   }
 }
 
 export class DeleteVehicleCompleteAction implements Action {
   readonly type = DELETE_VEHICLE_COMPLETE_ACTION;
   constructor(public payload: any) {
-    swal({
-      title: "Vehicle Updated!",
-      type: "success",
-      timer: 3000,
-      showConfirmButton: false
+    toast({
+      type: 'success',
+      title: 'Vehicle deleted!'
     });
   }
 }
@@ -128,23 +181,29 @@ export class DeleteVehicleCompleteAction implements Action {
 export class DeleteVehicleFailedAction implements Action {
   readonly type = DELETE_VEHICLE_FAILED_ACTION;
   constructor(public payload: any) {
-    swal("There was an error.", payload, "error");
+    toast({
+      type: 'error',
+      title: payload
+    });
   }
 }
 
 export class DeleteVehicleIcatAction implements Action {
   readonly type = DELETE_VEHICLE_ICAT_ACTION;
-  constructor(public payload: any) { }
+  constructor(public payload: any) {
+    toast({
+      title: 'Deleting vehicle ICAT...'
+    });
+    toast.showLoading();
+  }
 }
 
 export class DeleteVehicleIcatCompleteAction implements Action {
   readonly type = DELETE_VEHICLE_ICAT_COMPLETE_ACTION;
   constructor(public payload?: any) {
-    swal({
-      title: "Document deleted!",
-      type: "success",
-      timer: 3000,
-      showConfirmButton: false
+    toast({
+      type: 'success',
+      title: 'Vehicle ICAT deleted!'
     });
   }
 }
@@ -152,37 +211,45 @@ export class DeleteVehicleIcatCompleteAction implements Action {
 export class DeleteVehicleIcatFailedAction implements Action {
   readonly type = DELETE_VEHICLE_ICAT_FAILED_ACTION;
   constructor(public payload?: any) {
-    swal("There was an error.", payload, "error");
+    toast({
+      type: 'error',
+      title: payload
+    });
   }
 }
 
 export class UpdateVehicleIcatAction implements Action {
   readonly type = UPDATE_VEHICLE_ICAT_ACTION;
   constructor(public payload: any) {
-    swal({
-      title: 'Updating vehicle...'
+    toast({
+      title: 'Updating vehicle ICAT...'
     });
-    swal.showLoading();
+    toast.showLoading();
   }
 }
 
 export class UpdateVehicleIcatCompleteAction implements Action {
   readonly type = UPDATE_VEHICLE_ICAT_COMPLETE_ACTION;
-  constructor(public payload?: any) {
-    swal({
-      title: "Vehicle Updated!",
-      type: "success",
-      timer: 3000,
-      showConfirmButton: false
+  constructor(public payload: any) {
+    toast({
+      type: 'success',
+      title: 'Vehicle ICAT updated!'
     });
   }
 }
 
 export class UpdateVehicleIcatFailedAction implements Action {
   readonly type = UPDATE_VEHICLE_ICAT_FAILED_ACTION;
-  constructor(public payload?: any) {
-    swal("There was an error.", payload, "error");
+  constructor(public payload: any) {
+    toast({
+      type: 'error',
+      title: payload
+    });
   }
+}
+
+export class ClearVehicleDataAction implements Action {
+  readonly type = CLEAR_VEHICLE_DATA_ACTION;
 }
 
 export type Actions =
@@ -206,4 +273,5 @@ export type Actions =
   | DeleteVehicleIcatFailedAction
   | UpdateVehicleIcatAction
   | UpdateVehicleIcatCompleteAction
-  | UpdateVehicleIcatFailedAction;
+  | UpdateVehicleIcatFailedAction
+  | ClearVehicleDataAction;

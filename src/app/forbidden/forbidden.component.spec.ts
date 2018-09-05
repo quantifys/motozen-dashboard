@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ExpensesTableComponent } from './expenses-table.component';
+import { ForbiddenComponent } from './forbidden.component';
 
-describe('ExpensesTableComponent', () => {
-  let component: ExpensesTableComponent;
-  let fixture: ComponentFixture<ExpensesTableComponent>;
+describe('ForbiddenComponent', () => {
+  let component: ForbiddenComponent;
+  let fixture: ComponentFixture<ForbiddenComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ExpensesTableComponent ]
+      declarations: [ ForbiddenComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ExpensesTableComponent);
+    fixture = TestBed.createComponent(ForbiddenComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

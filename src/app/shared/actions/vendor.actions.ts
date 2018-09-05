@@ -58,27 +58,52 @@ export class FetchAllVendorsCompleteAction implements Action {
 
 export class FetchAllVendorsFailedAction implements Action {
   readonly type = FETCH_ALL_VENDORS_FAILED_ACTION;
-  constructor(public payload: any) { }
+  constructor(public payload: any) {
+    toast({
+      type: 'error',
+      title: payload
+    });
+  }
 }
 
 export class FetchVendorAction implements Action {
   readonly type = FETCH_VENDOR_ACTION;
-  constructor(public payload: any) { }
+  constructor(public payload: any) {
+    toast({
+      title: 'Loading vendors...'
+    });
+    toast.showLoading();
+  }
 }
 
 export class FetchVendorCompleteAction implements Action {
   readonly type = FETCH_VENDOR_COMPLETE_ACTION;
-  constructor(public payload: any) { }
+  constructor(public payload: any) {
+    toast({
+      type: 'success',
+      title: 'Vendor loaded!'
+    });
+  }
 }
 
 export class FetchVendorFailedAction implements Action {
   readonly type = FETCH_VENDOR_FAILED_ACTION;
-  constructor(public payload: any) { }
+  constructor(public payload: any) {
+    toast({
+      type: 'error',
+      title: payload
+    });
+  }
 }
 
 export class CreateVendorAction implements Action {
   readonly type = CREATE_VENDOR_ACTION;
-  constructor(public payload: any) { }
+  constructor(public payload: any) {
+    toast({
+      title: 'Adding vendor...'
+    });
+    toast.showLoading();
+  }
 }
 
 export class CreateVendorCompleteAction implements Action {
@@ -94,13 +119,21 @@ export class CreateVendorCompleteAction implements Action {
 export class CreateVendorFailedAction implements Action {
   readonly type = CREATE_VENDOR_FAILED_ACTION;
   constructor(public payload: any) {
-    swal("There was an error.", payload, "error");
+    toast({
+      type: 'error',
+      title: payload
+    });
   }
 }
 
 export class UpdateVendorAction implements Action {
   readonly type = UPDATE_VENDOR_ACTION;
-  constructor(public payload: any) { }
+  constructor(public payload: any) {
+    toast({
+      title: 'Updating vendor...'
+    });
+    toast.showLoading();
+  }
 }
 
 export class UpdateVendorCompleteAction implements Action {
@@ -116,17 +149,26 @@ export class UpdateVendorCompleteAction implements Action {
 export class UpdateVendorFailedAction implements Action {
   readonly type = UPDATE_VENDOR_FAILED_ACTION;
   constructor(public payload?: any) {
-    swal("There was an error.", payload, "error");
+    toast({
+      type: 'error',
+      title: payload
+    });
   }
 }
 
 export class DeleteVendorAction implements Action {
   readonly type = DELETE_VENDOR_ACTION;
+  constructor() {
+    toast({
+      title: 'Deleting vendor...'
+    });
+    toast.showLoading();
+  }
 }
 
 export class DeleteVendorCompleteAction implements Action {
   readonly type = DELETE_VENDOR_COMPLETE_ACTION;
-  constructor() {
+  constructor(public payload: any) {
     toast({
       type: 'success',
       title: 'Vendor deleted!'
@@ -137,13 +179,21 @@ export class DeleteVendorCompleteAction implements Action {
 export class DeleteVendorFailedAction implements Action {
   readonly type = DELETE_VENDOR_FAILED_ACTION;
   constructor(public payload: any) {
-    swal("There was an error.", payload, "error");
+    toast({
+      type: 'error',
+      title: payload
+    });
   }
 }
 
 export class ActivateVendorAction implements Action {
   readonly type = ACTIVATE_VENDOR_ACTION;
-  constructor(public payload: any) { }
+  constructor(public payload?: any) {
+    toast({
+      title: 'Activating vendor...'
+    });
+    toast.showLoading();
+  }
 }
 
 export class ActivateVendorCompleteAction implements Action {
@@ -159,13 +209,21 @@ export class ActivateVendorCompleteAction implements Action {
 export class ActivateVendorFailedAction implements Action {
   readonly type = ACTIVATE_VENDOR_FAILED_ACTION;
   constructor(public payload: any) {
-    swal("There was an error.", payload, "error");
+    toast({
+      type: 'error',
+      title: payload
+    });
   }
 }
 
 export class DisableVendorAction implements Action {
   readonly type = DISABLE_VENDOR_ACTION;
-  constructor(public payload: any) { }
+  constructor(public payload?: any) {
+    toast({
+      title: 'Disabling vendor...'
+    });
+    toast.showLoading();
+  }
 }
 
 export class DisableVendorCompleteAction implements Action {
@@ -181,7 +239,10 @@ export class DisableVendorCompleteAction implements Action {
 export class DisableVendorFailedAction implements Action {
   readonly type = DISABLE_VENDOR_FAILED_ACTION;
   constructor(public payload: any) {
-    swal("There was an error.", payload, "error");
+    toast({
+      type: 'error',
+      title: payload
+    });
   }
 }
 

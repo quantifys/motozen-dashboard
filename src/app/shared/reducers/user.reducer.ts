@@ -1,19 +1,18 @@
-import { User } from '../models';
-
+import { User, PageData } from '../models';
 import * as userActions from '../actions/user.actions';
 
 export interface State {
   allUsers: User[];
   loggedUser: User;
-  showUserModal: boolean;
   currentUser: User;
+  userPageStatus: PageData;
 }
 
 const initialState: State = {
   allUsers: [],
   loggedUser: new User({}),
-  showUserModal: false,
-  currentUser: new User({})
+  currentUser: new User({}),
+  userPageStatus: new PageData({})
 };
 
 export function reducer(state = initialState, action: userActions.Actions): State {
@@ -32,14 +31,13 @@ export function reducer(state = initialState, action: userActions.Actions): Stat
         loggedUser: new User({})
       });
     case userActions.FETCH_ALL_USERS_COMPLETE_ACTION:
-      users = action.payload.map(user => new User(user));
+      users = action.payload.data.map(user => new User(user));
       return Object.assign({}, state, {
-        allUsers: [...users]
-      });
-    case userActions.FILTER_USERS_COMPLETE_ACTION:
-      users = action.payload.map(user => new User(user));
-      return Object.assign({}, state, {
-        allUsers: [...users]
+        allUsers: [...users],
+        userPageStatus: new PageData({
+          total: action.payload.total,
+          per_page: action.payload.per_page,
+        })
       });
     case userActions.FETCH_USER_ACTION:
       return Object.assign({}, state, {
@@ -51,31 +49,16 @@ export function reducer(state = initialState, action: userActions.Actions): Stat
       });
     case userActions.DELETE_USER_COMPLETE_ACTION:
       return Object.assign({}, state, {
-        allUsers: [...state.allUsers.filter(user => user.id != state.currentUser.id ? user : null)],
+        allUsers: [...state.allUsers.filter(user => user.id != action.payload ? user : null)],
         currentUser: new User({})
-      });
-    case userActions.DELETE_USER_ACTION:
-      return Object.assign({}, state, {
-        currentUser: new User({
-          id: action.payload
-        })
       });
     case userActions.UPDATE_USER_COMPLETE_ACTION:
       return Object.assign({}, state, {
-        allUsers: [...state.allUsers.map(user => user.id != action.payload.id ? user : new User(action.payload))],
-        showUserModal: false
+        allUsers: [...state.allUsers.map(user => user.id != action.payload.id ? user : new User(action.payload))]
       });
     case userActions.CLEAR_CURRENT_USER_ACTION:
       return Object.assign({}, state, {
         currentUser: new User({})
-      });
-    case userActions.OPEN_USER_MODAL_ACTION:
-      return Object.assign({}, state, {
-        showUserModal: true
-      });
-    case userActions.CLOSE_USER_MODAL_ACTION:
-      return Object.assign({}, state, {
-        showUserModal: false
       });
     case userActions.CREATE_NEW_USER_COMPLETE_ACTION:
       return Object.assign({}, state, {

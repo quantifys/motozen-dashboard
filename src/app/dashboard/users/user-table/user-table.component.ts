@@ -1,9 +1,8 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { PaginationInstance } from 'ngx-pagination';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
-import swal from 'sweetalert2';
+import { PageEvent } from '@angular/material';
 import { Store } from '@ngrx/store';
 
 import * as fromRoot from '../../../shared/reducers';
@@ -22,58 +21,57 @@ export class UserTableComponent implements OnInit, OnDestroy {
 
   public passwordForm: FormGroup;
   private routerSubscription$: Subscription = new Subscription();
+  private pageSubscription$: Subscription = new Subscription();
   public users: User[] = [];
-  public type: string = '';
+  public queryParams: any = {};
   public loading: boolean = false;
-  public config: PaginationInstance = {
-    itemsPerPage: 20,
-    currentPage: 1,
-    totalItems: this.users.length
-  };
+  public pageEvent: PageEvent = new PageEvent();
 
   constructor(
     private _store: Store<fromRoot.State>,
     private _activatedRoute: ActivatedRoute,
+    private _router: Router,
     private _fb: FormBuilder
   ) {
     this.routerSubscription$ = this._activatedRoute.queryParams.subscribe(params => {
-      this.type = params["type"];
-      let formData: any = null;
-      if (params["type"] == 'employees' || params["type"] == 'customers') {
-        formData = {
-          group: params["type"]
-        }
-      } else {
-        formData = {
-          role: params["type"]
-        };
+      this.queryParams = params;
+      if (params["page"]) {
+        this.pageEvent.pageIndex = +params["page"] - 1;
       }
-      this.loading = true;
-      this._store.dispatch(new userActions.FilterUsersAction(formData));
+      if (params["per_page"]) {
+        this.pageEvent.pageSize = +params["per_page"];
+      }
+      if (params["page"] && params["per_page"] && (params["role"] || params["group"])) {
+        this.fetchUsers();
+      }
     });
   }
 
   ngOnInit() {
     this.buildForm();
-    this.initializer();
     this._store.select(fromRoot.getAllUsers).subscribe(users => {
       this.loading = false;
       this.users = users;
     });
+    this.pageSubscription$ = this._store.select(fromRoot.getUserPageStatus).subscribe(pageData => this.pageEvent.length = pageData.total);
   }
 
   ngOnDestroy() {
     this.routerSubscription$.unsubscribe();
+    this.pageSubscription$.unsubscribe();
   }
 
   buildForm() {
-    this.passwordForm = this._fb.group({
-      id: [null, Validators.required],
-      password: [null, [Validators.required, Validators.minLength(6)]],
-      password_confirmation: [null, [Validators.required, Validators.minLength(6)]]
-    }, {
-      validator: PasswordValidation.MatchPassword
-    });
+    this.passwordForm = this._fb.group(
+      {
+        id: [null, Validators.required],
+        password: [null, [Validators.required, Validators.minLength(6)]],
+        password_confirmation: [null, [Validators.required, Validators.minLength(6)]]
+      },
+      {
+        validator: PasswordValidation.MatchPassword
+      }
+    );
   }
 
   get id(): FormControl {
@@ -86,40 +84,26 @@ export class UserTableComponent implements OnInit, OnDestroy {
     return this.passwordForm.get("password_confirmation") as FormControl;
   }
 
-  deleteUser(id: number) {
-    swal({
-      title: 'Are you sure?',
-      text: 'Delete user!',
-      type: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Yes, delete!'
-    }).then((result) => {
-      if (result.value) {
-        this._store.dispatch(new userActions.DeleteUserAction(id));
+  fetchUsers() {
+    this.loading = true;
+    this._store.dispatch(new userActions.FetchAllUsersAction(this.queryParams));
+  }
+
+  getPage(pageEvent: PageEvent) {
+    this.pageEvent = pageEvent;
+    this._router.navigate(["dashboard", "users"], {
+      queryParams: {
+        ...this.queryParams,
+        page: pageEvent.pageIndex + 1,
+        per_page: pageEvent.pageSize
       }
     });
-  }
-
-  changePassword(id: number) {
-    this.id.patchValue(id, { emitEvent: false });
-    this._store.dispatch(new userActions.OpenUserModalAction);
-  }
-
-  closeUserModal() {
-    this._store.dispatch(new userActions.CloseUserModalAction);
   }
 
   saveChanges() {
     this._store.dispatch(new userActions.UpdateUserAction({
       user: this.passwordForm.value
     }));
-  }
-
-  initializer() {
-    this._store.select(fromRoot.showUserModal).subscribe(res => res ? $("#userModal").modal("show") : $("#userModal").modal("hide"));
-    $("#userModal").on("hidden.bs.modal", () => this.closeUserModal());
   }
 
 }

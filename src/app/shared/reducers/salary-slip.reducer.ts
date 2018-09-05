@@ -1,17 +1,18 @@
-import { SalarySlip, PageData } from '../models';
-
+import { SalarySlip, PageData, User } from '../models';
 import * as salarySlipActions from '../actions/salary-slip.actions';
 
 export interface State {
   allSalarySlips: SalarySlip[];
   currentSalarySlip: SalarySlip;
   salarySlipPageStatus: PageData;
+  employees: User[]
 }
 
 const initialState: State = {
   allSalarySlips: [],
   currentSalarySlip: new SalarySlip({}),
-  salarySlipPageStatus: new PageData({})
+  salarySlipPageStatus: new PageData({}),
+  employees: []
 };
 
 export function reducer(state = initialState, action: salarySlipActions.Actions): State {
@@ -58,6 +59,14 @@ export function reducer(state = initialState, action: salarySlipActions.Actions)
     case salarySlipActions.PAY_SALARY_SLIP_COMPLETE_ACTION:
       return Object.assign({}, state, {
         currentSalarySlip: new SalarySlip({})
+      });
+    case salarySlipActions.FETCH_SALARY_SLIP_FORMDATA_COMPLETE_ACTION:
+      return Object.assign({}, state, {
+        employees: [...action.payload.employees.filter(user => new User(user))]
+      });
+    case salarySlipActions.FETCH_SALARY_SLIP_FILTER_FORMDATA_COMPLETE_ACTION:
+      return Object.assign({}, state, {
+        employees: [...action.payload.employees.filter(user => new User(user))]
       });
     default:
       return state;

@@ -1,6 +1,13 @@
 import { Action } from '@ngrx/store';
 import swal from 'sweetalert2';
 
+const toast = (swal as any).mixin({
+  toast: true,
+  position: 'bottom-end',
+  showConfirmButton: false,
+  timer: 3000
+});
+
 export const FETCH_ALL_PURCHASE_ORDERS_ACTION = '[PurchaseOrder] Fetch All PurchaseOrders Action';
 export const FETCH_ALL_PURCHASE_ORDERS_COMPLETE_ACTION = '[PurchaseOrder] Fetch All PurchaseOrders Complete Action';
 export const FETCH_ALL_PURCHASE_ORDERS_FAILED_ACTION = '[PurchaseOrder] Fetch All PurchaseOrders Failed Action';
@@ -41,50 +48,86 @@ export const FETCH_PURCHASE_ORDER_FORMDATA_ACTION = '[PurchaseOrder] Fetch Purch
 export const FETCH_PURCHASE_ORDER_FORMDATA_COMPLETE_ACTION = '[PurchaseOrder] Fetch Purchase Order Form Data Complete Action';
 export const FETCH_PURCHASE_ORDER_FORMDATA_FAILED_ACTION = '[PurchaseOrder] Fetch Purchase Order Form Data Failed Action';
 
+export const FETCH_PURCHASE_ORDER_FILTER_DATA_ACTION = '[PurchaseOrder] Fetch Purchase Order Filter Data Action';
+export const FETCH_PURCHASE_ORDER_FILTER_DATA_COMPLETE_ACTION = '[PurchaseOrder] Fetch Purchase Order Filter Data Complete Action';
+export const FETCH_PURCHASE_ORDER_FILTER_DATA_FAILED_ACTION = '[PurchaseOrder] Fetch Purchase Order Filter Data Failed Action';
+
 export class FetchAllPurchaseOrdersAction implements Action {
   readonly type = FETCH_ALL_PURCHASE_ORDERS_ACTION;
-  constructor(public payload: any) { }
+  constructor(public payload: any) {
+    toast({
+      title: 'Fetching purchase orders...'
+    });
+    toast.showLoading();
+  }
 }
 
 export class FetchAllPurchaseOrdersCompleteAction implements Action {
   readonly type = FETCH_ALL_PURCHASE_ORDERS_COMPLETE_ACTION;
   constructor(public payload: any) {
+    toast({
+      type: 'success',
+      title: 'Purchase order list loaded!'
+    });
   }
 }
 
 export class FetchAllPurchaseOrdersFailedAction implements Action {
   readonly type = FETCH_ALL_PURCHASE_ORDERS_FAILED_ACTION;
-  constructor(public payload?: any) { }
+  constructor(public payload?: any) {
+    toast({
+      type: 'error',
+      title: payload
+    });
+  }
 }
 
 export class FetchPurchaseOrderAction implements Action {
   readonly type = FETCH_PURCHASE_ORDER_ACTION;
-  constructor(public payload: any) { }
+  constructor(public payload: any) {
+    toast({
+      title: 'Fetching purchase order...'
+    });
+    toast.showLoading();
+  }
 }
 
 export class FetchPurchaseOrderCompleteAction implements Action {
   readonly type = FETCH_PURCHASE_ORDER_COMPLETE_ACTION;
-  constructor(public payload?: any) { }
+  constructor(public payload?: any) {
+    toast({
+      type: 'success',
+      title: 'Purchase order loaded!'
+    });
+  }
 }
 
 export class FetchPurchaseOrderFailedAction implements Action {
   readonly type = FETCH_PURCHASE_ORDER_FAILED_ACTION;
-  constructor(public payload?: any) { }
+  constructor(public payload?: any) {
+    toast({
+      type: 'error',
+      title: payload
+    });
+  }
 }
 
 export class CreatePurchaseOrderAction implements Action {
   readonly type = CREATE_PURCHASE_ORDER_ACTION;
-  constructor(public payload: any) { }
+  constructor(public payload: any) {
+    toast({
+      title: 'Raising purchase order...'
+    });
+    toast.showLoading();
+  }
 }
 
 export class CreatePurchaseOrderCompleteAction implements Action {
   readonly type = CREATE_PURCHASE_ORDER_COMPLETE_ACTION;
   constructor(public payload: any) {
-    swal({
-      title: "PurchaseOrder Created!",
-      type: "success",
-      timer: 3000,
-      showConfirmButton: false
+    toast({
+      type: 'success',
+      title: 'Purchase order raised!'
     });
   }
 }
@@ -92,23 +135,29 @@ export class CreatePurchaseOrderCompleteAction implements Action {
 export class CreatePurchaseOrderFailedAction implements Action {
   readonly type = CREATE_PURCHASE_ORDER_FAILED_ACTION;
   constructor(public payload: any) {
-    swal("There was an error.", payload, "error");
+    toast({
+      type: 'error',
+      title: payload
+    });
   }
 }
 
 export class UpdatePurchaseOrderAction implements Action {
   readonly type = UPDATE_PURCHASE_ORDER_ACTION;
-  constructor(public payload: any) { }
+  constructor(public payload: any) {
+    toast({
+      title: 'Updating purchase order...'
+    });
+    toast.showLoading();
+  }
 }
 
 export class UpdatePurchaseOrderCompleteAction implements Action {
   readonly type = UPDATE_PURCHASE_ORDER_COMPLETE_ACTION;
   constructor(public payload: any) {
-    swal({
-      title: "PurchaseOrder Updated!",
-      type: "success",
-      timer: 3000,
-      showConfirmButton: false
+    toast({
+      type: 'success',
+      title: 'Purchase order updated!'
     });
   }
 }
@@ -116,22 +165,29 @@ export class UpdatePurchaseOrderCompleteAction implements Action {
 export class UpdatePurchaseOrderFailedAction implements Action {
   readonly type = UPDATE_PURCHASE_ORDER_FAILED_ACTION;
   constructor(public payload?: any) {
-    swal("There was an error.", payload, "error");
+    toast({
+      type: 'error',
+      title: payload
+    });
   }
 }
 
 export class DeletePurchaseOrderAction implements Action {
   readonly type = DELETE_PURCHASE_ORDER_ACTION;
+  constructor() {
+    toast({
+      title: 'Deleting purchase order...'
+    });
+    toast.showLoading();
+  }
 }
 
 export class DeletePurchaseOrderCompleteAction implements Action {
   readonly type = DELETE_PURCHASE_ORDER_COMPLETE_ACTION;
-  constructor() {
-    swal({
-      title: "Purchase Order Deleted!",
-      type: "success",
-      timer: 3000,
-      showConfirmButton: false
+  constructor(public payload: any) {
+    toast({
+      type: 'success',
+      title: 'Purchase order deleted!'
     });
   }
 }
@@ -139,22 +195,29 @@ export class DeletePurchaseOrderCompleteAction implements Action {
 export class DeletePurchaseOrderFailedAction implements Action {
   readonly type = DELETE_PURCHASE_ORDER_FAILED_ACTION;
   constructor(public payload: any) {
-    swal("There was an error.", payload, "error");
+    toast({
+      type: 'error',
+      title: payload
+    });
   }
 }
 
 export class OpenPurchaseOrderAction implements Action {
   readonly type = OPEN_PURCHASE_ORDER_ACTION;
+  constructor() {
+    toast({
+      title: 'Opening purchase order...'
+    });
+    toast.showLoading();
+  }
 }
 
 export class OpenPurchaseOrderCompleteAction implements Action {
   readonly type = OPEN_PURCHASE_ORDER_COMPLETE_ACTION;
   constructor(public payload: any) {
-    swal({
-      title: "Purchase Order Opened!",
-      type: "success",
-      timer: 3000,
-      showConfirmButton: false
+    toast({
+      type: 'success',
+      title: 'Purchase order marked open!'
     });
   }
 }
@@ -162,23 +225,29 @@ export class OpenPurchaseOrderCompleteAction implements Action {
 export class OpenPurchaseOrderFailedAction implements Action {
   readonly type = OPEN_PURCHASE_ORDER_FAILED_ACTION;
   constructor(public payload: any) {
-    swal("There was an error.", payload, "error");
+    toast({
+      type: 'error',
+      title: payload
+    });
   }
 }
 
 export class ConfirmPurchaseOrderAction implements Action {
   readonly type = CONFIRM_PURCHASE_ORDER_ACTION;
-  constructor(public payload: any) { }
+  constructor(public payload: any) {
+    toast({
+      title: 'Confirming purchase order...'
+    });
+    toast.showLoading();
+  }
 }
 
 export class ConfirmPurchaseOrderCompleteAction implements Action {
   readonly type = CONFIRM_PURCHASE_ORDER_COMPLETE_ACTION;
   constructor(public payload: any) {
-    swal({
-      title: "Purchase Order Confirmed!",
-      type: "success",
-      timer: 3000,
-      showConfirmButton: false
+    toast({
+      type: 'success',
+      title: 'Purchase order confirmed!'
     });
   }
 }
@@ -186,23 +255,29 @@ export class ConfirmPurchaseOrderCompleteAction implements Action {
 export class ConfirmPurchaseOrderFailedAction implements Action {
   readonly type = CONFIRM_PURCHASE_ORDER_FAILED_ACTION;
   constructor(public payload: any) {
-    swal("There was an error.", payload, "error");
+    toast({
+      type: 'error',
+      title: payload
+    });
   }
 }
 
 export class DispatchPurchaseOrderAction implements Action {
   readonly type = DISPATCH_PURCHASE_ORDER_ACTION;
-  constructor(public payload: any) { }
+  constructor(public payload: any) {
+    toast({
+      title: 'Dispatching purchase order...'
+    });
+    toast.showLoading();
+  }
 }
 
 export class DispatchPurchaseOrderCompleteAction implements Action {
   readonly type = DISPATCH_PURCHASE_ORDER_COMPLETE_ACTION;
   constructor(public payload: any) {
-    swal({
-      title: "Purchase Order Dispatched!",
-      type: "success",
-      timer: 3000,
-      showConfirmButton: false
+    toast({
+      type: 'success',
+      title: 'Purchase order dispatched!'
     });
   }
 }
@@ -210,23 +285,29 @@ export class DispatchPurchaseOrderCompleteAction implements Action {
 export class DispatchPurchaseOrderFailedAction implements Action {
   readonly type = DISPATCH_PURCHASE_ORDER_FAILED_ACTION;
   constructor(public payload: any) {
-    swal("There was an error.", payload, "error");
+    toast({
+      type: 'error',
+      title: payload
+    });
   }
 }
 
 export class ClosePurchaseOrderAction implements Action {
   readonly type = CLOSE_PURCHASE_ORDER_ACTION;
-  constructor(public payload: any) { }
+  constructor(public payload: any) {
+    toast({
+      title: 'Closing purchase order...'
+    });
+    toast.showLoading();
+  }
 }
 
 export class ClosePurchaseOrderCompleteAction implements Action {
   readonly type = CLOSE_PURCHASE_ORDER_COMPLETE_ACTION;
   constructor(public payload: any) {
-    swal({
-      title: "Purchase Order Closed!",
-      type: "success",
-      timer: 3000,
-      showConfirmButton: false
+    toast({
+      type: 'success',
+      title: 'Purchase order closed!'
     });
   }
 }
@@ -234,23 +315,71 @@ export class ClosePurchaseOrderCompleteAction implements Action {
 export class ClosePurchaseOrderFailedAction implements Action {
   readonly type = CLOSE_PURCHASE_ORDER_FAILED_ACTION;
   constructor(public payload: any) {
-    swal("There was an error.", payload, "error");
+    toast({
+      type: 'error',
+      title: payload
+    });
   }
 }
 
 export class FetchPurchaseOrderFormDataAction implements Action {
   readonly type = FETCH_PURCHASE_ORDER_FORMDATA_ACTION;
+  constructor() {
+    toast({
+      title: 'Fetching purchase order form data...'
+    });
+    toast.showLoading();
+  }
 }
 
 export class FetchPurchaseOrderFormDataCompleteAction implements Action {
   readonly type = FETCH_PURCHASE_ORDER_FORMDATA_COMPLETE_ACTION;
   constructor(public payload: any) {
+    toast({
+      type: 'success',
+      title: 'Purchase order form data loaded!'
+    });
   }
 }
 
 export class FetchPurchaseOrderFormDataFailedAction implements Action {
   readonly type = FETCH_PURCHASE_ORDER_FORMDATA_FAILED_ACTION;
-  constructor(public payload?: any) { }
+  constructor(public payload: any) {
+    toast({
+      type: 'error',
+      title: payload
+    });
+  }
+}
+
+export class FetchPurchaseOrderFilterDataAction implements Action {
+  readonly type = FETCH_PURCHASE_ORDER_FILTER_DATA_ACTION;
+  constructor() {
+    toast({
+      title: 'Loading filter data...'
+    });
+    toast.showLoading();
+  }
+}
+
+export class FetchPurchaseOrderFilterDataCompleteAction implements Action {
+  readonly type = FETCH_PURCHASE_ORDER_FILTER_DATA_COMPLETE_ACTION;
+  constructor(public payload: any) {
+    toast({
+      type: 'success',
+      title: 'Filter data loaded!'
+    });
+  }
+}
+
+export class FetchPurchaseOrderFilterDataFailedAction implements Action {
+  readonly type = FETCH_PURCHASE_ORDER_FILTER_DATA_FAILED_ACTION;
+  constructor(public payload: any) {
+    toast({
+      type: 'error',
+      title: payload
+    });
+  }
 }
 
 export type Actions =
@@ -283,4 +412,7 @@ export type Actions =
   | ClosePurchaseOrderFailedAction
   | FetchPurchaseOrderFormDataAction
   | FetchPurchaseOrderFormDataCompleteAction
-  | FetchPurchaseOrderFormDataFailedAction;
+  | FetchPurchaseOrderFormDataFailedAction
+  | FetchPurchaseOrderFilterDataAction
+  | FetchPurchaseOrderFilterDataCompleteAction
+  | FetchPurchaseOrderFilterDataFailedAction;

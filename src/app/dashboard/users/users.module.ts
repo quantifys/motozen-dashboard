@@ -1,8 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Routes, RouterModule } from '@angular/router';
-import { NgStringPipesModule } from 'ngx-pipes';
-import { NgxPaginationModule } from 'ngx-pagination';
+import { MatTabsModule, MatPaginatorModule, MatInputModule, MatFormFieldModule, MatIconModule, MatButtonModule, MatBottomSheetModule } from '@angular/material';
 import { ReactiveFormsModule } from '@angular/forms';
 import { NgSelectModule } from '@ng-select/ng-select';
 
@@ -10,6 +9,7 @@ import { UsersComponent } from './users.component';
 import { UserTableComponent } from './user-table/user-table.component';
 import { UserEditComponent } from './user-edit/user-edit.component';
 import { UserDetailComponent } from './user-detail/user-detail.component';
+import { UserDeleteComponent, UserChangePasswordComponent } from './user-control/user-control.component';
 
 const routes: Routes = [
   {
@@ -39,11 +39,17 @@ const routes: Routes = [
   imports: [
     CommonModule,
     ReactiveFormsModule,
-    NgStringPipesModule,
-    NgxPaginationModule,
+    MatTabsModule,
+    MatPaginatorModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatIconModule,
+    MatButtonModule,
+    MatBottomSheetModule,
     NgSelectModule,
     RouterModule.forChild(routes)
   ],
-  declarations: [UsersComponent, UserTableComponent, UserEditComponent, UserDetailComponent]
+  declarations: [UsersComponent, UserTableComponent, UserEditComponent, UserDetailComponent, UserDeleteComponent, UserChangePasswordComponent],
+  entryComponents: [UserDeleteComponent, UserChangePasswordComponent]
 })
 export class UsersModule { }

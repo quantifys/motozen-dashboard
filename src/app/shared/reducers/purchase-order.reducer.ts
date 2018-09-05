@@ -1,19 +1,20 @@
-import { PurchaseOrder, PageData } from '../models';
-
+import { PurchaseOrder, PageData, User } from '../models';
 import * as purchaseOrderActions from '../actions/purchase-order.actions';
 
 export interface State {
   allPurchaseOrders: PurchaseOrder[];
   currentPurchaseOrder: PurchaseOrder;
   purchaseOrderFormData: any;
-  currentPurchaseOrderPageStatus: PageData;
+  distributors: User[];
+  purchaseOrderPageStatus: PageData;
 }
 
 const initialState: State = {
   allPurchaseOrders: [],
   currentPurchaseOrder: new PurchaseOrder({}),
   purchaseOrderFormData: null,
-  currentPurchaseOrderPageStatus: new PageData({})
+  distributors: [],
+  purchaseOrderPageStatus: new PageData({})
 };
 
 export function reducer(state = initialState, action: purchaseOrderActions.Actions): State {
@@ -23,7 +24,7 @@ export function reducer(state = initialState, action: purchaseOrderActions.Actio
       purchaseOrders = action.payload.data.map(purchaseOrder => new PurchaseOrder(purchaseOrder));
       return Object.assign({}, state, {
         allPurchaseOrders: [...purchaseOrders],
-        currentPurchaseOrderPageStatus: new PageData({
+        purchaseOrderPageStatus: new PageData({
           total: action.payload.total,
           per_page: action.payload.per_page,
         })
@@ -72,6 +73,11 @@ export function reducer(state = initialState, action: purchaseOrderActions.Actio
     case purchaseOrderActions.FETCH_PURCHASE_ORDER_FORMDATA_COMPLETE_ACTION:
       return Object.assign({}, state, {
         purchaseOrderFormData: action.payload
+      });
+    case purchaseOrderActions.FETCH_PURCHASE_ORDER_FILTER_DATA_COMPLETE_ACTION:
+      console.log(action.payload);
+      return Object.assign({}, state, {
+        distributors: [...action.payload.distributors.filter(user => new User(user))]
       });
     default:
       return state;

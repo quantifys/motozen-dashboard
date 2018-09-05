@@ -25,7 +25,7 @@
         routerLinkActive #dispatch="routerLinkActive" [active]="dispatch.isActive">
         <strong>Dispatch ready</strong>
       </a>
-      <a *ngIf="loggedUser.role == 'distributor' || loggedUser.role == 'sales'" mat-tab-link routerLink="../" [queryParams]="getQueryParams('is_valid')"
+      <a *ngIf="loggedUser.role == 'distributor' || loggedUser.role == 'sales'" mat-tab-link routerLink="../" [queryParams]="getQueryParams('inprocess')"
         routerLinkActive #ongoing="routerLinkActive" [active]="ongoing.isActive">
         <strong>Ongoing</strong>
       </a>

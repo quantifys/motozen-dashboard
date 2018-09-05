@@ -27,13 +27,9 @@ export class DeviceTransferComponent implements OnInit {
 
   ngOnInit() {
     this.buildForm();
-    this._store.dispatch(new deviceActions.FetchAllDevicesAction(null));
-    this._store.dispatch(new userActions.FilterUsersAction({
-      role: 'dealer'
-    }));
-    this._store.select(fromRoot.getAllUsers).subscribe(users => this.users = users);
-
-    this._store.select(fromRoot.getAllDevices).subscribe(devices => this.devices = devices.filter(device => device.status != 'certified'));
+    this._store.dispatch(new deviceActions.FetchDeviceTransferFormDataAction);
+    this._store.select(fromRoot.getDeviceDealers).subscribe(users => this.users = users);
+    this._store.select(fromRoot.getTransferableDevices).subscribe(devices => this.devices = devices);
   }
 
   buildForm() {

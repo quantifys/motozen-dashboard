@@ -27,36 +27,39 @@ export class PurchaseOrdersComponent implements OnInit, OnDestroy {
   ) {
     this.userSubscription$ = this._store.select(fromRoot.getLoggedUser).subscribe(user => {
       this.loggedUser = user;
-      let newParams: any = {};
-      if (!this._activatedRoute.snapshot.queryParams["page"]) {
-        newParams["page"] = 1;
-      }
-      if (!this._activatedRoute.snapshot.queryParams["per_page"]) {
-        newParams["per_page"] = 10;
-      }
-      if (!this._activatedRoute.snapshot.queryParams["status"] && user.role) {
-        switch (user.role) {
-          case "distributor":
-            newParams["status"] = "can_modify";
-            break;
-          case "store_purchases":
-            newParams["status"] = "can_modify";
-            break;
-          case "accounts":
-            newParams["status"] = "opened";
-            break;
-          case "store_dispatch":
-            newParams["status"] = "processing";
-            break;
-          case "store_dispatch":
-            newParams["status"] = "dispatch_ready";
-            break;
-          default:
-            this._router.navigate(["404-not-authorized"]);
-            break;
+      if (user.role) {
+        if (user.role == 'distributor' || user.role == 'store_purchases' || user.role == 'accounts' || user.role == 'store_dispatch' || user.role == 'store_logistics' || user.role == 'sales') {
+          let newParams: any = {};
+          if (!this._activatedRoute.snapshot.queryParams["page"]) {
+            newParams["page"] = 1;
+          }
+          if (!this._activatedRoute.snapshot.queryParams["per_page"]) {
+            newParams["per_page"] = 10;
+          }
+          if (!this._activatedRoute.snapshot.queryParams["status"] && user.role) {
+            switch (user.role) {
+              case "accounts":
+                newParams["status"] = "opened";
+                break;
+              case "store_dispatch":
+                newParams["status"] = "processing";
+                break;
+              case "store_logistics":
+                newParams["status"] = "dispatch_ready";
+                break;
+              case "sales":
+                newParams["status"] = "inprocess";
+                break;
+              default:
+                newParams["status"] = "can_modify";
+                break;
+            }
+          }
+          this._router.navigate(["dashboard", "purchase-orders"], { queryParams: { ...this._activatedRoute.snapshot.queryParams, ...newParams } })
+        } else {
+          this._router.navigate(["403-forbidden"]);
         }
       }
-      user.role ? this._router.navigate(["dashboard", "purchase-orders"], { queryParams: { ...this._activatedRoute.snapshot.queryParams, ...newParams } }) : null
     });
   }
 

@@ -1,8 +1,13 @@
-<section class="container-fluid">
+<section class="container">
   <div class="d-flex align-items-center justify-content-between">
-    <button (click)="_location.back()" class="btn btn-primary text-light">
-      <i class="fas fa-arrow-left mr-2"></i>Go back</button>
+    <a routerLink="../" class="btn btn-primary text-light">
+      <i class="fas fa-arrow-left mr-2"></i>Go back</a>
     <h4 class="text-grey-dark m-0">User details</h4>
+  </div>
+  <div class="d-flex justify-content-end mt-3">
+    <button class="ml-2" mat-stroked-button color="primary" (click)="changePassword()">Change password</button>
+    <a mat-stroked-button class="ml-2" color="warn" routerLink="../edit" [queryParams]="{id: user.id}">Edit</a>
+    <button class="ml-2" mat-stroked-button color="warn" (click)="deleteUser()">Delete</button>
   </div>
   <div class="details">
     <div class="row justify-content-center align-items-stretch">
@@ -26,7 +31,8 @@
               </ng-container>
             </div>
             <div class="text-right">
-              <h6 class="d-inline-block font-weight-bold bg-primary text-right p-1 text-light rounded">{{user.getRole() | ucfirst}}</h6>
+              <h6 class="d-inline-block font-weight-bold bg-primary text-right p-1 text-light rounded">{{user.getRole() | titlecase}}
+              </h6>
             </div>
           </div>
         </div>
@@ -39,7 +45,7 @@
             <h6 class="text-grey-dark">Phone:</h6>
             <h6 class="ml-3">{{user.details.contact}}</h6>
             <h6 class="text-grey-dark">Address:</h6>
-            <h6 style="white-space: pre-line" class="ml-3">{{user.details.address}}</h6>
+            <h6 style="white-space: pre-line" class="ml-3">{{user.details.address ? user.details.address : '-'}}</h6>
             <ng-container *ngIf="user.details.gstn">
               <h6 class="text-grey-dark">GSTN:</h6>
               <h6 style="white-space: pre-line" class="ml-3">{{user.details.gstn | uppercase}}</h6>

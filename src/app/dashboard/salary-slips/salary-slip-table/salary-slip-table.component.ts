@@ -28,7 +28,7 @@ export class SalarySlipTableComponent implements OnInit, OnDestroy {
     private _activatedRoute: ActivatedRoute,
     private _router: Router
   ) {
-    this._activatedRoute.queryParams.subscribe(params => {
+    this.routerSubscription$ = this._activatedRoute.queryParams.subscribe(params => {
       this.queryParams = params;
       if (params["page"]) {
         this.pageEvent.pageIndex = +params["page"] - 1;

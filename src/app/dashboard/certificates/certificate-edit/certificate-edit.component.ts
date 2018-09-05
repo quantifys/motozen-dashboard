@@ -2,9 +2,10 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { ActivatedRoute } from '@angular/router';
-import { Location } from '@angular/common';
-import * as moment from 'moment';
+import { MomentDateAdapter } from '@angular/material-moment-adapter';
+import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
 import { Subscription } from 'rxjs';
+import moment from 'moment';
 
 import * as fromRoot from "../../../shared/reducers";
 import * as certificateActions from "../../../shared/actions/certificate.actions";
@@ -12,16 +13,29 @@ import * as deviceActions from "../../../shared/actions/device.actions";
 import { Device, Rto, User, Certificate } from '../../../shared/models';
 import { RtoService } from '../../../shared/services/rto.service';
 
-declare var $: any;
+export const MY_FORMATS = {
+  parse: {
+    dateInput: 'LL',
+  },
+  display: {
+    dateInput: 'LL',
+    monthYearLabel: 'MMM YYYY',
+    dateA11yLabel: 'LL',
+    monthYearA11yLabel: 'MMMM YYYY',
+  },
+};
 
 @Component({
   selector: 'app-certificate-edit',
   templateUrl: './certificate-edit.component.html',
-  styleUrls: ['./certificate-edit.component.scss']
+  styleUrls: ['./certificate-edit.component.scss'],
+  providers: [
+    { provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE] },
+    { provide: MAT_DATE_FORMATS, useValue: MY_FORMATS },
+  ]
 })
 export class CertificateEditComponent implements OnInit, OnDestroy {
 
-  model;
   public certificateForm: FormGroup;
   public addCertificate: boolean;
   public devices: Device[] = [];
@@ -38,9 +52,9 @@ export class CertificateEditComponent implements OnInit, OnDestroy {
     private _store: Store<fromRoot.State>,
     private _activatedRoute: ActivatedRoute,
     private _fb: FormBuilder,
-    public _location: Location,
     private _rtoService: RtoService
   ) {
+    this._store.dispatch(new certificateActions.ClearCertificateDataAction);
     this.certificate = new Certificate({});
     this.loadFormdata();
     this._activatedRoute.queryParams.subscribe(params => {
@@ -65,7 +79,7 @@ export class CertificateEditComponent implements OnInit, OnDestroy {
         this.certificateForm.patchValue(certificate);
         this.device_id.patchValue(certificate.device.id);
         this.vehicle_id.patchValue(certificate.vehicle.id);
-        this.vehicle_make.patchValue(certificate.vehicle.make, {emitEvent: false});
+        this.vehicle_make.patchValue(certificate.vehicle.make, { emitEvent: false });
       }
     });
     this._store.select(fromRoot.getLoggedUser).subscribe(user => {
@@ -175,28 +189,15 @@ export class CertificateEditComponent implements OnInit, OnDestroy {
     }));
   }
 
-  optionSelected(event, type) {
-    this.certificateForm.markAsDirty();
-    this.certificateForm.get(type).patchValue(event.option.value);
-  }
-
   getModels(): any[] {
-    return this.formdata.vehicle_makes[this.vehicle_make.value];
-  }
-
-  displayFn(car): string | undefined {
-    return car ? car.model : undefined;
-  }
-
-  displayDevice(device: Device): string | undefined {
-    return device ? device.sld_number : undefined;
+    if (this.formdata) {
+      return this.formdata.vehicle_makes[this.vehicle_make.value];
+    }
+    return;
   }
 
   formListener() {
-    this.vehicle_make.valueChanges.subscribe(value => {
-      this.vehicle_id.patchValue(null, { emitEvent: false });
-      $("#model").val(null);
-    });
+    this.vehicle_make.valueChanges.subscribe(value => this.vehicle_id.patchValue(null, { emitEvent: false }));
   }
 
   validateForm() {
@@ -232,9 +233,7 @@ export class CertificateEditComponent implements OnInit, OnDestroy {
     delete formData["vehicle_make"];
     formData["mfg_month_year"] = moment(new Date(formData["mfg_month_year"]).toISOString()).format("YYYY-MM-DD");
     formData["reg_month_year"] = moment(new Date(formData["reg_month_year"]).toISOString()).format("YYYY-MM-DD");
-    formData["vehicle_id"] = formData["vehicle_id"]["id"];
     if (this.addCertificate) {
-      formData["device_id"] = formData["device_id"]["id"];
       formData["customer_address"] = formData.address_l1 + ", " + formData.address_l2 + ", " + formData.locality + ", " + formData.city + " - " + formData.pincode;
       delete formData['address_l1'];
       delete formData['address_l2'];

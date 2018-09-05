@@ -1,58 +1,54 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Subscription } from 'rxjs';
+import { Subscription, timer } from 'rxjs';
+import { debounce } from 'rxjs/operators';
 import { Store } from '@ngrx/store';
 import { ActivatedRoute, Router } from '@angular/router';
-import { MomentDateAdapter } from '@angular/material-moment-adapter';
-import { DateAdapter, MAT_DATE_LOCALE, MAT_DATE_FORMATS } from '@angular/material';
-import * as moment from 'moment';
-import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
+import { MatBottomSheet } from '@angular/material';
+import { FormBuilder, FormGroup, FormControl } from '@angular/forms';
 
 import * as fromRoot from '../../shared/reducers';
 import { User } from '../../shared/models';
-
-
-export const MY_FORMATS = {
-  parse: {
-    dateInput: 'LL',
-  },
-  display: {
-    dateInput: 'LL',
-    monthYearLabel: 'MMM YYYY',
-    dateA11yLabel: 'LL',
-    monthYearA11yLabel: 'MMMM YYYY',
-  },
-};
+import { CertificateFilterComponent } from './certificate-filter/certificate-filter.component';
 
 @Component({
   selector: 'app-certificates',
   templateUrl: './certificates.component.html',
-  styleUrls: ['./certificates.component.scss'],
-  providers: [
-    { provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE] },
-    { provide: MAT_DATE_FORMATS, useValue: MY_FORMATS }
-  ]
+  styleUrls: ['./certificates.component.scss']
 })
 export class CertificatesComponent implements OnInit, OnDestroy {
 
   private userSubscription$: Subscription = new Subscription();
   public loggedUser: User = new User({});
-  public filterForm: FormGroup;
-
-  public startMax: Date = new Date(moment().subtract(1, 'days').format());
-  public endMin: Date;
-  public endMax: Date = new Date();
+  public searchForm: FormGroup;
 
   constructor(
     private _store: Store<fromRoot.State>,
     private _router: Router,
     private _fb: FormBuilder,
-    private _activatedRoute: ActivatedRoute
+    private _activatedRoute: ActivatedRoute,
+    private bottomSheet: MatBottomSheet
   ) {
     this.userSubscription$ = this._store.select(fromRoot.getLoggedUser).subscribe(user => {
       this.loggedUser = user;
-      if (!this._activatedRoute.snapshot.queryParams["status"]) {
-        if (user.role == 'distributor' || user.role == 'store_purchases') {
-          this._router.navigate(["dashboard", "certificates"], { queryParams: { status: 'can_modify' } });
+      if (user.role) {
+        if (user.role == 'distributor' || user.role == 'dealer' || user.role == 'sales') {
+          let newParams: any = {};
+          if (!this._activatedRoute.snapshot.queryParams["status"]) {
+            newParams["status"] = "can_modify";
+          }
+          if (!this._activatedRoute.snapshot.queryParams["page"]) {
+            newParams["page"] = 1;
+          }
+          if (!this._activatedRoute.snapshot.queryParams["per_page"]) {
+            newParams["per_page"] = 10;
+          }
+          if (this._activatedRoute.snapshot.queryParams["reg"] || this._activatedRoute.snapshot.queryParams["sld"] || this._activatedRoute.snapshot.queryParams["cert"]) {
+            this.search_type.patchValue(this._activatedRoute.snapshot.queryParams["reg"] ? "reg" : this._activatedRoute.snapshot.queryParams["cert"] ? "cert" : "sld", { emitEvent: false });
+            this.search.patchValue(this._activatedRoute.snapshot.queryParams["reg"] ? this._activatedRoute.snapshot.queryParams["reg"] : this._activatedRoute.snapshot.queryParams["cert"] ? this._activatedRoute.snapshot.queryParams["cert"] : this._activatedRoute.snapshot.queryParams["sld"], { emitEvent: false });
+          }
+          this._router.navigate(["dashboard", "certificates"], { queryParams: { ...this._activatedRoute.snapshot.queryParams, ...newParams } });
+        } else {
+          this._router.navigate(["403-forbidden"]);
         }
       }
     });
@@ -60,26 +56,7 @@ export class CertificatesComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.buildForm();
-    this._activatedRoute.queryParams.subscribe(params => {
-      if (params["start_date"]) {
-        this.start.patchValue(new Date(params["start_date"]));
-      }
-      if (params["end_date"]) {
-        this.end.patchValue(new Date(params["end_date"]));
-      }
-    });
-    this.start.valueChanges.subscribe(value => {
-      this.end.value ? null : this.end.patchValue(new Date(), { emitEvent: false })
-      this.endMin = new Date(moment(this.start.value).add(1, "days").format());
-      this._router.navigate(["dashboard", "certificates"], {
-        queryParams: { ...this._activatedRoute.snapshot.queryParams, "start_date": moment(this.start.value).format('YYYY-MM-DD') },
-      });
-    });
-    this.end.valueChanges.subscribe(value => {
-      this._router.navigate(["dashboard", "certificates"], {
-        queryParams: { ...this._activatedRoute.snapshot.queryParams, "end_date": moment(this.end.value).format('YYYY-MM-DD') },
-      });
-    });
+    this.formListener();
   }
 
   ngOnDestroy() {
@@ -87,22 +64,53 @@ export class CertificatesComponent implements OnInit, OnDestroy {
   }
 
   buildForm() {
-    this.filterForm = this._fb.group({
-      start: null,
-      end: null
+    this.searchForm = this._fb.group({
+      search: null,
+      search_type: 'cert'
     });
   }
 
-  get start(): FormControl {
-    return this.filterForm.get('start') as FormControl;
+  get search(): FormControl {
+    return this.searchForm.get('search') as FormControl;
   }
 
-  get end(): FormControl {
-    return this.filterForm.get('end') as FormControl;
+  get search_type(): FormControl {
+    return this.searchForm.get('search_type') as FormControl;
   }
 
   getQueryParams(type: string): any {
     return { ...this._activatedRoute.snapshot.queryParams, status: type }
+  }
+
+  openFilters() {
+    this.bottomSheet.open(CertificateFilterComponent);
+  }
+
+  formListener() {
+    this.search.valueChanges.pipe(debounce(() => timer(400))).subscribe(value => this.makeSearchRequest());
+    this.search_type.valueChanges.subscribe(value => this.makeSearchRequest());
+  }
+
+  makeSearchRequest() {
+    this._router.navigate(["dashboard", "certificates"], {
+      queryParams: {
+        ...this._activatedRoute.snapshot.queryParams,
+        reg: this.search_type.value == 'reg' ? this.search.value : null,
+        certificate_number: this.search_type.value == 'cert' ? this.search.value : null,
+        sld: this.search_type.value == 'sld' ? this.search.value : null
+      }
+    });
+  }
+
+  getSearchPlaceholder(): string {
+    switch (this.search_type.value) {
+      case 'reg':
+        return "Search by Registration No.";
+      case 'sld':
+        return "Search by SLD No.";
+      default:
+        return "Search by Certificate No.";
+    }
   }
 
 }

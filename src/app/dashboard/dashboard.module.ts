@@ -1,11 +1,13 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Routes, RouterModule } from '@angular/router';
+import { MatDatepickerModule, NativeDateModule, MatFormFieldModule, MatInputModule, MatButtonModule } from '@angular/material';
+import { ReactiveFormsModule } from '@angular/forms';
+import { Angular2TokenService } from 'angular2-token';
 
 import { DashboardComponent } from './dashboard.component';
 import { SideNavComponent } from './side-nav/side-nav.component';
-import { Angular2TokenService } from 'angular2-token';
-import { NgStringPipesModule } from 'ngx-pipes';
+import { DateFilterComponent } from './date-filter/date-filter.component';
 
 const routes: Routes = [
   {
@@ -81,9 +83,15 @@ const routes: Routes = [
 @NgModule({
   imports: [
     CommonModule,
-    NgStringPipesModule,
+    ReactiveFormsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatDatepickerModule,
+    MatButtonModule,
+    NativeDateModule,
     RouterModule.forChild(routes)
   ],
-  declarations: [DashboardComponent, SideNavComponent]
+  declarations: [DashboardComponent, SideNavComponent, DateFilterComponent],
+  entryComponents: [DateFilterComponent]
 })
 export class DashboardModule { }

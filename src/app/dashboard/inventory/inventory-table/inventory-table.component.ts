@@ -1,9 +1,8 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Store } from '@ngrx/store';
-import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { PaginationInstance } from 'ngx-pagination';
-import swal from 'sweetalert2';
+import { Store } from '@ngrx/store';
+import { ActivatedRoute, Router } from '@angular/router';
+import { PageEvent } from '@angular/material';
 
 import * as fromRoot from '../../../shared/reducers';
 import * as inventoryActions from '../../../shared/actions/inventory.actions';
@@ -17,57 +16,59 @@ import { Inventory } from '../../../shared/models';
 export class InventoryTableComponent implements OnInit, OnDestroy {
 
   private routerSubscription$: Subscription = new Subscription();
-  public category: string = 'automotive_connector';
-  public inventory: Inventory[] = [];
-  public filteredInventory: Inventory[] = [];
+  private pageSubscription$: Subscription = new Subscription();
+  private inventorySubscription$: Subscription = new Subscription();
+  public queryParams: any = {};
+  public inventories: Inventory[] = [];
   public loading: boolean = false;
-  public config: PaginationInstance = {
-    itemsPerPage: 20,
-    currentPage: 1,
-    totalItems: this.inventory.length
-  };
+  public pageEvent: PageEvent = new PageEvent();
 
   constructor(
     private _store: Store<fromRoot.State>,
-    private _activatedRoute: ActivatedRoute
+    private _activatedRoute: ActivatedRoute,
+    private _router: Router
   ) {
-    this._store.dispatch(new inventoryActions.FetchAllInventoriesAction);
     this.routerSubscription$ = this._activatedRoute.queryParams.subscribe(params => {
-      this.category = params["category"];
-      this.filterInventory();
-    });
-  }
-  
-  ngOnInit() {
-    this._store.select(fromRoot.getAllInventories).subscribe(inventory => {
-      this.loading = false;
-      this.inventory = inventory;
-      this.filterInventory();
-    });
-  }
-
-  ngOnDestroy() {
-    this.routerSubscription$.unsubscribe();
-  }
-
-  filterInventory() {
-    this.filteredInventory = this.inventory.filter(item => item.category == this.category);
-  }
-
-  deleteItem(id: number) {
-    swal({
-      title: 'Are you sure?',
-      text: 'Delete item!',
-      type: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Yes, delete!'
-    }).then((result) => {
-      if (result.value) {
-        this._store.dispatch(new inventoryActions.DeleteInventoryAction(id));
+      this.queryParams = params;
+      if (params["page"]) {
+        this.pageEvent.pageIndex = +params["page"] - 1;
+      }
+      if (params["per_page"]) {
+        this.pageEvent.pageSize = +params["per_page"];
+      }
+      if (params["page"] && params["per_page"] && params["category"]) {
+        this.fetchInventories();
       }
     });
   }
 
+  ngOnInit() {
+    this.inventorySubscription$ = this._store.select(fromRoot.getAllInventories).subscribe(inventories => {
+      this.loading = false;
+      this.inventories = inventories;
+    });
+    this.pageSubscription$ = this._store.select(fromRoot.getInventoryPageStatus).subscribe(pageData => this.pageEvent.length = pageData.total);
+  }
+
+  ngOnDestroy() {
+    this.routerSubscription$.unsubscribe();
+    this.inventorySubscription$.unsubscribe();
+    this.pageSubscription$.unsubscribe();
+  }
+
+  fetchInventories() {
+    this.loading = true;
+    this._store.dispatch(new inventoryActions.FetchAllInventoriesAction(this.queryParams));
+  }
+
+  getPage(pageEvent: PageEvent) {
+    this.pageEvent = pageEvent;
+    this._router.navigate(["dashboard", "inventory"], {
+      queryParams: {
+        ...this.queryParams,
+        page: pageEvent.pageIndex + 1,
+        per_page: pageEvent.pageSize
+      }
+    });
+  }
 }
