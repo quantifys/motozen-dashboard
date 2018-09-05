@@ -102,7 +102,10 @@ export class PurchaseOrderEffects {
     map((action: fromPurchaseOrder.ConfirmPurchaseOrderAction) => action.payload),
     exhaustMap(body => this._tokenService.post(`purchase_orders/${this.purchaseOrder.id}/processing`, body)
       .pipe(
-        map(response => new fromPurchaseOrder.ConfirmPurchaseOrderCompleteAction(response.json().message)),
+        map(response => {
+          this._router.navigate(["dashboard", "purchase-orders"]);
+          return new fromPurchaseOrder.ConfirmPurchaseOrderCompleteAction(response.json().message);
+        }),
         catchError(error => of(new fromPurchaseOrder.ConfirmPurchaseOrderFailedAction(error.json().message)))
       ))
   );
@@ -112,7 +115,10 @@ export class PurchaseOrderEffects {
     map((action: fromPurchaseOrder.DispatchPurchaseOrderAction) => action.payload),
     exhaustMap(body => this._tokenService.post(`purchase_orders/${this.purchaseOrder.id}/dispatch`, body)
       .pipe(
-        map(response => new fromPurchaseOrder.DispatchPurchaseOrderCompleteAction(response.json().message)),
+        map(response => {
+          this._router.navigate(["dashboard", "purchase-orders"]);
+          return new fromPurchaseOrder.DispatchPurchaseOrderCompleteAction(response.json().message)
+        }),
         catchError(error => of(new fromPurchaseOrder.DispatchPurchaseOrderFailedAction(error.json().message)))
       ))
   );
@@ -122,7 +128,10 @@ export class PurchaseOrderEffects {
     map((action: fromPurchaseOrder.ClosePurchaseOrderAction) => action.payload),
     exhaustMap(body => this._tokenService.post(`purchase_orders/${this.purchaseOrder.id}/close`, body)
       .pipe(
-        map(response => new fromPurchaseOrder.ClosePurchaseOrderCompleteAction(response.json().message)),
+        map(response => {
+          this._router.navigate(["dashboard", "purchase-orders"]);
+          return new fromPurchaseOrder.ClosePurchaseOrderCompleteAction(response.json().message)
+        }),
         catchError(error => of(new fromPurchaseOrder.ClosePurchaseOrderFailedAction(error.json().message)))
       ))
   );

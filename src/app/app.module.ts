@@ -28,6 +28,7 @@ import { VendorEffects } from './shared/effects/vendor.effects';
 
 import { RtoService } from './shared/services/rto.service';
 import { CertificateService } from './shared/services/certificate.service';
+import { PurchaseOrderService } from './shared/services/purchase-order.service';
 
 @NgModule({
   declarations: [
@@ -59,7 +60,7 @@ import { CertificateService } from './shared/services/certificate.service';
       logOnly: environment.production // Restrict extension to log-only mode
     })
   ],
-  providers: [Angular2TokenService, RtoService, CertificateService],
+  providers: [Angular2TokenService, RtoService, CertificateService, PurchaseOrderService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
