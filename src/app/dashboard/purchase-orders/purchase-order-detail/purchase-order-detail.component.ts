@@ -11,6 +11,7 @@ import { PurchaseOrder, User } from '../../../shared/models';
 import { PurchaseOrderOpenComponent, PurchaseOrderDeleteComponent } from '../purchase-order-open/purchase-order-open.component';
 import { PurchaseOrderConfirmComponent } from '../purchase-order-confirm/purchase-order-confirm.component';
 import { PurchaseOrderCloseComponent } from '../purchase-order-close/purchase-order-close.component';
+import { PurchaseOrderService } from '../../../shared/services/purchase-order.service';
 
 @Component({
   selector: 'app-purchase-order-detail',
@@ -30,7 +31,8 @@ export class PurchaseOrderDetailComponent implements OnInit, OnDestroy {
     private _router: Router,
     public _location: Location,
     private _store: Store<fromRoot.State>,
-    private bottomSheet: MatBottomSheet
+    private bottomSheet: MatBottomSheet,
+    private _poService: PurchaseOrderService
   ) {
     this.userSubscription$ = this._store.select(fromRoot.getLoggedUser).subscribe(user => this.loggedUser = user);
     this.routerSubscription$ = this._activatedRoute.queryParams.subscribe(params => {
@@ -66,5 +68,9 @@ export class PurchaseOrderDetailComponent implements OnInit, OnDestroy {
 
   closePurchaseOrder() {
     this.bottomSheet.open(PurchaseOrderCloseComponent);
+  }
+
+  poActions(type: boolean) {
+    type ? this._poService.downloadPurchaseOrder() : this._poService.printPurchaseOrder()
   }
 }

@@ -9,6 +9,7 @@ import * as fromRoot from '../../../shared/reducers';
 import * as requisitionOrderActions from '../../../shared/actions/requisition-order.actions';
 import { RequisitionOrder, User } from '../../../shared/models';
 import { RequisitionOrderOpenComponent, RequisitionOrderCloseComponent, RequisitionOrderDeleteComponent } from '../requisition-order-controls/requisition-order-controls.component';
+import { RequisitionOrderService } from '../../../shared/services/requisition-order.service';
 
 @Component({
   selector: 'app-requisition-order-detail',
@@ -28,7 +29,8 @@ export class RequisitionOrderDetailComponent implements OnInit {
     private _router: Router,
     public _location: Location,
     private _store: Store<fromRoot.State>,
-    private bottomSheet: MatBottomSheet
+    private bottomSheet: MatBottomSheet,
+    private _requisitionService: RequisitionOrderService
   ) {
     this.userSubscription$ = this._store.select(fromRoot.getLoggedUser).subscribe(user => this.loggedUser = user);
     this.routerSubscription$ = this._activatedRoute.queryParams.subscribe(params => {
@@ -60,6 +62,10 @@ export class RequisitionOrderDetailComponent implements OnInit {
 
   deleteRequisitionOrder() {
     this.bottomSheet.open(RequisitionOrderDeleteComponent);
+  }
+
+  reqActions(type: boolean) {
+    type ? this._requisitionService.downloadRequisition() : this._requisitionService.printRequisition()
   }
 
 }

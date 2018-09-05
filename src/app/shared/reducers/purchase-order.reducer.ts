@@ -75,7 +75,6 @@ export function reducer(state = initialState, action: purchaseOrderActions.Actio
         purchaseOrderFormData: action.payload
       });
     case purchaseOrderActions.FETCH_PURCHASE_ORDER_FILTER_DATA_COMPLETE_ACTION:
-      console.log(action.payload);
       return Object.assign({}, state, {
         distributors: [...action.payload.distributors.filter(user => new User(user))]
       });

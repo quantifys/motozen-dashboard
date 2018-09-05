@@ -8,6 +8,7 @@ import * as fromRoot from '../../../shared/reducers';
 import * as certificateActions from '../../../shared/actions/certificate.actions';
 import { Certificate } from '../../../shared/models';
 import { CertificateIssueComponent, CertificateDeleteComponent } from '../certificate-controls/certificate-controls.component';
+import { CertificateService } from '../../../shared/services/certificate.service';
 
 @Component({
   selector: 'app-certificate-detail',
@@ -23,7 +24,8 @@ export class CertificateDetailComponent implements OnInit {
     private _router: Router,
     public _location: Location,
     private _store: Store<fromRoot.State>,
-    private bottomSheet: MatBottomSheet
+    private bottomSheet: MatBottomSheet,
+    private _certificateService: CertificateService
   ) {
     this._activatedRoute.queryParams.subscribe(params => {
       if (params["id"]) {
@@ -44,6 +46,10 @@ export class CertificateDetailComponent implements OnInit {
 
   deleteCertificate() {
     this.bottomSheet.open(CertificateDeleteComponent);
+  }
+
+  certificateAction(type: boolean) {
+    this._certificateService.certificateActions(type);
   }
 
 }

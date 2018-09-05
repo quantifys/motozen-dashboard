@@ -55,11 +55,11 @@ export function reducer(state = initialState, action: requisitionOrderActions.Ac
       });
     case requisitionOrderActions.OPEN_REQUISITION_ORDER_COMPLETE_ACTION:
       return Object.assign({}, state, {
-        currentRequisitionOrder: new RequisitionOrder({})
+        currentRequisitionOrder: new RequisitionOrder(action.payload)
       });
     case requisitionOrderActions.CLOSE_REQUISITION_ORDER_COMPLETE_ACTION:
       return Object.assign({}, state, {
-        currentRequisitionOrder: new RequisitionOrder({})
+        currentRequisitionOrder: new RequisitionOrder(action.payload)
       });
     case requisitionOrderActions.FETCH_REQUISITION_ORDER_FORM_DATA_COMPLETE_ACTION:
       return Object.assign({}, state, {

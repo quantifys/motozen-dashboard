@@ -16,8 +16,11 @@
     </ng-container>
 
     <ng-container *ngIf="loggedUser.role == 'store_dispatch' && purchaseOrder.status == 'processing'">
-      <a class="mr-2" mat-stroked-button color="warn" routerLink="../dispatch" [queryParams]="{id: purchaseOrder.id}">Dispatch ready</a>
-      <a class="mr-2" mat-stroked-button color="primary" routerLink="../print-preview" [queryParams]="{id: purchaseOrder.id}">Print preview</a>
+      <a class="mr-2" mat-stroked-button color="warn" routerLink="../dispatch" [queryParams]="{id: purchaseOrder.id}">Dispatch
+        ready
+      </a>
+      <button class="mr-2" mat-stroked-button color="primary" (click)="poActions(true)">Download</button>
+      <button class="mr-2" mat-stroked-button color="primary" (click)="poActions(false)">Print</button>
     </ng-container>
 
     <ng-container *ngIf="loggedUser.role == 'store_logistics' && purchaseOrder.status == 'dispatch_ready'">
@@ -84,7 +87,8 @@
           <h6 class="text-grey-dark">Shipping GST:</h6>
           <h6 class="ml-3">{{purchaseOrder.shipping_gst != null ? (purchaseOrder.shipping_gst + '%') : '-'}}</h6>
           <h6 class="text-grey-dark">Shipping Total:</h6>
-          <h6 class="ml-3">{{purchaseOrder.getShippingTotal() != null ? (purchaseOrder.getShippingTotal() | currency: 'INR') : '-'}}</h6>
+          <h6 class="ml-3">{{purchaseOrder.getShippingTotal() != null ? (purchaseOrder.getShippingTotal() | currency: 'INR')
+            : '-'}}</h6>
           <h6 class="text-grey-dark">Shipping GSTN:</h6>
           <h6 class="ml-3">{{purchaseOrder.shipping_gstn ? purchaseOrder.shipping_gstn : '-'}}</h6>
           <h6 class="text-grey-dark">Shipping Date:</h6>

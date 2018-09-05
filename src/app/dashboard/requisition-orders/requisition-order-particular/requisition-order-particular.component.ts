@@ -20,7 +20,7 @@ export class RequisitionOrderParticularComponent implements OnInit, OnDestroy {
   constructor(
     private _store: Store<fromRoot.State>
   ) {
-    this._store.select(fromRoot.getRequisitionOrderFormdata).subscribe(data => data ? this.inventory = data.filter(item => new Inventory(item)) : null);
+    this._store.select(fromRoot.getRequisitionOrderFormdata).subscribe(data => data ? this.inventory = data.inventory_items.filter(item => new Inventory(item)) : null);
   }
 
   ngOnInit() {

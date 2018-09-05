@@ -12,7 +12,9 @@
       <button *ngIf="loggedUser.role == 'store_purchases'" class="ml-2" mat-stroked-button color="warn" [disabled]="!requisitionOrder.openReady()" (click)="openRequisitionOrder()">Mark open</button>
     </ng-container>
     <ng-container *ngIf="requisitionOrder.status == 'opened'">
-      <button mat-stroked-button color="warn" (click)="closeRequisitionOrder()">Close</button>
+      <button mat-stroked-button color="primary" (click)="reqActions(true)">Download</button>
+      <button class="ml-2" mat-stroked-button color="primary" (click)="reqActions(false)">Print</button>
+      <button class="ml-2" mat-stroked-button color="warn" (click)="closeRequisitionOrder()">Mark closed</button>
     </ng-container>
   </div>
 

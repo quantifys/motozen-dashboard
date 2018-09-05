@@ -53,3 +53,13 @@ export class State {
     this.name = data.name ? data.name : null;
   }
 }
+
+export class IcatData {
+  public url: string;
+  public data: string;
+
+  constructor(data: any) {
+    this.url = data.url ? data.url : null;
+    this.data = data.data ? data.data : null;
+  }
+}
