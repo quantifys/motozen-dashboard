@@ -1,0 +1,32 @@
+<section class="container">
+  <div class="header d-flex align-items-center">
+    <h4 class="text-grey-dark m-0">Device List</h4>
+    <div class="ml-auto">
+      <a class="btn btn-primary" routerLink="transfer" *ngIf="loggedUser.role == 'distributor'">
+        <i class="fas fa-desktop mr-2"></i>Transfer stock</a>
+      <a class="btn btn-primary" routerLink="edit" [queryParams]="{type: 'new'}" *ngIf="loggedUser.role == 'store_purchases'">
+        <i class="fas fa-desktop mr-2"></i>Add Devices</a>
+    </div>
+  </div>
+  <div class="content mt-4">
+    <nav mat-tab-nav-bar>
+      <ng-container *ngIf="loggedUser.role == 'manufacturer' || loggedUser.role == 'store_purchases'">
+        <a mat-tab-link routerLink="../" [queryParams]="getQueryParams('unsold')" routerLinkActive #unsold="routerLinkActive" [active]="unsold.isActive">
+          <strong>Unsold</strong>
+        </a>
+        <a mat-tab-link routerLink="../" [queryParams]="getQueryParams('dispatch')" routerLinkActive #dispatch="routerLinkActive"
+          [active]="dispatch.isActive">
+          <strong>Dispatched</strong>
+        </a>
+      </ng-container>
+      <a mat-tab-link routerLink="../" [queryParams]="getQueryParams('sold')" routerLinkActive #sold="routerLinkActive" [active]="sold.isActive">
+        <strong>{{(loggedUser.role != 'manufacturer' && loggedUser.role != 'store_purchases') ? 'Current stock' : 'Sold'}}</strong>
+      </a>
+      <a mat-tab-link routerLink="../" [queryParams]="getQueryParams('certified')" routerLinkActive #certified="routerLinkActive"
+        [active]="certified.isActive">
+        <strong>Certified</strong>
+      </a>
+    </nav>
+    <device-table></device-table>
+  </div>
+</section>

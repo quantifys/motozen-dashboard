@@ -1,0 +1,118 @@
+<section class="container">
+  <div class="d-flex align-items-center justify-content-between">
+    <button (click)="_location.back()" class="btn btn-primary text-light">
+      <i class="fas fa-arrow-left mr-2"></i>Go back</button>
+    <h4 class="text-grey-dark m-0">Receive note details</h4>
+  </div>
+
+  <div class="d-flex justify-content-end mt-3" *ngIf="receiveNote.status == 'can_modify'">
+    <a mat-stroked-button color="primary" routerLink="../edit" [queryParams]="{id: receiveNote.id}">Edit</a>
+    <button class="ml-2" mat-stroked-button color="warn" (click)="deleteReceiveNote()">Delete</button>
+    <button class="ml-2" mat-stroked-button color="warn" (click)="confirmReceiveNote()">Confirm</button>
+  </div>
+
+
+  <div class="row justify-content-center mt-4">
+    <div class="col-lg-4">
+      <div class="card" id="print">
+        <div class="card-body">
+          <h6 class="text-grey-dark font-weight-bold mb-3">
+            <i class="fas fa-info-circle mr-2 fa-fw text-primary"></i>Receive note details</h6>
+          <h6 class="text-grey-dark">Serial Number:</h6>
+          <h6 class="ml-3">{{receiveNote.serial_no}}</h6>
+          <h6 class="text-grey-dark">Status:</h6>
+          <h6 class="ml-3">{{receiveNote.status == 'can_modify' ? 'Awaiting confirmation' : (receiveNote.status | titlecase)}}</h6>
+          <h6 class="text-grey-dark">Raised On:</h6>
+          <h6 class="ml-3">{{receiveNote.created_at | date: 'fullDate'}}</h6>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-4">
+      <div class="card">
+        <div class="card-body">
+          <h6 class="text-grey-dark font-weight-bold mb-3">
+            <i class="fas fa-info-circle mr-2 fa-fw text-primary"></i>Amount details</h6>
+          <h6 class="text-grey-dark">Expenses:</h6>
+          <h6 class="ml-3">{{receiveNote.expenses | currency: 'INR'}}</h6>
+          <h6 class="text-grey-dark">Grand Total:</h6>
+          <h6 class="ml-3">{{receiveNote.total | currency: 'INR'}}</h6>
+          <h6 class="text-grey-dark">GSTN:</h6>
+          <h6 class="ml-3">{{receiveNote.gstn | uppercase}}</h6>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-4">
+      <div class="card">
+        <div class="card-body">
+          <h6 class="text-grey-dark font-weight-bold mb-3">
+            <i class="fas fa-info-circle mr-2 fa-fw text-primary"></i>Freight details</h6>
+          <h6 class="text-grey-dark">Amount:</h6>
+          <h6 class="ml-3">{{receiveNote.freight | currency: 'INR'}}</h6>
+          <h6 class="text-grey-dark">GST:</h6>
+          <h6 class="ml-3">{{receiveNote.freight_gst}}%</h6>
+          <h6 class="text-grey-dark">Total:</h6>
+          <h6 class="ml-3">{{receiveNote.getFreightTotal() | currency: 'INR'}}</h6>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-12">
+      <div class="table-container mt-4">
+        <div class="table-responsive">
+          <table class="table table-hover w-100 rounded table-striped text-center m-0">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>ITEM ID</th>
+                <th>QUANTITY</th>
+                <th>UNIT PRICE</th>
+                <th>PRICE</th>
+                <th>GST AMOUNT</th>
+                <th>TOTAL</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let particular of receiveNote.rn_particulars; let i = index">
+                <td>{{i+1}}</td>
+                <td>{{particular.inventory_item.item_code}} - {{particular.inventory_item.description}}</td>
+                <td>{{particular.quantity}}</td>
+                <td>{{particular.unit_price | currency: 'INR'}}</td>
+                <td>{{(particular.unit_price * particular.quantity) | currency: 'INR'}}</td>
+                <td>{{particular.getGstAmount() | currency: 'INR'}} <span class="text-muted">({{particular.gst}}%)</span></td>
+                <td>{{particular.total | currency: 'INR'}}</td>
+              </tr>
+            </tbody>
+            <tfoot>
+              <tr>
+                <td colspan="5"></td>
+                <td class="text-muted">
+                  <strong>EXPENSES</strong>
+                </td>
+                <td class="text-muted">
+                  <strong>+ {{receiveNote.expenses | currency: 'INR'}}</strong>
+                </td>
+              </tr>
+              <tr>
+                <td colspan="5"></td>
+                <td class="text-muted">
+                  <strong>FREIGHT TOTAL</strong>
+                </td>
+                <td class="text-muted">
+                  <strong>+ {{receiveNote.getFreightTotal() | currency: 'INR'}}</strong>
+                </td>
+              </tr>
+              <tr>
+                <td colspan="5"></td>
+                <td class="text-muted">
+                  <strong>GRAND TOTAL</strong>
+                </td>
+                <td class="text-muted">
+                  <strong>{{receiveNote.total | currency: 'INR'}}</strong>
+                </td>
+              </tr>
+            </tfoot>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

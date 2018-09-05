@@ -1,0 +1,26 @@
+<ng-container [formGroup]="particularForm">
+  <div class="col-lg-4">
+    <ng-select [items]="inventory" bindLabel="description" bindValue="id" formControlName="inventory_item_id" placeholder="Select Inventory"></ng-select>
+  </div>
+  <div class="col-lg-2">
+    <mat-form-field class="w-100">
+      <input matInput type="number" placeholder="Quantity" formControlName="quantity">
+    </mat-form-field>
+  </div>
+  <div class="col-lg-2">
+    <mat-form-field class="w-100">
+      <input matInput type="number" placeholder="Price" formControlName="unit_price">
+    </mat-form-field>
+  </div>
+  <div class="col-lg-1">
+    <mat-form-field class="w-100">
+      <input matInput type="number" placeholder="GST" formControlName="gst">
+    </mat-form-field>
+  </div>
+  <div class="col-lg-2">
+    <mat-form-field class="w-100">
+      <input matInput type="number" placeholder="Total" formControlName="total">
+    </mat-form-field>
+  </div>
+  <ng-content></ng-content>
+</ng-container>

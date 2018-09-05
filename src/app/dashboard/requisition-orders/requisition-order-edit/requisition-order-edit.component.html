@@ -1,0 +1,41 @@
+<section class="container">
+  <div class="d-flex align-items-center justify-content-between">
+    <a routerLink="../" class="btn btn-primary text-light">
+      <i class="fas fa-arrow-left mr-2"></i>Go back</a>
+    <h4 class="text-grey-dark m-0">{{addRequisitionOrder ? 'Raise receive note' : 'Edit receive note'}}</h4>
+  </div>
+  <div class="row justify-content-center">
+    <div class="col-sm-12 col-lg-10">
+      <form [formGroup]="requisitionOrderForm" autocomplete="off">
+        <div class="card mt-5">
+          <div class="card-body">
+            <h5 class="text-grey-dark font-weight-bold">Requisition Order information</h5>
+            <div class="container-fluid">
+              <div class="row">
+                <div class="text-muted font-weight-bold col-lg-6">Item</div>
+                <div class="text-muted font-weight-bold col-lg-4">Quantity</div>
+                <div class="text-muted font-weight-bold col-lg-2"></div>
+              </div>
+              <ng-container formArrayName="req_particulars">
+                <div class="row" requisition-order-particular *ngFor="let particular of req_particulars.controls; let i=index" [formGroupName]="i"
+                  [group]="particular">
+                  <div class="col-lg-2 d-flex align-items-center justify-content-center">
+                    <button *ngIf="req_particulars.length > 1" (click)="removeParticular(i)" mat-icon-button color="warn">
+                      <i class="fas fa-trash-alt"></i>
+                    </button>
+                  </div>
+                </div>
+              </ng-container>
+              <div class="text-right" *ngIf="req_particulars.length < 16">
+                <button class="ml-auto" mat-button color="warn" (click)="addParticular()">
+                  <strong>ADD PARTICULAR</strong>
+                </button>
+              </div>
+            </div>
+            <button class="btn btn-primary btn-save" [disabled]="requisitionOrderForm.invalid || requisitionOrderForm.pristine" (click)="saveChanges()">Save</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>

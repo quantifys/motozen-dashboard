@@ -1,0 +1,24 @@
+<section class="container-fluid">
+  <div class="header d-flex align-items-center">
+    <h4 class="text-grey-dark m-0">Requisition Orders List</h4>
+    <div class="ml-auto">
+      <button mat-stroked-button color="warn" (click)="openFilters()">Add Filters</button>
+      <a class="btn btn-primary ml-3" routerLink="edit" [queryParams]="{type: 'new'}" *ngIf="loggedUser.role == 'plant_supervisor'">
+        <i class="fas fa-clipboard-check mr-2"></i>Create Requisition Order</a>
+    </div>
+  </div>
+  <div class="content mt-4">
+    <nav mat-tab-nav-bar>
+      <a mat-tab-link routerLink="../" [queryParams]="getQueryParams('can_modify')" routerLinkActive #new="routerLinkActive" [active]="new.isActive">
+        <strong>New</strong>
+      </a>
+      <a mat-tab-link routerLink="../" [queryParams]="getQueryParams('opened')" routerLinkActive #opened="routerLinkActive" [active]="opened.isActive">
+        <strong>Processing</strong>
+      </a>
+      <a mat-tab-link routerLink="../" [queryParams]="getQueryParams('closed')" routerLinkActive #closed="routerLinkActive" [active]="closed.isActive">
+        <strong>Closed</strong>
+      </a>
+    </nav>
+    <requisition-order-table></requisition-order-table>
+  </div>
+</section>

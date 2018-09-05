@@ -1,0 +1,51 @@
+<section class="container">
+  <div class="d-flex align-items-center justify-content-between">
+    <a (click)="_location.back()" class="btn btn-primary text-light">
+      <i class="fas fa-arrow-left mr-2"></i>Go back</a>
+    <h4 class="text-grey-dark m-0">{{addExpense ? 'Add expense' : 'Edit expense'}}</h4>
+  </div>
+
+  <div class="row justify-content-center">
+    <div class="col-sm-12 col-lg-10 col-xl-8">
+      <div class="card mt-5">
+        <div class="card-body">
+          <form [formGroup]="expenseForm" autocomplete="off">
+            <h5 class="text-grey-dark font-weight-bold mb-4">Expense information</h5>
+            <h6 class="text-muted">
+              <strong>Select category</strong>
+            </h6>
+            <mat-radio-group class="d-flex ml-2 mb-1" formControlName="category">
+              <mat-radio-button value="direct">Direct expense</mat-radio-button>
+              <mat-radio-button class="ml-5" value="indirect">Indirect expense</mat-radio-button>
+            </mat-radio-group>
+            <mat-form-field class="w-100">
+              <textarea matInput placeholder="Description" formControlName="description"></textarea>
+            </mat-form-field>
+            <div class="row">
+              <div class="col-lg-3">
+                <mat-form-field class="w-100">
+                  <input matInput type="number" placeholder="Amount" formControlName="amount">
+                </mat-form-field>
+              </div>
+              <div class="col-lg-3">
+                <mat-form-field class="w-100">
+                  <input matInput type="number" placeholder="GST" formControlName="gst">
+                  <span matSuffix>&nbsp; %</span>
+                </mat-form-field>
+              </div>
+              <div class="col-lg-6">
+                <span class="text-muted">Total:</span>
+                <h3 class="text-muted">{{total.value | currency: 'INR'}}</h3>
+              </div>
+            </div>
+            <mat-form-field class="w-100">
+              <input matInput maxLength="15" placeholder="GSTN" formControlName="gstn">
+              <mat-hint align="end">{{gstn.value ? gstn.value.length : 0}} / 15</mat-hint>
+            </mat-form-field>
+            <button class="btn btn-primary btn-save" [disabled]="expenseForm.invalid || expenseForm.pristine" (click)="saveChanges()">Save</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

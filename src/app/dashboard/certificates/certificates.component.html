@@ -1,0 +1,46 @@
+<section class="container">
+  <div class="header d-flex align-items-center">
+    <h4 class="text-grey-dark m-0">Certificate Management</h4>
+    <div class="ml-auto">
+      <button mat-stroked-button color="warn" (click)="openFilters()">Add Filters</button>
+      <a class="btn btn-primary ml-3" *ngIf="loggedUser.role != 'sales' && loggedUser.role != 'admin'" routerLink="edit" [queryParams]="{type: 'new'}">
+        <i class="fas fa-plus mr-2"></i>Generate Certificate</a>
+    </div>
+  </div>
+  <div class="container-fluid mt-4">
+    <div class="row justify-content-center">
+      <div class="col-md-6">
+        <form [formGroup]="searchForm" autocomplete="off">
+          <mat-form-field color="warn" class="w-100">
+            <input matInput [placeholder]="getSearchPlaceholder()" formControlName="search">
+            <mat-icon color="warn" matSuffix>search</mat-icon>
+          </mat-form-field>
+          <mat-radio-group formControlName="search_type">
+            <mat-radio-button color="warn" value="cert">Certificate No.</mat-radio-button>
+            <mat-radio-button color="warn" class="ml-4" value="reg">Reg. No.</mat-radio-button>
+            <mat-radio-button color="warn" class="ml-4" value="sld">SLD No.</mat-radio-button>
+          </mat-radio-group>
+        </form>
+      </div>
+    </div>
+  </div>
+  <hr>
+  <div class="content mt-3">
+    <nav mat-tab-nav-bar color="warn">
+      <a mat-tab-link routerLink="../" [queryParams]="getQueryParams('can_modify')" routerLinkActive #new="routerLinkActive" [active]="new.isActive">
+        <strong>New</strong>
+      </a>
+      <a mat-tab-link routerLink="../" [queryParams]="getQueryParams('is_valid')" routerLinkActive #issued="routerLinkActive" [active]="issued.isActive">
+        <strong>Issued</strong>
+      </a>
+      <a mat-tab-link routerLink="../" [queryParams]="getQueryParams('renewable')" routerLinkActive #expiring="routerLinkActive"
+        [active]="expiring.isActive">
+        <strong>Expiring soon</strong>
+      </a>
+      <a mat-tab-link routerLink="../" [queryParams]="getQueryParams('expired')" routerLinkActive #expired="routerLinkActive" [active]="expired.isActive">
+        <strong>Expired</strong>
+      </a>
+    </nav>
+    <certificate-table></certificate-table>
+  </div>
+</section>

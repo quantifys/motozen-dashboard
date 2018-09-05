@@ -1,9 +1,243 @@
-@import url('https://fonts.googleapis.com/css?family=Nunito+Sans:300,400,600');
+@import url('https://fonts.googleapis.com/css?family=Varela+Round');
+@import "~@angular/material/prebuilt-themes/deeppurple-amber.css";
+// color palette
+$primary: #FFB88C;
+$primary-dark: #E56590;
+$secondary: #4CCBAB;
+$secondary-dark: #3E75C8;
+$black: #4A4A4A;
+$black-dark: #191F28;
+$grey: #D8D8D8;
+$grey-dark: #B6B6B7;
+$white: #F8F9FA;
+$white-dark: #F0F0F0;
+$shadow: rgba(46,
+61,
+73,
+.2);
 * {
-  font-family: 'Nunito Sans', sans-serif;
+  font-family: 'Varela Round', sans-serif;
+  
+  // scollbar styles
+  &::-webkit-scrollbar-track {
+    border-radius: 10px;
+    background-color: #CCCCCC;
+  }
+  &::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+    background-color: #F5F5F5;
+    &:hover {
+      width: 10px;
+      height: 10px;
+    }
+  }
+  &::-webkit-scrollbar-thumb {
+    &:hover {
+      width: 10px;
+      height: 10px;
+    }
+    border-radius: 10px;
+    background-color: $primary;
+  }
 }
 
-html, body {
+html,
+body {
   min-height: 100%;
   min-width: 100%;
+  overflow: hidden;
+  background-color: $white;
+}
+
+a {
+  &.text-primary {
+    color: $primary;
+    &:hover {
+      color: $primary-dark !important;
+    }
+  }
+  &:hover {
+    text-decoration: none;
+  }
+}
+
+button {
+  outline: none !important;
+}
+
+.h4 {
+  font-weight: 600 !important;
+  font-size: 14px !important;
+}
+
+.text-muted {
+  color: $grey-dark !important;
+}
+
+.text-primary {
+  color: $primary !important;
+}
+
+.text-grey-dark {
+  color: $grey-dark !important;
+}
+
+.text-dark {
+  color: $black !important;
+}
+
+.bg-primary {
+  background-image: linear-gradient(to top left, $primary 0%, $primary-dark 100%);
+}
+
+.modal-backdrop {
+  background-image: linear-gradient(to top left, $primary 0%, $primary-dark 100%) !important;
+}
+
+form {
+  label {
+    color: $grey-dark !important;
+  }
+  input {
+    color: $grey-dark !important;
+  }
+}
+
+.input-group {
+  .form-control {
+    border-right: 0;
+  }
+}
+
+.input-group,
+.form-group {
+  .form-control {
+    border-width: 2px;
+    padding: .8rem 1rem;
+    color: $black !important;
+    font-weight: 600;
+    &:focus {
+      border-color: $primary !important;
+      box-shadow: 0 0 0 0.2rem rgba($primary, .25);
+    }
+  }
+  .input-group-text {
+    background-color: transparent;
+    color: $grey-dark;
+  }
+}
+
+::placeholder {
+  color: $grey !important;
+  opacity: 1;
+}
+
+.btn-primary {
+  border-color: $primary;
+  background-color: transparent;
+  box-shadow: 5px 5px 25px 0 rgba(46, 61, 73, .2);
+  background-image: linear-gradient(to top left, $primary 0%, $primary-dark 100%);
+  &:hover {
+    border-color: $primary;
+  }
+  &:not(:disabled):not(.disabled):active {
+    border-color: $primary;
+    background-color: transparent;
+    background-image: linear-gradient(to bottom right, $primary 0%, $primary-dark 100%);
+    box-shadow: 0 0 0 0.2rem rgba($primary, .5);
+    ;
+  }
+  &:not(:disabled):not(.disabled):focus {
+    box-shadow: 0 0 0 0.2rem rgba($primary, .5);
+    ;
+  }
+  &:not(:disabled):not(.disabled):active:focus {
+    box-shadow: 0 0 0 0.2rem rgba($primary, .5);
+  }
+  &:disabled {
+    border: 0;
+  }
+}
+
+.btn-save {
+  font-weight: bold;
+  padding: .6rem 3rem;
+}
+
+.table-container {
+  -webkit-box-shadow: 2px 4px 8px 0 $shadow;
+  -moz-box-shadow: 2px 4px 8px 0 $shadow;
+  box-shadow: 2px 4px 8px 0 $shadow;
+  table {
+    border: none !important;
+    border-collapse: collapse;
+    thead {
+      tr {
+        th {
+          padding: 20px 10px !important;
+          background-color: $white !important;
+          color: $grey-dark;
+        }
+      }
+    }
+    tbody {
+      td {
+        font-weight: 300 !important;
+        .action {
+          margin: 0 5px;
+        }
+      }
+    }
+    td {
+      vertical-align: middle !important;
+    }
+  }
+}
+
+.nav {
+  .nav-item {
+    a {
+      padding: 15px 20px;
+      color: $grey-dark;
+      border: 2px solid transparent;
+      &.active {
+        background: $white;
+        border-color: $primary-dark;
+        color: $primary-dark;
+      }
+    }
+  }
+}
+
+.alert {
+  &.alert-primary {
+    background-image: linear-gradient(to top left, $primary 0%, $primary-dark 100%);
+  }
+}
+
+.card {
+  border: none;
+  box-shadow: 5px 5px 25px 0 rgba(46, 61, 73, .2);
+}
+
+// For month and year picker
+.datepicker {
+  .mat-form-field-appearance-standard .mat-form-field-flex {
+    padding-top: 0;
+  }
+}
+
+.animate {
+  -webkit-transition: all 0.2s 0.1s ease-out;
+  -moz-transition: all 0.2s 0.1s ease-out;
+  -o-transition: all 0.2s 0.1s ease-out;
+  -ms-transition: all 0.2s 0.1s ease-out;
+  transition: all 0.2s 0.1s ease-out;
+}
+
+nav {
+  &.mat-tab-nav-bar {
+    overflow-x: auto;
+  }
 }

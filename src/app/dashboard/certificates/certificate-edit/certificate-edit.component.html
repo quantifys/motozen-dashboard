@@ -1,0 +1,142 @@
+<section class="container">
+  <div class="d-flex align-items-center justify-content-between">
+    <a routerLink="../" class="btn btn-primary text-light">
+      <i class="fas fa-arrow-left mr-2"></i>Go back</a>
+    <h4 class="text-grey-dark m-0">{{addCertificate ? 'Generate certificate' : 'Edit certificate'}}</h4>
+  </div>
+
+  <div class="row justify-content-center">
+    <div class="col-sm-12 col-lg-10">
+      <form [formGroup]="certificateForm" autocomplete="off">
+        <div class="card mt-5">
+          <div class="card-body">
+            <h5 class="text-grey-dark font-weight-bold mb-2">Device details <span *ngIf="!addCertificate">for SLD No.: {{certificate.device.sld_number}}</span></h5>
+            <div class="row">
+              <div class="col-lg-4" *ngIf="addCertificate">
+                <ng-select [items]="devices" bindLabel="sld_number" bindValue="id" formControlName="device_id" placeholder="Select SLD number"></ng-select>
+              </div>
+              <ng-container *ngIf="device_id.valid">
+                <div class="col-lg-4 d-flex align-items-end">
+                  <mat-form-field class="w-100">
+                    <input type="number" matInput placeholder="Invoice Number" formControlName="invoice_no">
+                  </mat-form-field>
+                </div>
+                <div class="col-lg-4 d-flex align-items-end">
+                  <mat-form-field class="w-100">
+                    <input type="number" matInput placeholder="Cut-off Speed" formControlName="cutoff_speed">
+                    <mat-hint>40kmph - 120kmph</mat-hint>
+                  </mat-form-field>
+                </div>
+              </ng-container>
+            </div>
+          </div>
+        </div>
+        <ng-container *ngIf="device_id.valid">
+          <div class="card mt-5">
+            <div class="card-body">
+              <h5 class="text-grey-dark font-weight-bold mb-2">Customer information</h5>
+              <div class="row">
+                <div class="col-lg-6">
+                  <mat-form-field class="w-100">
+                    <input matInput placeholder="Full Name" formControlName="customer_name">
+                  </mat-form-field>
+                </div>
+                <div class="col-lg-6">
+                  <mat-form-field class="w-100">
+                    <span matPrefix>+91 &nbsp;</span>
+                    <input matInput maxlength="10" placeholder="Phone" formControlName="customer_telephone">
+                    <mat-hint align="end">{{customer_telephone.value.length}} / 10</mat-hint>
+                  </mat-form-field>
+                </div>
+                <ng-container *ngIf="addCertificate">
+                  <div class="col-lg-6">
+                    <mat-form-field class="w-100">
+                      <input matInput placeholder="Address Line 1" formControlName="address_l1">
+                    </mat-form-field>
+                  </div>
+                  <div class="col-lg-6">
+                    <mat-form-field class="w-100">
+                      <input matInput placeholder="Address Line 2" formControlName="address_l2">
+                    </mat-form-field>
+                  </div>
+                  <div class="col-lg-4">
+                    <mat-form-field class="w-100">
+                      <input matInput placeholder="Locality" formControlName="locality">
+                    </mat-form-field>
+                  </div>
+                  <div class="col-lg-4">
+                    <mat-form-field class="w-100">
+                      <input matInput placeholder="City" formControlName="city">
+                    </mat-form-field>
+                  </div>
+                  <div class="col-lg-4">
+                    <mat-form-field class="w-100">
+                      <input matInput maxlength="6" placeholder="Pincode" formControlName="pincode">
+                      <mat-hint align="end">{{pincode.value.length}} / 6</mat-hint>
+                    </mat-form-field>
+                  </div>
+                </ng-container>
+                <div class="col-lg-12" *ngIf="!addCertificate">
+                  <mat-form-field class="w-100">
+                    <textarea matInput placeholder="Address" formControlName="customer_address"></textarea>
+                    <mat-hint>Enter the address with proper formatting.</mat-hint>
+                  </mat-form-field>
+                </div>
+              </div>
+              <hr>
+              <h5 class="text-grey-dark font-weight-bold mb-2">Vehicle information</h5>
+              <div class="row">
+                <div class="col-lg-4">
+                  <ng-select [items]="brands" formControlName="vehicle_make" placeholder="Select vehicle make"></ng-select>
+                </div>
+                <div class="col-lg-4">
+                  <ng-select [items]="getModels()" bindLabel="model" bindValue="id" formControlName="vehicle_id" placeholder="Select vehicle model"></ng-select>
+                </div>
+                <div class="col-lg-4 d-flex align-items-end">
+                  <mat-form-field class="w-100">
+                    <input matInput placeholder="Seal No. / No. of Seals" formControlName="seals">
+                  </mat-form-field>
+                </div>
+                <div class="col-lg-4">
+                  <mat-form-field class="w-100">
+                    <input matInput placeholder="Engine No." formControlName="engine_number">
+                  </mat-form-field>
+                </div>
+                <div class="col-lg-4">
+                  <mat-form-field class="w-100">
+                    <input matInput placeholder="Chassis No." formControlName="chassis_number">
+                  </mat-form-field>
+                </div>
+                <div class="col-lg-4">
+                  <mat-form-field class="w-100">
+                    <input matInput placeholder="Car Registration No." formControlName="car_reg_number">
+                    <mat-hint>AA 00 A 0000</mat-hint>
+                  </mat-form-field>
+                </div>
+              </div>
+              <hr>
+              <h5 class="text-grey-dark font-weight-bold mb-2">RTO details</h5>
+              <div class="row">
+                <div class="col-lg-4">
+                  <ng-select [items]="rto" bindLabel="full_name" bindValue="full_name" formControlName="location_rto" placeholder="Select RTO office"></ng-select>
+                </div>
+                <div class="col-lg-4 datepicker d-flex align-items-end">
+                  <month-picker class="w-100" label="MFG month & year" [min]="monthMin" [max]="monthMax" formControlName="mfg_month_year"></month-picker>
+                </div>
+                <div class="col-lg-4 d-flex align-items-end">
+                  <mat-form-field class="w-100">
+                    <input matInput [matDatepicker]="dp" placeholder="Registration date" formControlName="reg_month_year">
+                    <mat-datepicker-toggle matSuffix [for]="dp"></mat-datepicker-toggle>
+                    <mat-datepicker #dp></mat-datepicker>
+                  </mat-form-field>
+                </div>
+              </div>
+              <hr>
+              <button class="btn btn-primary btn-save" [disabled]="certificateForm.invalid || certificateForm.pristine" (click)="saveChanges()">Save</button>
+            </div>
+          </div>
+        </ng-container>
+      </form>
+    </div>
+  </div>
+</section>

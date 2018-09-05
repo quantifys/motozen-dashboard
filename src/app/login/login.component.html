@@ -1,0 +1,44 @@
+<section class="d-flex justify-content-center align-items-center">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-8 col-lg-6 col-xl-5">
+        <div class="card border-0 login-container">
+          <div class="card-body">
+            <div class="text-center">
+              <img src="../../assets/images/gemeni_logo.svg" alt="Gemeni India" class="img-fluid mb-3 w-50">
+              <h4 class="h4 text-muted">Sign in with your account here</h4>
+            </div>
+            <form class="mt-2  p-2" autocomplete="off" [formGroup]="loginForm" (ngSubmit)="loginClicked()">
+              <mat-form-field class="w-100 mb-2">
+                <input formControlName="email" type="email" matInput placeholder="Email">
+                <mat-icon matSuffix class="text-primary">verified_user</mat-icon>
+                <mat-error *ngIf="email.hasError('required')">
+                  Please enter a email
+                </mat-error>
+                <mat-error *ngIf="email.hasError('email') && !email.hasError('required')">
+                  Please enter a valid email address
+                </mat-error>
+              </mat-form-field>
+              <mat-form-field class="w-100">
+                <input formControlName="password" type="password" matInput placeholder="Password">
+                <mat-icon matSuffix class="text-primary">lock</mat-icon>
+                <mat-error *ngIf="password.hasError('required')">
+                  Please enter a password
+                </mat-error>
+                <mat-error *ngIf="password.hasError('minlength') && !password.hasError('required')">
+                  Password should be more than 6 characters in length
+                </mat-error>
+              </mat-form-field>
+              <button type="submit" class="btn btn-primary w-100 mt-3 p-3 font-weight-bold" [disabled]="loginForm.invalid">Login</button>
+              <div class="text-center mt-3">
+                <h6 class="text-muted m-0">If you have forgotten your credentials please contact us
+                  <a class="text-primary" href="mailto:customercare@gemeniindia.com">customercare@gemeniindia.com</a>
+                </h6>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

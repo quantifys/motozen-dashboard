@@ -1,0 +1,21 @@
+<section class="container">
+  <div class="header d-flex align-items-center">
+    <h4 class="text-grey-dark m-0">Expense List</h4>
+    <div class="ml-auto">
+      <a class="btn btn-primary ml-3" routerLink="edit" [queryParams]="{type: 'new'}">
+        <i class="fas fa-plus mr-2"></i>Record an Expense</a>
+    </div>
+  </div>
+  <div class="content mt-4">
+    <nav mat-tab-nav-bar>
+      <a mat-tab-link routerLink="../" [queryParams]="getQueryParams('direct')" routerLinkActive #direct="routerLinkActive" [active]="direct.isActive">
+        <strong>Direct</strong>
+      </a>
+      <a mat-tab-link routerLink="../" [queryParams]="getQueryParams('indirect')" routerLinkActive #indirect="routerLinkActive"
+        [active]="indirect.isActive">
+        <strong>Indirect</strong>
+      </a>
+    </nav>
+    <expense-table></expense-table>
+  </div>
+</section>

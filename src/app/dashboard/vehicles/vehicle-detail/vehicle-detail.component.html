@@ -1,0 +1,60 @@
+<section class="container">
+  <div class="d-flex align-items-center justify-content-between">
+    <button (click)="_location.back()" class="btn btn-primary text-light">
+      <i class="fas fa-arrow-left mr-2"></i>Go back</button>
+    <h4 class="text-grey-dark m-0">Device details</h4>
+  </div>
+
+  <div class="d-flex justify-content-end mt-3">
+    <a mat-stroked-button color="primary" routerLink="../edit" [queryParams]="{id: vehicle.id}">Edit</a>
+    <button class="ml-2" mat-stroked-button color="warn" (click)="deleteVehicle()">Delete</button>
+  </div>
+  <div class="row justify-content-center mt-4">
+    <div class="col-md-4">
+      <div class="card">
+        <div class="card-body">
+          <h6 class="text-grey-dark font-weight-bold mb-3">
+            <i class="fas fa-info-circle mr-2 fa-fw text-primary"></i>Vehicle details</h6>
+          <h6 class="text-grey-dark">Make:</h6>
+          <h6 class="ml-3">{{vehicle.make}}</h6>
+          <h6 class="text-grey-dark">Model:</h6>
+          <h6 class="ml-3">{{vehicle.model}}</h6>
+          <h6 class="text-grey-dark">Variant:</h6>
+          <h6 class="ml-3">{{vehicle.variant}}</h6>
+          <h6 class="text-grey-dark">Category:</h6>
+          <h6 class="ml-3">{{vehicle.category}}</h6>
+          <h6 class="text-grey-dark">TAC Number:</h6>
+          <h6 class="ml-3">{{vehicle.tac_number}}</h6>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="card">
+        <div class="card-body">
+          <h6 class="text-grey-dark font-weight-bold mb-3">
+            <i class="fas fa-info-circle mr-2 fa-fw text-primary"></i>Connector details</h6>
+          <h6 class="text-grey-dark">Description:</h6>
+          <h6 class="ml-3">{{vehicle.connector.description}}</h6>
+          <h6 class="text-grey-dark">Item Code:</h6>
+          <h6 class="ml-3">{{vehicle.connector.item_code}}</h6>
+          <div class="text-right">
+            <a routerLink="../../inventory/view" [queryParams]="{id: vehicle.connector.id}" class="btn btn-primary">Go To
+              Inventory
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <hr>
+  <div class="row mt-4" *ngFor="let icat of vehicle.icats; let i = index">
+    <div class="w-100 text-center">
+      <p class="d-inline-block bg-primary text-light p-2 rounded"><strong>DOCUMENT {{i+1}}</strong></p>
+    </div>
+    <div *ngFor="let page of icat.pages" class="col-lg-6">
+      <div class="card">
+        <img class="img-fluid rounded" [src]="page.getPageUrl()">
+      </div>
+    </div>
+  </div>
+</section>

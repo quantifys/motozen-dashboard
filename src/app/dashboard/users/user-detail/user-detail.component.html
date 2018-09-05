@@ -1,0 +1,76 @@
+<section class="container">
+  <div class="d-flex align-items-center justify-content-between">
+    <a routerLink="../" class="btn btn-primary text-light">
+      <i class="fas fa-arrow-left mr-2"></i>Go back</a>
+    <h4 class="text-grey-dark m-0">User details</h4>
+  </div>
+  <div class="d-flex justify-content-end mt-3">
+    <button class="ml-2" mat-stroked-button color="primary" (click)="changePassword()">Change password</button>
+    <a mat-stroked-button class="ml-2" color="warn" routerLink="../edit" [queryParams]="{id: user.id}">Edit</a>
+    <button class="ml-2" mat-stroked-button color="warn" (click)="deleteUser()">Delete</button>
+  </div>
+  <div class="details">
+    <div class="row justify-content-center align-items-stretch">
+      <div class="col-sm-12 col-md-6 col-xl-4 mt-4">
+        <div class="card h-100">
+          <div class="card-body d-flex flex-column justify-content-between">
+            <div class="top">
+              <h6 class="text-grey-dark font-weight-bold mb-3">
+                <i class="fas fa-info-circle mr-2 fa-fw text-primary"></i>General information</h6>
+              <h6 class="text-grey-dark">Serial No:</h6>
+              <h6 class="ml-3">{{user.serial_no}}</h6>
+              <h6 class="text-grey-dark">Full name:</h6>
+              <h6 class="ml-3">{{user.name}}</h6>
+              <h6 class="text-grey-dark">E-mail:</h6>
+              <h6 class="ml-3">
+                <a [href]="'mailto:' + user.email">{{user.email}}</a>
+              </h6>
+              <ng-container *ngIf="user.distributor_id">
+                <h6 class="text-grey-dark">Distributor ID:</h6>
+                <h6 class="ml-3 p-2 bg-primary d-inline-block rounded text-light mb-0">{{user.distributor_id}}</h6>
+              </ng-container>
+            </div>
+            <div class="text-right">
+              <h6 class="d-inline-block font-weight-bold bg-primary text-right p-1 text-light rounded">{{user.getRole() | titlecase}}
+              </h6>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-12 col-md-6 col-xl-4 mt-4" *ngIf="user.role != 'manufacturer'">
+        <div class="card h-100">
+          <div class="card-body">
+            <h5 class="text-grey-dark font-weight-bold mb-3">
+              <i class="fas fa-info-circle mr-2 fa-fw text-primary"></i>Contact details</h5>
+            <h6 class="text-grey-dark">Phone:</h6>
+            <h6 class="ml-3">{{user.details.contact}}</h6>
+            <h6 class="text-grey-dark">Address:</h6>
+            <h6 style="white-space: pre-line" class="ml-3">{{user.details.address ? user.details.address : '-'}}</h6>
+            <ng-container *ngIf="user.details.gstn">
+              <h6 class="text-grey-dark">GSTN:</h6>
+              <h6 style="white-space: pre-line" class="ml-3">{{user.details.gstn | uppercase}}</h6>
+            </ng-container>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-12 col-md-6 col-xl-4 mt-4" *ngIf="user.role != 'manufacturer' && user.role != 'distributor' && user.role != 'dealer'">
+        <div class="card h-100">
+          <div class="card-body">
+            <h5 class="text-grey-dark font-weight-bold mb-3">
+              <i class="fas fa-info-circle mr-2 fa-fw text-primary"></i>Payment information</h5>
+            <h6 class="text-grey-dark">Base salary:</h6>
+            <h6 class="ml-3">{{user.details.base_salary ? user.details.base_salary : '-'}}</h6>
+            <h6 class="text-grey-dark">HRA:</h6>
+            <h6 class="ml-3">{{user.details.hra ? user.details.hra : '-'}}</h6>
+            <h6 class="text-grey-dark">Transport allowance:</h6>
+            <h6 class="ml-3">{{user.details.transport_allowance ? user.details.transport_allowance : '-'}}</h6>
+            <h6 class="text-grey-dark">ESIC:</h6>
+            <h6 class="ml-3">{{user.details.esic ? user.details.esic : '-'}}</h6>
+            <h6 class="text-grey-dark">GPF:</h6>
+            <h6 class="ml-3">{{user.details.gpf ? user.details.gpf : '-'}}</h6>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

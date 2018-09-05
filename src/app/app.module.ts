@@ -1,18 +1,68 @@
-import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
-
+import { HttpClientModule } from '@angular/common/http';
+import { StoreModule } from '@ngrx/store';
+import { EffectsModule } from '@ngrx/effects';
+import { Angular2TokenService } from 'angular2-token';
+import { HttpModule } from '@angular/http';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { AppRoutingModule } from './app-routing.module';
+
+import { environment } from '../environments/environment';
 import { AppComponent } from './app.component';
+import { reducers } from './shared/reducers';
+
+import { UserEffects } from './shared/effects/user.effects';
+import { DeviceEffects } from './shared/effects/device.effects';
+import { InventoryEffects } from './shared/effects/inventory.effects';
+import { CertificateEffects } from './shared/effects/certificate.effects';
+import { VehicleEffects } from './shared/effects/vehicle.effects';
+import { PurchaseOrderEffects } from './shared/effects/purchase-order.effects';
+import { ReceiveNoteEffects } from './shared/effects/receive-note.effects';
+import { RequisitionOrderEffects } from './shared/effects/requisition-order.effects';
+import { SalarySlipEffects } from './shared/effects/salary-slip.effects';
+import { IncomeEffects } from './shared/effects/income.effects';
+import { ExpenseEffects } from './shared/effects/expense.effects';
+import { TransactionEffects } from './shared/effects/transaction.effects';
+import { VendorEffects } from './shared/effects/vendor.effects';
+
+import { RtoService } from './shared/services/rto.service';
+import { CertificateService } from './shared/services/certificate.service';
+import { PurchaseOrderService } from './shared/services/purchase-order.service';
+import { RequisitionOrderService } from './shared/services/requisition-order.service';
+import { DatePipe } from '@angular/common';
 
 @NgModule({
   declarations: [
     AppComponent
   ],
   imports: [
-    BrowserModule,
-    AppRoutingModule
+    BrowserAnimationsModule,
+    AppRoutingModule,
+    HttpModule,
+    HttpClientModule,
+    StoreModule.forRoot(reducers),
+    EffectsModule.forRoot([
+      UserEffects,
+      DeviceEffects,
+      VehicleEffects,
+      InventoryEffects,
+      CertificateEffects,
+      PurchaseOrderEffects,
+      ReceiveNoteEffects,
+      RequisitionOrderEffects,
+      IncomeEffects,
+      ExpenseEffects,
+      TransactionEffects,
+      SalarySlipEffects,
+      VendorEffects
+    ]),
+    StoreDevtoolsModule.instrument({
+      maxAge: 25, // Retains last 25 states
+      logOnly: environment.production // Restrict extension to log-only mode
+    })
   ],
-  providers: [],
+  providers: [Angular2TokenService, RtoService, CertificateService, PurchaseOrderService, RequisitionOrderService, DatePipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

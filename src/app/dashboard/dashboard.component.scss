@@ -1,0 +1,12 @@
+$white-dark: #F0F0F0;
+section {
+  background-color: $white-dark;
+  .menu {
+    width: 220px;
+  }
+  .main {
+    flex: 1;
+    height: 100vh;
+    overflow: auto;
+  }
+}

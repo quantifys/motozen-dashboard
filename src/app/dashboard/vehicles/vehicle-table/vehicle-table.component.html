@@ -1,0 +1,40 @@
+<div class="table-container">
+  <table class="table table-hover w-100 rounded table-striped text-center m-0">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>MAKE</th>
+        <th>MODEL</th>
+        <th>VARIANT</th>
+        <th>TAC NUMBER</th>
+        <th>CATEGORY</th>
+        <th>CONNECTOR CODE</th>
+        <th>INFO</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let vehicle of vehicles; let i = index">
+        <td>{{i + 1}}</td>
+        <td>{{vehicle.make}}</td>
+        <td>{{vehicle.model}}</td>
+        <td>{{vehicle.variant}}</td>
+        <td>{{vehicle.tac_number}}</td>
+        <td>{{vehicle.category}}</td>
+        <td>{{vehicle.connector.item_code}}</td>
+        <td>
+          <a mat-icon-button color="warn" routerLink="view" [queryParams]="{id: vehicle.id}">
+            <mat-icon>info</mat-icon>
+          </a>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="alert alert-primary text-center rounded-0 border-0 text-light mb-0" *ngIf="vehicles.length == 0 && !loading">
+    <strong>No vehicles found!</strong>
+  </div>
+  <div class="alert alert-primary text-center rounded-0 border-0 text-light" *ngIf="loading">
+    <strong>Loading...</strong>
+  </div>
+  <mat-paginator [length]="pageEvent.length" [pageSize]="pageEvent.pageSize" [pageIndex]="pageEvent.pageIndex" [pageSizeOptions]="[5, 10, 25, 100]"
+    (page)="getPage($event)"></mat-paginator>
+</div>

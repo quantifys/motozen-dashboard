@@ -1,0 +1,29 @@
+<section class="container">
+  <div class="d-flex align-items-center justify-content-between">
+    <a routerLink="../" class="btn btn-primary text-light">
+      <i class="fas fa-arrow-left mr-2"></i>Go back</a>
+    <h4 class="text-grey-dark m-0">{{addVendor ? 'Create vendor' : 'Edit vendor'}}</h4>
+  </div>
+  <div class="row justify-content-center">
+    <div class="col-sm-12 col-md-10 col-lg-6">
+      <form [formGroup]="vendorForm" autocomplete="off">
+        <div class="card mt-5">
+          <div class="card-body">
+            <h5 class="text-grey-dark font-weight-bold">Vendor information</h5>
+            <mat-form-field class="w-100">
+              <input matInput placeholder="Company Name" formControlName="company_name">
+            </mat-form-field>
+            <mat-form-field class="w-100">
+              <input maxLength="15" matInput placeholder="GSTN" formControlName="gstn">
+              <mat-hint align="end">{{gstn.value ? gstn.value.length : 0}} / 15</mat-hint>
+            </mat-form-field>
+            <mat-form-field class="w-100">
+              <textarea matInput placeholder="Address" formControlName="address" rows="5"></textarea>
+            </mat-form-field>
+            <button class="btn btn-primary btn-save" [disabled]="vendorForm.invalid || vendorForm.pristine" (click)="saveChanges()">Save</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>

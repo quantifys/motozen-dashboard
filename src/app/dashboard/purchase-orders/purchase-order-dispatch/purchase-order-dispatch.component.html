@@ -1,0 +1,38 @@
+<section class="container">
+  <div class="d-flex align-items-center justify-content-between">
+    <a routerLink="../" class="btn btn-primary text-light">
+      <i class="fas fa-arrow-left mr-2"></i>Go back</a>
+    <h4 class="text-grey-dark m-0">Purchase order dispatch</h4>
+  </div>
+
+  <div class="row justify-content-center mt-4">
+    <div class="col-sm-12 col-md-10 col-lg-8 col-xl-6">
+      <div class="card">
+        <div class="card-body">
+          <div class="container-fluid mt-3" *ngIf="(purchaseOrder.status == 'processing' && !loading) else notReady">
+            <h5 class="text-center border-bottom mb-3 pb-2">Enter details</h5>
+            <form [formGroup]="dispatchForm">
+              <ng-select [items]="deviceList" [maxSelectedItems]="purchaseOrder.total_quantity" [multiple]="true" bindLabel="sld_number"
+                bindValue="id" formControlName="device_ids" placeholder="Select devices"></ng-select>
+            </form>
+            <div class="text-center mb-3">
+              <button mat-stroked-button color="warn" (click)="dispatch()" [disabled]="dispatchForm.invalid || device_ids.value.length != purchaseOrder.total_quantity">Dispatch</button>
+              <button class="ml-1" mat-button (click)="close()">Close</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<ng-template #notReady>
+  <div class="d-flex justify-content-center">
+    <mat-progress-spinner *ngIf="loading" class="m-4" color="warn" mode="indeterminate"></mat-progress-spinner>
+  </div>
+  <div class="container-fluid text-center pt-4 pb-4 mt-3" *ngIf="purchaseOrder.status != 'processing' && !loading">
+    <i class="far fa-times-circle fa-3x text-warning mb-3"></i>
+    <h4 class="mb-4">No purchase order selected!</h4>
+    <a routerLink="../" color="warn" mat-stroked-button>Purchase order list</a>
+  </div>
+</ng-template>
