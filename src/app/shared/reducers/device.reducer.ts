@@ -59,7 +59,7 @@ export function reducer(state = initialState, action: deviceActions.Actions): St
     case deviceActions.FETCH_DEVICE_TRANSFER_FORMDATA_COMPLETE_ACTION:
       return Object.assign({}, state, {
         dealers: [...action.payload.dealers.filter(user => new User(user))],
-        devices: [...action.payload.dealers.filter(device => new Device(device))]
+        devices: [...action.payload.devices.filter(device => new Device(device))]
       });
     case deviceActions.CLEAR_DEVICE_DATA_ACTION:
       return Object.assign({}, state, {
