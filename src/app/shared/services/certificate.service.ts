@@ -53,7 +53,7 @@ export class CertificateService {
           "columns": [
             [
               {
-                "qr": "GEMENI ENTERPRISES GOA\nSLD_NUMBER: " + certificate.device.sld_number + "\nCERTIFICATE NUMBER: " + certificate.certificate_number + "\nDATE GENERATED: " + this._datePipe.transform(certificate.date_generated, 'fullDate') + "\nDUE DATE: " + this._datePipe.transform(certificate.due_date, 'fullDate') + "\nCHASSIS NUMBER: " + certificate.chassis_number + "\nENGINE NUMBER: " + certificate.engine_number + "\nCUSTOMER NAME: " + certificate.customer_name + "\nCAR REG NUMBER: " + certificate.car_reg_number,
+                "qr": "GEMENI ENTERPRISES GOA\nSLD_NUMBER: " + certificate.device.sld_number + "\nCERTIFICATE NUMBER: " + certificate.certificate_number + "\nDATE GENERATED: " + this._datePipe.transform(certificate.date_generated, 'mediumDate') + "\nDUE DATE: " + this._datePipe.transform(certificate.due_date, 'mediumDate') + "\nCHASSIS NUMBER: " + certificate.chassis_number + "\nENGINE NUMBER: " + certificate.engine_number + "\nCUSTOMER NAME: " + certificate.customer_name + "\nCAR REG NUMBER: " + certificate.car_reg_number,
                 "fit": 120
               },
               {
@@ -124,7 +124,7 @@ export class CertificateService {
                 "text": [
                   "Issuing Date: ",
                   {
-                    "text": this._datePipe.transform(certificate.date_generated, 'fullDate'),
+                    "text": this._datePipe.transform(certificate.date_generated, 'mediumDate'),
                     "bold": true
                   }
                 ],
@@ -135,7 +135,7 @@ export class CertificateService {
                 "text": [
                   "Renewal Date: ",
                   {
-                    "text": this._datePipe.transform(certificate.due_date, 'fullDate'),
+                    "text": this._datePipe.transform(certificate.due_date, 'mediumDate'),
                     "bold": true
                   }
                 ],
@@ -317,7 +317,7 @@ export class CertificateService {
                       "alignment": "left"
                     },
                     {
-                      "text": certificate.mfg_month_year,
+                      "text": this._datePipe.transform(certificate.mfg_month_year, 'mediumDate'),
                       "alignment": "center",
                       "bold": true
                     }
@@ -330,7 +330,7 @@ export class CertificateService {
                       "alignment": "left"
                     },
                     {
-                      "text": certificate.reg_month_year,
+                      "text": this._datePipe.transform(certificate.reg_month_year, 'mediumDate'),
                       "alignment": "center",
                       "bold": true
                     }
@@ -525,7 +525,7 @@ export class CertificateService {
           "columns": [
             [
               {
-                "qr": "GEMENI ENTERPRISES GOA\nSLD_NUMBER: " + certificate.device.sld_number + "\nCERTIFICATE NUMBER: " + certificate.certificate_number + "\nDATE GENERATED: " + this._datePipe.transform(certificate.date_generated, 'fullDate') + "\nDUE DATE: " + this._datePipe.transform(certificate.due_date, 'fullDate') + "\nCHASSIS NUMBER: " + certificate.chassis_number + "\nENGINE NUMBER: " + certificate.engine_number + "\nCUSTOMER NAME: " + certificate.customer_name + "\nCAR REG NUMBER: " + certificate.car_reg_number,
+                "qr": "GEMENI ENTERPRISES GOA\nSLD_NUMBER: " + certificate.device.sld_number + "\nCERTIFICATE NUMBER: " + certificate.certificate_number + "\nDATE GENERATED: " + this._datePipe.transform(certificate.date_generated, 'mediumDate') + "\nDUE DATE: " + this._datePipe.transform(certificate.due_date, 'mediumDate') + "\nCHASSIS NUMBER: " + certificate.chassis_number + "\nENGINE NUMBER: " + certificate.engine_number + "\nCUSTOMER NAME: " + certificate.customer_name + "\nCAR REG NUMBER: " + certificate.car_reg_number,
                 "fit": 120
               },
               {
@@ -596,7 +596,7 @@ export class CertificateService {
                 "text": [
                   "Issuing Date: ",
                   {
-                    "text": this._datePipe.transform(certificate.date_generated, 'fullDate'),
+                    "text": this._datePipe.transform(certificate.date_generated, 'mediumDate'),
                     "bold": true
                   }
                 ],
@@ -607,7 +607,7 @@ export class CertificateService {
                 "text": [
                   "Renewal Date: ",
                   {
-                    "text": this._datePipe.transform(certificate.due_date, 'fullDate'),
+                    "text": this._datePipe.transform(certificate.due_date, 'mediumDate'),
                     "bold": true
                   }
                 ],
@@ -790,7 +790,7 @@ export class CertificateService {
                       "alignment": "left"
                     },
                     {
-                      "text": certificate.mfg_month_year,
+                      "text": this._datePipe.transform(certificate.mfg_month_year, 'mediumDate'),
                       "alignment": "center",
                       "bold": true
                     }
@@ -803,7 +803,7 @@ export class CertificateService {
                       "alignment": "left"
                     },
                     {
-                      "text": certificate.reg_month_year,
+                      "text": this._datePipe.transform(certificate.reg_month_year, 'mediumDate'),
                       "alignment": "center",
                       "bold": true
                     }
