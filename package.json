@@ -8,8 +8,8 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "deploy": "ng build --prod --aot && cd dist && scp -dr * deploy@205.147.101.185:/var/www/gemeni-portal-frontend/ && cd ../",
-    "upload": "cd dist && scp -dr * deploy@205.147.101.185:/var/www/gemeni-portal-frontend/ && cd ../"
+    "deploy": "ng build --prod --aot && cd dist/gemeni-dashboard && scp -dr * deploy@205.147.101.185:/var/www/gemeni-portal-frontend/ && cd ../",
+    "upload": "cd dist/gemeni-dashboard && scp -dr * deploy@205.147.101.185:/var/www/gemeni-portal-frontend/ && cd ../"
   },
   "private": true,
   "dependencies": {
