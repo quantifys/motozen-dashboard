@@ -29,8 +29,8 @@ export class Certificate {
 	constructor(data: any) {
 		this.id = data.id ? data.id : null;
 		this.certificate_number = data.certificate_number ? data.certificate_number : null;
-		this.date_generated = data.date_generated ? new Date(moment(data.date_generated, "YYYY-MM-DD").format()) : null;
-		this.due_date = data.due_date ? new Date(moment(data.due_date, "YYYY-MM-DD").format()) : null;
+		this.date_generated = data.date_generated ? moment(data.date_generated, "YYYY-MM-DD").toDate() : null;
+		this.due_date = data.due_date ? moment(data.due_date, "YYYY-MM-DD").toDate() : null;
 		this.status = data.status ? data.status : null;
 		this.device = data.device ? new Device(data.device) : new Device({});
 		this.invoice_no = data.invoice_no != null ? data.invoice_no : null;
@@ -46,7 +46,7 @@ export class Certificate {
 		this.seals = data.seals ? data.seals : null;
 		this.vehicle = data.vehicle ? new Vehicle(data.vehicle) : new Vehicle({});
 		this.user = data.user ? new User(data.user) : new User({});
-		this.mfg_month_year = data.mfg_month_year ? new Date(moment(data.mfg_month_year, "yyyy-MM-DD").format()) : new Date();
-		this.reg_month_year = data.reg_month_year ? new Date(moment(data.reg_month_year, "yyyy-MM-DD").format()) : new Date();
+		this.mfg_month_year = data.mfg_month_year ? moment(data.mfg_month_year, 'YYYY-MM-DD').toDate() : new Date();
+		this.reg_month_year = data.reg_month_year ? moment(data.reg_month_year, "YYYY-MM-DD").toDate() : new Date();
 	}
 }

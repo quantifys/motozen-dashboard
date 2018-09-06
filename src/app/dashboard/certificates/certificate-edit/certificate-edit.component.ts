@@ -80,6 +80,7 @@ export class CertificateEditComponent implements OnInit, OnDestroy {
         this.device_id.patchValue(certificate.device.id);
         this.vehicle_id.patchValue(certificate.vehicle.id);
         this.vehicle_make.patchValue(certificate.vehicle.make, { emitEvent: false });
+        certificate.car_reg_number == 'NEW' ? this.car_reg_number.patchValue("", { emitEvent: false }) : null
       }
     });
     this._store.select(fromRoot.getLoggedUser).subscribe(user => {
@@ -112,7 +113,7 @@ export class CertificateEditComponent implements OnInit, OnDestroy {
       seals: [null, Validators.required],
       engine_number: [null, Validators.required],
       chassis_number: [null, Validators.required],
-      car_reg_number: [null, [Validators.required, Validators.pattern("^[A-Z]{2}[ -][0-9]{1,2}(?: [A-Z])?(?: [A-Z]*)? [0-9]{4}$")]],
+      car_reg_number: ["", [Validators.pattern("^[A-Z]{2}[ -][0-9]{1,2}(?: [A-Z])?(?: [A-Z]*)? [0-9]{4}$")]],
       location_rto: [null, Validators.required],
       location_state: [null, Validators.required],
       mfg_month_year: [null, Validators.required],
@@ -185,7 +186,8 @@ export class CertificateEditComponent implements OnInit, OnDestroy {
     this.device_id.patchValue(null, { emitEvent: false });
     this._store.dispatch(new deviceActions.FetchAllDevicesAction({
       sld_number: event ? event.target.value : null,
-      status: "sold"
+      status: "sold",
+      per_page: 2000
     }));
   }
 
@@ -233,6 +235,7 @@ export class CertificateEditComponent implements OnInit, OnDestroy {
     delete formData["vehicle_make"];
     formData["mfg_month_year"] = moment(new Date(formData["mfg_month_year"]).toISOString()).format("YYYY-MM-DD");
     formData["reg_month_year"] = moment(new Date(formData["reg_month_year"]).toISOString()).format("YYYY-MM-DD");
+    formData["car_reg_number"] == "" ? (formData["car_reg_number"] = "NEW") : null
     if (this.addCertificate) {
       formData["customer_address"] = formData.address_l1 + ", " + formData.address_l2 + ", " + formData.locality + ", " + formData.city + " - " + formData.pincode;
       delete formData['address_l1'];

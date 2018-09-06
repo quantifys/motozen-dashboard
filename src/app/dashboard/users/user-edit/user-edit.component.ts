@@ -266,10 +266,10 @@ export class UserEditComponent implements OnInit {
         let distributor: User = this.distributors.find(distributor => distributor.id == this.distributor_id.value);
         if (distributor) {
           this.state.patchValue(distributor.details.state, { emitEvent: false });
-          this.state.patchValue(distributor.details.state, { emitEvent: false });
+          this.state_code.patchValue(distributor.details.state_code, { emitEvent: false });
         } else {
           this.state.patchValue(null, { emitEvent: false });
-          this.state.patchValue(null, { emitEvent: false });
+          this.state_code.patchValue(null, { emitEvent: false });
         }
       }
     });
@@ -321,6 +321,13 @@ export class UserEditComponent implements OnInit {
 
   saveChanges() {
     if (this.addUser) {
+      let formData = this.userForm.value;
+      formData.details["address"] = formData.details.address_l1 + ",\n" + formData.details.address_l2 + ",\n" + formData.details.locality + ", \n" + formData.details.city + " - " + formData.details.pincode;
+      delete formData.details['address_l1'];
+      delete formData.details['address_l2'];
+      delete formData.details['locality'];
+      delete formData.details['city'];
+      delete formData.details['pincode'];
       this._store.dispatch(new userActions.CreateNewUserAction({
         user: this.userForm.value
       }));

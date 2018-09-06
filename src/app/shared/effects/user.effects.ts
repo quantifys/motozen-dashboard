@@ -46,7 +46,10 @@ export class UserEffects {
     exhaustMap(() => this._tokenService.validateToken()
       .pipe(
         map(response => new fromUser.ValidateUserTokenCompleteAction(response.json().data)),
-        catchError(error => of(new fromUser.ValidateUserTokenFailedAction(error.json())))
+        catchError(error => {
+          let errMessage: any = error.json();
+          return of(new fromUser.ValidateUserTokenFailedAction(errMessage.type ? errMessage.type : errMessage));
+        })
       ))
   );
 
