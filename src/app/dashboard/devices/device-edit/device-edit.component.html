@@ -1,6 +1,6 @@
 <section class="container">
   <div class="d-flex align-items-center justify-content-between">
-    <a (click)="_location.back()" class="btn btn-primary text-light">
+    <a (click)="_location.back()" class="btn btn-orange text-light text-light">
       <i class="fas fa-arrow-left mr-2"></i>Go back</a>
     <h4 class="text-grey-dark m-0">{{addDevice ? 'Add devices' : 'Edit device'}}</h4>
   </div>
@@ -36,14 +36,14 @@
               </tbody>
               <tfoot>
                 <tr>
-                  <td colspan="2" class="align-middle text-primary">
+                  <td colspan="2" class="align-middle text-orange">
                     If you're using a scanner please verify that the input is focused.
                   </td>
-                  <td class="text-right"><button class="btn btn-sm btn-primary" (click)="addSld()">Add device</button></td>
+                  <td class="text-right"><button class="btn btn-sm btn-orange text-light" (click)="addSld()">Add device</button></td>
                 </tr>
               </tfoot>
             </table>
-            <button class="btn btn-primary btn-save" [disabled]="deviceForm.invalid" (click)="saveChanges()">Save</button>
+            <button class="btn btn-orange text-light btn-save" [disabled]="deviceForm.invalid" (click)="saveChanges()">Save</button>
           </form>
         </div>
       </div>
@@ -61,6 +61,6 @@
         </mat-form-field>
       </div>
     </div>
-    <button class="btn btn-primary btn-save" [disabled]="deviceEditForm.invalid" (click)="saveChanges()">Save</button>
+    <button class="btn btn-orange text-light btn-save" [disabled]="deviceEditForm.invalid" (click)="saveChanges()">Save</button>
   </form>
 </ng-template>

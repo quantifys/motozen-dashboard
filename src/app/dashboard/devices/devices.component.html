@@ -2,9 +2,9 @@
   <div class="header d-flex align-items-center">
     <h4 class="text-grey-dark m-0">Device List</h4>
     <div class="ml-auto">
-      <a class="btn btn-primary" routerLink="transfer" *ngIf="loggedUser.role == 'distributor'">
+      <a class="btn btn-orange text-light" routerLink="transfer" *ngIf="loggedUser.role == 'distributor'">
         <i class="fas fa-desktop mr-2"></i>Transfer stock</a>
-      <a class="btn btn-primary" routerLink="edit" [queryParams]="{type: 'new'}" *ngIf="loggedUser.role == 'store_purchases'">
+      <a class="btn btn-orange text-light" routerLink="edit" [queryParams]="{type: 'new'}" *ngIf="loggedUser.role == 'store_purchases'">
         <i class="fas fa-desktop mr-2"></i>Add Devices</a>
     </div>
   </div>

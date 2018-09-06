@@ -1,6 +1,6 @@
 <section class="container">
   <div class="d-flex align-items-center justify-content-between">
-    <button (click)="_location.back()" class="btn btn-primary text-light">
+    <button (click)="_location.back()" class="btn btn-orange text-light text-light">
       <i class="fas fa-arrow-left mr-2"></i>Go back</button>
     <h4 class="text-grey-dark m-0">Transaction details</h4>
   </div>
@@ -10,7 +10,7 @@
         <div class="card-body d-flex flex-column justify-content-between">
           <div class="top">
             <h6 class="text-grey-dark font-weight-bold mb-3">
-              <i class="fas fa-info-circle mr-2 fa-fw text-primary"></i>General information</h6>
+              <i class="fas fa-info-circle mr-2 fa-fw text-orange"></i>General information</h6>
             <h6 class="text-grey-dark">Serial No:</h6>
             <h6 class="ml-3">{{transaction.transactable.serial_no}}</h6>
             <h6 class="text-grey-dark">Created on:</h6>
@@ -26,7 +26,7 @@
         <div class="card-body d-flex flex-column justify-content-between">
           <div class="top">
             <h6 class="text-grey-dark font-weight-bold mb-3">
-              <i class="fas fa-info-circle mr-2 fa-fw text-primary"></i>Amount information</h6>
+              <i class="fas fa-info-circle mr-2 fa-fw text-orange"></i>Amount information</h6>
             <h6 class="text-grey-dark">Amount:</h6>
             <h6 class="ml-3">{{transaction.amount | currency: 'INR'}}</h6>
             <h6 class="text-grey-dark">GST:</h6>

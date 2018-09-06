@@ -51,7 +51,7 @@ body {
 }
 
 a {
-  &.text-primary {
+  &.text-orange {
     color: $primary;
     &:hover {
       color: $primary-dark !important;
@@ -75,7 +75,7 @@ button {
   color: $grey-dark !important;
 }
 
-.text-primary {
+.text-orange {
   color: $primary !important;
 }
 
@@ -133,7 +133,7 @@ form {
   opacity: 1;
 }
 
-.btn-primary {
+.btn-orange {
   border-color: $primary;
   background-color: transparent;
   box-shadow: 5px 5px 25px 0 rgba(46, 61, 73, .2);

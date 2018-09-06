@@ -11,7 +11,7 @@
             <form class="mt-2  p-2" autocomplete="off" [formGroup]="loginForm" (ngSubmit)="loginClicked()">
               <mat-form-field class="w-100 mb-2">
                 <input formControlName="email" type="email" matInput placeholder="Email">
-                <mat-icon matSuffix class="text-primary">verified_user</mat-icon>
+                <mat-icon matSuffix class="text-orange">verified_user</mat-icon>
                 <mat-error *ngIf="email.hasError('required')">
                   Please enter a email
                 </mat-error>
@@ -21,7 +21,7 @@
               </mat-form-field>
               <mat-form-field class="w-100">
                 <input formControlName="password" type="password" matInput placeholder="Password">
-                <mat-icon matSuffix class="text-primary">lock</mat-icon>
+                <mat-icon matSuffix class="text-orange">lock</mat-icon>
                 <mat-error *ngIf="password.hasError('required')">
                   Please enter a password
                 </mat-error>
@@ -29,10 +29,10 @@
                   Password should be more than 6 characters in length
                 </mat-error>
               </mat-form-field>
-              <button type="submit" class="btn btn-primary w-100 mt-3 p-3 font-weight-bold" [disabled]="loginForm.invalid">Login</button>
+              <button type="submit" class="btn btn-orange text-light w-100 mt-3 p-3 font-weight-bold" [disabled]="loginForm.invalid">Login</button>
               <div class="text-center mt-3">
                 <h6 class="text-muted m-0">If you have forgotten your credentials please contact us
-                  <a class="text-primary" href="mailto:customercare@gemeniindia.com">customercare@gemeniindia.com</a>
+                  <a class="text-orange" href="mailto:customercare@gemeniindia.com">customercare@gemeniindia.com</a>
                 </h6>
               </div>
             </form>

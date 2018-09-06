@@ -1,6 +1,6 @@
 <section class="container">
   <div class="d-flex align-items-center justify-content-between">
-    <a (click)="_location.back()" class="btn btn-primary text-light">
+    <a (click)="_location.back()" class="btn btn-orange text-light text-light">
       <i class="fas fa-arrow-left mr-2"></i>Go back</a>
     <h4 class="text-grey-dark m-0">{{addIncome ? 'Add income' : 'Edit income'}}</h4>
   </div>
@@ -28,7 +28,7 @@
                 </mat-form-field>
               </div>
             </div>
-            <button class="btn btn-primary btn-save" [disabled]="incomeForm.invalid || incomeForm.pristine" (click)="saveChanges()">Save</button>
+            <button class="btn btn-orange text-light btn-save" [disabled]="incomeForm.invalid || incomeForm.pristine" (click)="saveChanges()">Save</button>
           </form>
         </div>
       </div>

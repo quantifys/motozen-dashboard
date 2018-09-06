@@ -1,6 +1,6 @@
 <section class="container">
   <div class="d-flex align-items-center justify-content-between">
-    <a (click)="_location.back()" class="btn btn-primary text-light">
+    <a (click)="_location.back()" class="btn btn-orange text-light text-light">
       <i class="fas fa-arrow-left mr-2"></i>Go back</a>
     <h4 class="text-grey-dark m-0">{{addVehicle ? 'Add vehicle' : 'Edit vehicle'}}</h4>
   </div>
@@ -69,11 +69,11 @@
                 </div>
               </ng-container>
             </div>
-            <button class="btn btn-primary btn-sm" (click)="addIcat()" *ngIf="(addVehicle && icats.length < 1) || !addVehicle">Add
+            <button class="btn btn-orange text-light btn-sm" (click)="addIcat()" *ngIf="(addVehicle && icats.length < 1) || !addVehicle">Add
               Document
             </button>
             <hr>
-            <button class="btn btn-primary btn-save" [disabled]="vehicleForm.invalid || vehicleForm.pristine" (click)="saveChanges()">Save</button>
+            <button class="btn btn-orange text-light btn-save" [disabled]="vehicleForm.invalid || vehicleForm.pristine" (click)="saveChanges()">Save</button>
           </form>
         </div>
       </div>

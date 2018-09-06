@@ -1,7 +1,7 @@
 <section class="d-flex flex-column justify-content-between h-100">
   <div>
     <div class="logo p-3 text-center">
-      <h4 class="text-primary font-weight-bold">GEMENI INDIA</h4>
+      <h4 class="text-orange font-weight-bold">GEMENI INDIA</h4>
       <img src="../../../assets/images/user.png" alt="User" class="img-fluid w-50">
       <h5 class="font-weight-bold mt-2 mb-0">{{loggedUser.name}}</h5>
       <p class="text-muted">{{loggedUser.getRole() | titlecase}}</p>
@@ -17,7 +17,7 @@
     </ul>
   </div>
   <div class="mb-4">
-    <button (click)="signOut()" class="btn btn-primary text-light d-flex ml-auto mr-auto">
+    <button (click)="signOut()" class="btn btn-orange text-light text-light d-flex ml-auto mr-auto">
       <i class="material-icons mr-2">exit_to_app</i> Log Out</button>
   </div>
 </section>
