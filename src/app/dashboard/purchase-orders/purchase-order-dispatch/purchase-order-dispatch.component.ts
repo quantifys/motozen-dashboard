@@ -29,7 +29,8 @@ export class PurchaseOrderDispatchComponent implements OnInit, OnDestroy {
     private _store: Store<fromRoot.State>,
   ) {
     this._store.dispatch(new deviceActions.FetchAllDevicesAction({
-      status: 'unsold'
+      status: 'unsold',
+      per_page: 2000
     }));
     this._activatedRoute.queryParams.subscribe(params => {
       if (params["id"]) {
