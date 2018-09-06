@@ -2,7 +2,8 @@ import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { HttpClient } from '@angular/common/http';
 import { Observable, Observer } from 'rxjs';
-import { take, retry } from 'rxjs/operators';
+import { retry } from 'rxjs/operators';
+import { DatePipe } from '@angular/common';
 import moment from 'moment';
 import swal from 'sweetalert2';
 
@@ -30,7 +31,8 @@ export class CertificateService {
 
   constructor(
     private _store: Store<fromRoot.State>,
-    private _http: HttpClient
+    private _http: HttpClient,
+    private _datePipe: DatePipe
   ) {
     pdfMake.vfs = pdfFonts.pdfMake.vfs;
     this._store.select(fromRoot.getCurrentCertificate).subscribe(certificate => this.certificate = certificate);
@@ -51,7 +53,7 @@ export class CertificateService {
           "columns": [
             [
               {
-                "qr": "GEMENI ENTERPRISES GOA\nSLD_NUMBER: " + certificate.device.sld_number + "\nCERTIFICATE NUMBER: " + certificate.certificate_number + "\nDATE GENERATED: " + certificate.date_generated + "\nDUE DATE: " + certificate.due_date + "\nCHASSIS NUMBER: " + certificate.chassis_number + "\nENGINE NUMBER: " + certificate.engine_number + "\nCUSTOMER NAME: " + certificate.customer_name + "\nCAR REG NUMBER: " + certificate.car_reg_number,
+                "qr": "GEMENI ENTERPRISES GOA\nSLD_NUMBER: " + certificate.device.sld_number + "\nCERTIFICATE NUMBER: " + certificate.certificate_number + "\nDATE GENERATED: " + this._datePipe.transform(certificate.date_generated, 'fullDate') + "\nDUE DATE: " + this._datePipe.transform(certificate.due_date, 'fullDate') + "\nCHASSIS NUMBER: " + certificate.chassis_number + "\nENGINE NUMBER: " + certificate.engine_number + "\nCUSTOMER NAME: " + certificate.customer_name + "\nCAR REG NUMBER: " + certificate.car_reg_number,
                 "fit": 120
               },
               {
@@ -122,7 +124,7 @@ export class CertificateService {
                 "text": [
                   "Issuing Date: ",
                   {
-                    "text": certificate.date_generated,
+                    "text": this._datePipe.transform(certificate.date_generated, 'fullDate'),
                     "bold": true
                   }
                 ],
@@ -133,7 +135,7 @@ export class CertificateService {
                 "text": [
                   "Renewal Date: ",
                   {
-                    "text": certificate.due_date,
+                    "text": this._datePipe.transform(certificate.due_date, 'fullDate'),
                     "bold": true
                   }
                 ],
@@ -523,7 +525,7 @@ export class CertificateService {
           "columns": [
             [
               {
-                "qr": "GEMENI ENTERPRISES GOA\nSLD_NUMBER: " + certificate.device.sld_number + "\nCERTIFICATE NUMBER: " + certificate.certificate_number + "\nDATE GENERATED: " + certificate.date_generated + "\nDUE DATE: " + certificate.due_date + "\nCHASSIS NUMBER: " + certificate.chassis_number + "\nENGINE NUMBER: " + certificate.engine_number + "\nCUSTOMER NAME: " + certificate.customer_name + "\nCAR REG NUMBER: " + certificate.car_reg_number,
+                "qr": "GEMENI ENTERPRISES GOA\nSLD_NUMBER: " + certificate.device.sld_number + "\nCERTIFICATE NUMBER: " + certificate.certificate_number + "\nDATE GENERATED: " + this._datePipe.transform(certificate.date_generated, 'fullDate') + "\nDUE DATE: " + this._datePipe.transform(certificate.due_date, 'fullDate') + "\nCHASSIS NUMBER: " + certificate.chassis_number + "\nENGINE NUMBER: " + certificate.engine_number + "\nCUSTOMER NAME: " + certificate.customer_name + "\nCAR REG NUMBER: " + certificate.car_reg_number,
                 "fit": 120
               },
               {
@@ -594,7 +596,7 @@ export class CertificateService {
                 "text": [
                   "Issuing Date: ",
                   {
-                    "text": certificate.date_generated,
+                    "text": this._datePipe.transform(certificate.date_generated, 'fullDate'),
                     "bold": true
                   }
                 ],
@@ -605,7 +607,7 @@ export class CertificateService {
                 "text": [
                   "Renewal Date: ",
                   {
-                    "text": certificate.due_date,
+                    "text": this._datePipe.transform(certificate.due_date, 'fullDate'),
                     "bold": true
                   }
                 ],
