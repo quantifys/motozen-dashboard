@@ -99,8 +99,8 @@ export class CertificateEffects {
 
   @Effect()
   fetchCertificateFormdata$: Observable<Action> = this._action$.ofType(fromCertificate.FETCH_CERTIFICATE_FORMDATA_ACTION).pipe(
-    map((action: fromCertificate.FetchCertificateFormdataAction) => action),
-    exhaustMap(() => this._tokenService.get("certificates/new")
+    map((action: fromCertificate.FetchCertificateFormdataAction) => action.payload),
+    exhaustMap(id => (!id ? this._tokenService.get("certificates/new") : this._tokenService.get(`certificates/${id}/edit`))
       .pipe(
         map(response => new fromCertificate.FetchCertificateFormdataCompleteAction(response.json().message)),
         catchError(error => of(new fromCertificate.FetchCertificateFormdataFailedAction(error.json().message)))

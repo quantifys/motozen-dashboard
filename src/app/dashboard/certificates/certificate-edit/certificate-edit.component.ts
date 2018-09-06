@@ -56,13 +56,14 @@ export class CertificateEditComponent implements OnInit, OnDestroy {
   ) {
     this._store.dispatch(new certificateActions.ClearCertificateDataAction);
     this.certificate = new Certificate({});
-    this.loadFormdata();
     this._activatedRoute.queryParams.subscribe(params => {
       if (params["id"]) {
         this.addCertificate = false;
+        this.loadFormdata(+params["id"]);
         this._store.dispatch(new certificateActions.FetchCertificateAction(params["id"]));
       } else {
         this.addCertificate = true;
+        this.loadFormdata();
       }
     });
   }
@@ -72,7 +73,6 @@ export class CertificateEditComponent implements OnInit, OnDestroy {
     this.validateForm();
     this.formListener();
     this.initializers();
-    this.fetchDevices();
     this.certificateSubscription$ = this._store.select(fromRoot.getCurrentCertificate).subscribe((certificate: Certificate) => {
       if (certificate.id) {
         this.certificate = certificate;
@@ -169,10 +169,11 @@ export class CertificateEditComponent implements OnInit, OnDestroy {
     return this.certificateForm.get('location_state') as FormControl;
   }
 
-  loadFormdata() {
-    this._store.dispatch(new certificateActions.FetchCertificateFormdataAction);
+  loadFormdata(id?: number) {
+    this._store.dispatch(new certificateActions.FetchCertificateFormdataAction(id));
     this._store.select(fromRoot.getCertificateFormdata).subscribe(data => {
       if (data) {
+        this.devices = data.devices.filter(device => new Device(device));
         this.formdata = data;
         this.brands = [];
         for (var make in data["vehicle_makes"]) {
@@ -180,15 +181,6 @@ export class CertificateEditComponent implements OnInit, OnDestroy {
         }
       }
     });
-  }
-
-  fetchDevices(event?) {
-    this.device_id.patchValue(null, { emitEvent: false });
-    this._store.dispatch(new deviceActions.FetchAllDevicesAction({
-      sld_number: event ? event.target.value : null,
-      status: "sold",
-      per_page: 2000
-    }));
   }
 
   getModels(): any[] {

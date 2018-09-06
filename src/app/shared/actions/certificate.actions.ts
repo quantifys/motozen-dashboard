@@ -258,7 +258,7 @@ export class RenewCertificateFailedAction implements Action {
 
 export class FetchCertificateFormdataAction implements Action {
 	readonly type = FETCH_CERTIFICATE_FORMDATA_ACTION;
-	constructor() {
+	constructor(public payload: number) {
 		toast({
 			title: 'Fetching form data...'
 		});
