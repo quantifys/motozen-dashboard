@@ -46,6 +46,9 @@ export class UsersComponent implements OnInit, OnDestroy {
           if (!this._activatedRoute.snapshot.queryParams["per_page"]) {
             newParams["per_page"] = 10;
           }
+          if (this._activatedRoute.snapshot.queryParams["name"]) {
+            this.search.patchValue(this._activatedRoute.snapshot.queryParams["name"], { emitEvent: false });
+          }
           this._router.navigate(["dashboard", "users"], { queryParams: { ...this._activatedRoute.snapshot.queryParams, ...newParams } });
         } else {
           this._router.navigate(["403-forbidden"]);
