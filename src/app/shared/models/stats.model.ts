@@ -42,12 +42,14 @@ export class DealerStats {
 
 export class UserStats {
   public user: User;
+  public distributor: User;
   public po_stats: PurchaseOrderStats;
   public certificate_stats: CertificateStats;
   public device_stats: DeviceStats;
   public dealer_stats: DealerStats;
   constructor(data: any) {
     this.user = data.user ? new User(data.user) : new User({});
+    this.distributor = data.distributor ? new User(data.distributor) : new User({});
     this.po_stats = data.po_stats ? new PurchaseOrderStats(data.po_stats) : new PurchaseOrderStats({});
     this.certificate_stats = data.certificate_stats ? new CertificateStats(data.certificate_stats) : new CertificateStats({});
     this.device_stats = data.device_stats ? new DeviceStats(data.device_stats) : new DeviceStats({});

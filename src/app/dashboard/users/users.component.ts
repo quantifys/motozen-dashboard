@@ -27,13 +27,13 @@ export class UsersComponent implements OnInit, OnDestroy {
         if (user.role == 'manufacturer' || user.role == 'sales' || user.role == 'human_resource' || user.role == 'admin') {
           let newParams: any = {};
           if (user.role == 'sales') {
-            newParams["role"] = 'distributor';
+            (!this._activatedRoute.snapshot.queryParams["role"]) ? newParams["role"] = 'distributor' : null
             newParams["group"] = null;
           } else if (user.role == 'human_resource') {
-            newParams["role"] = 'store_purchases';
+            (!this._activatedRoute.snapshot.queryParams["role"]) ? newParams["role"] = 'store_purchases' : null
             newParams["group"] = null;
           } else {
-            newParams["group"] = 'employees';
+            (!this._activatedRoute.snapshot.queryParams["group"]) ? newParams["group"] = 'employees' : null
             newParams["role"] = null;
           }
           if (!this._activatedRoute.snapshot.queryParams["page"]) {

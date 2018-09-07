@@ -10,7 +10,7 @@
     <button class="ml-2" mat-stroked-button color="warn" (click)="deleteUser()">Delete</button>
   </div>
   <div class="details">
-    <div class="row justify-content-center align-items-stretch">
+    <div class="row justify-content-center">
       <div class="col-md-12 col-lg-6 mt-4">
         <div class="card h-100">
           <div class="card-body d-flex flex-column justify-content-between">
@@ -25,9 +25,11 @@
               <h6 class="ml-3">
                 <a [href]="'mailto:' + userStats.user.email">{{userStats.user.email}}</a>
               </h6>
-              <ng-container *ngIf="userStats.user.distributor_id">
+              <ng-container *ngIf="userStats.user.role == 'dealer'">
                 <h6 class="text-grey-dark">Distributor ID:</h6>
-                <h6 class="ml-3 p-2 bg-primary d-inline-block rounded text-light mb-0">{{userStats.user.distributor_id}}</h6>
+                <a routerLink="../view" [queryParams]="{id: userStats.distributor.id}">
+                  <h6 class="ml-3">{{userStats.distributor.name}}</h6>
+                </a>
               </ng-container>
             </div>
             <div class="text-right">
@@ -75,7 +77,7 @@
         </div>
       </div>
       <div class="col-md-12 col-lg-6 mt-4" *ngIf="userStats.user.role == 'distributor' || userStats.user.role == 'dealer'">
-        <div class="card h-100">
+        <div class="card">
           <div class="card-body">
             <div class="d-flex justify-content-between">
               <h6 class="text-grey-dark font-weight-bold mb-3">
@@ -101,14 +103,12 @@
           </div>
         </div>
       </div>
-    </div>
-    <div class="row justify-content-center align-items-stretch">
       <div class="col-sm-12 col-md-6 mt-4" *ngIf="userStats.po_stats.total_count > 0">
         <div class="card h-100">
           <div class="card-body">
             <div class="d-flex justify-content-between">
               <h6 class="text-grey-dark font-weight-bold">
-                <i class="fas fa-info-circle mr-2 fa-fw text-orange"></i>Purchase order stats</h6>
+                <i class="fas fa-info-circle mr-2 fa-fw text-orange"></i>Recent purchase orders</h6>
               <h6>Total: {{userStats.po_stats.total_count}}</h6>
             </div>
             <hr class="mt-0">
@@ -145,6 +145,8 @@
             </div>
             <pie-chart *ngIf="userStats.certificate_stats.expired_count > 0 || userStats.certificate_stats.valid_count > 0"
               [data]="certificateChartData" [config]="chartConfig" elementId="certificateChart"></pie-chart>
+            <h6 class="text-grey-dark font-weight-bold">
+              <i class="fas fa-info-circle mr-2 fa-fw text-orange"></i>Most recent certificates</h6>
             <div class="list-group mt-4">
               <a class="list-group-item list-group-item-action p-0" routerLink="../../certificates/view" [queryParams]="{id: certificate.id}"
                 *ngFor="let certificate of userStats.certificate_stats.recent">
@@ -156,12 +158,14 @@
                         <mat-icon class="text-orange mr-1">date_range</mat-icon>
                         <span>{{certificate.date_generated | date: 'mediumDate'}}</span>
                       </p>
+                      <h6 class="text-grey-dark mb-0">Customer name:</h6>
+                      <h6 class="ml-3">{{certificate.customer_name}}</h6>
                     </div>
                     <div class="col-sm-3 p-3 border-left text-center">
                       <h6 class="text-grey-dark m-0">SLD Number</h6>
                       <h6 class="mb-0">{{certificate.sld_number}}</h6>
                       <hr class="mt-1 mb-2">
-                      <h6 class="text-orange mb-0 font-weight-bold">{{certificate.getStatus()}}</h6>
+                      <h6 class="text-orange mb-0 font-weight-bold mb-0">{{certificate.getStatus()}}</h6>
                     </div>
                   </div>
                 </div>
