@@ -29,7 +29,11 @@ export class InventoryEffects {
     map((action: fromInventory.FetchAllInventoriesAction) => action.payload),
     exhaustMap(body => this._tokenService.post(`inventory_items/list`, body)
       .pipe(
-        map(response => new fromInventory.FetchAllInventoriesCompleteAction(response.json().message)),
+        map(response => new fromInventory.FetchAllInventoriesCompleteAction({
+          data: response.json().message,
+          total: response.headers.get('total'),
+          per_page: response.headers.get('per-page')
+        })),
         catchError(error => of(new fromInventory.FetchAllInventoriesFailedAction(error.json().message)))
       ))
   );
