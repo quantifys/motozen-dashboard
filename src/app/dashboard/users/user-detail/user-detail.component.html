@@ -11,7 +11,7 @@
   </div>
   <div class="details">
     <div class="row justify-content-center align-items-stretch">
-      <div class="col-sm-12 col-md-6 col-xl-4 mt-4">
+      <div class="col-md-12 col-lg-6 mt-4">
         <div class="card h-100">
           <div class="card-body d-flex flex-column justify-content-between">
             <div class="top">
@@ -38,7 +38,7 @@
           </div>
         </div>
       </div>
-      <div class="col-sm-12 col-md-6 col-xl-4 mt-4" *ngIf="userStats.user.role != 'manufacturer'">
+      <div class="col-md-12 col-lg-6 mt-4" *ngIf="userStats.user.role != 'manufacturer'">
         <div class="card h-100">
           <div class="card-body">
             <h6 class="text-grey-dark font-weight-bold mb-3">
@@ -55,7 +55,7 @@
           </div>
         </div>
       </div>
-      <div class="col-sm-12 col-md-6 col-xl-4 mt-4" *ngIf="userStats.user.role != 'manufacturer' && userStats.user.role != 'distributor' && userStats.user.role != 'dealer'">
+      <div class="col-md-12 col-lg-6 mt-4" *ngIf="userStats.user.role != 'manufacturer' && userStats.user.role != 'distributor' && userStats.user.role != 'dealer'">
         <div class="card h-100">
           <div class="card-body">
             <h5 class="text-grey-dark font-weight-bold mb-3">
@@ -74,24 +74,30 @@
           </div>
         </div>
       </div>
-      <div class="col-sm-12 col-md-6 col-xl-4 mt-4" *ngIf="userStats.user.role == 'distributor' || userStats.user.role == 'dealer'">
+      <div class="col-md-12 col-lg-6 mt-4" *ngIf="userStats.user.role == 'distributor' || userStats.user.role == 'dealer'">
+        <div class="card h-100">
+          <div class="card-body">
+            <div class="d-flex justify-content-between">
+              <h6 class="text-grey-dark font-weight-bold mb-3">
+                <i class="fas fa-info-circle mr-2 fa-fw text-orange"></i>Device stats</h6>
+              <h6>Total: {{userStats.device_stats.all_time_count}}</h6>
+            </div>
+            <pie-chart *ngIf="userStats.device_stats.all_time_count > 0" [data]="deviceChartData" [config]="chartConfig"
+              elementId="deviceChart"></pie-chart>
+            <div class="text-orange text-center mt-5" *ngIf="userStats.device_stats.all_time_count == 0">
+              <mat-icon>warning</mat-icon>
+              <h4 class="font-weight-bold">No data available!</h4>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-12 col-lg-6 mt-4" *ngIf="userStats.user.role == 'distributor'">
         <div class="card h-100">
           <div class="card-body">
             <h6 class="text-grey-dark font-weight-bold mb-3">
-              <i class="fas fa-info-circle mr-2 fa-fw text-orange"></i>Device stats</h6>
-            <h6 class="text-grey-dark">All:</h6>
-            <h1 class="ml-3">{{userStats.device_stats.all_time_count}}</h1>
-            <h6 class="text-grey-dark">In stock:</h6>
-            <h1 class="ml-3">{{userStats.device_stats.in_stock_count}}</h1>
-            <h6 class="text-grey-dark">Certified:</h6>
-            <h1 class="ml-3">{{userStats.device_stats.certified_count}}</h1>
-            <ng-container *ngIf="userStats.user.role == 'distributor'">
-              <hr>
-              <h6 class="text-grey-dark font-weight-bold mb-3">
-                <i class="fas fa-info-circle mr-2 fa-fw text-orange"></i>Dealer stats</h6>
-              <h6 class="text-grey-dark">Total associated dealers:</h6>
-              <h1 class="display-3 text-center">{{userStats.dealer_stats.total_count}}</h1>
-            </ng-container>
+              <i class="fas fa-info-circle mr-2 fa-fw text-orange"></i>Dealer stats</h6>
+            <h6 class="text-grey-dark">Total associated dealers:</h6>
+            <h1 class="display-2 text-center">{{userStats.dealer_stats.total_count}}</h1>
           </div>
         </div>
       </div>
@@ -101,24 +107,27 @@
         <div class="card h-100">
           <div class="card-body">
             <div class="d-flex justify-content-between">
-              <h6 class="text-grey-dark font-weight-bold mb-3">
+              <h6 class="text-grey-dark font-weight-bold">
                 <i class="fas fa-info-circle mr-2 fa-fw text-orange"></i>Purchase order stats</h6>
               <h6>Total: {{userStats.po_stats.total_count}}</h6>
             </div>
+            <hr class="mt-0">
             <div class="list-group">
               <a class="list-group-item list-group-item-action p-0" routerLink="../../purchase-orders/view"
                 [queryParams]="{id: order.id}" *ngFor="let order of userStats.po_stats.recent">
-                <div class="d-flex align-items-center">
-                  <div class="flex-fill p-3">
-                    <h6 class="mb-0">{{order.serial_no}}</h6>
-                    <p class="mb-1 text-grey-dark d-flex align-items-center">
-                      <mat-icon class="text-orange mr-1">date_range</mat-icon>
-                      <span>{{order.created_at | date: 'fullDate'}}</span>
-                    </p>
-                  </div>
-                  <div class="p-3 text-center border-left">
-                    <h2 class="m-0">{{order.total_quantity}}</h2>
-                    <h6 class="font-weight-bold text-orange">{{order.status | titlecase}}</h6>
+                <div class="container-fluid">
+                  <div class="row">
+                    <div class="col-sm-9 p-3">
+                      <h6 class="mb-0">{{order.serial_no}}</h6>
+                      <p class="mb-1 text-grey-dark d-flex align-items-center">
+                        <mat-icon class="text-orange mr-1">date_range</mat-icon>
+                        <span>{{order.created_at | date: 'fullDate'}}</span>
+                      </p>
+                    </div>
+                    <div class="col-sm-3 p-3 border-left text-center">
+                      <h2 class="m-0">{{order.total_quantity}}</h2>
+                      <h6 class="font-weight-bold text-orange">{{order.getStatus() | titlecase}}</h6>
+                    </div>
                   </div>
                 </div>
               </a>
@@ -129,37 +138,32 @@
       <div class="col-sm-12 col-md-6 mt-4" *ngIf="userStats.certificate_stats.recent.length > 0">
         <div class="card h-100">
           <div class="card-body">
-            <h6 class="text-grey-dark font-weight-bold mb-3">
-              <i class="fas fa-info-circle mr-2 fa-fw text-orange"></i>Certificate stats</h6>
-            <div class="container-fluid">
-              <div class="row">
-                <div class="col-sm-12 col-md-6">
-                  <mat-card>
-                    <mat-card-header>
-                      <mat-card-title>Valid</mat-card-title>
-                      <mat-card-subtitle>{{userStats.certificate_stats.valid_count}}</mat-card-subtitle>
-                    </mat-card-header>
-                  </mat-card>
-                </div>
-                <div class="col-sm-12 col-md-6">
-                  <h6 class="text-grey-dark">Expired:</h6>
-                  <h6 class="ml-3">{{userStats.certificate_stats.expired_count}}</h6>
-                </div>
-              </div>
+            <div class="d-flex justify-content-between">
+              <h6 class="text-grey-dark font-weight-bold mb-3">
+                <i class="fas fa-info-circle mr-2 fa-fw text-orange"></i>Certificate stats</h6>
+              <h6>Total: {{userStats.certificate_stats.expired_count + userStats.certificate_stats.valid_count}}</h6>
             </div>
+            <pie-chart *ngIf="userStats.certificate_stats.expired_count > 0 || userStats.certificate_stats.valid_count > 0"
+              [data]="certificateChartData" [config]="chartConfig" elementId="certificateChart"></pie-chart>
             <div class="list-group mt-4">
               <a class="list-group-item list-group-item-action p-0" routerLink="../../certificates/view" [queryParams]="{id: certificate.id}"
                 *ngFor="let certificate of userStats.certificate_stats.recent">
-                <div class="p-3">
-                  <h6 class="mb-0">{{certificate.certificate_number}}</h6>
-                  <p class="text-grey-dark d-flex align-items-center">
-                    <mat-icon class="text-orange mr-1">date_range</mat-icon>
-                    <span>{{certificate.date_generated | date: 'fullDate'}}</span>
-                  </p>
-                  <h6 class="text-grey-dark">SLD Number:</h6>
-                  <h6 class="ml-3">{{certificate.sld_number}}</h6>
-                  <h6 class="text-grey-dark">Status:</h6>
-                  <h6 class="ml-3">{{certificate.getStatus()}}</h6>
+                <div class="container-fluid">
+                  <div class="row">
+                    <div class="col-sm-9 p-3">
+                      <h6 class="mb-0">{{certificate.certificate_number}}</h6>
+                      <p class="text-grey-dark d-flex align-items-center">
+                        <mat-icon class="text-orange mr-1">date_range</mat-icon>
+                        <span>{{certificate.date_generated | date: 'mediumDate'}}</span>
+                      </p>
+                    </div>
+                    <div class="col-sm-3 p-3 border-left text-center">
+                      <h6 class="text-grey-dark m-0">SLD Number</h6>
+                      <h6 class="mb-0">{{certificate.sld_number}}</h6>
+                      <hr class="mt-1 mb-2">
+                      <h6 class="text-orange mb-0 font-weight-bold">{{certificate.getStatus()}}</h6>
+                    </div>
+                  </div>
                 </div>
               </a>
             </div>

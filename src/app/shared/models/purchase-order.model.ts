@@ -47,6 +47,14 @@ export class PurchaseOrder {
   getShippingTotal(): number {
     return Math.round(this.shipping_amt + (this.shipping_amt * this.shipping_gst * 0.01));
   }
+
+  getStatus(): string {
+    if (this.status == 'can_modify') {
+      return "New"
+    } else {
+      return this.status.replace('_', ' ');
+    }
+  }
 }
 
 export class PurchaseOrderParticulars {

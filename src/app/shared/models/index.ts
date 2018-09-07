@@ -11,6 +11,7 @@ export * from './salary-slip.model';
 export * from './transaction.model';
 export * from './vendor.model';
 export * from './stats.model';
+export * from './chart.model';
 
 export class PageData {
   public total: number;

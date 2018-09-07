@@ -31,6 +31,7 @@ import { CertificateService } from './shared/services/certificate.service';
 import { PurchaseOrderService } from './shared/services/purchase-order.service';
 import { RequisitionOrderService } from './shared/services/requisition-order.service';
 import { DatePipe } from '@angular/common';
+import { GooglePieChartService } from './shared/services/google-pie-chart.service';
 
 @NgModule({
   declarations: [
@@ -62,7 +63,7 @@ import { DatePipe } from '@angular/common';
       logOnly: environment.production // Restrict extension to log-only mode
     })
   ],
-  providers: [Angular2TokenService, RtoService, CertificateService, PurchaseOrderService, RequisitionOrderService, DatePipe],
+  providers: [Angular2TokenService, RtoService, CertificateService, PurchaseOrderService, RequisitionOrderService, DatePipe, GooglePieChartService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

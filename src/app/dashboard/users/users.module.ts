@@ -10,6 +10,7 @@ import { UserTableComponent } from './user-table/user-table.component';
 import { UserEditComponent } from './user-edit/user-edit.component';
 import { UserDetailComponent } from './user-detail/user-detail.component';
 import { UserDeleteComponent, UserChangePasswordComponent } from './user-control/user-control.component';
+import { ChartsModule } from '../charts/charts.module';
 
 const routes: Routes = [
   {
@@ -48,6 +49,7 @@ const routes: Routes = [
     MatBottomSheetModule,
     MatCardModule,
     NgSelectModule,
+    ChartsModule,
     RouterModule.forChild(routes)
   ],
   declarations: [UsersComponent, UserTableComponent, UserEditComponent, UserDetailComponent, UserDeleteComponent, UserChangePasswordComponent],
