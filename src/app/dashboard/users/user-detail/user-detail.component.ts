@@ -24,7 +24,7 @@ export class UserDetailComponent {
   constructor(
     private _activatedRoute: ActivatedRoute,
     private _router: Router,
-    private _location: Location,
+    public _location: Location,
     private _store: Store<fromRoot.State>,
     private bottomSheet: MatBottomSheet
   ) {

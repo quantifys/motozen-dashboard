@@ -108,10 +108,11 @@
           <div class="card-body">
             <div class="d-flex justify-content-between">
               <h6 class="text-grey-dark font-weight-bold">
-                <i class="fas fa-info-circle mr-2 fa-fw text-orange"></i>Recent purchase orders</h6>
+                <i class="fas fa-info-circle mr-2 fa-fw text-orange"></i>Purchase order stats</h6>
               <h6>Total: {{userStats.po_stats.total_count}}</h6>
             </div>
             <hr class="mt-0">
+            <h6 class="text-grey-dark">Recent</h6>
             <div class="list-group">
               <a class="list-group-item list-group-item-action p-0" routerLink="../../purchase-orders/view"
                 [queryParams]="{id: order.id}" *ngFor="let order of userStats.po_stats.recent">
@@ -149,8 +150,7 @@
             </div>
             <pie-chart *ngIf="userStats.certificate_stats.expired_count > 0 || userStats.certificate_stats.valid_count > 0"
               [data]="certificateChartData" [config]="chartConfig" elementId="certificateChart"></pie-chart>
-            <h6 class="text-grey-dark font-weight-bold">
-              <i class="fas fa-info-circle mr-2 fa-fw text-orange"></i>Most recent certificates</h6>
+            <h6 class="text-grey-dark">Recent</h6>
             <div class="list-group mt-4">
               <a class="list-group-item list-group-item-action p-0" routerLink="../../certificates/view" [queryParams]="{id: certificate.id}"
                 *ngFor="let certificate of userStats.certificate_stats.recent">
