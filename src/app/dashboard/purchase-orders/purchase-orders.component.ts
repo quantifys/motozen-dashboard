@@ -28,7 +28,7 @@ export class PurchaseOrdersComponent implements OnInit, OnDestroy {
     this.userSubscription$ = this._store.select(fromRoot.getLoggedUser).subscribe(user => {
       this.loggedUser = user;
       if (user.role) {
-        if (user.role == 'distributor' || user.role == 'store_purchases' || user.role == 'accounts' || user.role == 'store_dispatch' || user.role == 'store_logistics' || user.role == 'sales') {
+        if (user.role == 'manufacturer' || user.role == 'distributor' || user.role == 'store_purchases' || user.role == 'accounts' || user.role == 'store_dispatch' || user.role == 'store_logistics' || user.role == 'sales') {
           let newParams: any = {};
           if (!this._activatedRoute.snapshot.queryParams["page"]) {
             newParams["page"] = 1;
