@@ -27,9 +27,20 @@ export class CertificateStats {
 export class PurchaseOrderStats {
   public total_count: number;
   public recent: PurchaseOrder[];
+  public purchase_graph: PurchaseGraph;
   constructor(data: any) {
     this.total_count = data.total_count != null ? +data.total_count : null;
     this.recent = data.recent ? data.recent.map(po => new PurchaseOrder(po)) : [];
+    this.purchase_graph = data.purchase_graph ? new PurchaseGraph(data.purchase_graph) : new PurchaseGraph({});
+  }
+}
+
+export class PurchaseGraph {
+  public xaxis: string[];
+  public yaxis: string[];
+  constructor(data: any) {
+    this.xaxis = data.xaxis ? data.xaxis : [];
+    this.yaxis = data.yaxis ? data.yaxis : [];
   }
 }
 

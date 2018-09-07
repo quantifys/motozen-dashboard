@@ -6,7 +6,7 @@ import { Store } from '@ngrx/store';
 
 import * as fromRoot from '../../../shared/reducers';
 import * as userActions from '../../../shared/actions/user.actions';
-import { UserStats, PieChartConfig } from '../../../shared/models';
+import { UserStats, PieChartConfig, BarChartConfig } from '../../../shared/models';
 import { UserDeleteComponent, UserChangePasswordComponent } from '../user-control/user-control.component';
 
 @Component({
@@ -19,7 +19,11 @@ export class UserDetailComponent {
   public userStats: UserStats = new UserStats({});
   public certificateChartData: any[];
   public deviceChartData: any[];
-  public chartConfig: PieChartConfig;
+  public poChartData: any[] = [
+    ['Months', 'Orders']
+  ];
+  public pieChartConfig: PieChartConfig;
+  public barChartConfig: BarChartConfig;
 
   constructor(
     private _activatedRoute: ActivatedRoute,
@@ -28,10 +32,16 @@ export class UserDetailComponent {
     private _store: Store<fromRoot.State>,
     private bottomSheet: MatBottomSheet
   ) {
-    this.chartConfig = new PieChartConfig({
+    this.pieChartConfig = new PieChartConfig({
       is3D: true,
       legend: {
         position: "bottom"
+      }
+    });
+    this.barChartConfig = new BarChartConfig({
+      bars: "vertical",
+      legend: {
+        position: "none"
       }
     });
     this._store.select(fromRoot.getCurrentUserStats).subscribe(stats => {
@@ -47,6 +57,12 @@ export class UserDetailComponent {
           ["Certified", this.userStats.device_stats.certified_count],
           ["In stock", this.userStats.device_stats.in_stock_count]
         ];
+
+        if (this.userStats.user.role == 'distributor') {
+          this.userStats.po_stats.purchase_graph.xaxis.map((month, index) => {
+            this.poChartData.push([month, this.userStats.po_stats.purchase_graph.yaxis[index]]);
+          });
+        }
       }
     });
     this._activatedRoute.queryParams.subscribe(params => {
