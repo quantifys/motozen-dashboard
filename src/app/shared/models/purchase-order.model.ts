@@ -52,7 +52,7 @@ export class PurchaseOrder {
     if (this.status == 'can_modify') {
       return "New"
     } else {
-      return this.status.replace('_', ' ');
+      return this.status ? this.status.replace('_', ' ') : null
     }
   }
 }
