@@ -1,5 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Subscription } from 'rxjs';
+import { debounce } from 'rxjs/operators';
+import { FormControl, FormBuilder, FormGroup } from '@angular/forms';
+import { Subscription, timer } from 'rxjs';
 import { Store } from '@ngrx/store';
 
 import * as fromRoot from '../../shared/reducers';
@@ -15,11 +17,13 @@ export class UsersComponent implements OnInit, OnDestroy {
 
   private userSubscription$: Subscription = new Subscription();
   public loggedUser: User = new User({});
+  public searchForm: FormGroup;
 
   constructor(
     private _store: Store<fromRoot.State>,
     private _router: Router,
-    private _activatedRoute: ActivatedRoute
+    private _activatedRoute: ActivatedRoute,
+    private _fb: FormBuilder
   ) {
     this.userSubscription$ = this._store.select(fromRoot.getLoggedUser).subscribe(user => {
       this.loggedUser = user;
@@ -51,10 +55,35 @@ export class UsersComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    this.buildForm();
+    this.formListener();
   }
 
   ngOnDestroy() {
     this.userSubscription$.unsubscribe();
+  }
+
+  buildForm() {
+    this.searchForm = this._fb.group({
+      search: null
+    });
+  }
+
+  get search(): FormControl {
+    return this.searchForm.get('search') as FormControl;
+  }
+
+  formListener() {
+    this.search.valueChanges.pipe(debounce(() => timer(400))).subscribe(value => this.makeSearchRequest());
+  }
+
+  makeSearchRequest() {
+    this._router.navigate(["dashboard", "users"], {
+      queryParams: {
+        ...this._activatedRoute.snapshot.queryParams,
+        name: this.search.value
+      }
+    });
   }
 
   getQueryParams(type: string): any {

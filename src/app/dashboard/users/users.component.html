@@ -7,7 +7,20 @@
       </a>
     </div>
   </div>
-  <div class="content mt-4">
+  <div class="container-fluid mt-4">
+    <div class="row justify-content-center">
+      <div class="col-md-6">
+        <form [formGroup]="searchForm" autocomplete="off">
+          <mat-form-field color="warn" class="w-100">
+            <input matInput placeholder="Search users..." formControlName="search">
+            <mat-icon color="warn" matSuffix>search</mat-icon>
+          </mat-form-field>
+        </form>
+      </div>
+    </div>
+  </div>
+  <hr>
+  <div class="content mt-3">
     <nav mat-tab-nav-bar>
       <ng-container *ngIf="loggedUser.role == 'manufacturer' || loggedUser.role == 'admin'">
         <a mat-tab-link routerLink="../" [queryParams]="getQueryParams('employees')" routerLinkActive #employees="routerLinkActive"
@@ -18,12 +31,12 @@
           [active]="customers.isActive">
           <strong>Customers</strong>
         </a>
-        <a mat-tab-link routerLink="../" *ngIf="loggedUser.role == 'manufacturer'" [queryParams]="getQueryParams('manufacturer')" routerLinkActive #manufacturer="routerLinkActive"
-          [active]="manufacturer.isActive">
+        <a mat-tab-link routerLink="../" *ngIf="loggedUser.role == 'manufacturer'" [queryParams]="getQueryParams('manufacturer')"
+          routerLinkActive #manufacturer="routerLinkActive" [active]="manufacturer.isActive">
           <strong>Manufacturers</strong>
         </a>
-        <a *ngIf="loggedUser.role == 'admin'" mat-tab-link routerLink="../" [queryParams]="getQueryParams('admin')" routerLinkActive #admin="routerLinkActive"
-          [active]="admin.isActive">
+        <a *ngIf="loggedUser.role == 'admin'" mat-tab-link routerLink="../" [queryParams]="getQueryParams('admin')"
+          routerLinkActive #admin="routerLinkActive" [active]="admin.isActive">
           <strong>Administrators</strong>
         </a>
       </ng-container>
@@ -32,40 +45,42 @@
           [active]="distributor.isActive">
           <strong>Distributor</strong>
         </a>
-        <a mat-tab-link routerLink="../" [queryParams]="getQueryParams('dealer')" routerLinkActive #dealer="routerLinkActive" [active]="dealer.isActive">
+        <a mat-tab-link routerLink="../" [queryParams]="getQueryParams('dealer')" routerLinkActive #dealer="routerLinkActive"
+          [active]="dealer.isActive">
           <strong>Dealer</strong>
         </a>
       </ng-container>
       <ng-container *ngIf="loggedUser.role == 'human_resource'">
-        <a mat-tab-link routerLink="../" [queryParams]="getQueryParams('store_purchases')" routerLinkActive #store_purchases="routerLinkActive"
-          [active]="store_purchases.isActive">
+        <a mat-tab-link routerLink="../" [queryParams]="getQueryParams('store_purchases')" routerLinkActive
+          #store_purchases="routerLinkActive" [active]="store_purchases.isActive">
           <strong>Store Purchases</strong>
         </a>
-        <a mat-tab-link routerLink="../" [queryParams]="getQueryParams('store_dispatch')" routerLinkActive #store_dispatch="routerLinkActive"
-          [active]="store_dispatch.isActive">
+        <a mat-tab-link routerLink="../" [queryParams]="getQueryParams('store_dispatch')" routerLinkActive
+          #store_dispatch="routerLinkActive" [active]="store_dispatch.isActive">
           <strong>Dispatch</strong>
         </a>
-        <a mat-tab-link routerLink="../" [queryParams]="getQueryParams('store_logistics')" routerLinkActive #store_logistics="routerLinkActive"
-          [active]="store_logistics.isActive">
+        <a mat-tab-link routerLink="../" [queryParams]="getQueryParams('store_logistics')" routerLinkActive
+          #store_logistics="routerLinkActive" [active]="store_logistics.isActive">
           <strong>Logistics</strong>
         </a>
         <a mat-tab-link routerLink="../" [queryParams]="getQueryParams('accounts')" routerLinkActive #accounts="routerLinkActive"
           [active]="accounts.isActive">
           <strong>Accounts</strong>
         </a>
-        <a mat-tab-link routerLink="../" [queryParams]="getQueryParams('sales')" routerLinkActive #sales="routerLinkActive" [active]="sales.isActive">
+        <a mat-tab-link routerLink="../" [queryParams]="getQueryParams('sales')" routerLinkActive #sales="routerLinkActive"
+          [active]="sales.isActive">
           <strong>Sales</strong>
         </a>
-        <a mat-tab-link routerLink="../" [queryParams]="getQueryParams('human_resource')" routerLinkActive #human_resource="routerLinkActive"
-          [active]="human_resource.isActive">
+        <a mat-tab-link routerLink="../" [queryParams]="getQueryParams('human_resource')" routerLinkActive
+          #human_resource="routerLinkActive" [active]="human_resource.isActive">
           <strong>Human Resource</strong>
         </a>
-        <a mat-tab-link routerLink="../" [queryParams]="getQueryParams('plant_manager')" routerLinkActive #plant_manager="routerLinkActive"
-          [active]="plant_manager.isActive">
+        <a mat-tab-link routerLink="../" [queryParams]="getQueryParams('plant_manager')" routerLinkActive
+          #plant_manager="routerLinkActive" [active]="plant_manager.isActive">
           <strong>Plant Manager</strong>
         </a>
-        <a mat-tab-link routerLink="../" [queryParams]="getQueryParams('plant_supervisor')" routerLinkActive #plant_supervisor="routerLinkActive"
-          [active]="plant_supervisor.isActive">
+        <a mat-tab-link routerLink="../" [queryParams]="getQueryParams('plant_supervisor')" routerLinkActive
+          #plant_supervisor="routerLinkActive" [active]="plant_supervisor.isActive">
           <strong>Plant Supervisor</strong>
         </a>
       </ng-container>
