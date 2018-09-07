@@ -1,11 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Location } from '@angular/common';
 import { MatBottomSheet } from '@angular/material';
 import { Store } from '@ngrx/store';
 
 import * as fromRoot from '../../../shared/reducers';
 import * as userActions from '../../../shared/actions/user.actions';
-import { User } from '../../../shared/models';
+import { UserStats } from '../../../shared/models';
 import { UserDeleteComponent, UserChangePasswordComponent } from '../user-control/user-control.component';
 
 @Component({
@@ -15,15 +16,16 @@ import { UserDeleteComponent, UserChangePasswordComponent } from '../user-contro
 })
 export class UserDetailComponent {
 
-  public user: User = new User({});
+  public userStats: UserStats = new UserStats({});
 
   constructor(
     private _activatedRoute: ActivatedRoute,
     private _router: Router,
+    private _location: Location,
     private _store: Store<fromRoot.State>,
     private bottomSheet: MatBottomSheet
   ) {
-    this._store.select(fromRoot.getCurrentUser).subscribe(user => this.user = user);
+    this._store.select(fromRoot.getCurrentUserStats).subscribe(stats => this.userStats = stats);
     this._activatedRoute.queryParams.subscribe(params => {
       if (params["id"]) {
         this._store.dispatch(new userActions.FetchUserAction(params["id"]));

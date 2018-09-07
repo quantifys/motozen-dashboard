@@ -10,6 +10,7 @@ export * from './requisition-order.model';
 export * from './salary-slip.model';
 export * from './transaction.model';
 export * from './vendor.model';
+export * from './stats.model';
 
 export class PageData {
   public total: number;

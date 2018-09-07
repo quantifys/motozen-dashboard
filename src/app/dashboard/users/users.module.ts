@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Routes, RouterModule } from '@angular/router';
-import { MatTabsModule, MatPaginatorModule, MatInputModule, MatFormFieldModule, MatIconModule, MatButtonModule, MatBottomSheetModule } from '@angular/material';
+import { MatTabsModule, MatPaginatorModule, MatInputModule, MatFormFieldModule, MatIconModule, MatButtonModule, MatBottomSheetModule, MatCardModule } from '@angular/material';
 import { ReactiveFormsModule } from '@angular/forms';
 import { NgSelectModule } from '@ng-select/ng-select';
 
@@ -46,6 +46,7 @@ const routes: Routes = [
     MatIconModule,
     MatButtonModule,
     MatBottomSheetModule,
+    MatCardModule,
     NgSelectModule,
     RouterModule.forChild(routes)
   ],
