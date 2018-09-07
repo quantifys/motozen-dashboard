@@ -9,13 +9,29 @@
     <button class="ml-2" mat-stroked-button color="warn" (click)="deleteDevice()">Delete</button>
   </div>
   <div class="row justify-content-center mt-4">
-    <div class="col-sm-12 col-md-6 col-lg-5 col-xl-4">
+    <div class="col-sm-12 col-md-6 col-lg-5 col-xl-4" *ngIf="device.certificate.id || device.user.id">
       <div class="card">
         <div class="card-body">
-          <h5 class="text-grey-dark text-center">SLD NUMBER</h5>
-          <h4 class="alert alert-primary border-0 text-light text-center font-weight-bold">{{device.sld_number}}</h4>
-          <h5 class="text-grey-dark text-center">STATUS</h5>
-          <h6 class="alert alert-info border-0 text-center font-weight-bold">{{device.status | uppercase}}</h6>
+          <h6 class="text-grey-dark font-weight-bold mb-3">
+            <i class="fas fa-info-circle mr-2 fa-fw text-orange"></i>SLD information</h6>
+          <h6 class="text-grey-dark">SLD number:</h6>
+          <h6 class="ml-3">{{device.sld_number}}</h6>
+          <h6 class="text-grey-dark">Created at:</h6>
+          <h6 class="ml-3">{{device.created_at | date: 'fullDate'}}</h6>
+          <h6 class="text-grey-dark">Status:</h6>
+          <h6 class="ml-3 font-weight-bold">{{device.status | uppercase}}</h6>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-12 col-md-6 col-lg-5 col-xl-4" *ngIf="device.certificate.id || device.user.id">
+      <div class="card">
+        <div class="card-body">
+          <h6 class="text-grey-dark font-weight-bold mb-3">
+            <i class="fas fa-info-circle mr-2 fa-fw text-orange"></i>Device information</h6>
+          <h6 class="text-grey-dark">Distributor/Dealer:</h6>
+          <h6 class="ml-3">{{device.user.name}}</h6>
+          <h6 class="text-grey-dark">Certificate Number:</h6>
+          <h6 class="ml-3">{{device.certificate.certificate_number}}</h6>
         </div>
       </div>
     </div>
