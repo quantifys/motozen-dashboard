@@ -33,6 +33,7 @@ import { PurchaseOrderService } from './shared/services/purchase-order.service';
 import { RequisitionOrderService } from './shared/services/requisition-order.service';
 import { GooglePieChartService } from './shared/services/google-pie-chart.service';
 import { GoogleBarChartService } from './shared/services/google-bar-chart.service';
+import { CsvReportService } from './shared/services/csv-report.service';
 
 @NgModule({
   declarations: [
@@ -64,7 +65,7 @@ import { GoogleBarChartService } from './shared/services/google-bar-chart.servic
       logOnly: environment.production // Restrict extension to log-only mode
     })
   ],
-  providers: [Angular2TokenService, RtoService, CertificateService, PurchaseOrderService, RequisitionOrderService, DatePipe, GooglePieChartService, GoogleBarChartService],
+  providers: [Angular2TokenService, RtoService, CertificateService, PurchaseOrderService, RequisitionOrderService, DatePipe, GooglePieChartService, GoogleBarChartService, CsvReportService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
