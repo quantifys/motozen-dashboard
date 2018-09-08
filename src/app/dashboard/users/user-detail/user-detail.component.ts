@@ -20,7 +20,7 @@ export class UserDetailComponent {
   public certificateChartData: any[];
   public deviceChartData: any[];
   public poChartData: any[] = [
-    ['Months', 'Orders']
+    ['Months', 'Devices Purchased']
   ];
   public pieChartConfig: PieChartConfig;
   public barChartConfig: BarChartConfig;
