@@ -8,10 +8,24 @@
         <i class="fas fa-desktop mr-2"></i>Add Devices</a>
     </div>
   </div>
-  <div class="content mt-4">
+  <div class="container-fluid mt-4">
+    <div class="row justify-content-center">
+      <div class="col-md-6">
+        <form [formGroup]="searchForm" autocomplete="off">
+          <mat-form-field color="warn" class="w-100">
+            <input matInput placeholder="Search by SLD number" formControlName="search" id="searchInput">
+            <mat-icon color="warn" matSuffix>search</mat-icon>
+          </mat-form-field>
+        </form>
+      </div>
+    </div>
+  </div>
+  <hr>
+  <div class="content mt-3">
     <nav mat-tab-nav-bar>
       <ng-container *ngIf="loggedUser.role == 'manufacturer' || loggedUser.role == 'store_purchases'">
-        <a mat-tab-link routerLink="../" [queryParams]="getQueryParams('unsold')" routerLinkActive #unsold="routerLinkActive" [active]="unsold.isActive">
+        <a mat-tab-link routerLink="../" [queryParams]="getQueryParams('unsold')" routerLinkActive #unsold="routerLinkActive"
+          [active]="unsold.isActive">
           <strong>Unsold</strong>
         </a>
         <a mat-tab-link routerLink="../" [queryParams]="getQueryParams('dispatch')" routerLinkActive #dispatch="routerLinkActive"
@@ -19,8 +33,10 @@
           <strong>Dispatched</strong>
         </a>
       </ng-container>
-      <a mat-tab-link routerLink="../" [queryParams]="getQueryParams('sold')" routerLinkActive #sold="routerLinkActive" [active]="sold.isActive">
-        <strong>{{(loggedUser.role != 'manufacturer' && loggedUser.role != 'store_purchases') ? 'Current stock' : 'Sold'}}</strong>
+      <a mat-tab-link routerLink="../" [queryParams]="getQueryParams('sold')" routerLinkActive #sold="routerLinkActive"
+        [active]="sold.isActive">
+        <strong>{{(loggedUser.role != 'manufacturer' && loggedUser.role != 'store_purchases') ? 'Current stock' :
+          'Sold'}}</strong>
       </a>
       <a mat-tab-link routerLink="../" [queryParams]="getQueryParams('certified')" routerLinkActive #certified="routerLinkActive"
         [active]="certified.isActive">

@@ -1,10 +1,11 @@
-import { User, PageData } from '../models';
+import { User, PageData, UserStats } from '../models';
 import * as userActions from '../actions/user.actions';
 
 export interface State {
   allUsers: User[];
   loggedUser: User;
   currentUser: User;
+  currentUserStats: UserStats;
   userPageStatus: PageData;
 }
 
@@ -12,6 +13,7 @@ const initialState: State = {
   allUsers: [],
   loggedUser: new User({}),
   currentUser: new User({}),
+  currentUserStats: new UserStats({}),
   userPageStatus: new PageData({})
 };
 
@@ -41,11 +43,11 @@ export function reducer(state = initialState, action: userActions.Actions): Stat
       });
     case userActions.FETCH_USER_ACTION:
       return Object.assign({}, state, {
-        currentUser: new User({})
+        currentUserStats: new UserStats({})
       });
     case userActions.FETCH_USER_COMPLETE_ACTION:
       return Object.assign({}, state, {
-        currentUser: new User(action.payload)
+        currentUserStats: new UserStats(action.payload)
       });
     case userActions.DELETE_USER_COMPLETE_ACTION:
       return Object.assign({}, state, {
