@@ -61,7 +61,7 @@ export class DevicesComponent implements OnInit, OnDestroy {
 
   buildForm() {
     this.searchForm = this._fb.group({
-      search: null
+      search: ''
     });
   }
 
@@ -77,7 +77,7 @@ export class DevicesComponent implements OnInit, OnDestroy {
     this._router.navigate(["dashboard", "devices"], {
       queryParams: {
         ...this._activatedRoute.snapshot.queryParams,
-        sld_number: this.search.value
+        sld_number: this.search.value != '' ? this.search.value : null
       }
     });
   }

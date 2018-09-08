@@ -58,7 +58,7 @@ export class VehiclesComponent implements OnInit, OnDestroy {
 
   buildForm() {
     this.searchForm = this._fb.group({
-      search: null
+      search: ''
     });
   }
 
@@ -74,7 +74,7 @@ export class VehiclesComponent implements OnInit, OnDestroy {
     this._router.navigate(["dashboard", "vehicles"], {
       queryParams: {
         ...this._activatedRoute.snapshot.queryParams,
-        mmv_search: this.search.value
+        mmv_search: this.search.value != null ? this.search.value : null
       }
     });
   }

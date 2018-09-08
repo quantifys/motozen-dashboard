@@ -68,7 +68,7 @@ export class CertificatesComponent implements OnInit, OnDestroy {
 
   buildForm() {
     this.searchForm = this._fb.group({
-      search: null,
+      search: '',
       search_type: 'cert'
     });
   }
@@ -98,9 +98,9 @@ export class CertificatesComponent implements OnInit, OnDestroy {
     this._router.navigate(["dashboard", "certificates"], {
       queryParams: {
         ...this._activatedRoute.snapshot.queryParams,
-        reg: this.search_type.value == 'reg' ? this.search.value : null,
-        certificate_number: this.search_type.value == 'cert' ? this.search.value : null,
-        sld: this.search_type.value == 'sld' ? this.search.value : null
+        reg: (this.search_type.value == 'reg' && this.search.value != '') ? this.search.value : null,
+        certificate_number: (this.search_type.value == 'cert' && this.search.value != '') ? this.search.value : null,
+        sld: (this.search_type.value == 'sld' && this.search.value != '') ? this.search.value : null
       }
     });
   }

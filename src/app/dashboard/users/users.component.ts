@@ -25,6 +25,7 @@ export class UsersComponent implements OnInit, OnDestroy {
     private _activatedRoute: ActivatedRoute,
     private _fb: FormBuilder
   ) {
+    this.buildForm();
     this.userSubscription$ = this._store.select(fromRoot.getLoggedUser).subscribe(user => {
       this.loggedUser = user;
       if (user.role) {
@@ -58,7 +59,6 @@ export class UsersComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.buildForm();
     this.formListener();
   }
 
@@ -68,7 +68,7 @@ export class UsersComponent implements OnInit, OnDestroy {
 
   buildForm() {
     this.searchForm = this._fb.group({
-      search: null
+      search: ''
     });
   }
 
@@ -84,7 +84,7 @@ export class UsersComponent implements OnInit, OnDestroy {
     this._router.navigate(["dashboard", "users"], {
       queryParams: {
         ...this._activatedRoute.snapshot.queryParams,
-        name: this.search.value
+        name: this.search.value != '' ? this.search.value : null
       }
     });
   }
