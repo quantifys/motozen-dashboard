@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Location } from '@angular/common';
 import { MatBottomSheet } from '@angular/material';
@@ -8,18 +8,20 @@ import * as fromRoot from '../../../shared/reducers';
 import * as userActions from '../../../shared/actions/user.actions';
 import { UserStats, PieChartConfig, BarChartConfig } from '../../../shared/models';
 import { UserDeleteComponent, UserChangePasswordComponent } from '../user-control/user-control.component';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-user-detail',
   templateUrl: './user-detail.component.html',
   styleUrls: ['./user-detail.component.scss']
 })
-export class UserDetailComponent {
+export class UserDetailComponent implements OnDestroy{
 
   public userStats: UserStats = new UserStats({});
-  public certificateChartData: any[];
+  public statSubscription$: Subscription = new Subscription();
   public deviceChartData: any[];
   public poChartData: any[];
+  public certChartData: any[];
   public pieChartConfig: PieChartConfig;
   public barChartConfig: BarChartConfig;
 
@@ -42,14 +44,9 @@ export class UserDetailComponent {
         position: "none"
       }
     });
-    this._store.select(fromRoot.getCurrentUserStats).subscribe(stats => {
+    this.statSubscription$ = this._store.select(fromRoot.getCurrentUserStats).subscribe(stats => {
       this.userStats = stats;
       if (this.userStats.user.role == 'distributor' || this.userStats.user.role == 'dealer') {
-        this.certificateChartData = [
-          ['Type', 'Devices'],
-          ["Valid", this.userStats.certificate_stats.valid_count],
-          ["Expired", this.userStats.certificate_stats.expired_count]
-        ];
         this.deviceChartData = [
           ['Type', 'Devices'],
           ["Certified", this.userStats.device_stats.certified_count],
@@ -57,13 +54,11 @@ export class UserDetailComponent {
         ];
 
         if (this.userStats.user.role == 'distributor') {
-          this.poChartData = [
-            ['Months', 'Devices Purchased']
-          ];
-          this.userStats.po_stats.purchase_graph.xaxis.map((month, index) => {
-            this.poChartData.push([month, this.userStats.po_stats.purchase_graph.yaxis[index]]);
-          });
+          this.poChartData = [['Months', 'Devices Purchased']];
+          this.userStats.po_stats.purchase_graph.data.map(month => this.poChartData.push(month));
         }
+        this.certChartData = [['Months', 'Certificates issued']];
+        this.userStats.certificate_stats.issue_graph.data.map(month => this.certChartData.push(month));
       }
     });
     this._activatedRoute.queryParams.subscribe(params => {
@@ -73,6 +68,10 @@ export class UserDetailComponent {
         this._router.navigate(["dashboard", "users"]);
       }
     });
+  }
+
+  ngOnDestroy() {
+    this.statSubscription$.unsubscribe();
   }
 
   deleteUser() {

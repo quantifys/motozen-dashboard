@@ -86,7 +86,7 @@
             </div>
             <pie-chart *ngIf="userStats.device_stats.all_time_count > 0" [data]="deviceChartData" [config]="pieChartConfig"
               elementId="deviceChart"></pie-chart>
-            <div class="text-orange text-center mt-5" *ngIf="userStats.device_stats.all_time_count == 0">
+            <div class="text-orange text-center mt-2" *ngIf="userStats.device_stats.all_time_count == 0">
               <mat-icon>warning</mat-icon>
               <h4 class="font-weight-bold">No data available!</h4>
             </div>
@@ -113,7 +113,7 @@
             </div>
             <hr class="mt-0">
             <h6 class="text-grey-dark">Monthly stats</h6>
-            <bar-chart *ngIf="userStats.po_stats.purchase_graph.xaxis.length > 0" [data]="poChartData" [config]="barChartConfig"
+            <bar-chart *ngIf="userStats.po_stats.purchase_graph.data.length > 0" [data]="poChartData" [config]="barChartConfig"
               elementId="poChart"></bar-chart>
             <hr>
             <h6 class="text-grey-dark">Recent</h6>
@@ -152,8 +152,12 @@
                 <i class="fas fa-info-circle mr-2 fa-fw text-orange"></i>Certificate stats</h6>
               <h6>Total: {{userStats.certificate_stats.expired_count + userStats.certificate_stats.valid_count}}</h6>
             </div>
-            <pie-chart *ngIf="userStats.certificate_stats.expired_count > 0 || userStats.certificate_stats.valid_count > 0"
-              [data]="certificateChartData" [config]="pieChartConfig" elementId="certificateChart"></pie-chart>
+            <hr class="mt-0">
+            <h6 class="text-grey-dark">Monthly stats</h6>
+            <bar-chart [data]="certChartData" [config]="barChartConfig" elementId="certChart"></bar-chart>
+            <h6 class="text-grey-dark">Valid certiifcates: {{userStats.certificate_stats.valid_count}}</h6>
+            <h6 class="text-grey-dark">Expired certiifcates: {{userStats.certificate_stats.expired_count}}</h6>
+            <hr>
             <h6 class="text-grey-dark">Recent</h6>
             <div class="list-group mt-4">
               <a class="list-group-item list-group-item-action p-0" routerLink="../../certificates/view" [queryParams]="{id: certificate.id}"

@@ -17,30 +17,30 @@ export class CertificateStats {
   public expired_count: number;
   public valid_count: number;
   public recent: Certificate[];
+  public issue_graph: BarGraph;
   constructor(data: any) {
     this.expired_count = data.expired_count != null ? +data.expired_count : null;
     this.valid_count = data.valid_count != null ? +data.valid_count : null;
     this.recent = data.recent ? data.recent.map(certificate => new Certificate(certificate)) : [];
+    this.issue_graph = data.issue_graph ? new BarGraph(data.issue_graph) : new BarGraph({});
   }
 }
 
 export class PurchaseOrderStats {
   public total_count: number;
   public recent: PurchaseOrder[];
-  public purchase_graph: PurchaseGraph;
+  public purchase_graph: BarGraph;
   constructor(data: any) {
     this.total_count = data.total_count != null ? +data.total_count : null;
     this.recent = data.recent ? data.recent.map(po => new PurchaseOrder(po)) : [];
-    this.purchase_graph = data.purchase_graph ? new PurchaseGraph(data.purchase_graph) : new PurchaseGraph({});
+    this.purchase_graph = data.purchase_graph ? new BarGraph(data.purchase_graph) : new BarGraph({});
   }
 }
 
-export class PurchaseGraph {
-  public xaxis: string[];
-  public yaxis: string[];
+export class BarGraph {
+  public data: any[];
   constructor(data: any) {
-    this.xaxis = data.xaxis ? data.xaxis : [];
-    this.yaxis = data.yaxis ? data.yaxis : [];
+    this.data = data.data ? data.data : [];
   }
 }
 
