@@ -9,6 +9,7 @@ export class Certificate {
 	public date_generated: Date;
 	public due_date: Date;
 	public status: string;
+	public sld_number: string;
 	public device: Device;
 	public invoice_no: number;
 	public customer_name: string;
@@ -32,6 +33,7 @@ export class Certificate {
 		this.date_generated = data.date_generated ? moment(data.date_generated, "YYYY-MM-DD").toDate() : null;
 		this.due_date = data.due_date ? moment(data.due_date, "YYYY-MM-DD").toDate() : null;
 		this.status = data.status ? data.status : null;
+		this.sld_number = data.sld_number ? data.sld_number : null;
 		this.device = data.device ? new Device(data.device) : new Device({});
 		this.invoice_no = data.invoice_no != null ? data.invoice_no : null;
 		this.engine_number = data.engine_number ? data.engine_number : null;
@@ -48,5 +50,18 @@ export class Certificate {
 		this.user = data.user ? new User(data.user) : new User({});
 		this.mfg_month_year = data.mfg_month_year ? moment(data.mfg_month_year, 'YYYY-MM-DD').toDate() : new Date();
 		this.reg_month_year = data.reg_month_year ? moment(data.reg_month_year, "YYYY-MM-DD").toDate() : new Date();
+	}
+
+	getStatus(): string {
+		switch (this.status) {
+			case 'can_modify':
+				return "Not issued";
+			case 'is_valid':
+				return "Valid";
+			case 'renewable':
+				return "Renewable";
+			default:
+				return "Expired";
+		}
 	}
 }

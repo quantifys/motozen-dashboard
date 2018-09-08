@@ -16,7 +16,7 @@
       </mat-form-field>
     </div>
     <div class="col-sm-12 col-md-6" *ngIf="loggedUser.role != 'distributor'">
-      <ng-select [items]="users" bindLabel="email" bindValue="id" formControlName="user_id" placeholder="Filter by employee"></ng-select>
+      <ng-select [items]="users" bindLabel="email" bindValue="id" formControlName="user_id" placeholder="Filter by customer"></ng-select>
     </div>
   </div>
   <hr>

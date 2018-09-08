@@ -29,9 +29,15 @@
           <h6 class="text-grey-dark font-weight-bold mb-3">
             <i class="fas fa-info-circle mr-2 fa-fw text-orange"></i>Device information</h6>
           <h6 class="text-grey-dark">Distributor/Dealer:</h6>
-          <h6 class="ml-3">{{device.user.name}}</h6>
-          <h6 class="text-grey-dark">Certificate Number:</h6>
-          <h6 class="ml-3">{{device.certificate.certificate_number}}</h6>
+          <a routerLink="../../users/view" [queryParams]="{id: device.user.id}">
+            <h6 class="ml-3">{{device.user.name}}</h6>
+          </a>
+          <ng-container *ngIf="device.certificate.id">
+            <h6 class="text-grey-dark">Certificate Number:</h6>
+            <a routerLink="../../certificates/view" [queryParams]="{id: device.certificate.id}">
+              <h6 class="ml-3">{{device.certificate.certificate_number}}</h6>
+            </a>
+          </ng-container>
         </div>
       </div>
     </div>

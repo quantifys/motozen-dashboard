@@ -1,73 +1,194 @@
 <section class="container">
   <div class="d-flex align-items-center justify-content-between">
-    <a routerLink="../" class="btn btn-orange text-light text-light">
-      <i class="fas fa-arrow-left mr-2"></i>Go back</a>
+    <button (click)="_location.back()" class="btn btn-orange text-light text-light">
+      <i class="fas fa-arrow-left mr-2"></i>Go back</button>
     <h4 class="text-grey-dark m-0">User details</h4>
   </div>
   <div class="d-flex justify-content-end mt-3">
     <button class="ml-2" mat-stroked-button color="primary" (click)="changePassword()">Change password</button>
-    <a mat-stroked-button class="ml-2" color="warn" routerLink="../edit" [queryParams]="{id: user.id}">Edit</a>
+    <a mat-stroked-button class="ml-2" color="warn" routerLink="../edit" [queryParams]="{id: userStats.user.id}">Edit</a>
     <button class="ml-2" mat-stroked-button color="warn" (click)="deleteUser()">Delete</button>
   </div>
   <div class="details">
-    <div class="row justify-content-center align-items-stretch">
-      <div class="col-sm-12 col-md-6 col-xl-4 mt-4">
+    <div class="row justify-content-center">
+      <div class="col-md-12 col-lg-6 mt-4">
         <div class="card h-100">
           <div class="card-body d-flex flex-column justify-content-between">
             <div class="top">
               <h6 class="text-grey-dark font-weight-bold mb-3">
                 <i class="fas fa-info-circle mr-2 fa-fw text-orange"></i>General information</h6>
               <h6 class="text-grey-dark">Serial No:</h6>
-              <h6 class="ml-3">{{user.serial_no}}</h6>
+              <h6 class="ml-3">{{userStats.user.serial_no}}</h6>
               <h6 class="text-grey-dark">Full name:</h6>
-              <h6 class="ml-3">{{user.name}}</h6>
+              <h6 class="ml-3">{{userStats.user.name}}</h6>
               <h6 class="text-grey-dark">E-mail:</h6>
               <h6 class="ml-3">
-                <a [href]="'mailto:' + user.email">{{user.email}}</a>
+                <a [href]="'mailto:' + userStats.user.email">{{userStats.user.email}}</a>
               </h6>
-              <ng-container *ngIf="user.distributor_id">
+              <ng-container *ngIf="userStats.user.role == 'dealer'">
                 <h6 class="text-grey-dark">Distributor ID:</h6>
-                <h6 class="ml-3 p-2 bg-primary d-inline-block rounded text-light mb-0">{{user.distributor_id}}</h6>
+                <a routerLink="../view" [queryParams]="{id: userStats.distributor.id}">
+                  <h6 class="ml-3">{{userStats.distributor.name}}</h6>
+                </a>
               </ng-container>
             </div>
             <div class="text-right">
-              <h6 class="d-inline-block font-weight-bold bg-primary text-right p-1 text-light rounded">{{user.getRole() | titlecase}}
+              <h6 class="d-inline-block font-weight-bold bg-primary text-right p-1 text-light rounded">{{userStats.user.getRole()
+                | titlecase}}
               </h6>
             </div>
           </div>
         </div>
       </div>
-      <div class="col-sm-12 col-md-6 col-xl-4 mt-4" *ngIf="user.role != 'manufacturer'">
+      <div class="col-md-12 col-lg-6 mt-4" *ngIf="userStats.user.role != 'manufacturer'">
         <div class="card h-100">
           <div class="card-body">
-            <h5 class="text-grey-dark font-weight-bold mb-3">
-              <i class="fas fa-info-circle mr-2 fa-fw text-orange"></i>Contact details</h5>
+            <h6 class="text-grey-dark font-weight-bold mb-3">
+              <i class="fas fa-info-circle mr-2 fa-fw text-orange"></i>Contact details</h6>
             <h6 class="text-grey-dark">Phone:</h6>
-            <h6 class="ml-3">{{user.details.contact}}</h6>
+            <h6 class="ml-3">{{userStats.user.details.contact}}</h6>
             <h6 class="text-grey-dark">Address:</h6>
-            <h6 style="white-space: pre-line" class="ml-3">{{user.details.address ? user.details.address : '-'}}</h6>
-            <ng-container *ngIf="user.details.gstn">
+            <h6 style="white-space: pre-line" class="ml-3">{{userStats.user.details.address ?
+              userStats.user.details.address : '-'}}</h6>
+            <ng-container *ngIf="userStats.user.details.gstn">
               <h6 class="text-grey-dark">GSTN:</h6>
-              <h6 style="white-space: pre-line" class="ml-3">{{user.details.gstn | uppercase}}</h6>
+              <h6 style="white-space: pre-line" class="ml-3">{{userStats.user.details.gstn | uppercase}}</h6>
             </ng-container>
           </div>
         </div>
       </div>
-      <div class="col-sm-12 col-md-6 col-xl-4 mt-4" *ngIf="user.role != 'manufacturer' && user.role != 'distributor' && user.role != 'dealer'">
+      <div class="col-md-12 col-lg-6 mt-4" *ngIf="userStats.user.role != 'manufacturer' && userStats.user.role != 'distributor' && userStats.user.role != 'dealer'">
         <div class="card h-100">
           <div class="card-body">
             <h5 class="text-grey-dark font-weight-bold mb-3">
               <i class="fas fa-info-circle mr-2 fa-fw text-orange"></i>Payment information</h5>
             <h6 class="text-grey-dark">Base salary:</h6>
-            <h6 class="ml-3">{{user.details.base_salary ? user.details.base_salary : '-'}}</h6>
+            <h6 class="ml-3">{{userStats.user.details.base_salary ? userStats.user.details.base_salary : '-'}}</h6>
             <h6 class="text-grey-dark">HRA:</h6>
-            <h6 class="ml-3">{{user.details.hra ? user.details.hra : '-'}}</h6>
+            <h6 class="ml-3">{{userStats.user.details.hra ? userStats.user.details.hra : '-'}}</h6>
             <h6 class="text-grey-dark">Transport allowance:</h6>
-            <h6 class="ml-3">{{user.details.transport_allowance ? user.details.transport_allowance : '-'}}</h6>
+            <h6 class="ml-3">{{userStats.user.details.transport_allowance ? userStats.user.details.transport_allowance
+              : '-'}}</h6>
             <h6 class="text-grey-dark">ESIC:</h6>
-            <h6 class="ml-3">{{user.details.esic ? user.details.esic : '-'}}</h6>
+            <h6 class="ml-3">{{userStats.user.details.esic ? userStats.user.details.esic : '-'}}</h6>
             <h6 class="text-grey-dark">GPF:</h6>
-            <h6 class="ml-3">{{user.details.gpf ? user.details.gpf : '-'}}</h6>
+            <h6 class="ml-3">{{userStats.user.details.gpf ? userStats.user.details.gpf : '-'}}</h6>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-12 col-lg-6 mt-4" *ngIf="userStats.user.role == 'distributor' || userStats.user.role == 'dealer'">
+        <div class="card">
+          <div class="card-body">
+            <div class="d-flex justify-content-between">
+              <h6 class="text-grey-dark font-weight-bold mb-3">
+                <i class="fas fa-info-circle mr-2 fa-fw text-orange"></i>Device stats</h6>
+              <h6>Total: {{userStats.device_stats.all_time_count}}</h6>
+            </div>
+            <pie-chart *ngIf="userStats.device_stats.all_time_count > 0" [data]="deviceChartData" [config]="pieChartConfig"
+              elementId="deviceChart"></pie-chart>
+            <div class="text-orange text-center mt-2" *ngIf="userStats.device_stats.all_time_count == 0">
+              <mat-icon>warning</mat-icon>
+              <h4 class="font-weight-bold">No data available!</h4>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-12 col-lg-6 mt-4" *ngIf="userStats.user.role == 'distributor'">
+        <div class="card h-100">
+          <div class="card-body">
+            <h6 class="text-grey-dark font-weight-bold mb-3">
+              <i class="fas fa-info-circle mr-2 fa-fw text-orange"></i>Dealer stats</h6>
+            <h6 class="text-grey-dark">Total associated dealers:</h6>
+            <h1 class="display-2 text-center">{{userStats.dealer_stats.total_count}}</h1>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-12 col-md-6 mt-4" *ngIf="userStats.po_stats.total_count > 0">
+        <div class="card">
+          <div class="card-body">
+            <div class="d-flex justify-content-between">
+              <h6 class="text-grey-dark font-weight-bold">
+                <i class="fas fa-info-circle mr-2 fa-fw text-orange"></i>Purchase order stats</h6>
+              <h6>Total: {{userStats.po_stats.total_count}}</h6>
+            </div>
+            <hr class="mt-0">
+            <h6 class="text-grey-dark">Monthly stats</h6>
+            <bar-chart *ngIf="userStats.po_stats.purchase_graph.data.length > 0" [data]="poChartData" [config]="barChartConfig"
+              elementId="poChart"></bar-chart>
+            <hr>
+            <h6 class="text-grey-dark">Recent</h6>
+            <div class="list-group">
+              <a class="list-group-item list-group-item-action p-0" routerLink="../../purchase-orders/view"
+                [queryParams]="{id: order.id}" *ngFor="let order of userStats.po_stats.recent">
+                <div class="container-fluid">
+                  <div class="row">
+                    <div class="col-sm-9 p-3">
+                      <h6 class="mb-0">{{order.serial_no}}</h6>
+                      <p class="mb-1 text-grey-dark d-flex align-items-center">
+                        <mat-icon class="text-orange mr-1">date_range</mat-icon>
+                        <span>{{order.created_at | date: 'fullDate'}}</span>
+                      </p>
+                    </div>
+                    <div class="col-sm-3 p-3 border-left text-center">
+                      <h2 class="m-0">{{order.total_quantity}}</h2>
+                      <h6 class="font-weight-bold text-orange">{{order.getStatus() | titlecase}}</h6>
+                    </div>
+                  </div>
+                </div>
+              </a>
+            </div>
+            <div class="text-right mt-2">
+              <a mat-stroked-button color="warn" routerLink="../../purchase-orders" [queryParams]="{user_id: userStats.user.id}">View
+                more</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-12 col-md-6 mt-4" *ngIf="userStats.certificate_stats.recent.length > 0">
+        <div class="card">
+          <div class="card-body">
+            <div class="d-flex justify-content-between">
+              <h6 class="text-grey-dark font-weight-bold mb-3">
+                <i class="fas fa-info-circle mr-2 fa-fw text-orange"></i>Certificate stats</h6>
+              <h6>Total: {{userStats.certificate_stats.expired_count + userStats.certificate_stats.valid_count}}</h6>
+            </div>
+            <hr class="mt-0">
+            <h6 class="text-grey-dark">Monthly stats</h6>
+            <bar-chart [data]="certChartData" [config]="barChartConfig" elementId="certChart"></bar-chart>
+            <div class="d-flex mt-2 justify-content-between">
+              <h6 class="text-grey-dark mb-0">VALID: {{userStats.certificate_stats.valid_count}}</h6>
+              <h6 class="text-grey-dark mb-0">EXPIRED: {{userStats.certificate_stats.expired_count}}</h6>
+            </div>
+            <hr>
+            <h6 class="text-grey-dark">Recent</h6>
+            <div class="list-group mt-4">
+              <a class="list-group-item list-group-item-action p-0" routerLink="../../certificates/view" [queryParams]="{id: certificate.id}"
+                *ngFor="let certificate of userStats.certificate_stats.recent">
+                <div class="container-fluid">
+                  <div class="row">
+                    <div class="col-sm-9 p-3">
+                      <h6 class="mb-0">{{certificate.certificate_number}}</h6>
+                      <p class="text-grey-dark d-flex align-items-center">
+                        <mat-icon class="text-orange mr-1">date_range</mat-icon>
+                        <span>{{certificate.date_generated | date: 'mediumDate'}}</span>
+                      </p>
+                      <h6 class="text-grey-dark mb-0">Customer name:</h6>
+                      <h6 class="ml-3">{{certificate.customer_name}}</h6>
+                    </div>
+                    <div class="col-sm-3 p-3 border-left text-center">
+                      <h6 class="text-grey-dark m-0">SLD Number</h6>
+                      <h6 class="mb-0">{{certificate.sld_number}}</h6>
+                      <hr class="mt-1 mb-2">
+                      <h6 class="text-orange mb-0 font-weight-bold mb-0">{{certificate.getStatus()}}</h6>
+                    </div>
+                  </div>
+                </div>
+              </a>
+            </div>
+            <div class="text-right mt-2">
+              <a mat-stroked-button color="warn" routerLink="../../certificates" [queryParams]="{user_id: userStats.user.id}">View
+                more</a>
+            </div>
           </div>
         </div>
       </div>

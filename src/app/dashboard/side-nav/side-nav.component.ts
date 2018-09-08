@@ -63,7 +63,7 @@ export const ROUTES: RouteInfo[] = [
     title: 'Certificates',
     type: 'link',
     icontype: 'fa-certificate',
-    users: ['distributor', 'dealer', 'sales', 'admin']
+    users: ['manufacturer', 'distributor', 'dealer', 'sales', 'admin']
   },
   {
     path: 'vendors',
@@ -77,7 +77,7 @@ export const ROUTES: RouteInfo[] = [
     title: 'Purchase Orders',
     type: 'link',
     icontype: 'fa-credit-card',
-    users: ['distributor', 'store_purchases', 'accounts', 'store_dispatch', 'store_logistics', 'sales']
+    users: ['manufacturer', 'distributor', 'store_purchases', 'accounts', 'store_dispatch', 'store_logistics', 'sales']
   },
   {
     path: 'receive-notes',

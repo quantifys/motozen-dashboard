@@ -4,6 +4,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { Angular2TokenService } from 'angular2-token';
+import { DatePipe } from '@angular/common';
 import { HttpModule } from '@angular/http';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { AppRoutingModule } from './app-routing.module';
@@ -30,7 +31,8 @@ import { RtoService } from './shared/services/rto.service';
 import { CertificateService } from './shared/services/certificate.service';
 import { PurchaseOrderService } from './shared/services/purchase-order.service';
 import { RequisitionOrderService } from './shared/services/requisition-order.service';
-import { DatePipe } from '@angular/common';
+import { GooglePieChartService } from './shared/services/google-pie-chart.service';
+import { GoogleBarChartService } from './shared/services/google-bar-chart.service';
 
 @NgModule({
   declarations: [
@@ -62,7 +64,7 @@ import { DatePipe } from '@angular/common';
       logOnly: environment.production // Restrict extension to log-only mode
     })
   ],
-  providers: [Angular2TokenService, RtoService, CertificateService, PurchaseOrderService, RequisitionOrderService, DatePipe],
+  providers: [Angular2TokenService, RtoService, CertificateService, PurchaseOrderService, RequisitionOrderService, DatePipe, GooglePieChartService, GoogleBarChartService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

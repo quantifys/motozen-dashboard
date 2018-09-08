@@ -17,9 +17,13 @@ export function reducer(state = initialState, action: inventoryActions.Actions):
   let inventories: Inventory[] = [];
   switch (action.type) {
     case inventoryActions.FETCH_ALL_INVENTORIES_COMPLETE_ACTION:
-      inventories = action.payload.map(inventory => new Inventory(inventory));
+      inventories = action.payload.data.map(inventory => new Inventory(inventory));
       return Object.assign({}, state, {
-        allInventories: [...inventories]
+        allInventories: [...inventories],
+        inventoryPageStatus: new PageData({
+          total: action.payload.total,
+          per_page: action.payload.per_page,
+        })
       });
     case inventoryActions.FETCH_INVENTORY_ACTION:
       return Object.assign({}, state, {
