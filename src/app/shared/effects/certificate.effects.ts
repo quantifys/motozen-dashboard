@@ -117,4 +117,14 @@ export class CertificateEffects {
       ))
   );
 
+  @Effect()
+  fetchCertificateCSVReport$: Observable<Action> = this._action$.ofType(fromCertificate.FETCH_CERTIFICATE_CSV_REPORT_ACTION).pipe(
+    map((action: fromCertificate.FetchCertificateCSVReportAction) => action.payload),
+    exhaustMap(body => this._tokenService.post("certificates/list/for-report", body)
+      .pipe(
+        map(response => new fromCertificate.FetchCertificateCSVReportCompleteAction(response.json().message)),
+        catchError(error => of(new fromCertificate.FetchCertificateCSVReportFailedAction(error.json().message)))
+      ))
+  );
+
 }

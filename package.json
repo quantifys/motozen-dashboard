@@ -29,6 +29,7 @@
     "@ngrx/effects": "^6.0.1",
     "@ngrx/store": "^6.0.1",
     "angular2-token": "^0.2.0",
+    "angular5-csv": "^0.2.10",
     "bootstrap": "^4.1.1",
     "core-js": "^2.5.4",
     "jquery": "^3.3.1",

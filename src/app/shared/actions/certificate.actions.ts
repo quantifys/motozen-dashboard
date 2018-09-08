@@ -44,6 +44,10 @@ export const FETCH_CERTIFICATE_FILTER_FORMDATA_ACTION = '[Certificate] Fetch Cer
 export const FETCH_CERTIFICATE_FILTER_FORMDATA_COMPLETE_ACTION = '[Certificate] Fetch Certificate Filter Form Data Complete Action';
 export const FETCH_CERTIFICATE_FILTER_FORMDATA_FAILED_ACTION = '[Certificate] Fetch Certificate Filter Form Data Failed Action';
 
+export const FETCH_CERTIFICATE_CSV_REPORT_ACTION = '[Certificate] Fetch Certificate CSV Report Action';
+export const FETCH_CERTIFICATE_CSV_REPORT_COMPLETE_ACTION = '[Certificate] Fetch Certificate CSV Report Complete Action';
+export const FETCH_CERTIFICATE_CSV_REPORT_FAILED_ACTION = '[Certificate] Fetch Certificate CSV Report Failed Action';
+
 export const CLEAR_CERTIFICATE_DATA_ACTION = '[Certificate] Clear Certificate Data Action';
 
 export class FetchAllCertificatesAction implements Action {
@@ -316,6 +320,36 @@ export class FetchCertificateFilterFormdataFailedAction implements Action {
 	}
 }
 
+export class FetchCertificateCSVReportAction implements Action {
+	readonly type = FETCH_CERTIFICATE_CSV_REPORT_ACTION;
+	constructor(public payload: any) {
+		toast({
+			title: 'Fetching report data...'
+		});
+		toast.showLoading();
+	}
+}
+
+export class FetchCertificateCSVReportCompleteAction implements Action {
+	readonly type = FETCH_CERTIFICATE_CSV_REPORT_COMPLETE_ACTION;
+	constructor(public payload: any) {
+		toast({
+			type: 'success',
+			title: payload.length > 0 ? 'Report data loaded!' : 'No certificates found!'
+		});
+	}
+}
+
+export class FetchCertificateCSVReportFailedAction implements Action {
+	readonly type = FETCH_CERTIFICATE_CSV_REPORT_FAILED_ACTION;
+	constructor(public payload: any) {
+		toast({
+			type: 'error',
+			title: payload
+		});
+	}
+}
+
 export class ClearCertificateDataAction implements Action {
 	readonly type = CLEAR_CERTIFICATE_DATA_ACTION;
 }
@@ -348,4 +382,7 @@ export type Actions =
 	| FetchCertificateFilterFormdataAction
 	| FetchCertificateFilterFormdataCompleteAction
 	| FetchCertificateFilterFormdataFailedAction
+	| FetchCertificateCSVReportAction
+	| FetchCertificateCSVReportCompleteAction
+	| FetchCertificateCSVReportFailedAction
 	| ClearCertificateDataAction;

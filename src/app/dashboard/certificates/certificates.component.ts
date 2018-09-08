@@ -7,8 +7,10 @@ import { MatBottomSheet } from '@angular/material';
 import { FormBuilder, FormGroup, FormControl } from '@angular/forms';
 
 import * as fromRoot from '../../shared/reducers';
+import * as certificateActions from '../../shared/actions/certificate.actions';
 import { User } from '../../shared/models';
 import { CertificateFilterComponent } from './certificate-filter/certificate-filter.component';
+import { CsvReportService } from '../../shared/services/csv-report.service';
 
 @Component({
   selector: 'app-certificates',
@@ -26,7 +28,8 @@ export class CertificatesComponent implements OnInit, OnDestroy {
     private _router: Router,
     private _fb: FormBuilder,
     private _activatedRoute: ActivatedRoute,
-    private bottomSheet: MatBottomSheet
+    private bottomSheet: MatBottomSheet,
+    private _csvReportService: CsvReportService
   ) {
     this.userSubscription$ = this._store.select(fromRoot.getLoggedUser).subscribe(user => {
       this.loggedUser = user;
@@ -111,6 +114,10 @@ export class CertificatesComponent implements OnInit, OnDestroy {
       default:
         return "Search by Certificate No.";
     }
+  }
+
+  exportCsv() {
+    this._store.dispatch(new certificateActions.FetchCertificateCSVReportAction(this._activatedRoute.snapshot.queryParams));
   }
 
 }

@@ -3,6 +3,7 @@
     <h4 class="text-grey-dark m-0">Certificate Management</h4>
     <div class="ml-auto">
       <button mat-stroked-button color="warn" (click)="openFilters()">Add Filters</button>
+      <button mat-stroked-button class="ml-2" color="primary" (click)="exportCsv()">Export CSV</button>
       <a class="btn btn-orange text-light ml-3" *ngIf="loggedUser.role != 'sales' && loggedUser.role != 'admin'" routerLink="edit" [queryParams]="{type: 'new'}">
         <i class="fas fa-plus mr-2"></i>Generate Certificate</a>
     </div>
