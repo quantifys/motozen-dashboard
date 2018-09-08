@@ -19,9 +19,7 @@ export class UserDetailComponent {
   public userStats: UserStats = new UserStats({});
   public certificateChartData: any[];
   public deviceChartData: any[];
-  public poChartData: any[] = [
-    ['Months', 'Devices Purchased']
-  ];
+  public poChartData: any[];
   public pieChartConfig: PieChartConfig;
   public barChartConfig: BarChartConfig;
 
@@ -59,6 +57,9 @@ export class UserDetailComponent {
         ];
 
         if (this.userStats.user.role == 'distributor') {
+          this.poChartData = [
+            ['Months', 'Devices Purchased']
+          ];
           this.userStats.po_stats.purchase_graph.xaxis.map((month, index) => {
             this.poChartData.push([month, this.userStats.po_stats.purchase_graph.yaxis[index]]);
           });
