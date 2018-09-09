@@ -69,7 +69,7 @@ export class VehicleEditComponent implements OnInit {
   get vehicle_id(): FormControl {
     return this.vehicleForm.get("id") as FormControl;
   }
-  
+
   get connector_id(): FormControl {
     return this.vehicleForm.get("connector_id") as FormControl;
   }
@@ -80,12 +80,6 @@ export class VehicleEditComponent implements OnInit {
 
   addIcat() {
     this.icats.push(this._fb.control(null, Validators.required));
-  }
-
-  removeIcat(index: number) {
-    if (this.addVehicle) {
-      this.icats.removeAt(index);
-    }
   }
 
   deleteIcat(id: number) {
@@ -112,7 +106,7 @@ export class VehicleEditComponent implements OnInit {
     let file = $event.target.files[0];
     reader.readAsDataURL(file);
     reader.onload = () => {
-      this.icats.at(index).patchValue((reader.result + "").split(',')[1], {emitEvent: false})
+      this.icats.at(index).patchValue((reader.result + "").split(',')[1], { emitEvent: false })
       this.icats.at(index).markAsDirty();
     }
   }

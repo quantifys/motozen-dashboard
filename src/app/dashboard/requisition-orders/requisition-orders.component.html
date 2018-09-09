@@ -1,7 +1,9 @@
 <section class="container">
-  <div class="header d-flex align-items-center">
-    <h4 class="text-grey-dark m-0">Requisition Orders List</h4>
-    <div class="ml-auto">
+  <div class="top-header row">
+    <div class="col-sm-12 col-lg-6">
+      <h4 class="text-grey-dark m-0">Requisition Orders List</h4>
+    </div>
+    <div class="col-sm-12 col-lg-6 controls">
       <button mat-stroked-button color="warn" (click)="openFilters()">Add Filters</button>
       <a class="btn btn-orange text-light ml-3" routerLink="edit" [queryParams]="{type: 'new'}" *ngIf="loggedUser.role == 'plant_supervisor'">
         <i class="fas fa-clipboard-check mr-2"></i>Create Requisition Order</a>
@@ -9,13 +11,16 @@
   </div>
   <div class="content mt-4">
     <nav mat-tab-nav-bar color="warn">
-      <a mat-tab-link routerLink="../" [queryParams]="getQueryParams('can_modify')" routerLinkActive #new="routerLinkActive" [active]="new.isActive">
+      <a mat-tab-link routerLink="../" [queryParams]="getQueryParams('can_modify')" routerLinkActive #new="routerLinkActive"
+        [active]="new.isActive">
         <strong>New</strong>
       </a>
-      <a mat-tab-link routerLink="../" [queryParams]="getQueryParams('opened')" routerLinkActive #opened="routerLinkActive" [active]="opened.isActive">
+      <a mat-tab-link routerLink="../" [queryParams]="getQueryParams('opened')" routerLinkActive #opened="routerLinkActive"
+        [active]="opened.isActive">
         <strong>Processing</strong>
       </a>
-      <a mat-tab-link routerLink="../" [queryParams]="getQueryParams('closed')" routerLinkActive #closed="routerLinkActive" [active]="closed.isActive">
+      <a mat-tab-link routerLink="../" [queryParams]="getQueryParams('closed')" routerLinkActive #closed="routerLinkActive"
+        [active]="closed.isActive">
         <strong>Closed</strong>
       </a>
     </nav>

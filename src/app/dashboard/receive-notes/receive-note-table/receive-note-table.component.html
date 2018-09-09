@@ -1,38 +1,40 @@
 <div class="table-container">
-  <table class="table table-sm table-hover w-100 rounded table-striped text-center m-0">
-    <thead>
-      <tr>
-        <th>#</th>
-        <th>SERIAL NO</th>
-        <th>RAISED ON</th>
-        <th>PARTICULARS AMOUNT</th>
-        <th>FREIGHT AMOUNT</th>
-        <th>EXPENSES</th>
-        <th>GRAND TOTAL</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let note of receiveNotes; let i = index">
-        <td>{{(i + 1) + ((pageEvent.pageIndex + 1) * pageEvent.pageSize) - pageEvent.pageSize}}</td>
-        <td>
-          <a routerLink="view" class="text-danger" [queryParams]="{id: note.id}">
-            {{note.serial_no}}
-          </a>
-        </td>
-        <td>{{note.created_at | date: 'mediumDate'}}</td>
-        <td>{{note.getParticularTotal() ? (note.getParticularTotal() | currency: 'INR') : '-'}}</td>
-        <td>{{note.getFreightTotal() ? (note.getFreightTotal() | currency: 'INR') : '-'}}</td>
-        <td>{{note.expenses ? (note.expenses | currency: 'INR') : '-'}}</td>
-        <td>{{note.total ? (note.total | currency: 'INR') : '-'}}</td>
-      </tr>
-    </tbody>
-  </table>
+  <div class="table-responsive">
+    <table class="table table-sm table-hover w-100 rounded table-striped text-center m-0">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>SERIAL NO</th>
+          <th>RAISED ON</th>
+          <th>PARTICULARS AMOUNT</th>
+          <th>FREIGHT AMOUNT</th>
+          <th>EXPENSES</th>
+          <th>GRAND TOTAL</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let note of receiveNotes; let i = index">
+          <td>{{(i + 1) + ((pageEvent.pageIndex + 1) * pageEvent.pageSize) - pageEvent.pageSize}}</td>
+          <td>
+            <a routerLink="view" class="text-danger" [queryParams]="{id: note.id}">
+              {{note.serial_no}}
+            </a>
+          </td>
+          <td>{{note.created_at | date: 'mediumDate'}}</td>
+          <td>{{note.getParticularTotal() ? (note.getParticularTotal() | currency: 'INR') : '-'}}</td>
+          <td>{{note.getFreightTotal() ? (note.getFreightTotal() | currency: 'INR') : '-'}}</td>
+          <td>{{note.expenses ? (note.expenses | currency: 'INR') : '-'}}</td>
+          <td>{{note.total ? (note.total | currency: 'INR') : '-'}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
   <div class="alert alert-primary text-center rounded-0 border-0 text-light mb-0" *ngIf="receiveNotes.length == 0 && !loading">
     <strong>No receive notes found!</strong>
   </div>
   <div class="alert alert-primary text-center rounded-0 border-0 text-light mb-0" *ngIf="loading">
     <strong>Loading...</strong>
   </div>
-  <mat-paginator [length]="pageEvent.length" [pageSize]="pageEvent.pageSize" [pageIndex]="pageEvent.pageIndex" [pageSizeOptions]="[5, 10, 25, 100]"
-    (page)="getPage($event)"></mat-paginator>
+  <mat-paginator [length]="pageEvent.length" [pageSize]="pageEvent.pageSize" [pageIndex]="pageEvent.pageIndex"
+    [pageSizeOptions]="[5, 10, 25, 100]" (page)="getPage($event)"></mat-paginator>
 </div>

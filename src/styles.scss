@@ -16,9 +16,7 @@ $shadow: rgba(46,
 73,
 .2);
 * {
-  font-family: 'Varela Round', sans-serif;
-  
-  // scollbar styles
+  font-family: 'Varela Round', sans-serif; // scollbar styles
   &::-webkit-scrollbar-track {
     border-radius: 10px;
     background-color: #CCCCCC;
@@ -240,5 +238,22 @@ form {
 nav {
   &.mat-tab-nav-bar {
     overflow-x: auto;
+  }
+}
+
+.top-header {
+  text-align: center;
+  .controls {
+    text-align: right;
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .top-header {
+    text-align: center;
+    .controls {
+      text-align: center;
+      margin-top: 1rem;
+    }
   }
 }

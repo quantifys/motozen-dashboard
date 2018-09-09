@@ -15,19 +15,19 @@
               <strong>Select category</strong>
             </h6>
             <mat-radio-group class="d-flex ml-2 mb-1" formControlName="category">
-              <mat-radio-button value="direct">Direct expense</mat-radio-button>
-              <mat-radio-button class="ml-5" value="indirect">Indirect expense</mat-radio-button>
+              <mat-radio-button color="warn" value="direct">Direct expense</mat-radio-button>
+              <mat-radio-button color="warn" class="ml-5" value="indirect">Indirect expense</mat-radio-button>
             </mat-radio-group>
             <mat-form-field class="w-100">
               <textarea matInput placeholder="Description" formControlName="description"></textarea>
             </mat-form-field>
             <div class="row">
-              <div class="col-lg-3">
+              <div class="col-md-6 col-lg-3">
                 <mat-form-field class="w-100">
                   <input matInput type="number" placeholder="Amount" formControlName="amount">
                 </mat-form-field>
               </div>
-              <div class="col-lg-3">
+              <div class="col-md-6 col-lg-3">
                 <mat-form-field class="w-100">
                   <input matInput type="number" placeholder="GST" formControlName="gst">
                   <span matSuffix>&nbsp; %</span>
@@ -37,12 +37,15 @@
                 <span class="text-muted">Total:</span>
                 <h3 class="text-muted">{{total.value | currency: 'INR'}}</h3>
               </div>
+              <div class="col-sm-12 col-md-8 col-lg-6">
+                <mat-form-field class="w-100">
+                  <input matInput maxLength="15" placeholder="GSTN" formControlName="gstn">
+                  <mat-hint align="end">{{gstn.value ? gstn.value.length : 0}} / 15</mat-hint>
+                </mat-form-field>
+              </div>
             </div>
-            <mat-form-field class="w-100">
-              <input matInput maxLength="15" placeholder="GSTN" formControlName="gstn">
-              <mat-hint align="end">{{gstn.value ? gstn.value.length : 0}} / 15</mat-hint>
-            </mat-form-field>
-            <button class="btn btn-orange text-light btn-save" [disabled]="expenseForm.invalid || expenseForm.pristine" (click)="saveChanges()">Save</button>
+            <button class="btn btn-orange text-light btn-save" [disabled]="expenseForm.invalid || expenseForm.pristine"
+              (click)="saveChanges()">Save</button>
           </form>
         </div>
       </div>

@@ -1,14 +1,17 @@
 <section class="container">
-  <div class="header d-flex align-items-center">
-    <h4 class="text-grey-dark m-0">Expense List</h4>
-    <div class="ml-auto">
+  <div class="top-header row">
+    <div class="col-sm-12 col-lg-6">
+      <h4 class="text-grey-dark m-0">Expense List</h4>
+    </div>
+    <div class="col-sm-12 col-lg-6 controls">
       <a class="btn btn-orange text-light ml-3" routerLink="edit" [queryParams]="{type: 'new'}">
         <i class="fas fa-plus mr-2"></i>Record an Expense</a>
     </div>
   </div>
   <div class="content mt-4">
     <nav mat-tab-nav-bar color="warn">
-      <a mat-tab-link routerLink="../" [queryParams]="getQueryParams('direct')" routerLinkActive #direct="routerLinkActive" [active]="direct.isActive">
+      <a mat-tab-link routerLink="../" [queryParams]="getQueryParams('direct')" routerLinkActive #direct="routerLinkActive"
+        [active]="direct.isActive">
         <strong>Direct</strong>
       </a>
       <a mat-tab-link routerLink="../" [queryParams]="getQueryParams('indirect')" routerLinkActive #indirect="routerLinkActive"

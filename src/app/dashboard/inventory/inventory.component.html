@@ -1,29 +1,33 @@
 <section class="container">
-  <div class="header d-flex align-items-center">
-    <h4 class="text-grey-dark m-0">Inventory Management</h4>
-    <div class="ml-auto">
+  <div class="top-header row">
+    <div class="col-sm-12 col-lg-6">
+      <h4 class="text-grey-dark m-0">Inventory Management</h4>
+    </div>
+    <div class="col-sm-12 col-lg-6 controls">
       <a class="btn btn-orange text-light" routerLink="edit" [queryParams]="{type: 'new'}">
         <i class="fas fa-cart-plus mr-2"></i>New Inventory</a>
     </div>
   </div>
   <div class="content mt-4">
     <nav mat-tab-nav-bar color="warn">
-      <a mat-tab-link routerLink="../" [queryParams]="getQueryParams('automotive_connector')" routerLinkActive #automotive_connector="routerLinkActive"
-        [active]="automotive_connector.isActive">
+      <a mat-tab-link routerLink="../" [queryParams]="getQueryParams('automotive_connector')" routerLinkActive
+        #automotive_connector="routerLinkActive" [active]="automotive_connector.isActive">
         <strong>Connectors</strong>
       </a>
-      <a mat-tab-link routerLink="../" [queryParams]="getQueryParams('tool')" routerLinkActive #tool="routerLinkActive" [active]="tool.isActive">
+      <a mat-tab-link routerLink="../" [queryParams]="getQueryParams('tool')" routerLinkActive #tool="routerLinkActive"
+        [active]="tool.isActive">
         <strong>Tools</strong>
       </a>
       <a mat-tab-link routerLink="../" [queryParams]="getQueryParams('raw_material')" routerLinkActive #raw_material="routerLinkActive"
         [active]="raw_material.isActive">
         <strong>Raw materials</strong>
       </a>
-      <a mat-tab-link routerLink="../" [queryParams]="getQueryParams('finished_product')" routerLinkActive #finished_product="routerLinkActive"
-        [active]="finished_product.isActive">
+      <a mat-tab-link routerLink="../" [queryParams]="getQueryParams('finished_product')" routerLinkActive
+        #finished_product="routerLinkActive" [active]="finished_product.isActive">
         <strong>Finished product</strong>
       </a>
-      <a mat-tab-link routerLink="../" [queryParams]="getQueryParams('other')" routerLinkActive #other="routerLinkActive" [active]="other.isActive">
+      <a mat-tab-link routerLink="../" [queryParams]="getQueryParams('other')" routerLinkActive #other="routerLinkActive"
+        [active]="other.isActive">
         <strong>Others</strong>
       </a>
     </nav>

@@ -10,7 +10,6 @@
           <th>TAC NUMBER</th>
           <th>CATEGORY</th>
           <th>CONNECTOR CODE</th>
-          <th>INFO</th>
         </tr>
       </thead>
       <tbody>
@@ -18,15 +17,12 @@
           <td>{{i + 1}}</td>
           <td>{{vehicle.make}}</td>
           <td>{{vehicle.model}}</td>
-          <td>{{vehicle.variant}}</td>
+          <td>
+            <a class="text-danger" routerLink="view" [queryParams]="{id: vehicle.id}">{{vehicle.variant}}</a>
+          </td>
           <td>{{vehicle.tac_number}}</td>
           <td>{{vehicle.category}}</td>
           <td>{{vehicle.connector.item_code}}</td>
-          <td>
-            <a mat-icon-button color="warn" routerLink="view" [queryParams]="{id: vehicle.id}">
-              <mat-icon>info</mat-icon>
-            </a>
-          </td>
         </tr>
       </tbody>
     </table>
