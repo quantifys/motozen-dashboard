@@ -17,6 +17,10 @@ const initialState: State = {
 export function reducer(state = initialState, action: transactionActions.Actions): State {
   let transactions: Transaction[] = [];
   switch (action.type) {
+    case transactionActions.FETCH_ALL_TRANSACTIONS_ACTION:
+      return Object.assign({}, state, {
+        allTransactions: []
+      });
     case transactionActions.FETCH_ALL_TRANSACTIONS_COMPLETE_ACTION:
       transactions = action.payload.data.map(transaction => new Transaction(transaction));
       return Object.assign({}, state, {

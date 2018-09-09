@@ -18,6 +18,10 @@ const initialState: State = {
 export function reducer(state = initialState, action: salarySlipActions.Actions): State {
   let salarySlips: SalarySlip[] = [];
   switch (action.type) {
+    case salarySlipActions.FETCH_ALL_SALARY_SLIPS_ACTION:
+      return Object.assign({}, state, {
+        allSalarySlips: []
+      });
     case salarySlipActions.FETCH_ALL_SALARY_SLIPS_COMPLETE_ACTION:
       salarySlips = action.payload.data.map(salarySlip => new SalarySlip(salarySlip));
       return Object.assign({}, state, {

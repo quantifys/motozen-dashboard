@@ -16,6 +16,10 @@ const initialState: State = {
 export function reducer(state = initialState, action: vehicleActions.Actions): State {
   let vehicles: Vehicle[] = [];
   switch (action.type) {
+    case vehicleActions.FETCH_ALL_VEHICLES_ACTION:
+      return Object.assign({}, state, {
+        allVehicles: []
+      });
     case vehicleActions.FETCH_ALL_VEHICLES_COMPLETE_ACTION:
       vehicles = action.payload.data.map(vehicle => new Vehicle(vehicle));
       return Object.assign({}, state, {

@@ -16,6 +16,10 @@ const initialState: State = {
 export function reducer(state = initialState, action: inventoryActions.Actions): State {
   let inventories: Inventory[] = [];
   switch (action.type) {
+    case inventoryActions.FETCH_ALL_INVENTORIES_ACTION:
+      return Object.assign({}, state, {
+        allInventories: []
+      });
     case inventoryActions.FETCH_ALL_INVENTORIES_COMPLETE_ACTION:
       inventories = action.payload.data.map(inventory => new Inventory(inventory));
       return Object.assign({}, state, {

@@ -19,6 +19,10 @@ const initialState: State = {
 export function reducer(state = initialState, action: receiveNoteActions.Actions): State {
   let receiveNotes: ReceiveNote[] = [];
   switch (action.type) {
+    case receiveNoteActions.FETCH_ALL_RECEIVE_NOTES_ACTION:
+      return Object.assign({}, state, {
+        allReceiveNotes: []
+      });
     case receiveNoteActions.FETCH_ALL_RECEIVE_NOTES_COMPLETE_ACTION:
       receiveNotes = action.payload.data.map(receiveNote => new ReceiveNote(receiveNote));
       return Object.assign({}, state, {
