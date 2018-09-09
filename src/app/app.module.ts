@@ -13,6 +13,7 @@ import { environment } from '../environments/environment';
 import { AppComponent } from './app.component';
 import { reducers } from './shared/reducers';
 
+import { DashboardEffects } from './shared/effects/dashboard.effects';
 import { UserEffects } from './shared/effects/user.effects';
 import { DeviceEffects } from './shared/effects/device.effects';
 import { InventoryEffects } from './shared/effects/inventory.effects';
@@ -46,6 +47,7 @@ import { CsvReportService } from './shared/services/csv-report.service';
     HttpClientModule,
     StoreModule.forRoot(reducers),
     EffectsModule.forRoot([
+      DashboardEffects,
       UserEffects,
       DeviceEffects,
       VehicleEffects,

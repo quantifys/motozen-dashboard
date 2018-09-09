@@ -1,8 +1,10 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { MatCardModule } from '@angular/material';
 import { Routes, RouterModule } from '@angular/router';
 
 import { HomeComponent } from './home.component';
+import { ChartsModule } from '../charts/charts.module';
 
 const routes: Routes = [
   {
@@ -17,6 +19,8 @@ const routes: Routes = [
 @NgModule({
   imports: [
     CommonModule,
+    ChartsModule,
+    MatCardModule,
     RouterModule.forChild(routes)
   ],
   declarations: [HomeComponent]
