@@ -21,7 +21,7 @@
   </div>
   <hr class="mb-0">
   <div class="content mt-0">
-    <nav mat-tab-nav-bar>
+    <nav mat-tab-nav-bar color="warn">
       <ng-container *ngIf="loggedUser.role == 'manufacturer' || loggedUser.role == 'admin'">
         <a mat-tab-link routerLink="../" [queryParams]="getQueryParams('employees')" routerLinkActive #employees="routerLinkActive"
           [active]="employees.isActive">
