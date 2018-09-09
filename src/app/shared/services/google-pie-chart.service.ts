@@ -19,7 +19,7 @@ export class GooglePieChartService extends GoogleChartsBaseService {
       pieHole: config.pieHole,
       is3D: config.is3D,
       legend: {
-        alignment: config.legend.position
+        position: config.legend.position
       },
       colors: [
         "#FFB88C",

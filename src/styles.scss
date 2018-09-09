@@ -170,6 +170,7 @@ form {
   -moz-box-shadow: 2px 4px 8px 0 $shadow;
   box-shadow: 2px 4px 8px 0 $shadow;
   table {
+    white-space: nowrap;
     border: none !important;
     border-collapse: collapse;
     thead {
