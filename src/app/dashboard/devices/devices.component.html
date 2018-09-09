@@ -22,7 +22,7 @@
   </div>
   <hr>
   <div class="content mt-3">
-    <nav mat-tab-nav-bar>
+    <nav mat-tab-nav-bar color="warn">
       <ng-container *ngIf="loggedUser.role == 'manufacturer' || loggedUser.role == 'store_purchases'">
         <a mat-tab-link routerLink="../" [queryParams]="getQueryParams('unsold')" routerLinkActive #unsold="routerLinkActive"
           [active]="unsold.isActive">
