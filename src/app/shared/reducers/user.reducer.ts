@@ -32,6 +32,10 @@ export function reducer(state = initialState, action: userActions.Actions): Stat
       return Object.assign({}, state, {
         loggedUser: new User({})
       });
+    case userActions.FETCH_ALL_USERS_ACTION:
+      return Object.assign({}, state, {
+        allUsers: []
+      });
     case userActions.FETCH_ALL_USERS_COMPLETE_ACTION:
       users = action.payload.data.map(user => new User(user));
       return Object.assign({}, state, {

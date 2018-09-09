@@ -28,6 +28,9 @@ section {
         width: 5px;
         background-image: none;
       }
+      h6 {
+        padding: .8rem !important;
+      }
       &:hover {
         a:not(.active) {
           background-image: linear-gradient(to right, $primary 0%, $white 100%);
