@@ -13,9 +13,6 @@ section {
     }
   }
   .main {
-    .menu-toggle {
-      display: none;
-    }
     flex: 1;
     height: 100vh;
     overflow: auto;
@@ -25,9 +22,6 @@ section {
 @media only screen and (max-width: 768px) {
   section {
     .main {
-      .menu-toggle {
-        display: block;
-      }
       .content {
         padding: 3rem .5rem !important
       }
