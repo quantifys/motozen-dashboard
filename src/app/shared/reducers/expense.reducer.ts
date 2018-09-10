@@ -16,6 +16,10 @@ const initialState: State = {
 export function reducer(state = initialState, action: expenseActions.Actions): State {
   let inventories: Cost[] = [];
   switch (action.type) {
+    case expenseActions.FETCH_ALL_EXPENSES_ACTION:
+      return Object.assign({}, state, {
+        allCertificates: []
+      });
     case expenseActions.FETCH_ALL_EXPENSES_COMPLETE_ACTION:
       inventories = action.payload.data.map(expense => new Cost(expense));
       return Object.assign({}, state, {

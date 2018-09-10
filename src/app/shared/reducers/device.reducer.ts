@@ -20,6 +20,10 @@ const initialState: State = {
 export function reducer(state = initialState, action: deviceActions.Actions): State {
   let devices: Device[] = [];
   switch (action.type) {
+    case deviceActions.FETCH_ALL_DEVICES_ACTION:
+    return Object.assign({}, state, {
+      allDevices: []
+    });
     case deviceActions.FETCH_ALL_DEVICES_COMPLETE_ACTION:
       devices = action.payload.data.map(device => new Device(device));
       return Object.assign({}, state, {

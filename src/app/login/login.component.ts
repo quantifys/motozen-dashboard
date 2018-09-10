@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 
 import * as fromRoot from '../shared/reducers';
 import * as userActions from '../shared/actions/user.actions';
+import { environment } from '../../environments/environment';
 
 @Component({
   selector: 'app-login',
@@ -15,6 +16,7 @@ import * as userActions from '../shared/actions/user.actions';
 export class LoginComponent implements OnInit {
 
   public loginForm: FormGroup;
+  public version: string = environment.VERSION;
 
   constructor(
     private _fb: FormBuilder,

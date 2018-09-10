@@ -17,6 +17,10 @@ const initialState: State = {
 export function reducer(state = initialState, action: vendorActions.Actions): State {
   let vendors: Vendor[] = [];
   switch (action.type) {
+    case vendorActions.FETCH_ALL_VENDORS_ACTION:
+      return Object.assign({}, state, {
+        allVendors: []
+      });
     case vendorActions.FETCH_ALL_VENDORS_COMPLETE_ACTION:
       vendors = action.payload.data.map(vendor => new Vendor(vendor));
       return Object.assign({}, state, {

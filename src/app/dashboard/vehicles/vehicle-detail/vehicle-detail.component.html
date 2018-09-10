@@ -10,7 +10,7 @@
     <button class="ml-2" mat-stroked-button color="warn" (click)="deleteVehicle()">Delete</button>
   </div>
   <div class="row justify-content-center mt-4">
-    <div class="col-md-4">
+    <div class="col-sm-12 col-md-6 col-xl-4">
       <div class="card">
         <div class="card-body">
           <h6 class="text-grey-dark font-weight-bold mb-3">
@@ -28,30 +28,23 @@
         </div>
       </div>
     </div>
-    <div class="col-md-4">
+    <div class="col-sm-12 col-md-6 col-xl-4">
       <div class="card">
         <div class="card-body">
           <h6 class="text-grey-dark font-weight-bold mb-3">
             <i class="fas fa-info-circle mr-2 fa-fw text-orange"></i>Connector details</h6>
           <h6 class="text-grey-dark">Description:</h6>
-          <h6 class="ml-3">{{vehicle.connector.description}}</h6>
+          <h6 class="ml-3"><a routerLink="../../inventory/view" [queryParams]="{id: vehicle.connector.id}">{{vehicle.connector.description}}</a></h6>
           <h6 class="text-grey-dark">Item Code:</h6>
           <h6 class="ml-3">{{vehicle.connector.item_code}}</h6>
-          <div class="text-right">
-            <a routerLink="../../inventory/view" [queryParams]="{id: vehicle.connector.id}" class="btn btn-orange text-light">Go To
-              Inventory
-            </a>
-          </div>
         </div>
       </div>
     </div>
   </div>
   <hr>
   <div class="row mt-4" *ngFor="let icat of vehicle.icats; let i = index">
-    <div class="w-100 text-center">
-      <p class="d-inline-block bg-primary text-light p-2 rounded"><strong>DOCUMENT {{i+1}}</strong></p>
-    </div>
-    <div *ngFor="let page of icat.pages" class="col-lg-6">
+    <h5 class="col-sm-12 text-grey-dark font-weight-bold">DOCUMENT {{i+1}}</h5>
+    <div *ngFor="let page of icat.pages" class="col-sm-12 col-md-6 col-xl-4">
       <div class="card">
         <img class="img-fluid rounded" [src]="page.getPageUrl()">
       </div>

@@ -4,7 +4,6 @@ import * as userActions from '../actions/user.actions';
 export interface State {
   allUsers: User[];
   loggedUser: User;
-  currentUser: User;
   currentUserStats: UserStats;
   userPageStatus: PageData;
 }
@@ -12,7 +11,6 @@ export interface State {
 const initialState: State = {
   allUsers: [],
   loggedUser: new User({}),
-  currentUser: new User({}),
   currentUserStats: new UserStats({}),
   userPageStatus: new PageData({})
 };
@@ -31,6 +29,10 @@ export function reducer(state = initialState, action: userActions.Actions): Stat
     case userActions.SIGNOUT_USER_COMPLETE_ACTION:
       return Object.assign({}, state, {
         loggedUser: new User({})
+      });
+    case userActions.FETCH_ALL_USERS_ACTION:
+      return Object.assign({}, state, {
+        allUsers: []
       });
     case userActions.FETCH_ALL_USERS_COMPLETE_ACTION:
       users = action.payload.data.map(user => new User(user));
@@ -52,7 +54,7 @@ export function reducer(state = initialState, action: userActions.Actions): Stat
     case userActions.DELETE_USER_COMPLETE_ACTION:
       return Object.assign({}, state, {
         allUsers: [...state.allUsers.filter(user => user.id != action.payload ? user : null)],
-        currentUser: new User({})
+        currentUserStats: new UserStats({})
       });
     case userActions.UPDATE_USER_COMPLETE_ACTION:
       return Object.assign({}, state, {
@@ -60,7 +62,7 @@ export function reducer(state = initialState, action: userActions.Actions): Stat
       });
     case userActions.CLEAR_CURRENT_USER_ACTION:
       return Object.assign({}, state, {
-        currentUser: new User({})
+        currentUserStats: new UserStats({})
       });
     case userActions.CREATE_NEW_USER_COMPLETE_ACTION:
       return Object.assign({}, state, {
@@ -68,7 +70,7 @@ export function reducer(state = initialState, action: userActions.Actions): Stat
       });
     case userActions.DELETE_USER_FAILED_ACTION:
       return Object.assign({}, state, {
-        currentUser: new User({})
+        currentUserStats: new UserStats({})
       });
     default:
       return state;

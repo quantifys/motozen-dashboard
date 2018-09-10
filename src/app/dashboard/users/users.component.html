@@ -1,13 +1,15 @@
 <section class="container">
-  <div class="header d-flex align-items-center">
-    <h4 class="text-grey-dark m-0">User Management</h4>
-    <div class="ml-auto">
+  <div class="top-header row">
+    <div class="col-sm-12 col-lg-6">
+      <h4 class="text-grey-dark m-0">User Management</h4>
+    </div>
+    <div class="col-sm-12 col-lg-6 controls">
       <a class="btn btn-orange text-light" routerLink="edit" [queryParams]="{type: 'new'}"><i class="fas fa-user-plus mr-2"></i>New
         User
       </a>
     </div>
   </div>
-  <div class="container-fluid mt-4">
+  <div class="container-fluid mt-3">
     <div class="row justify-content-center">
       <div class="col-md-6">
         <form [formGroup]="searchForm" autocomplete="off">
@@ -19,9 +21,9 @@
       </div>
     </div>
   </div>
-  <hr>
-  <div class="content mt-3">
-    <nav mat-tab-nav-bar>
+  <hr class="mb-0">
+  <div class="content mt-0">
+    <nav mat-tab-nav-bar color="warn">
       <ng-container *ngIf="loggedUser.role == 'manufacturer' || loggedUser.role == 'admin'">
         <a mat-tab-link routerLink="../" [queryParams]="getQueryParams('employees')" routerLinkActive #employees="routerLinkActive"
           [active]="employees.isActive">

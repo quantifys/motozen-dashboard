@@ -23,6 +23,10 @@ const initialState: State = {
 export function reducer(state = initialState, action: certificateActions.Actions): State {
   let certificates: Certificate[] = [];
   switch (action.type) {
+    case certificateActions.FETCH_ALL_CERTIFICATES_ACTION:
+      return Object.assign({}, state, {
+        allCertificates: []
+      });
     case certificateActions.FETCH_ALL_CERTIFICATES_COMPLETE_ACTION:
       certificates = action.payload.data.map(certificate => new Certificate(certificate));
       return Object.assign({}, state, {

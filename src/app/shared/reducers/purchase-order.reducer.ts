@@ -20,6 +20,10 @@ const initialState: State = {
 export function reducer(state = initialState, action: purchaseOrderActions.Actions): State {
   let purchaseOrders: PurchaseOrder[] = [];
   switch (action.type) {
+    case purchaseOrderActions.FETCH_ALL_PURCHASE_ORDERS_ACTION:
+      return Object.assign({}, state, {
+        allPurchaseOrders: []
+      });
     case purchaseOrderActions.FETCH_ALL_PURCHASE_ORDERS_COMPLETE_ACTION:
       purchaseOrders = action.payload.data.map(purchaseOrder => new PurchaseOrder(purchaseOrder));
       return Object.assign({}, state, {

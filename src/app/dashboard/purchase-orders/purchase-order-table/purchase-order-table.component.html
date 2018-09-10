@@ -1,36 +1,38 @@
 <div class="table-container">
-  <table class="table table-hover w-100 rounded table-striped text-center m-0">
-    <thead>
-      <tr>
-        <th>#</th>
-        <th>SERIAL NO</th>
-        <th>PURCHASE BY</th>
-        <th>RAISED ON</th>
-        <th>QUANTITY</th>
-        <th>AMOUNT PAID</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let order of purchaseOrders; let i = index">
-        <td>{{(i + 1) + ((pageEvent.pageIndex + 1) * pageEvent.pageSize) - pageEvent.pageSize}}</td>
-        <td>
-          <a routerLink="view" class="text-danger" [queryParams]="{id: order.id}">
-            {{order.serial_no}}
-          </a>
-        </td>
-        <td>{{order.user.name}}</td>
-        <td>{{order.created_at | date: 'mediumDate'}}</td>
-        <td>{{order.total_quantity}}</td>
-        <td>{{order.amount_paid ? (order.amount_paid | currency: 'INR') : '-'}}</td>
-      </tr>
-    </tbody>
-  </table>
+  <div class="table-responsive">
+    <table class="table table-sm table-hover w-100 rounded table-striped text-center m-0">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>SERIAL NO</th>
+          <th>PURCHASE BY</th>
+          <th>RAISED ON</th>
+          <th>QUANTITY</th>
+          <th>AMOUNT PAID</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let order of purchaseOrders; let i = index">
+          <td>{{(i + 1) + ((pageEvent.pageIndex + 1) * pageEvent.pageSize) - pageEvent.pageSize}}</td>
+          <td>
+            <a routerLink="view" class="text-danger" [queryParams]="{id: order.id}">
+              {{order.serial_no}}
+            </a>
+          </td>
+          <td>{{order.user.name}}</td>
+          <td>{{order.created_at | date: 'mediumDate'}}</td>
+          <td>{{order.total_quantity}}</td>
+          <td>{{order.amount_paid ? (order.amount_paid | currency: 'INR') : '-'}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
   <div class="alert alert-primary text-center rounded-0 border-0 text-light mb-0" *ngIf="purchaseOrders.length == 0 && !loading">
     <strong>No purchase orders found!</strong>
   </div>
   <div class="alert alert-primary text-center rounded-0 border-0 text-light mb-0" *ngIf="loading">
     <strong>Loading...</strong>
   </div>
-  <mat-paginator [length]="pageEvent.length" [pageSize]="pageEvent.pageSize" [pageIndex]="pageEvent.pageIndex" [pageSizeOptions]="[5, 10, 25, 100]"
-    (page)="getPage($event)"></mat-paginator>
+  <mat-paginator [length]="pageEvent.length" [pageSize]="pageEvent.pageSize" [pageIndex]="pageEvent.pageIndex"
+    [pageSizeOptions]="[5, 10, 25, 100]" (page)="getPage($event)"></mat-paginator>
 </div>

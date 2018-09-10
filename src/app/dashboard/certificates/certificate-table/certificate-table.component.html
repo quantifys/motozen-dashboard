@@ -1,34 +1,36 @@
 <div class="table-container">
-  <table class="table table-hover w-100 rounded table-striped text-center m-0">
-    <thead>
-      <tr>
-        <th>#</th>
-        <th>FITMENT NO</th>
-        <th>CUSTOMER</th>
-        <th>DATE GENERATED</th>
-        <th>DUE DATE</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let certificate of certificates; let i = index">
-        <td>{{(i + 1) + ((pageEvent.pageIndex + 1) * pageEvent.pageSize) - pageEvent.pageSize}}</td>
-        <td>
-          <a routerLink="view" class="text-danger" [queryParams]="{id: certificate.id}">
-            {{certificate.certificate_number}}
-          </a>
-        </td>
-        <td>{{certificate.customer_name}}</td>
-        <td>{{certificate.date_generated | date: 'mediumDate'}}</td>
-        <td>{{certificate.due_date | date: 'mediumDate'}}</td>
-      </tr>
-    </tbody>
-  </table>
+  <div class="table-responsive">
+    <table class="table table-sm table-hover w-100 rounded table-striped text-center m-0">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>FITMENT NO</th>
+          <th>CUSTOMER</th>
+          <th>DATE GENERATED</th>
+          <th>DUE DATE</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let certificate of certificates; let i = index">
+          <td>{{(i + 1) + ((pageEvent.pageIndex + 1) * pageEvent.pageSize) - pageEvent.pageSize}}</td>
+          <td>
+            <a routerLink="view" class="text-danger" [queryParams]="{id: certificate.id}">
+              {{certificate.certificate_number}}
+            </a>
+          </td>
+          <td>{{certificate.customer_name}}</td>
+          <td>{{certificate.date_generated | date: 'mediumDate'}}</td>
+          <td>{{certificate.due_date | date: 'mediumDate'}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
   <div class="alert alert-primary text-center rounded-0 border-0 text-light mb-0" *ngIf="certificates.length == 0 && !loading">
     <strong>No certificates found!</strong>
   </div>
   <div class="alert alert-primary text-center rounded-0 border-0 text-light" *ngIf="loading">
     <strong>Loading...</strong>
   </div>
-  <mat-paginator [length]="pageEvent.length" [pageSize]="pageEvent.pageSize" [pageIndex]="pageEvent.pageIndex" [pageSizeOptions]="[5, 10, 25, 100]"
-    (page)="getPage($event)"></mat-paginator>
+  <mat-paginator [length]="pageEvent.length" [pageSize]="pageEvent.pageSize" [pageIndex]="pageEvent.pageIndex"
+    [pageSizeOptions]="[5, 10, 25, 100]" (page)="getPage($event)"></mat-paginator>
 </div>
