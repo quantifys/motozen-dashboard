@@ -1,8 +1,15 @@
 <section class="d-flex">
-  <div class="menu">
+  <div class="menu" [ngClass]="{'hidden': !opened}">
     <side-nav></side-nav>
   </div>
-  <div class="main p-5">
-    <router-outlet></router-outlet>
+  <div class="main">
+    <div class="menu-toggle p-2">
+      <button mat-icon-button color="warn" (click)="opened = !opened">
+        <mat-icon>menu</mat-icon>
+      </button>
+    </div>
+    <div class="content p-5" [ngClass]="{'hidden': opened}">
+      <router-outlet></router-outlet>
+    </div>
   </div>
 </section>
