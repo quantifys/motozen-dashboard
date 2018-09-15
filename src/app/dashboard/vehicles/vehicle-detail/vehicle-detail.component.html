@@ -25,6 +25,8 @@
           <h6 class="ml-3">{{vehicle.category}}</h6>
           <h6 class="text-grey-dark">TAC Number:</h6>
           <h6 class="ml-3">{{vehicle.tac_number}}</h6>
+          <h6 class="text-grey-dark">Testing Report Number:</h6>
+          <h6 class="ml-3">{{vehicle.report_no}}</h6>
         </div>
       </div>
     </div>
@@ -44,7 +46,7 @@
   <hr>
   <div class="row mt-4" *ngFor="let icat of vehicle.icats; let i = index">
     <h5 class="col-sm-12 text-grey-dark font-weight-bold">DOCUMENT {{i+1}}</h5>
-    <div *ngFor="let page of icat.pages" class="col-sm-12 col-md-6 col-xl-4">
+    <div *ngFor="let page of icat.pages" class="col-sm-12 col-md-6 col-xl-4 mt-2">
       <div class="card">
         <img class="img-fluid rounded" [src]="page.getPageUrl()">
       </div>

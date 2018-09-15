@@ -6,7 +6,7 @@
   </div>
 
   <div class="row justify-content-center">
-    <div class="col-md-12 col-md-8">
+    <div class="col-sm-12 col-md-8">
       <div class="card mt-5">
         <div class="card-body">
           <form [formGroup]="vehicleForm" autocomplete="off">
@@ -30,6 +30,11 @@
               <div class="col-md-6 col-lg-4 d-flex align-items-end">
                 <mat-form-field class="w-100">
                   <input matInput placeholder="Category" formControlName="category">
+                </mat-form-field>
+              </div>
+              <div class="col-md-6 col-lg-4 d-flex align-items-end">
+                <mat-form-field class="w-100">
+                  <input matInput placeholder="Report Number" formControlName="report_no">
                 </mat-form-field>
               </div>
               <div class="col-md-6 col-lg-4 d-flex align-items-end">
@@ -76,8 +81,10 @@
               </div>
               <hr>
             </ng-container>
-            <button class="btn btn-orange text-light btn-save" [disabled]="vehicleForm.invalid || vehicleForm.pristine"
-              (click)="saveChanges()">Save</button>
+            <div class="w-100 mt-2">
+              <button class="btn btn-orange text-light btn-save" [disabled]="vehicleForm.invalid || vehicleForm.pristine"
+                (click)="saveChanges()">Save</button>
+            </div>
           </form>
         </div>
       </div>
