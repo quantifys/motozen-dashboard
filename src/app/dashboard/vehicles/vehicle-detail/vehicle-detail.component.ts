@@ -1,12 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
+import { MatBottomSheetRef, MatBottomSheet } from '@angular/material';
+import { Lightbox, IAlbum } from 'ngx-lightbox';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 
 import * as fromRoot from '../../../shared/reducers';
 import * as vehicleActions from '../../../shared/actions/vehicle.actions';
 import { Vehicle } from '../../../shared/models';
-import { MatBottomSheetRef, MatBottomSheet } from '@angular/material';
 
 @Component({
   selector: 'app-vehicle-detail',
@@ -22,7 +23,8 @@ export class VehicleDetailComponent implements OnInit {
     private _router: Router,
     public _location: Location,
     private _store: Store<fromRoot.State>,
-    private bottomSheet: MatBottomSheet
+    private bottomSheet: MatBottomSheet,
+    private _lightbox: Lightbox
   ) {
     this._activatedRoute.queryParams.subscribe(params => {
       if (params["id"]) {
@@ -39,6 +41,18 @@ export class VehicleDetailComponent implements OnInit {
 
   deleteVehicle() {
     this.bottomSheet.open(VehicleDeleteComponent);
+  }
+
+  openImage(i: number, j: number) {
+    let album: IAlbum[] = [];
+    this.vehicle.icats[i].pages.map(page => {
+      let image: IAlbum = {
+        src: page.getPageUrl(),
+        thumb: null
+      }
+      album.push(image);
+    })
+    this._lightbox.open(album, j);
   }
 
 }

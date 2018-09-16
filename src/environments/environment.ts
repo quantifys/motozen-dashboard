@@ -5,7 +5,7 @@
 export const environment = {
   production: false,
   token_auth_config: {
-    apiBase: "http://192.168.0.133:3000",
+    apiBase: "http://localhost:3000",
     signInRedirect: "login",
     signOutFailedValidate: true
   },

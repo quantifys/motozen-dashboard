@@ -43,12 +43,15 @@
       </div>
     </div>
   </div>
-  <hr>
   <div class="row mt-4" *ngFor="let icat of vehicle.icats; let i = index">
-    <h5 class="col-sm-12 text-grey-dark font-weight-bold">DOCUMENT {{i+1}}</h5>
-    <div *ngFor="let page of icat.pages" class="col-sm-12 col-md-6 col-xl-4 mt-2">
+    <div class="col-sm-12">
+      <hr>
+      <h5 class="mb-0 font-weight-bold">DOCUMENT {{i+1}}</h5>
+      <h5 class="text-grey-dark">{{icat.pages.length}} {{icat.pages.length > 1 ? 'pages' : 'page'}}</h5>
+    </div>
+    <div *ngFor="let page of icat.pages; let j = index" class="col-sm-12 col-md-6 col-xl-4 mt-4">
       <div class="card">
-        <img class="img-fluid rounded" [src]="page.getPageUrl()">
+        <img class="img-fluid rounded" [src]="page.getPageUrl()" (click)="openImage(i, j)">
       </div>
     </div>
   </div>
