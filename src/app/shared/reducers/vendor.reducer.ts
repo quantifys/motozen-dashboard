@@ -63,6 +63,10 @@ export function reducer(state = initialState, action: vendorActions.Actions): St
       return Object.assign({}, state, {
         currentVendor: new Vendor(action.payload)
       });
+    case vendorActions.CLEAR_VENDOR_DATA_ACTION:
+      return Object.assign({}, state, {
+        currentVendor: new Vendor({})
+      });
     default:
       return state;
   }

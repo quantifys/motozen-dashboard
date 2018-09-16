@@ -67,6 +67,7 @@ export function reducer(state = initialState, action: requisitionOrderActions.Ac
       });
     case requisitionOrderActions.FETCH_REQUISITION_ORDER_FORM_DATA_COMPLETE_ACTION:
       return Object.assign({}, state, {
+        currentRequisitionOrder: new RequisitionOrder({}),
         requisitionOrderFormData: action.payload
       });
     default:

@@ -30,6 +30,7 @@ export class VehicleEditComponent implements OnInit {
     private _fb: FormBuilder,
     public _location: Location
   ) {
+    this._store.dispatch(new vehicleActions.ClearVehicleDataAction);
     this._store.dispatch(new inventoryActions.FetchAllInventoriesAction({
       category: 'automotive_connector'
     }));

@@ -36,6 +36,8 @@ export const DISABLE_VENDOR_ACTION = '[Vendor] Disable Vendor Action';
 export const DISABLE_VENDOR_COMPLETE_ACTION = '[Vendor] Disable Vendor Complete Action';
 export const DISABLE_VENDOR_FAILED_ACTION = '[Vendor] Disable Vendor Failed Action';
 
+export const CLEAR_VENDOR_DATA_ACTION = '[Vendor] Clear Vendor Data Action';
+
 export class FetchAllVendorsAction implements Action {
   readonly type = FETCH_ALL_VENDORS_ACTION;
   constructor(public payload: any) {
@@ -246,6 +248,10 @@ export class DisableVendorFailedAction implements Action {
   }
 }
 
+export class ClearVendorDataAction implements Action {
+  readonly type = CLEAR_VENDOR_DATA_ACTION;
+}
+
 export type Actions =
   FetchAllVendorsAction
   | FetchAllVendorsCompleteAction
@@ -267,4 +273,5 @@ export type Actions =
   | ActivateVendorFailedAction
   | DisableVendorAction
   | DisableVendorCompleteAction
-  | DisableVendorFailedAction;
+  | DisableVendorFailedAction
+  | ClearVendorDataAction;

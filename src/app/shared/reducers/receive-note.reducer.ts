@@ -63,7 +63,8 @@ export function reducer(state = initialState, action: receiveNoteActions.Actions
       });
     case receiveNoteActions.FETCH_RECEIVE_NOTE_FORM_DATA_COMPLETE_ACTION:
       return Object.assign({}, state, {
-        receiveNoteFormData: action.payload
+        receiveNoteFormData: action.payload,
+        currentReceiveNote: new ReceiveNote({})
       });
     default:
       return state;

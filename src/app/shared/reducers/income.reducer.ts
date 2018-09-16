@@ -34,6 +34,10 @@ export function reducer(state = initialState, action: incomeActions.Actions): St
       return Object.assign({}, state, {
         currentIncome: new Cost({})
       });
+    case incomeActions.CLEAR_INCOME_DATA_ACTION:
+      return Object.assign({}, state, {
+        currentIncome: new Cost({})
+      });
     case incomeActions.FETCH_INCOME_COMPLETE_ACTION:
       return Object.assign({}, state, {
         currentIncome: new Cost(action.payload)

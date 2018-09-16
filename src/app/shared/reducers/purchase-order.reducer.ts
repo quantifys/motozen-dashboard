@@ -76,6 +76,7 @@ export function reducer(state = initialState, action: purchaseOrderActions.Actio
       });
     case purchaseOrderActions.FETCH_PURCHASE_ORDER_FORMDATA_COMPLETE_ACTION:
       return Object.assign({}, state, {
+        currentPurchaseOrder: new PurchaseOrder({}),
         purchaseOrderFormData: action.payload
       });
     case purchaseOrderActions.FETCH_PURCHASE_ORDER_FILTER_DATA_COMPLETE_ACTION:

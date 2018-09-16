@@ -25,6 +25,7 @@ export class IncomeEditComponent implements OnInit, OnDestroy {
     private _fb: FormBuilder,
     public _location: Location
   ) {
+    this._store.dispatch(new incomeActions.ClearIncomeDataAction);
     this._activatedRoute.queryParams.subscribe(params => {
       if (params["id"]) {
         this.addIncome = false;

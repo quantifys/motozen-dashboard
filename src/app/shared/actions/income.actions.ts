@@ -28,6 +28,8 @@ export const DELETE_INCOME_ACTION = '[Income] Delete Income Action';
 export const DELETE_INCOME_COMPLETE_ACTION = '[Income] Delete Income Complete Action';
 export const DELETE_INCOME_FAILED_ACTION = '[Income] Delete Income Failed Action';
 
+export const CLEAR_INCOME_DATA_ACTION = '[Income] Clear Income Data Action';
+
 export class FetchAllIncomesAction implements Action {
   readonly type = FETCH_ALL_INCOMES_ACTION;
   constructor(public payload: any) {
@@ -178,6 +180,10 @@ export class DeleteIncomeFailedAction implements Action {
   }
 }
 
+export class ClearIncomeDataAction implements Action {
+  readonly type = CLEAR_INCOME_DATA_ACTION;
+}
+
 export type Actions =
   FetchAllIncomesAction
   | FetchAllIncomesCompleteAction
@@ -193,4 +199,5 @@ export type Actions =
   | UpdateIncomeFailedAction
   | DeleteIncomeAction
   | DeleteIncomeCompleteAction
-  | DeleteIncomeFailedAction;
+  | DeleteIncomeFailedAction
+  | ClearIncomeDataAction;
