@@ -7,6 +7,7 @@ export class Vehicle {
 	public model: string;
 	public variant: string;
 	public tac_number: string;
+	public report_no: string;
 	public category: string;
 	public connector: Inventory;
 	public icats: Icat[];
@@ -16,6 +17,7 @@ export class Vehicle {
 		this.model = data.model ? data.model : null;
 		this.variant = data.variant ? data.variant : null;
 		this.tac_number = data.tac_number ? data.tac_number : null;
+		this.report_no = data.report_no ? data.report_no : null;
 		this.category = data.category ? data.category : null;
 		this.connector = data.connector ? new Inventory(data.connector) : new Inventory({});
 		this.icats = data.icats ? data.icats.map(icat => new Icat(icat)) : [];

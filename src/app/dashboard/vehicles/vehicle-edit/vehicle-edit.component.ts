@@ -60,6 +60,7 @@ export class VehicleEditComponent implements OnInit {
       model: [null, Validators.required],
       variant: [null, Validators.required],
       tac_number: [null, Validators.required],
+      report_no: [null, Validators.required],
       category: [null, Validators.required],
       connector_id: [null, Validators.required],
       icats: this._fb.array([])

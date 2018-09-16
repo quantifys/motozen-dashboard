@@ -1,8 +1,11 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
+
 import * as fromRoot from '../shared/reducers';
 import * as userActions from '../shared/actions/user.actions';
-import { Router } from '@angular/router';
+
+declare var $: any;
 
 @Component({
   selector: 'app-dashboard',
@@ -11,7 +14,7 @@ import { Router } from '@angular/router';
 })
 export class DashboardComponent implements OnInit {
 
-  public opened: boolean = false;
+  public opened: boolean = true;
 
   constructor(
     private _store: Store<fromRoot.State>,
@@ -21,7 +24,11 @@ export class DashboardComponent implements OnInit {
   }
 
   ngOnInit() {
-    this._router.events.subscribe(routeParams => this.opened = false);
+    this._router.events.subscribe(routeParams => {
+      if ($(window).width() < 601) {
+        this.opened = false;
+      }
+    });
   }
 
 }
