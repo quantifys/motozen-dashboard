@@ -8,6 +8,7 @@
           <th>MODEL</th>
           <th>VARIANT</th>
           <th>TAC NUMBER</th>
+          <th>TESTING NUMBER</th>
           <th>CATEGORY</th>
           <th>CONNECTOR CODE</th>
         </tr>
@@ -21,6 +22,7 @@
             <a class="text-danger" routerLink="view" [queryParams]="{id: vehicle.id}">{{vehicle.variant}}</a>
           </td>
           <td>{{vehicle.tac_number}}</td>
+          <td>{{vehicle.report_no}}</td>
           <td>{{vehicle.category}}</td>
           <td>{{vehicle.connector.item_code}}</td>
         </tr>
