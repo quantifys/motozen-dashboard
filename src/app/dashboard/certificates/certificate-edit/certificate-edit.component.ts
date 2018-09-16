@@ -10,7 +10,7 @@ import moment from 'moment';
 import * as fromRoot from "../../../shared/reducers";
 import * as certificateActions from "../../../shared/actions/certificate.actions";
 import * as deviceActions from "../../../shared/actions/device.actions";
-import { Device, Rto, User, Certificate } from '../../../shared/models';
+import { Device, Rto, User, Certificate, Vehicle } from '../../../shared/models';
 import { RtoService } from '../../../shared/services/rto.service';
 
 export const MY_FORMATS = {
@@ -47,6 +47,7 @@ export class CertificateEditComponent implements OnInit, OnDestroy {
   public loggedUser: User = new User({});
   public certificate: Certificate;
   public certificateSubscription$: Subscription;
+  public variants: Vehicle[] = [];
 
   constructor(
     private _store: Store<fromRoot.State>,
@@ -109,6 +110,7 @@ export class CertificateEditComponent implements OnInit, OnDestroy {
       city: [null, Validators.required],
       pincode: ['', Validators.required],
       vehicle_make: [null, Validators.required],
+      vehicle_model: [null, Validators.required],
       vehicle_id: [null, Validators.required],
       seals: [null, Validators.required],
       engine_number: [null, Validators.required],
@@ -161,6 +163,10 @@ export class CertificateEditComponent implements OnInit, OnDestroy {
     return this.certificateForm.get('vehicle_make') as FormControl;
   }
 
+  get vehicle_model(): FormControl {
+    return this.certificateForm.get('vehicle_model') as FormControl;
+  }
+
   get vehicle_id(): FormControl {
     return this.certificateForm.get('vehicle_id') as FormControl;
   }
@@ -190,8 +196,24 @@ export class CertificateEditComponent implements OnInit, OnDestroy {
     return;
   }
 
+  getVariants(): Vehicle[] {
+    if (this.formdata) {
+      if (this.vehicle_make.value) {
+        return this.formdata.vehicle_makes[this.vehicle_make.value].filter((vehicle: Vehicle) => vehicle.model == this.vehicle_model.value ? vehicle : null);
+      }
+    }
+    return;
+  }
+
   formListener() {
-    this.vehicle_make.valueChanges.subscribe(value => this.vehicle_id.patchValue(null, { emitEvent: false }));
+    this.vehicle_make.valueChanges.subscribe(value => {
+      this.vehicle_model.patchValue(null, { emitEvent: false });
+      this.vehicle_id.patchValue(null, { emitEvent: false });
+    });
+    this.vehicle_model.valueChanges.subscribe(value => {
+      this.variants = this.getVariants();
+      this.vehicle_id.patchValue(null, { emitEvent: false });
+    });
   }
 
   validateForm() {
@@ -225,6 +247,7 @@ export class CertificateEditComponent implements OnInit, OnDestroy {
   saveChanges() {
     let formData = this.certificateForm.value;
     delete formData["vehicle_make"];
+    delete formData["vehicle_model"];
     formData["mfg_month_year"] = moment(new Date(formData["mfg_month_year"]).toISOString()).format("YYYY-MM-DD");
     formData["reg_month_year"] = moment(new Date(formData["reg_month_year"]).toISOString()).format("YYYY-MM-DD");
     formData["car_reg_number"] == "" ? (formData["car_reg_number"] = "NEW") : null
