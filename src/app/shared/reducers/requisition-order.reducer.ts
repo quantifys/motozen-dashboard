@@ -19,6 +19,10 @@ const initialState: State = {
 export function reducer(state = initialState, action: requisitionOrderActions.Actions): State {
   let requisitionOrders: RequisitionOrder[] = [];
   switch (action.type) {
+    case requisitionOrderActions.FETCH_ALL_REQUISITION_ORDERS_ACTION:
+      return Object.assign({}, state, {
+        allRequisitionOrders: []
+      });
     case requisitionOrderActions.FETCH_ALL_REQUISITION_ORDERS_COMPLETE_ACTION:
       requisitionOrders = action.payload.data.map(requisitionOrder => new RequisitionOrder(requisitionOrder));
       return Object.assign({}, state, {
@@ -63,6 +67,7 @@ export function reducer(state = initialState, action: requisitionOrderActions.Ac
       });
     case requisitionOrderActions.FETCH_REQUISITION_ORDER_FORM_DATA_COMPLETE_ACTION:
       return Object.assign({}, state, {
+        currentRequisitionOrder: new RequisitionOrder({}),
         requisitionOrderFormData: action.payload
       });
     default:

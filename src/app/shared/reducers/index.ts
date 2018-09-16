@@ -49,7 +49,6 @@ export const reducers: ActionReducerMap<State> = {
 export const users = (state: State) => state.users;
 export const getAllUsers = createSelector(users, (state: fromUser.State) => state.allUsers.filter(user => user.id != state.loggedUser.id));
 export const getLoggedUser = createSelector(users, (state: fromUser.State) => state.loggedUser);
-export const getCurrentUser = createSelector(users, (state: fromUser.State) => state.currentUser);
 export const getCurrentUserStats = createSelector(users, (state: fromUser.State) => state.currentUserStats);
 export const getUserPageStatus = createSelector(users, (state: fromUser.State) => state.userPageStatus);
 
@@ -72,6 +71,7 @@ export const getInventoryPageStatus = createSelector(inventories, (state: fromIn
 
 export const certificates = (state: State) => state.certificates;
 export const getAllCertificates = createSelector(certificates, (state: fromCertificate.State) => state.allCertificates);
+export const getReportCertificates = createSelector(certificates, (state: fromCertificate.State) => state.reportCertificates);
 export const getCurrentCertificate = createSelector(certificates, (state: fromCertificate.State) => state.currentCertificate);
 export const getCertificateFormdata = createSelector(certificates, (state: fromCertificate.State) => state.certificateFormdata);
 export const getCertificateFilterUsers = createSelector(certificates, (state: fromCertificate.State) => state.certificateFilterUsers);

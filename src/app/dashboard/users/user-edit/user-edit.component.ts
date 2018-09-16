@@ -100,8 +100,10 @@ export class UserEditComponent implements OnInit {
     });
     this._store.select(fromRoot.getAllUsers).subscribe(distributors => this.distributors = distributors);
     this.states = this._rtoService.getStates();
-    this._store.select(fromRoot.getCurrentUser).subscribe(user => {
-      this.userForm.patchValue(user);
+    this._store.select(fromRoot.getCurrentUserStats).subscribe(stats => {
+      if (!this.addUser) {
+        this.userForm.patchValue(stats.user);
+      }
     });
   }
 

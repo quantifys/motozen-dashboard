@@ -4,5 +4,6 @@ export const environment = {
     apiBase: "https://api.gemeniindia.com",
     signInRedirect: "login",
     signOutFailedValidate: true
-  }
+  },
+  VERSION: require('../../package.json').version
 };

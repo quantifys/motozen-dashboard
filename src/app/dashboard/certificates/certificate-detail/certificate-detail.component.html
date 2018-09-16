@@ -16,7 +16,7 @@
 
   </div>
   <div class="row justify-content-center mt-4">
-    <div class="col-md-4">
+    <div class="col-sm-12 col-md-8 col-lg-4 mt-3">
       <div class="card">
         <div class="card-body">
           <h6 class="text-grey-dark font-weight-bold mb-3">
@@ -34,7 +34,31 @@
         </div>
       </div>
     </div>
-    <div class="col-md-4">
+    <div class="col-sm-12 col-md-8 col-lg-4 mt-3">
+      <div class="card">
+        <div class="card-body">
+          <h6 class="text-grey-dark font-weight-bold mb-3">
+            <i class="fas fa-info-circle mr-2 fa-fw text-orange"></i>Vehicle information</h6>
+          <h6 class="text-grey-dark">Registration Number:</h6>
+          <h6 class="ml-3">{{certificate.car_reg_number}}</h6>
+          <h6 class="text-grey-dark">Vehicle make:</h6>
+          <h6 class="ml-3">{{certificate.vehicle.make}}</h6>
+          <h6 class="text-grey-dark">Vehicle model:</h6>
+          <h6 class="ml-3">{{certificate.vehicle.model}}</h6>
+          <h6 class="text-grey-dark">Testing Report No:</h6>
+          <h6 class="ml-3">{{certificate.vehicle.report_no ? certificate.vehicle.report_no : '-'}}</h6>
+          <h6 class="text-grey-dark">Engine number:</h6>
+          <h6 class="ml-3">{{certificate.engine_number}}</h6>
+          <h6 class="text-grey-dark">Chassis number:</h6>
+          <h6 class="ml-3">{{certificate.chassis_number}}</h6>
+          <h6 class="text-grey-dark">Manufacturing month & year:</h6>
+          <h6 class="ml-3">{{certificate.mfg_month_year | date: 'MMMM, yyyy'}}</h6>
+          <h6 class="text-grey-dark">Registration month & year:</h6>
+          <h6 class="ml-3">{{certificate.reg_month_year | date: 'fullDate'}}</h6>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-12 col-md-8 col-lg-4 mt-3">
       <div class="card">
         <div class="card-body">
           <h6 class="text-grey-dark font-weight-bold mb-3">
@@ -47,7 +71,9 @@
           <h6 class="ml-3">{{certificate.seals}}</h6>
         </div>
       </div>
-      <div class="card mt-4">
+    </div>
+    <div class="col-sm-12 col-md-8 col-lg-4 mt-3">
+      <div class="card">
         <div class="card-body">
           <h6 class="text-grey-dark font-weight-bold mb-3">
             <i class="fas fa-info-circle mr-2 fa-fw text-orange"></i>Customer information</h6>
@@ -57,28 +83,6 @@
           <h6 class="ml-3">{{certificate.customer_address}}</h6>
           <h6 class="text-grey-dark">Contact:</h6>
           <h6 class="ml-3">{{certificate.customer_telephone}}</h6>
-        </div>
-      </div>
-    </div>
-    <div class="col-md-4">
-      <div class="card">
-        <div class="card-body">
-          <h6 class="text-grey-dark font-weight-bold mb-3">
-            <i class="fas fa-info-circle mr-2 fa-fw text-orange"></i>Vehicle information</h6>
-          <h6 class="text-grey-dark">Registration Number:</h6>
-          <h6 class="ml-3">{{certificate.car_reg_number}}</h6>
-          <h6 class="text-grey-dark">Vehicle make:</h6>
-          <h6 class="ml-3">{{certificate.vehicle.make}}</h6>
-          <h6 class="text-grey-dark">Vehicle model:</h6>
-          <h6 class="ml-3">{{certificate.vehicle.model}}</h6>
-          <h6 class="text-grey-dark">Engine number:</h6>
-          <h6 class="ml-3">{{certificate.engine_number}}</h6>
-          <h6 class="text-grey-dark">Chassis number:</h6>
-          <h6 class="ml-3">{{certificate.chassis_number}}</h6>
-          <h6 class="text-grey-dark">Manufacturing month & year:</h6>
-          <h6 class="ml-3">{{certificate.mfg_month_year | date: 'MMMM, yyyy'}}</h6>
-          <h6 class="text-grey-dark">Registration month & year:</h6>
-          <h6 class="ml-3">{{certificate.reg_month_year | date: 'fullDate'}}</h6>
         </div>
       </div>
     </div>

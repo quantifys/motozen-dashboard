@@ -1,12 +1,14 @@
 <section class="container">
-  <div class="header d-flex align-items-center">
-    <h4 class="text-grey-dark m-0">Vehicle List</h4>
-    <div class="ml-auto">
+  <div class="top-header row">
+    <div class="col-sm-12 col-lg-6">
+      <h4 class="text-grey-dark m-0">Vehicle List</h4>
+    </div>
+    <div class="col-sm-12 col-lg-6 controls">
       <a class="btn btn-orange text-light" routerLink="edit" [queryParams]="{type: 'new'}">
         <i class="fas fa-desktop mr-2"></i>Add Vehicles</a>
     </div>
   </div>
-  <div class="container-fluid mt-4">
+  <div class="container-fluid mt-3">
     <div class="row justify-content-center">
       <div class="col-md-6">
         <form [formGroup]="searchForm" autocomplete="off">
@@ -18,8 +20,6 @@
       </div>
     </div>
   </div>
-  <hr>
-  <div class="content mt-3">
-    <vehicle-table></vehicle-table>
-  </div>
+  <hr class="mb-0">
+  <vehicle-table></vehicle-table>
 </section>

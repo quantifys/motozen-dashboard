@@ -30,6 +30,7 @@ export class VehicleEditComponent implements OnInit {
     private _fb: FormBuilder,
     public _location: Location
   ) {
+    this._store.dispatch(new vehicleActions.ClearVehicleDataAction);
     this._store.dispatch(new inventoryActions.FetchAllInventoriesAction({
       category: 'automotive_connector'
     }));
@@ -60,6 +61,7 @@ export class VehicleEditComponent implements OnInit {
       model: [null, Validators.required],
       variant: [null, Validators.required],
       tac_number: [null, Validators.required],
+      report_no: [null, Validators.required],
       category: [null, Validators.required],
       connector_id: [null, Validators.required],
       icats: this._fb.array([])
@@ -69,7 +71,7 @@ export class VehicleEditComponent implements OnInit {
   get vehicle_id(): FormControl {
     return this.vehicleForm.get("id") as FormControl;
   }
-  
+
   get connector_id(): FormControl {
     return this.vehicleForm.get("connector_id") as FormControl;
   }
@@ -80,12 +82,6 @@ export class VehicleEditComponent implements OnInit {
 
   addIcat() {
     this.icats.push(this._fb.control(null, Validators.required));
-  }
-
-  removeIcat(index: number) {
-    if (this.addVehicle) {
-      this.icats.removeAt(index);
-    }
   }
 
   deleteIcat(id: number) {
@@ -112,7 +108,7 @@ export class VehicleEditComponent implements OnInit {
     let file = $event.target.files[0];
     reader.readAsDataURL(file);
     reader.onload = () => {
-      this.icats.at(index).patchValue((reader.result + "").split(',')[1], {emitEvent: false})
+      this.icats.at(index).patchValue((reader.result + "").split(',')[1], { emitEvent: false })
       this.icats.at(index).markAsDirty();
     }
   }

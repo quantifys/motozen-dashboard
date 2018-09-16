@@ -8,7 +8,8 @@ export const environment = {
     apiBase: "http://localhost:3000",
     signInRedirect: "login",
     signOutFailedValidate: true
-  }
+  },
+  VERSION: require('../../package.json').version
 };
 
 /*

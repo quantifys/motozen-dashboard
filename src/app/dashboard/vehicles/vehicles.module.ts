@@ -4,6 +4,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule, MatInputModule, MatButtonModule, MatPaginatorModule, MatIconModule, MatBottomSheetModule } from '@angular/material';
 import { NgSelectModule } from '@ng-select/ng-select';
+import { LightboxModule } from 'ngx-lightbox';
 
 import { VehiclesComponent } from './vehicles.component';
 import { VehicleDetailComponent, VehicleDeleteComponent } from './vehicle-detail/vehicle-detail.component';
@@ -44,6 +45,7 @@ const routes: Routes = [
     MatIconModule,
     NgSelectModule,
     MatBottomSheetModule,
+    LightboxModule,
     RouterModule.forChild(routes)
   ],
   declarations: [VehiclesComponent, VehicleDetailComponent, VehicleEditComponent, VehicleTableComponent, VehicleDeleteComponent],

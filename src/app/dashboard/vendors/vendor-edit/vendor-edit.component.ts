@@ -24,6 +24,7 @@ export class VendorEditComponent implements OnInit, OnDestroy {
     private _activatedRoute: ActivatedRoute,
     private _fb: FormBuilder
   ) {
+    this._store.dispatch(new vendorActions.ClearVendorDataAction);
     this.routerSubscription$ = this._activatedRoute.queryParams.subscribe(params => {
       if (params["id"]) {
         this.addVendor = false;

@@ -40,6 +40,8 @@ export const CLOSE_REQUISITION_ORDER_ACTION = '[RequisitionOrder] Close Requisit
 export const CLOSE_REQUISITION_ORDER_COMPLETE_ACTION = '[RequisitionOrder] Close Requisition Order Complete Action';
 export const CLOSE_REQUISITION_ORDER_FAILED_ACTION = '[RequisitionOrder] Close Requisition Order Failed Action';
 
+export const CLEAR_REQUISITION_ORDER_DATA_ACTION = '[RequisitionOrder] Clear Requisition Order Data Action';
+
 export class FetchAllRequisitionOrdersAction implements Action {
   readonly type = FETCH_ALL_REQUISITION_ORDERS_ACTION;
   constructor(public payload: any) {
@@ -280,6 +282,10 @@ export class CloseRequisitionOrderFailedAction implements Action {
   }
 }
 
+export class ClearRequisitionOrderDataAction implements Action {
+  readonly type = CLEAR_REQUISITION_ORDER_DATA_ACTION;
+}
+
 export type Actions =
   FetchAllRequisitionOrdersAction
   | FetchAllRequisitionOrdersCompleteAction
@@ -304,4 +310,5 @@ export type Actions =
   | OpenRequisitionOrderFailedAction
   | CloseRequisitionOrderAction
   | CloseRequisitionOrderCompleteAction
-  | CloseRequisitionOrderFailedAction;
+  | CloseRequisitionOrderFailedAction
+  | ClearRequisitionOrderDataAction;

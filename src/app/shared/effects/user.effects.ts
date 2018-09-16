@@ -21,7 +21,7 @@ export class UserEffects {
     private _tokenService: Angular2TokenService,
     private _router: Router
   ) {
-    this._store.select(fromRoot.getCurrentUser).subscribe(user => this.user = user);
+    this._store.select(fromRoot.getCurrentUserStats).subscribe(stats => this.user = stats.user);
   }
 
   @Effect()

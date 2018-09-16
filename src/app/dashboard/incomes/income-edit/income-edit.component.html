@@ -15,20 +15,21 @@
               <strong>Select category</strong>
             </h6>
             <mat-radio-group class="d-flex ml-2 mb-1" formControlName="category">
-              <mat-radio-button value="direct">Direct income</mat-radio-button>
-              <mat-radio-button class="ml-5" value="indirect">Indirect income</mat-radio-button>
+              <mat-radio-button color="warn" value="direct">Direct income</mat-radio-button>
+              <mat-radio-button color="warn" class="ml-5" value="indirect">Indirect income</mat-radio-button>
             </mat-radio-group>
             <mat-form-field class="w-100">
               <textarea matInput placeholder="Description" rows="4" formControlName="description"></textarea>
             </mat-form-field>
             <div class="row">
-              <div class="col-lg-3">
+              <div class="col-sm-10 col-md-6 col-lg-3">
                 <mat-form-field class="w-100">
                   <input matInput type="number" placeholder="Total" formControlName="total">
                 </mat-form-field>
               </div>
             </div>
-            <button class="btn btn-orange text-light btn-save" [disabled]="incomeForm.invalid || incomeForm.pristine" (click)="saveChanges()">Save</button>
+            <button class="btn btn-orange text-light btn-save" [disabled]="incomeForm.invalid || incomeForm.pristine"
+              (click)="saveChanges()">Save</button>
           </form>
         </div>
       </div>

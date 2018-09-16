@@ -53,7 +53,7 @@ export class CertificateService {
           "columns": [
             [
               {
-                "qr": "GEMENI ENTERPRISES GOA\nSLD_NUMBER: " + certificate.device.sld_number + "\nCERTIFICATE NUMBER: " + certificate.certificate_number + "\nDATE GENERATED: " + this._datePipe.transform(certificate.date_generated, 'yyyy-MM-dd') + "\nDUE DATE: " + this._datePipe.transform(certificate.due_date, 'yyyy-MM-dd') + "\nCHASSIS NUMBER: " + certificate.chassis_number + "\nENGINE NUMBER: " + certificate.engine_number + "\nCUSTOMER NAME: " + certificate.customer_name + "\nCAR REG NUMBER: " + certificate.car_reg_number,
+                "qr": "GEMENI ENTERPRISES GOA\nSLD_NUMBER: " + certificate.device.sld_number + "\nCERTIFICATE NUMBER: " + certificate.certificate_number + "\nDATE GENERATED: " + this._datePipe.transform(certificate.date_generated, 'yyyy-MM-dd') + "\nDUE DATE: " + this._datePipe.transform(certificate.due_date, 'yyyy-MM-dd') + "\nCHASSIS NUMBER: " + certificate.chassis_number + "\nENGINE NUMBER: " + certificate.engine_number + "\nCUSTOMER NAME: " + certificate.customer_name + "\nCAR REG NUMBER: " + certificate.car_reg_number + "\nTesting Report Number: " + certificate.vehicle.report_no,
                 "fit": 120
               },
               {
@@ -420,6 +420,34 @@ export class CertificateService {
                     }
                   ]
                 }
+              ],
+              [
+                {
+                  "text": [
+                    {
+                      "text": "Testing Report No: ",
+                      "alignment": "left"
+                    },
+                    {
+                      "text": certificate.vehicle.report_no,
+                      "alignment": "center",
+                      "bold": true
+                    }
+                  ]
+                },
+                {
+                  "text": [
+                    {
+                      "text": "",
+                      "alignment": "left"
+                    },
+                    {
+                      "text": "",
+                      "alignment": "center",
+                      "bold": true
+                    }
+                  ]
+                }
               ]
             ]
           }
@@ -525,7 +553,7 @@ export class CertificateService {
           "columns": [
             [
               {
-                "qr": "GEMENI ENTERPRISES GOA\nSLD_NUMBER: " + certificate.device.sld_number + "\nCERTIFICATE NUMBER: " + certificate.certificate_number + "\nDATE GENERATED: " + this._datePipe.transform(certificate.date_generated, 'yyyy-MM-dd') + "\nDUE DATE: " + this._datePipe.transform(certificate.due_date, 'yyyy-MM-dd') + "\nCHASSIS NUMBER: " + certificate.chassis_number + "\nENGINE NUMBER: " + certificate.engine_number + "\nCUSTOMER NAME: " + certificate.customer_name + "\nCAR REG NUMBER: " + certificate.car_reg_number,
+                "qr": "GEMENI ENTERPRISES GOA\nSLD_NUMBER: " + certificate.device.sld_number + "\nCERTIFICATE NUMBER: " + certificate.certificate_number + "\nDATE GENERATED: " + this._datePipe.transform(certificate.date_generated, 'yyyy-MM-dd') + "\nDUE DATE: " + this._datePipe.transform(certificate.due_date, 'yyyy-MM-dd') + "\nCHASSIS NUMBER: " + certificate.chassis_number + "\nENGINE NUMBER: " + certificate.engine_number + "\nCUSTOMER NAME: " + certificate.customer_name + "\nCAR REG NUMBER: " + certificate.car_reg_number + "\nTesting Report Number: " + certificate.vehicle.report_no,
                 "fit": 120
               },
               {
@@ -888,6 +916,34 @@ export class CertificateService {
                     },
                     {
                       "text": certificate.seals,
+                      "alignment": "center",
+                      "bold": true
+                    }
+                  ]
+                }
+              ],
+              [
+                {
+                  "text": [
+                    {
+                      "text": "Testing Report No: ",
+                      "alignment": "left"
+                    },
+                    {
+                      "text": certificate.vehicle.report_no,
+                      "alignment": "center",
+                      "bold": true
+                    }
+                  ]
+                },
+                {
+                  "text": [
+                    {
+                      "text": "",
+                      "alignment": "left"
+                    },
+                    {
+                      "text": "",
                       "alignment": "center",
                       "bold": true
                     }

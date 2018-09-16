@@ -52,6 +52,8 @@ export const FETCH_PURCHASE_ORDER_FILTER_DATA_ACTION = '[PurchaseOrder] Fetch Pu
 export const FETCH_PURCHASE_ORDER_FILTER_DATA_COMPLETE_ACTION = '[PurchaseOrder] Fetch Purchase Order Filter Data Complete Action';
 export const FETCH_PURCHASE_ORDER_FILTER_DATA_FAILED_ACTION = '[PurchaseOrder] Fetch Purchase Order Filter Data Failed Action';
 
+export const CLEAR_PURCHASE_ORDER_DATA_ACTION = '[PurchaseOrder] Clear Purchase Order Data Action';
+
 export class FetchAllPurchaseOrdersAction implements Action {
   readonly type = FETCH_ALL_PURCHASE_ORDERS_ACTION;
   constructor(public payload: any) {
@@ -382,6 +384,10 @@ export class FetchPurchaseOrderFilterDataFailedAction implements Action {
   }
 }
 
+export class ClearPurchaseOrderDataAction implements Action {
+  readonly type = CLEAR_PURCHASE_ORDER_DATA_ACTION;
+}
+
 export type Actions =
   FetchAllPurchaseOrdersAction
   | FetchAllPurchaseOrdersCompleteAction
@@ -415,4 +421,5 @@ export type Actions =
   | FetchPurchaseOrderFormDataFailedAction
   | FetchPurchaseOrderFilterDataAction
   | FetchPurchaseOrderFilterDataCompleteAction
-  | FetchPurchaseOrderFilterDataFailedAction;
+  | FetchPurchaseOrderFilterDataFailedAction
+  | ClearPurchaseOrderDataAction;

@@ -5,6 +5,8 @@ $grey: #D8D8D8;
 $grey-dark: #B6B6B7;
 $white: #F8F9FA;
 section {
+  overflow-y: auto;
+  height: 100vh !important;
   background-color: $white;
   box-shadow: 2px 2px 3px 0 rgba(117, 124, 129, 0.12);
   .menu {
@@ -27,6 +29,9 @@ section {
       .line {
         width: 5px;
         background-image: none;
+      }
+      h6 {
+        padding: .8rem !important;
       }
       &:hover {
         a:not(.active) {

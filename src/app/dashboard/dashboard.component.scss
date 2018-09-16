@@ -3,10 +3,41 @@ section {
   background-color: $white-dark;
   .menu {
     width: 220px;
+    -webkit-transition: all 0.5s 0.3s ease-out;
+    -moz-transition: all 0.5s 0.3s ease-out;
+    -o-transition: all 0.5s 0.3s ease-out;
+    -ms-transition: all 0.5s 0.3s ease-out;
+    transition: all 0.5s 0.3s ease-out;
+    &.hidden {
+      margin-left: -220px;
+    }
   }
   .main {
     flex: 1;
     height: 100vh;
     overflow: auto;
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  section {
+    .main {
+      .content {
+        padding: 3rem .5rem !important
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  section {
+    .main {
+      .content {
+        padding-top: 0 !important;
+        &.hidden {
+          display: none;
+        }
+      }
+    }
   }
 }

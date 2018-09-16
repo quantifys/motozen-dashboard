@@ -6,74 +6,85 @@
   </div>
 
   <div class="row justify-content-center">
-    <div class="col-md-8">
+    <div class="col-sm-12 col-md-8">
       <div class="card mt-5">
         <div class="card-body">
           <form [formGroup]="vehicleForm" autocomplete="off">
             <h5 class="text-grey-dark font-weight-bold mb-3">Basic information</h5>
             <div class="row">
-              <div class="col-lg-6">
+              <div class="col-sm-12 col-lg-6 d-flex align-items-end">
                 <mat-form-field class="w-100">
                   <input matInput placeholder="Make" formControlName="make">
                 </mat-form-field>
               </div>
-              <div class="col-lg-6">
+              <div class="col-sm-12 col-lg-6 d-flex align-items-end">
                 <mat-form-field class="w-100">
                   <input matInput placeholder="Model" formControlName="model">
                 </mat-form-field>
               </div>
-              <div class="col-lg-6">
+              <div class="col-sm-12 col-lg-6 d-flex align-items-end">
                 <mat-form-field class="w-100">
                   <input matInput placeholder="Variant" formControlName="variant">
                 </mat-form-field>
               </div>
-              <div class="col-lg-6">
+              <div class="col-sm-12 col-lg-6 d-flex align-items-end">
                 <mat-form-field class="w-100">
                   <input matInput placeholder="Category" formControlName="category">
                 </mat-form-field>
               </div>
-              <div class="col-lg-6">
+              <div class="col-sm-12 col-lg-6 d-flex align-items-end">
+                <mat-form-field class="w-100">
+                  <input matInput placeholder="Report Number" formControlName="report_no">
+                </mat-form-field>
+              </div>
+              <div class="col-sm-12 col-lg-6 d-flex align-items-end">
                 <mat-form-field class="w-100">
                   <input matInput placeholder="TAC Number" formControlName="tac_number">
                 </mat-form-field>
               </div>
-              <div class="col-lg-6">
-                <ng-select [items]="inventory" formControlName="connector_id" bindValue="id" bindLabel="description" placeholder="Select connector"></ng-select>
+              <div class="col-sm-12 col-lg-6">
+                <ng-select [items]="inventory" formControlName="connector_id" bindValue="id" bindLabel="description"
+                  placeholder="Select connector"></ng-select>
               </div>
             </div>
+            <div class="form-group" formArrayName="icats" *ngIf="icats.controls.length > 0">
+              <label for="icat">Select document</label>
+              <ng-container *ngFor="let icat of icats.controls; let i = index">
+                <div class="d-flex mb-2">
+                  <input [formGroupName]="i" accept="application/pdf" type="file" class="form-control-file" [id]="'icat' + i"
+                    (change)="onFileChange($event, i)">
+                  <button mat-icon-button color="warn" (click)="icats.removeAt(i)">
+                    <mat-icon color="danger">delete</mat-icon>
+                  </button>
+                </div>
+              </ng-container>
+            </div>
+            <button mat-stroked-button color="warn" (click)="addIcat()" *ngIf="(addVehicle && icats.length < 1) || !addVehicle">Add
+              Document
+            </button>
             <ng-container *ngIf="icat_pages.length > 0">
-              <div class="mb-2 text-right" *ngFor="let icat of icat_pages; let i = index">
+              <div class="mb-2" *ngFor="let icat of icat_pages; let i = index">
                 <hr>
-                <span class="badge badge-info badge-bg mb-2">Document {{i + 1}}</span>
-                <button class="btn btn-danger btn-sm mb-2 ml-2" (click)="deleteIcat(icat.id)">
-                  <i class="fas fa-trash-alt"></i>
-                </button>
+                <div class="d-flex align-items-center justify-content-between">
+                  <h6 class="text-grey-dark font-weight-bold">Document {{i + 1}}</h6>
+                  <button mat-icon-button color="warn" (click)="deleteIcat(icat.id)">
+                    <mat-icon color="danger">delete</mat-icon>
+                  </button>
+                </div>
                 <div class="row">
-                  <div class="col-sm-6" *ngFor="let page of icat.pages">
-                    <a [attr.href]="page.page_url" target="_blank">
-                      <img [src]="page.getPageUrl()" class="img-fluid border border-dark">
+                  <div class="col-sm-12 col-sm-12 col-lg-6 col-xl-3" *ngFor="let page of icat.pages">
+                    <a [attr.href]="page.getPageUrl()" target="_blank">
+                      <img [src]="page.getPageUrl()" class="img-fluid border border-dark mt-4">
                     </a>
                   </div>
                 </div>
               </div>
               <hr>
             </ng-container>
-            <div class="form-group" formArrayName="icats" *ngIf="icats.controls.length > 0">
-              <label for="icat">Select documents</label>
-              <ng-container *ngFor="let icat of icats.controls; let i = index">
-                <div class="d-flex mb-2">
-                  <input [formGroupName]="i" accept="application/pdf" type="file" class="form-control-file" [id]="'icat' + i" (change)="onFileChange($event, i)">
-                  <button mat-icon-button color="warn" (click)="removeIcat(i)">
-                    <i class="fas fa-trash-alt"></i>
-                  </button>
-                </div>
-              </ng-container>
+            <div class="w-100 mt-2">
+              <button class="btn btn-orange text-light btn-save" [disabled]="vehicleForm.invalid || vehicleForm.pristine"
+                (click)="saveChanges()">Save</button>
             </div>
-            <button class="btn btn-orange text-light btn-sm" (click)="addIcat()" *ngIf="(addVehicle && icats.length < 1) || !addVehicle">Add
-              Document
-            </button>
-            <hr>
-            <button class="btn btn-orange text-light btn-save" [disabled]="vehicleForm.invalid || vehicleForm.pristine" (click)="saveChanges()">Save</button>
           </form>
         </div>
       </div>

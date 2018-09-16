@@ -1,36 +1,41 @@
 <section class="container">
-  <div class="header d-flex align-items-center">
-    <h4 class="text-grey-dark m-0">Purchase Order List</h4>
-    <div class="ml-auto">
+  <div class="top-header row">
+    <div class="col-sm-12 col-lg-6">
+      <h4 class="text-grey-dark m-0">Purchase Order List</h4>
+    </div>
+    <div class="col-sm-12 col-lg-6 controls">
       <button mat-stroked-button color="warn" (click)="openFilters()">Add Filters</button>
       <a class="btn btn-orange text-light ml-3" routerLink="edit" [queryParams]="{type: 'new'}" *ngIf="loggedUser.role == 'distributor'">
         <i class="far fa-credit-card mr-2"></i>Raise Purchase Order</a>
     </div>
   </div>
   <div class="content mt-4">
-    <nav mat-tab-nav-bar>
-      <a *ngIf="loggedUser.role == 'store_purchases' || loggedUser.role == 'distributor' || loggedUser.role == 'manufacturer'" mat-tab-link routerLink="../" [queryParams]="getQueryParams('can_modify')"
-        routerLinkActive #new="routerLinkActive" [active]="new.isActive">
+    <nav mat-tab-nav-bar color="warn">
+      <a *ngIf="loggedUser.role == 'store_purchases' || loggedUser.role == 'distributor' || loggedUser.role == 'manufacturer'"
+        mat-tab-link routerLink="../" [queryParams]="getQueryParams('can_modify')" routerLinkActive #new="routerLinkActive"
+        [active]="new.isActive">
         <strong>New</strong>
       </a>
-      <a *ngIf="loggedUser.role == 'store_purchases' || loggedUser.role == 'accounts'" mat-tab-link routerLink="../" [queryParams]="getQueryParams('opened')"
-        routerLinkActive #opened="routerLinkActive" [active]="opened.isActive">
+      <a *ngIf="loggedUser.role == 'store_purchases' || loggedUser.role == 'accounts'" mat-tab-link routerLink="../"
+        [queryParams]="getQueryParams('opened')" routerLinkActive #opened="routerLinkActive" [active]="opened.isActive">
         <strong>Opened</strong>
       </a>
-      <a *ngIf="loggedUser.role == 'store_purchases' || loggedUser.role == 'store_dispatch' || loggedUser.role == 'manufacturer'" mat-tab-link routerLink="../" [queryParams]="getQueryParams('processing')"
-        routerLinkActive #processing="routerLinkActive" [active]="processing.isActive">
+      <a *ngIf="loggedUser.role == 'store_purchases' || loggedUser.role == 'store_dispatch' || loggedUser.role == 'manufacturer'"
+        mat-tab-link routerLink="../" [queryParams]="getQueryParams('processing')" routerLinkActive #processing="routerLinkActive"
+        [active]="processing.isActive">
         <strong>Processing</strong>
       </a>
-      <a *ngIf="loggedUser.role == 'store_purchases' || loggedUser.role == 'store_logistics'" mat-tab-link routerLink="../" [queryParams]="getQueryParams('dispatch_ready')"
-        routerLinkActive #dispatch="routerLinkActive" [active]="dispatch.isActive">
+      <a *ngIf="loggedUser.role == 'store_purchases' || loggedUser.role == 'store_logistics'" mat-tab-link routerLink="../"
+        [queryParams]="getQueryParams('dispatch_ready')" routerLinkActive #dispatch="routerLinkActive" [active]="dispatch.isActive">
         <strong>Dispatch ready</strong>
       </a>
-      <a *ngIf="loggedUser.role == 'distributor' || loggedUser.role == 'sales'" mat-tab-link routerLink="../" [queryParams]="getQueryParams('inprocess')"
-        routerLinkActive #ongoing="routerLinkActive" [active]="ongoing.isActive">
+      <a *ngIf="loggedUser.role == 'distributor' || loggedUser.role == 'sales'" mat-tab-link routerLink="../"
+        [queryParams]="getQueryParams('inprocess')" routerLinkActive #ongoing="routerLinkActive" [active]="ongoing.isActive">
         <strong>Ongoing</strong>
       </a>
-      <a *ngIf="loggedUser.role == 'store_purchases' || loggedUser.role == 'distributor' || loggedUser.role == 'sales' || loggedUser.role == 'manufacturer'" mat-tab-link
-        routerLink="../" [queryParams]="getQueryParams('closed')" routerLinkActive #closed="routerLinkActive" [active]="closed.isActive">
+      <a *ngIf="loggedUser.role == 'store_purchases' || loggedUser.role == 'distributor' || loggedUser.role == 'sales' || loggedUser.role == 'manufacturer'"
+        mat-tab-link routerLink="../" [queryParams]="getQueryParams('closed')" routerLinkActive #closed="routerLinkActive"
+        [active]="closed.isActive">
         <strong>Closed</strong>
       </a>
     </nav>
