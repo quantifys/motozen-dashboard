@@ -12,6 +12,7 @@
     </ng-container>
     <ng-container *ngIf="loggedUser.role == 'admin'">
       <a class="ml-2" mat-stroked-button color="warn" routerLink="../edit" [queryParams]="{id: certificate.id}">Edit</a>
+      <button class="ml-2" mat-stroked-button color="warn" (click)="deleteCertificate()">Delete</button>
     </ng-container>
 
   </div>
