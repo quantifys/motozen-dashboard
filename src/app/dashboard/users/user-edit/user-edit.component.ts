@@ -324,7 +324,9 @@ export class UserEditComponent implements OnInit {
   saveChanges() {
     if (this.addUser) {
       let formData = this.userForm.value;
-      formData.details["address"] = formData.details.address_l1 + ",\n" + formData.details.address_l2 + ",\n" + formData.details.locality + ", \n" + formData.details.city + " - " + formData.details.pincode;
+      if (formData["role"] == 'distributor' || formData["role"] == 'dealer') {
+        formData.details["address"] = formData.details.address_l1 + ",\n" + formData.details.address_l2 + ",\n" + formData.details.locality + ", \n" + formData.details.city + " - " + formData.details.pincode;
+      }
       delete formData.details['address_l1'];
       delete formData.details['address_l2'];
       delete formData.details['locality'];

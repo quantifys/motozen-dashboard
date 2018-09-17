@@ -37,7 +37,7 @@
           routerLinkActive #manufacturer="routerLinkActive" [active]="manufacturer.isActive">
           <strong>Manufacturers</strong>
         </a>
-        <a *ngIf="loggedUser.role == 'admin'" mat-tab-link routerLink="../" [queryParams]="getQueryParams('admin')"
+        <a *ngIf="loggedUser.role == 'admin' || loggedUser.role == 'manufacturer'" mat-tab-link routerLink="../" [queryParams]="getQueryParams('admin')"
           routerLinkActive #admin="routerLinkActive" [active]="admin.isActive">
           <strong>Administrators</strong>
         </a>
