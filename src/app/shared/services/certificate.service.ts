@@ -246,7 +246,7 @@ export class CertificateService {
                       "alignment": "left"
                     },
                     {
-                      "text": certificate.vehicle.model,
+                      "text": certificate.vehicle.model + " " + certificate.vehicle.variant,
                       "alignment": "center",
                       "bold": true
                     }
@@ -747,7 +747,7 @@ export class CertificateService {
                       "alignment": "left"
                     },
                     {
-                      "text": certificate.vehicle.model,
+                      "text": certificate.vehicle.model + " " + certificate.vehicle.variant,
                       "alignment": "center",
                       "bold": true
                     }
