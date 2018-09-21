@@ -12,6 +12,10 @@ export const FETCH_DASHBOARD_ACTION = '[Device] Fetch Dashboard Action';
 export const FETCH_DASHBOARD_COMPLETE_ACTION = '[Device] Fetch Dashboard Complete Action';
 export const FETCH_DASHBOARD_FAILED_ACTION = '[Device] Fetch Dashboard Failed Action';
 
+export const FETCH_MFG_CERTIFICATE_GRAPH_DASHBOARD_ACTION = '[Device] Fetch MFG Certificate Graph Dashboard Action';
+export const FETCH_MFG_CERTIFICATE_GRAPH_DASHBOARD_COMPLETE_ACTION = '[Device] Fetch MFG Certificate Graph Dashboard Complete Action';
+export const FETCH_MFG_CERTIFICATE_GRAPH_DASHBOARD_FAILED_ACTION = '[Device] Fetch MFG Certificate Graph Dashboard Failed Action';
+
 export class FetchDashboardDataAction implements Action {
   readonly type = FETCH_DASHBOARD_ACTION;
   constructor() {
@@ -42,7 +46,40 @@ export class FetchDashboardDataFailedAction implements Action {
   }
 }
 
+export class FetchMFGCertificateGraphDashboardDataAction implements Action {
+  readonly type = FETCH_MFG_CERTIFICATE_GRAPH_DASHBOARD_ACTION;
+  constructor(public payload: any) {
+    toast({
+      title: 'Fetching data...'
+    });
+    toast.showLoading();
+  }
+}
+
+export class FetchMFGCertificateGraphDashboardDataCompleteAction implements Action {
+  readonly type = FETCH_MFG_CERTIFICATE_GRAPH_DASHBOARD_COMPLETE_ACTION;
+  constructor(public payload: any) {
+    toast({
+      type: 'success',
+      title: 'Graph refreshed!'
+    });
+  }
+}
+
+export class FetchMFGCertificateGraphDashboardDataFailedAction implements Action {
+  readonly type = FETCH_MFG_CERTIFICATE_GRAPH_DASHBOARD_FAILED_ACTION;
+  constructor(public payload: any) {
+    toast({
+      type: 'error',
+      title: payload
+    });
+  }
+}
+
 export type Actions =
   FetchDashboardDataAction
   | FetchDashboardDataCompleteAction
-  | FetchDashboardDataFailedAction;
+  | FetchDashboardDataFailedAction
+  | FetchMFGCertificateGraphDashboardDataAction
+  | FetchMFGCertificateGraphDashboardDataCompleteAction
+  | FetchMFGCertificateGraphDashboardDataFailedAction;

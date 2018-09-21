@@ -50,7 +50,8 @@ export const reducers: ActionReducerMap<State> = {
 };
 
 export const dashboard = (state: State) => state.dashboard;
-export const getDashboardData = createSelector(dashboard, (state: fromDashboard.State) => state.data);
+export const getDashboardCertificateGraphData = createSelector(dashboard, (state: fromDashboard.State) => state.certificateChartData);
+export const getDashboardCertificateTableData = createSelector(dashboard, (state: fromDashboard.State) => state.certificateTableData);
 
 export const users = (state: State) => state.users;
 export const getAllUsers = createSelector(users, (state: fromUser.State) => state.allUsers.filter(user => user.id != state.loggedUser.id));

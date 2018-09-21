@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { ReactiveFormsModule } from '@angular/forms';
 import { MatCardModule } from '@angular/material';
+import { NgSelectModule } from '@ng-select/ng-select';
 import { Routes, RouterModule } from '@angular/router';
 
 import { HomeComponent } from './home.component';
@@ -19,6 +21,8 @@ const routes: Routes = [
 @NgModule({
   imports: [
     CommonModule,
+    ReactiveFormsModule,
+    NgSelectModule,
     ChartsModule,
     MatCardModule,
     RouterModule.forChild(routes)

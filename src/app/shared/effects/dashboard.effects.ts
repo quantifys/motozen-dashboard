@@ -19,10 +19,20 @@ export class DashboardEffects {
   @Effect()
   fetchDashboard$: Observable<Action> = this._action$.ofType(fromDashboard.FETCH_DASHBOARD_ACTION).pipe(
     map((action: fromDashboard.FetchDashboardDataAction) => action),
-    exhaustMap(() => this._tokenService.get(`dashboard_data`)
+    exhaustMap(() => this._tokenService.post(`dashboard_data/mfg/all`, null)
       .pipe(
         map(response => new fromDashboard.FetchDashboardDataCompleteAction(response.json().message)),
         catchError(error => of(new fromDashboard.FetchDashboardDataFailedAction(error.json().message)))
+      ))
+  );
+
+  @Effect()
+  fetchMFGCertificateGraphDashboard$: Observable<Action> = this._action$.ofType(fromDashboard.FETCH_MFG_CERTIFICATE_GRAPH_DASHBOARD_ACTION).pipe(
+    map((action: fromDashboard.FetchMFGCertificateGraphDashboardDataAction) => action.payload),
+    exhaustMap(body => this._tokenService.post(`dashboard_data/mfg/certificates/graph`, body)
+      .pipe(
+        map(response => new fromDashboard.FetchMFGCertificateGraphDashboardDataCompleteAction(response.json().message)),
+        catchError(error => of(new fromDashboard.FetchMFGCertificateGraphDashboardDataFailedAction(error.json().message)))
       ))
   );
 

@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { Store } from '@ngrx/store';
 
 import * as fromRoot from '../../shared/reducers';
 import * as dashboardActions from '../../shared/actions/dashboard.actions';
-import { BarChartConfig } from '../../shared/models';
+import { State } from '../../shared/models';
+import { RtoService } from '../../shared/services/rto.service';
 
 @Component({
   selector: 'app-home',
@@ -12,42 +14,74 @@ import { BarChartConfig } from '../../shared/models';
 })
 export class HomeComponent implements OnInit {
 
-  public stockChartData: any[] = [["Quantity","automotive_connector"],["Toyota Innova Connector",0],["Honda Brio Connector",399],["Hyundai i10 Connector",0]];
-  public stockChartConfig: BarChartConfig;
-  public stockData: any[] = [];
+  public certificateChartData: any[] = [];
+  public barChartConfig: any;
+  public certificateData: any[] = [];
+  public certificateForm: FormGroup;
+  public states: State[] = [];
+  public periods: any[] = [
+    {
+      label: "Year",
+      value: "year"
+    },
+    {
+      label: "Month",
+      value: "month"
+    },
+    {
+      label: "Week",
+      value: "week"
+    }
+  ];
 
   constructor(
-    private _store: Store<fromRoot.State>
+    private _store: Store<fromRoot.State>,
+    private _fb: FormBuilder,
+    private _rtoService: RtoService
   ) {
     this._store.dispatch(new dashboardActions.FetchDashboardDataAction);
-    this.stockChartConfig = new BarChartConfig({
+    this.barChartConfig = {
       bars: "vertical",
-      legend: {
-        position: "none"
+      colors: [
+        "#FFB88C",
+        "#00a8ff",
+        "#E56590",
+        "#4cd137"
+      ],
+      fontName: 'Varela Round',
+      explorer: {
+        axis: 'horizontal'
       }
-    });
+    };
+    this.states = this._rtoService.getStates();
   }
 
   ngOnInit() {
-    this._store.select(fromRoot.getDashboardData).subscribe(data => {
-      console.log(data);
-      this.loadStockData(data);
+    this.buildForm();
+    this.formListener();
+    this._store.select(fromRoot.getDashboardCertificateGraphData).subscribe(data => {
+      if (data) {
+        this.certificateChartData = [];
+        this.loadStockData(data);
+      }
     });
   }
 
   loadStockData(data) {
-    if (data) {
-      for (let name in data["inventory"]) {
-        let stock: any[] = [];
-        stock.push(["Quantity", name]);
-        for (let itemName in data["inventory"][stock[0][1]]) {
-          stock.push([itemName, data["inventory"][stock[0][1]][itemName]]);
-        }
-        this.stockData.push(stock);
-      }
-      console.log(JSON.stringify(this.stockData[0]));
-      this.stockChartData = this.stockData[0];
-    }
+    data["data"].map(item => this.certificateChartData.push(item));
+  }
+
+  buildForm() {
+    this.certificateForm = this._fb.group({
+      period: null,
+      states: [null]
+    });
+  }
+
+  formListener() {
+    this.certificateForm.valueChanges.subscribe(value => {
+      this._store.dispatch(new dashboardActions.FetchMFGCertificateGraphDashboardDataAction(value));
+    });
   }
 
 }

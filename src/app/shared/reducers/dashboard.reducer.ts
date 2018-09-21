@@ -1,18 +1,25 @@
 import * as dashboardActions from '../actions/dashboard.actions';
 
 export interface State {
-  data: any;
+  certificateChartData: any,
+  certificateTableData: any
 }
 
 const initialState: State = {
-  data: null
+  certificateChartData: null,
+  certificateTableData: null
 };
 
 export function reducer(state = initialState, action: dashboardActions.Actions): State {
   switch (action.type) {
     case dashboardActions.FETCH_DASHBOARD_COMPLETE_ACTION:
       return Object.assign({}, state, {
-        data: action.payload
+        certificateChartData: action.payload["certificates_graph"],
+        certificateTableData: action.payload["certificates_table"]
+      });
+    case dashboardActions.FETCH_MFG_CERTIFICATE_GRAPH_DASHBOARD_COMPLETE_ACTION:
+      return Object.assign({}, state, {
+        certificateChartData: action.payload["certificates_graph"],
       });
     default:
       return state;

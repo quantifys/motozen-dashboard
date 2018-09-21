@@ -6,7 +6,7 @@ import { Store } from '@ngrx/store';
 
 import * as fromRoot from '../../../shared/reducers';
 import * as userActions from '../../../shared/actions/user.actions';
-import { UserStats, PieChartConfig, BarChartConfig } from '../../../shared/models';
+import { UserStats, PieChartConfig } from '../../../shared/models';
 import { UserDeleteComponent, UserChangePasswordComponent } from '../user-control/user-control.component';
 import { Subscription } from 'rxjs';
 
@@ -23,7 +23,7 @@ export class UserDetailComponent implements OnDestroy{
   public poChartData: any[];
   public certChartData: any[];
   public pieChartConfig: PieChartConfig;
-  public barChartConfig: BarChartConfig;
+  public barChartConfig: any;
 
   constructor(
     private _activatedRoute: ActivatedRoute,
@@ -38,12 +38,12 @@ export class UserDetailComponent implements OnDestroy{
         position: "bottom"
       }
     });
-    this.barChartConfig = new BarChartConfig({
+    this.barChartConfig = {
       bars: "vertical",
       legend: {
         position: "none"
       }
-    });
+    };
     this.statSubscription$ = this._store.select(fromRoot.getCurrentUserStats).subscribe(stats => {
       this.userStats = stats;
       if (this.userStats.user.role == 'distributor' || this.userStats.user.role == 'dealer') {
