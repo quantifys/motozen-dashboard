@@ -14,7 +14,9 @@ import { RtoService } from '../../shared/services/rto.service';
 })
 export class HomeComponent implements OnInit {
 
+  searchString;
   public certificateChartData: any[] = [];
+  public certificateTableData: any[] = [];
   public barChartConfig: any;
   public certificateData: any[] = [];
   public certificateForm: FormGroup;
@@ -43,9 +45,9 @@ export class HomeComponent implements OnInit {
     this.barChartConfig = {
       bars: "vertical",
       colors: [
-        "#FFB88C",
+        "#e84118",
         "#00a8ff",
-        "#E56590",
+        "#fbc531",
         "#4cd137"
       ],
       fontName: 'Varela Round',
@@ -59,16 +61,8 @@ export class HomeComponent implements OnInit {
   ngOnInit() {
     this.buildForm();
     this.formListener();
-    this._store.select(fromRoot.getDashboardCertificateGraphData).subscribe(data => {
-      if (data) {
-        this.certificateChartData = [];
-        this.loadStockData(data);
-      }
-    });
-  }
-
-  loadStockData(data) {
-    data["data"].map(item => this.certificateChartData.push(item));
+    this._store.select(fromRoot.getDashboardCertificateGraphData).subscribe(data => data ? this.certificateChartData = data["data"] : null);
+    this._store.select(fromRoot.getDashboardCertificateTableData).subscribe(data => data ? this.certificateTableData = data["data"] : null);
   }
 
   buildForm() {
@@ -84,4 +78,9 @@ export class HomeComponent implements OnInit {
     });
   }
 
+  getStateData(): any[] {
+    if(!this.certificateTableData) return [];
+    if(!this.searchString) return this.certificateTableData;
+    return this.certificateTableData.filter(item => String(item[0]).toLowerCase().includes(this.searchString.toLowerCase()))
+  }
 }

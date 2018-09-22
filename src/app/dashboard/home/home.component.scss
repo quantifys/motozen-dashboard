@@ -1,0 +1,8 @@
+.horizontal-scroll {
+  display: flex;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  mat-card {
+    background-image: linear-gradient(to top left, #FFB88C 0%, #E56590 100%);
+  }
+}
