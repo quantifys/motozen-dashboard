@@ -28,15 +28,15 @@ export class HomeComponent implements OnInit {
   public states: State[] = [];
   public periods: any[] = [
     {
-      label: "Year",
+      label: "This year",
       value: "year"
     },
     {
-      label: "Month",
+      label: "This month",
       value: "month"
     },
     {
-      label: "Week",
+      label: "This week",
       value: "week"
     }
   ];
