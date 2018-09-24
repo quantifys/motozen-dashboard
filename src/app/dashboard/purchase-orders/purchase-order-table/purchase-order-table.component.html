@@ -33,6 +33,6 @@
   <div class="alert alert-primary text-center rounded-0 border-0 text-light mb-0" *ngIf="loading">
     <strong>Loading...</strong>
   </div>
-  <mat-paginator [length]="pageEvent.length" [pageSize]="pageEvent.pageSize" [pageIndex]="pageEvent.pageIndex"
+  <mat-paginator  [showFirstLastButtons]="true" [length]="pageEvent.length" [pageSize]="pageEvent.pageSize" [pageIndex]="pageEvent.pageIndex"
     [pageSizeOptions]="[5, 10, 25, 100]" (page)="getPage($event)"></mat-paginator>
 </div>
