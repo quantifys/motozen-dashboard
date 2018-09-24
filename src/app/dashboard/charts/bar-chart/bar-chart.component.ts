@@ -30,7 +30,7 @@ export class BarChartComponent implements OnInit, OnChanges {
   }
 
   checkHeight() {
-    this.chartHeight = $(window).height()/2 > 350 ? $(window).height()/2 : 350
+    this.chartHeight = $(window).height()/2 > 350 ? $(window).height()/1.8 : 350
   }
 
 }

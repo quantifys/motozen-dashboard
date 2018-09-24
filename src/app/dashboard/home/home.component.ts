@@ -4,7 +4,7 @@ import { Store } from '@ngrx/store';
 
 import * as fromRoot from '../../shared/reducers';
 import * as dashboardActions from '../../shared/actions/dashboard.actions';
-import { State } from '../../shared/models';
+import { State, PieChartConfig } from '../../shared/models';
 import { RtoService } from '../../shared/services/rto.service';
 
 declare var $: any;
@@ -17,8 +17,10 @@ declare var $: any;
 export class HomeComponent implements OnInit {
 
   searchString;
+  public pieChartConfig: PieChartConfig;
   public certificateChartData: any[] = [];
   public certificateTableData: any[] = [];
+  public pieChartData: any[] = [];
   public barChartConfig: any;
   public certificateData: any[] = [];
   public certificateForm: FormGroup;
@@ -85,6 +87,12 @@ export class HomeComponent implements OnInit {
         }
       }
     };
+    this.pieChartConfig = new PieChartConfig({
+      is3D: true,
+      legend: {
+        position: "bottom"
+      }
+    });
     this.states = this._rtoService.getStates();
   }
 
@@ -100,6 +108,7 @@ export class HomeComponent implements OnInit {
     });
     this._store.select(fromRoot.getDashboardCertificateTableData).subscribe(data => {
       if (data) {
+        this.pieChartData = [["State", "No. Issued"], ...data["data"]];
         this.certificateTableData = data["data"];
         this.certificateTableForm.get('period').patchValue(data["period"], { emitEvent: false });
       }

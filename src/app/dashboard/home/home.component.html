@@ -63,24 +63,27 @@
                   <strong>No data available!</strong>
                 </div>
               </div>
-              <table class="table table-bordered table-striped text-center" *ngIf="getStateData().length > 0">
-                <thead>
-                  <tr>
-                    <th>State</th>
-                    <th>No. Issued</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr *ngFor="let state of getStateData()">
-                    <td>{{state[0] | uppercase}}</td>
-                    <td>{{state[1]}}</td>
-                  </tr>
-                  <tr>
-                    <th>Total</th>
-                    <th>{{getStateTotal()}}</th>
-                  </tr>
-                </tbody>
-              </table>
+              <ng-container *ngIf="getStateData().length > 0">
+                <pie-chart [data]="pieChartData" [config]="pieChartConfig" elementId="certificatePie"></pie-chart>
+                <table class="table table-bordered table-striped text-center">
+                  <thead>
+                    <tr>
+                      <th>State</th>
+                      <th>No. Issued</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let state of getStateData()">
+                      <td>{{state[0] | uppercase}}</td>
+                      <td>{{state[1]}}</td>
+                    </tr>
+                    <tr>
+                      <th>Total</th>
+                      <th>{{getStateTotal()}}</th>
+                    </tr>
+                  </tbody>
+                </table>
+              </ng-container>
             </div>
           </div>
         </div>
