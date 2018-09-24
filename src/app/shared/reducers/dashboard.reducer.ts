@@ -21,6 +21,10 @@ export function reducer(state = initialState, action: dashboardActions.Actions):
       return Object.assign({}, state, {
         certificateChartData: action.payload["certificates_graph"],
       });
+    case dashboardActions.FETCH_MFG_CERTIFICATE_TABLE_DASHBOARD_COMPLETE_ACTION:
+      return Object.assign({}, state, {
+        certificateTableData: action.payload["certificates_table"],
+      });
     default:
       return state;
   }

@@ -31,40 +31,41 @@
         <div class="card-header">
           <h5 class="text-grey-dark font-weight-bold mt-2">
             <i class="fas fa-info-circle mr-2 fa-fw text-orange"></i>Certificate count</h5>
-          <!-- <form class="container-fluid" [formGroup]="certificateForm">
-            <div class="row justify-content-center">
-              <div class="col-lg-3">
-                <ng-select id="category" [items]="periods" bindLabel="label" bindValue="value" formControlName="period"
-                  placeholder="Select period"></ng-select>
-              </div>
-              <div class="col-lg-6">
-                <ng-select id="category" [items]="states" [multiple]="true" [hideSelected]="true" [maxSelectedItems]="4"
-                  bindLabel="name" bindValue="name" formControlName="states" placeholder="Select region"></ng-select>
+          <form [formGroup]="certificateTableForm" autocomplete="off">
+            <div class="container-fluid mt-4">
+              <div class="row justify-content-center">
+                <div class="col-md-6">
+                  <mat-form-field color="warn" class="w-100">
+                    <input matInput placeholder="Search states" formControlName="search">
+                    <mat-icon color="warn" matSuffix>search</mat-icon>
+                  </mat-form-field>
+                </div>
+                <div class="col-md-8 d-flex justify-content-center">
+                  <mat-radio-group formControlName="period">
+                    <mat-radio-button color="warn" value="all">All</mat-radio-button>
+                    <mat-radio-button color="warn" class="ml-4" value="year">Year</mat-radio-button>
+                    <mat-radio-button color="warn" class="ml-4" value="month">Month</mat-radio-button>
+                    <mat-radio-button color="warn" class="ml-4" value="week">Week</mat-radio-button>
+                    <mat-radio-button color="warn" class="ml-4" value="today">Today</mat-radio-button>
+                  </mat-radio-group>
+                </div>
               </div>
             </div>
-          </form> -->
+          </form>
         </div>
         <div class="card-body">
           <div class="container-fluid">
-            <div class="row justify-content-center">
-              <div class="col-md-10 col-lg-4">
-                <mat-form-field color="warn" class="w-100">
-                  <input matInput placeholder="Search states" [(ngModel)]="searchString">
-                  <mat-icon color="warn" matSuffix>search</mat-icon>
-                </mat-form-field>
-              </div>
-            </div>
             <div class="row horizontal-scroll mt-2">
               <div class="col-lg-12" *ngIf="getStateData().length == 0">
                 <div class="alert alert-primary text-center rounded-0 border-0 text-light mb-0">
-                  <strong>No states match your search!</strong>
+                  <strong>No data available!</strong>
                 </div>
               </div>
               <div class="col-sm-12 col-md-6 col-lg-4 col-xl-2 mb-3" *ngFor="let state of getStateData()">
                 <mat-card>
                   <mat-card-content class="text-center">
-                    <h2 class="text-light font-weight-bold mb-0">{{state[1]}}</h2>
-                    <h5 class="text-light">{{state[0] | uppercase}}</h5>
+                    <h2 class="text-orange font-weight-bold mb-0">{{state[1]}}</h2>
+                    <h5 class="text-orange">{{state[0] | uppercase}}</h5>
                   </mat-card-content>
                 </mat-card>
               </div>

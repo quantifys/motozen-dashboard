@@ -20,6 +20,7 @@ export class HomeComponent implements OnInit {
   public barChartConfig: any;
   public certificateData: any[] = [];
   public certificateForm: FormGroup;
+  public certificateTableForm: FormGroup;
   public states: State[] = [];
   public periods: any[] = [
     {
@@ -33,6 +34,28 @@ export class HomeComponent implements OnInit {
     {
       label: "Week",
       value: "week"
+    }
+  ];
+  public tablePeriods: any[] = [
+    {
+      label: "All",
+      value: "all"
+    },
+    {
+      label: "Year",
+      value: "year"
+    },
+    {
+      label: "Month",
+      value: "month"
+    },
+    {
+      label: "Week",
+      value: "week"
+    },
+    {
+      label: "Today",
+      value: "today"
     }
   ];
 
@@ -70,11 +93,20 @@ export class HomeComponent implements OnInit {
       period: null,
       states: [null]
     });
+    this.certificateTableForm = this._fb.group({
+      period: null,
+      search: null
+    });
   }
 
   formListener() {
     this.certificateForm.valueChanges.subscribe(value => {
       this._store.dispatch(new dashboardActions.FetchMFGCertificateGraphDashboardDataAction(value));
+    });
+    this.certificateTableForm.get('period').valueChanges.subscribe(value => {
+      this._store.dispatch(new dashboardActions.FetchMFGCertificateTableDashboardDataAction({
+        period: value
+      }));
     });
   }
 

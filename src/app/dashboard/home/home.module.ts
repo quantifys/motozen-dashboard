@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
-import { MatCardModule, MatFormFieldModule, MatInputModule, MatIconModule } from '@angular/material';
+import { MatCardModule, MatFormFieldModule, MatInputModule, MatIconModule, MatRadioModule } from '@angular/material';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { Routes, RouterModule } from '@angular/router';
 
@@ -28,6 +28,7 @@ const routes: Routes = [
     MatFormFieldModule,
     MatInputModule,
     MatIconModule,
+    MatRadioModule,
     FormsModule,
     RouterModule.forChild(routes)
   ],

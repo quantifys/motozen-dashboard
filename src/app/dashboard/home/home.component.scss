@@ -3,6 +3,7 @@
   flex-wrap: nowrap;
   overflow-x: auto;
   mat-card {
-    background-image: linear-gradient(to top left, #FFB88C 0%, #E56590 100%);
+    border: 2px dashed #FFB88C;
+    box-shadow: none;
   }
 }

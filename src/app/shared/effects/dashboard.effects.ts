@@ -36,4 +36,14 @@ export class DashboardEffects {
       ))
   );
 
+  @Effect()
+  fetchMFGCertificateTableDashboard$: Observable<Action> = this._action$.ofType(fromDashboard.FETCH_MFG_CERTIFICATE_TABLE_DASHBOARD_ACTION).pipe(
+    map((action: fromDashboard.FetchMFGCertificateTableDashboardDataAction) => action.payload),
+    exhaustMap(body => this._tokenService.post(`dashboard_data/mfg/certificates/table`, body)
+      .pipe(
+        map(response => new fromDashboard.FetchMFGCertificateTableDashboardDataCompleteAction(response.json().message)),
+        catchError(error => of(new fromDashboard.FetchMFGCertificateTableDashboardDataFailedAction(error.json().message)))
+      ))
+  );
+
 }
