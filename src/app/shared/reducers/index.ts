@@ -1,5 +1,6 @@
 import { ActionReducerMap, createSelector } from "@ngrx/store";
 
+import * as fromDashboard from "./dashboard.reducer";
 import * as fromUser from "./user.reducer";
 import * as fromDevice from "./device.reducer";
 import * as fromVehicle from "./vehicle.reducer";
@@ -15,6 +16,7 @@ import * as fromTransaction from "./transaction.reducer";
 import * as fromVendor from "./vendor.reducer";
 
 export interface State {
+  dashboard: fromDashboard.State;
   users: fromUser.State;
   devices: fromDevice.State;
   vehicles: fromVehicle.State;
@@ -31,6 +33,7 @@ export interface State {
 }
 
 export const reducers: ActionReducerMap<State> = {
+  dashboard: fromDashboard.reducer,
   users: fromUser.reducer,
   devices: fromDevice.reducer,
   vehicles: fromVehicle.reducer,
@@ -45,6 +48,10 @@ export const reducers: ActionReducerMap<State> = {
   transactions: fromTransaction.reducer,
   vendors: fromVendor.reducer
 };
+
+export const dashboard = (state: State) => state.dashboard;
+export const getDashboardCertificateGraphData = createSelector(dashboard, (state: fromDashboard.State) => state.certificateChartData);
+export const getDashboardCertificateTableData = createSelector(dashboard, (state: fromDashboard.State) => state.certificateTableData);
 
 export const users = (state: State) => state.users;
 export const getAllUsers = createSelector(users, (state: fromUser.State) => state.allUsers.filter(user => user.id != state.loggedUser.id));

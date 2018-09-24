@@ -14,21 +14,8 @@ export class GooglePieChartService extends GoogleChartsBaseService {
 
   public BuildPieChart(elementId: string, data: any[], config: PieChartConfig): void {
     var chartFunc = () => { return new google.visualization.PieChart(document.getElementById(elementId)); };
-    var options = {
-      title: config.title,
-      pieHole: config.pieHole,
-      is3D: config.is3D,
-      legend: {
-        position: config.legend.position
-      },
-      colors: [
-        "#FFB88C",
-        "#E56590"
-      ]
-    };
-
-    this.buildChart(data, chartFunc, options);
-    $(window).resize(() => this.buildChart(data, chartFunc, options));
+    this.buildChart(data, chartFunc, config);
+    $(window).resize(() => this.buildChart(data, chartFunc, config));
   }
 
 }
