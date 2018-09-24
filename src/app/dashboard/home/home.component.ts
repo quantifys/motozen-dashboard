@@ -16,7 +16,6 @@ declare var $: any;
 })
 export class HomeComponent implements OnInit {
 
-  searchString;
   public pieChartConfig: PieChartConfig;
   public certificateChartData: any[] = [];
   public certificateTableData: any[] = [];
@@ -139,8 +138,8 @@ export class HomeComponent implements OnInit {
 
   getStateData(): any[] {
     if (!this.certificateTableData) return [];
-    if (!this.searchString) return this.certificateTableData;
-    return this.certificateTableData.filter(item => String(item[0]).toLowerCase().includes(this.searchString.toLowerCase()))
+    if (!this.certificateTableForm.get('search').value) return this.certificateTableData;
+    return this.certificateTableData.filter(item => String(item[0]).toLowerCase().includes(this.certificateTableForm.get('search').value.toLowerCase()))
   }
   
   getStateTotal(): number {
