@@ -11,15 +11,3 @@ export class PieChartConfig {
     this.is3D = data.is3D != null ? data.is3D : null;
   }
 }
-
-export class BarChartConfig {
-  title: string;
-  bars: string;
-  legend: any;
-
-  constructor(data: any) {
-    this.title = data.title ? data.title : null;
-    this.bars = data.bars ? data.bars : null;
-    this.legend = data.legend ? data.legend : null;
-  }
-}
