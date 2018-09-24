@@ -1,9 +1,5 @@
-.horizontal-scroll {
-  display: flex;
-  flex-wrap: nowrap;
-  overflow-x: auto;
-  mat-card {
-    border: 2px dashed #FFB88C;
-    box-shadow: none;
+.right {
+  .card-body {
+    overflow-y: auto;
   }
 }

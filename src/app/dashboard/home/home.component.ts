@@ -7,6 +7,8 @@ import * as dashboardActions from '../../shared/actions/dashboard.actions';
 import { State } from '../../shared/models';
 import { RtoService } from '../../shared/services/rto.service';
 
+declare var $: any;
+
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -89,8 +91,19 @@ export class HomeComponent implements OnInit {
   ngOnInit() {
     this.buildForm();
     this.formListener();
-    this._store.select(fromRoot.getDashboardCertificateGraphData).subscribe(data => data ? this.certificateChartData = data["data"] : null);
-    this._store.select(fromRoot.getDashboardCertificateTableData).subscribe(data => data ? this.certificateTableData = data["data"] : null);
+    this._store.select(fromRoot.getDashboardCertificateGraphData).subscribe(data => {
+      if (data) {
+        this.certificateChartData = data["data"];
+        this.certificateForm.get('period').patchValue(data["period"], { emitEvent: false });
+        $('.right').css('height', $('.left .card').height())
+      }
+    });
+    this._store.select(fromRoot.getDashboardCertificateTableData).subscribe(data => {
+      if (data) {
+        this.certificateTableData = data["data"];
+        this.certificateTableForm.get('period').patchValue(data["period"], { emitEvent: false });
+      }
+    });
   }
 
   buildForm() {
@@ -119,5 +132,11 @@ export class HomeComponent implements OnInit {
     if (!this.certificateTableData) return [];
     if (!this.searchString) return this.certificateTableData;
     return this.certificateTableData.filter(item => String(item[0]).toLowerCase().includes(this.searchString.toLowerCase()))
+  }
+  
+  getStateTotal(): number {
+    let total: number = 0;
+    this.certificateTableData.map(item => total += item[1]);
+    return total;
   }
 }
