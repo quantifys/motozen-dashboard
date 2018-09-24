@@ -141,7 +141,7 @@ export class HomeComponent implements OnInit {
     if (!this.certificateTableForm.get('search').value) return this.certificateTableData;
     return this.certificateTableData.filter(item => String(item[0]).toLowerCase().includes(this.certificateTableForm.get('search').value.toLowerCase()))
   }
-  
+
   getStateTotal(): number {
     let total: number = 0;
     this.certificateTableData.map(item => total += item[1]);
