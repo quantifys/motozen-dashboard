@@ -76,6 +76,11 @@ export class HomeComponent implements OnInit {
       fontName: 'Varela Round',
       explorer: {
         axis: 'horizontal'
+      },
+      vAxis: {
+        viewWindow: {
+          min: 0
+        }
       }
     };
     this.states = this._rtoService.getStates();
@@ -111,8 +116,8 @@ export class HomeComponent implements OnInit {
   }
 
   getStateData(): any[] {
-    if(!this.certificateTableData) return [];
-    if(!this.searchString) return this.certificateTableData;
+    if (!this.certificateTableData) return [];
+    if (!this.searchString) return this.certificateTableData;
     return this.certificateTableData.filter(item => String(item[0]).toLowerCase().includes(this.searchString.toLowerCase()))
   }
 }
