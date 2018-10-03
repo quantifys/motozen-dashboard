@@ -79,8 +79,9 @@ export class CertificateEditComponent implements OnInit, OnDestroy {
         this.certificate = certificate;
         this.certificateForm.patchValue(certificate);
         this.device_id.patchValue(certificate.device.id);
+        this.vehicle_make.patchValue(certificate.vehicle.make);
+        this.vehicle_model.patchValue(certificate.vehicle.model);
         this.vehicle_id.patchValue(certificate.vehicle.id);
-        this.vehicle_make.patchValue(certificate.vehicle.make, { emitEvent: false });
         certificate.car_reg_number == 'NEW' ? this.car_reg_number.patchValue("", { emitEvent: false }) : null
       }
     });
