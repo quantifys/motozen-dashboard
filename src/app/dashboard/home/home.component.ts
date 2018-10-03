@@ -4,7 +4,7 @@ import { Store } from '@ngrx/store';
 
 import * as fromRoot from '../../shared/reducers';
 import * as dashboardActions from '../../shared/actions/dashboard.actions';
-import { State, PieChartConfig } from '../../shared/models';
+import { State, PieChartConfig, User } from '../../shared/models';
 import { RtoService } from '../../shared/services/rto.service';
 
 declare var $: any;
@@ -16,6 +16,7 @@ declare var $: any;
 })
 export class HomeComponent implements OnInit {
 
+  public loggedUser: User = new User({});
   public pieChartConfig: PieChartConfig;
   public certificateChartData: any[] = [];
   public certificateTableData: any[] = [];
@@ -67,7 +68,12 @@ export class HomeComponent implements OnInit {
     private _fb: FormBuilder,
     private _rtoService: RtoService
   ) {
-    this._store.dispatch(new dashboardActions.FetchDashboardDataAction);
+    this._store.select(fromRoot.getLoggedUser).subscribe(user => {
+      this.loggedUser = user;
+      if (user.role == 'manufacturer') {
+        this._store.dispatch(new dashboardActions.FetchDashboardDataAction);
+      } 
+    });
     this.barChartConfig = {
       bars: "vertical",
       colors: [
