@@ -42,6 +42,7 @@ export class CertificateEditComponent implements OnInit, OnDestroy {
   public rto: Rto[] = [];
   public formdata: any;
   public brands: string[] = [];
+  public models: string[] = [];
   public monthMin: Date = new Date(1900, 0, 1);
   public monthMax: Date = new Date();
   public loggedUser: User = new User({});
@@ -180,19 +181,31 @@ export class CertificateEditComponent implements OnInit, OnDestroy {
     this._store.dispatch(new certificateActions.FetchCertificateFormdataAction(id));
     this._store.select(fromRoot.getCertificateFormdata).subscribe(data => {
       if (data) {
+        let newFormData: any = {};
         this.devices = data.devices.filter(device => new Device(device));
         this.formdata = data;
         this.brands = [];
         for (var make in data["vehicle_makes"]) {
-          this.brands.push(make);
+          newFormData[make.toUpperCase()] = data["vehicle_makes"][make];
+          this.brands.push(make.toUpperCase());
         }
+        this.formdata["vehicle_makes"] = newFormData;
       }
     });
   }
 
   getModels(): any[] {
     if (this.formdata) {
-      return this.formdata.vehicle_makes[this.vehicle_make.value];
+      if (this.vehicle_make.value) {
+        this.models = [];
+        this.variants = [];
+        this.formdata.vehicle_makes[this.vehicle_make.value].map(vehicle => {
+          if (!this.models.includes(vehicle.model)) {
+            this.models.push(vehicle.model);
+          }
+        })
+      }
+      return this.models;
     }
     return;
   }
@@ -210,6 +223,7 @@ export class CertificateEditComponent implements OnInit, OnDestroy {
     this.vehicle_make.valueChanges.subscribe(value => {
       this.vehicle_model.patchValue(null, { emitEvent: false });
       this.vehicle_id.patchValue(null, { emitEvent: false });
+      this.getModels();
     });
     this.vehicle_model.valueChanges.subscribe(value => {
       this.variants = this.getVariants();
