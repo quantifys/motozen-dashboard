@@ -34,7 +34,7 @@ export class CertificatesComponent implements OnInit, OnDestroy {
     this.userSubscription$ = this._store.select(fromRoot.getLoggedUser).subscribe(user => {
       this.loggedUser = user;
       if (user.role) {
-        if (user.role == 'manufacturer' || user.role == 'distributor' || user.role == 'dealer' || user.role == 'sales' || user.role == 'admin') {
+        if (user.role == 'manufacturer' || user.role == 'distributor' || user.role == 'dealer' || user.role == 'sales' || user.role == 'rto' || user.role == 'admin') {
           let newParams: any = {};
           if (!this._activatedRoute.snapshot.queryParams["status"]) {
             newParams["status"] = "can_modify";
