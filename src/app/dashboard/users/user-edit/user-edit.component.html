@@ -24,11 +24,18 @@
                   </mat-form-field>
                 </div>
                 <div class="col-lg-6" *ngIf="addUser">
-                  <ng-select id="role" [items]="roles" bindLabel="display" bindValue="value" formControlName="role" placeholder="Select role"></ng-select>
+                  <ng-select id="role" [items]="roles" bindLabel="display" bindValue="value" formControlName="role"
+                    placeholder="Select role"></ng-select>
                 </div>
                 <div class="col-lg-6" *ngIf="role.value == 'dealer'">
-                  <ng-select [items]="distributors" bindLabel="name" bindValue="id" formControlName="distributor_id" placeholder="Select distributor"></ng-select>
+                  <ng-select [items]="distributors" bindLabel="name" bindValue="id" formControlName="distributor_id"
+                    placeholder="Select distributor"></ng-select>
                 </div>
+                <ng-container formGroupName="details" *ngIf="role.value == 'rto'">
+                  <div class="col-lg-6">
+                    <ng-select id="state" [items]="states" bindLabel="name" formControlName="state" placeholder="Select state"></ng-select>
+                  </div>
+                </ng-container>
               </div>
             </div>
             <ng-container *ngIf="role.value != 'manufacturer' && role.value" formGroupName="details">
@@ -83,56 +90,55 @@
                     <mat-form-field class="w-100" *ngIf="role.value == 'dealer'">
                       <input matInput placeholder="State" readonly formControlName="state">
                     </mat-form-field>
-                    <ng-select *ngIf="role.value == 'distributor'" id="state" [items]="states" bindLabel="name" formControlName="state"
-                      placeholder="Select state"></ng-select>
-                  </div>
-                </div>
-
-
-
-              </div>
-              <hr>
-              <h5 class="text-grey-dark font-weight-bold mb-3">Company information</h5>
-              <div class="container-fluid">
-                <div class="row" *ngIf="role.value == 'distributor' || role.value == 'dealer'">
-                  <div class="col-lg-6">
-                    <mat-form-field class="w-100">
-                      <input matInput placeholder="GSTN" maxlength="15" formControlName="gstn">
-                      <mat-hint align="end">{{gstn.value ? gstn.value.length : '0'}} / 15</mat-hint>
-                      <mat-error *ngIf="(gstn.hasError('minlength') || gstn.hasError('pattern')) && !gstn.hasError('required')">Please
-                        enter a valid GSTN</mat-error>
-                      <mat-error *ngIf="gstn.hasError('required')">GSTN is <strong>required</strong></mat-error>
-                    </mat-form-field>
-                  </div>
-                </div>
-                <div class="row" *ngIf="role.value != 'distributor' && role.value != 'dealer'">
-                  <div class="col-sm-6">
-                    <mat-form-field class="w-100">
-                      <input matInput placeholder="Base salary" type="number" formControlName="base_salary">
-                    </mat-form-field>
-                  </div>
-                  <div class="col-sm-6">
-                    <mat-form-field class="w-100">
-                      <input matInput placeholder="HRA" type="number" formControlName="hra">
-                    </mat-form-field>
-                  </div>
-                  <div class="col-sm-4">
-                    <mat-form-field class="w-100">
-                      <input matInput placeholder="Transport allowance" type="number" formControlName="transport_allowance">
-                    </mat-form-field>
-                  </div>
-                  <div class="col-sm-4">
-                    <mat-form-field class="w-100">
-                      <input matInput placeholder="GPF" type="number" formControlName="gpf">
-                    </mat-form-field>
-                  </div>
-                  <div class="col-sm-4" *ngIf="checkEsic()">
-                    <mat-form-field class="w-100">
-                      <input matInput placeholder="ESIC" type="number" formControlName="esic">
-                    </mat-form-field>
+                    <ng-select *ngIf="role.value == 'distributor'" id="state" [items]="states" bindLabel="name"
+                      formControlName="state" placeholder="Select state"></ng-select>
                   </div>
                 </div>
               </div>
+              <ng-container *ngIf="role.value != 'rto'">
+                <hr>
+                <h5 class="text-grey-dark font-weight-bold mb-3">Company information</h5>
+                <div class="container-fluid">
+                  <div class="row" *ngIf="role.value == 'distributor' || role.value == 'dealer'">
+                    <div class="col-lg-6">
+                      <mat-form-field class="w-100">
+                        <input matInput placeholder="GSTN" maxlength="15" formControlName="gstn">
+                        <mat-hint align="end">{{gstn.value ? gstn.value.length : '0'}} / 15</mat-hint>
+                        <mat-error *ngIf="(gstn.hasError('minlength') || gstn.hasError('pattern')) && !gstn.hasError('required')">Please
+                          enter a valid GSTN</mat-error>
+                        <mat-error *ngIf="gstn.hasError('required')">GSTN is <strong>required</strong></mat-error>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div class="row" *ngIf="role.value != 'distributor' && role.value != 'dealer'">
+                    <div class="col-sm-6">
+                      <mat-form-field class="w-100">
+                        <input matInput placeholder="Base salary" type="number" formControlName="base_salary">
+                      </mat-form-field>
+                    </div>
+                    <div class="col-sm-6">
+                      <mat-form-field class="w-100">
+                        <input matInput placeholder="HRA" type="number" formControlName="hra">
+                      </mat-form-field>
+                    </div>
+                    <div class="col-sm-4">
+                      <mat-form-field class="w-100">
+                        <input matInput placeholder="Transport allowance" type="number" formControlName="transport_allowance">
+                      </mat-form-field>
+                    </div>
+                    <div class="col-sm-4">
+                      <mat-form-field class="w-100">
+                        <input matInput placeholder="GPF" type="number" formControlName="gpf">
+                      </mat-form-field>
+                    </div>
+                    <div class="col-sm-4" *ngIf="checkEsic()">
+                      <mat-form-field class="w-100">
+                        <input matInput placeholder="ESIC" type="number" formControlName="esic">
+                      </mat-form-field>
+                    </div>
+                  </div>
+                </div>
+              </ng-container>
             </ng-container>
             <ng-container *ngIf="addUser">
               <hr>
@@ -153,7 +159,8 @@
                 </div>
               </div>
             </ng-container>
-            <button class="btn btn-orange text-light btn-save mt-4" [disabled]="userForm.invalid || userForm.pristine" (click)="saveChanges()">Save</button>
+            <button class="btn btn-orange text-light btn-save mt-4" [disabled]="userForm.invalid || userForm.pristine"
+              (click)="saveChanges()">Save</button>
           </form>
         </div>
       </div>

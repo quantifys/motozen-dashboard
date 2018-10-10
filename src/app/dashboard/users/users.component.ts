@@ -29,9 +29,9 @@ export class UsersComponent implements OnInit, OnDestroy {
     this.userSubscription$ = this._store.select(fromRoot.getLoggedUser).subscribe(user => {
       this.loggedUser = user;
       if (user.role) {
-        if (user.role == 'manufacturer' || user.role == 'sales' || user.role == 'human_resource' || user.role == 'admin') {
+        if (user.role == 'manufacturer' || user.role == 'sales' || user.role == 'human_resource' || user.role == 'admin' || user.role == 'rto') {
           let newParams: any = {};
-          if (user.role == 'sales') {
+          if (user.role == 'sales' || user.role == 'rto') {
             (!this._activatedRoute.snapshot.queryParams["role"]) ? newParams["role"] = 'distributor' : null
             newParams["group"] = null;
           } else if (user.role == 'human_resource') {

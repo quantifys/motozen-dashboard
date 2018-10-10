@@ -35,7 +35,7 @@ export const ROUTES: RouteInfo[] = [
     title: 'Users',
     type: 'link',
     icontype: 'fa-users',
-    users: ['manufacturer', 'sales', 'human_resource', 'admin']
+    users: ['manufacturer', 'sales', 'human_resource', 'rto', 'admin']
   },
   {
     path: 'devices',
@@ -63,7 +63,7 @@ export const ROUTES: RouteInfo[] = [
     title: 'Certificates',
     type: 'link',
     icontype: 'fa-certificate',
-    users: ['manufacturer', 'distributor', 'dealer', 'sales', 'admin']
+    users: ['manufacturer', 'distributor', 'dealer', 'sales', 'rto', 'admin']
   },
   {
     path: 'vendors',
