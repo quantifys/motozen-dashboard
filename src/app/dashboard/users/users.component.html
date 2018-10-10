@@ -33,13 +33,17 @@
           [active]="customers.isActive">
           <strong>Customers</strong>
         </a>
+        <a mat-tab-link routerLink="../" *ngIf="loggedUser.role == 'manufacturer'" [queryParams]="getQueryParams('rto')"
+          routerLinkActive #rto="routerLinkActive" [active]="rto.isActive">
+          <strong>RTO</strong>
+        </a>
         <a mat-tab-link routerLink="../" *ngIf="loggedUser.role == 'manufacturer'" [queryParams]="getQueryParams('manufacturer')"
           routerLinkActive #manufacturer="routerLinkActive" [active]="manufacturer.isActive">
           <strong>Manufacturers</strong>
         </a>
-        <a *ngIf="loggedUser.role == 'admin' || loggedUser.role == 'manufacturer'" mat-tab-link routerLink="../" [queryParams]="getQueryParams('admin')"
-          routerLinkActive #admin="routerLinkActive" [active]="admin.isActive">
-          <strong>Administrators</strong>
+        <a *ngIf="loggedUser.role == 'admin' || loggedUser.role == 'manufacturer'" mat-tab-link routerLink="../"
+          [queryParams]="getQueryParams('admin')" routerLinkActive #admin="routerLinkActive" [active]="admin.isActive">
+          <strong>Admins</strong>
         </a>
       </ng-container>
       <ng-container *ngIf="loggedUser.role == 'sales' || loggedUser.role == 'rto'">

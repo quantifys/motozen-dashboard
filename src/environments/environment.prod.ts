@@ -3,7 +3,7 @@ export const environment = {
   token_auth_config: {
     apiBase: "https://api.gemeniindia.com",
     signInRedirect: "login",
-    signOutFailedValidate: false
+    signOutFailedValidate: true
   },
   VERSION: require('../../package.json').version
 };
