@@ -7,7 +7,7 @@ export const environment = {
   token_auth_config: {
     apiBase: "http://localhost:3000",
     signInRedirect: "login",
-    signOutFailedValidate: true
+    signOutFailedValidate: false
   },
   VERSION: require('../../package.json').version
 };

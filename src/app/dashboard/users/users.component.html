@@ -3,7 +3,7 @@
     <div class="col-sm-12 col-lg-6">
       <h4 class="text-grey-dark m-0">User Management</h4>
     </div>
-    <div class="col-sm-12 col-lg-6 controls">
+    <div class="col-sm-12 col-lg-6 controls" *ngIf="loggedUser.role != 'rto'">
       <a class="btn btn-orange text-light" routerLink="edit" [queryParams]="{type: 'new'}"><i class="fas fa-user-plus mr-2"></i>New
         User
       </a>
@@ -42,7 +42,7 @@
           <strong>Administrators</strong>
         </a>
       </ng-container>
-      <ng-container *ngIf="loggedUser.role == 'sales'">
+      <ng-container *ngIf="loggedUser.role == 'sales' || loggedUser.role == 'rto'">
         <a mat-tab-link routerLink="../" [queryParams]="getQueryParams('distributor')" routerLinkActive #distributor="routerLinkActive"
           [active]="distributor.isActive">
           <strong>Distributor</strong>

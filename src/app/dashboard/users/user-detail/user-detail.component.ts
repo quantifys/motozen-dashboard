@@ -6,7 +6,7 @@ import { Store } from '@ngrx/store';
 
 import * as fromRoot from '../../../shared/reducers';
 import * as userActions from '../../../shared/actions/user.actions';
-import { UserStats, PieChartConfig } from '../../../shared/models';
+import { UserStats, PieChartConfig, User } from '../../../shared/models';
 import { UserDeleteComponent, UserChangePasswordComponent } from '../user-control/user-control.component';
 import { Subscription } from 'rxjs';
 
@@ -17,6 +17,7 @@ import { Subscription } from 'rxjs';
 })
 export class UserDetailComponent implements OnDestroy{
 
+  public loggedUser: User = new User({});
   public userStats: UserStats = new UserStats({});
   public statSubscription$: Subscription = new Subscription();
   public deviceChartData: any[];
@@ -32,6 +33,7 @@ export class UserDetailComponent implements OnDestroy{
     private _store: Store<fromRoot.State>,
     private bottomSheet: MatBottomSheet
   ) {
+    this._store.select(fromRoot.getLoggedUser).subscribe(user => this.loggedUser = user);
     this.pieChartConfig = new PieChartConfig({
       is3D: true,
       legend: {

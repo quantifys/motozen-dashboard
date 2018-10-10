@@ -50,6 +50,10 @@ export class UserEditComponent implements OnInit {
       value: "human_resource"
     },
     {
+      display: "RTO (Regional Transport Office)",
+      value: "rto"
+    },
+    {
       display: "Administrator",
       value: "admin"
     },
@@ -103,6 +107,10 @@ export class UserEditComponent implements OnInit {
     this._store.select(fromRoot.getCurrentUserStats).subscribe(stats => {
       if (!this.addUser) {
         this.userForm.patchValue(stats.user);
+        if (this.role.value == 'distributor' || this.role.value == 'rto') {
+          this.state.patchValue(stats.user.details.state, { emitEvent: false });
+          this.state_code.patchValue(stats.user.details.state_code, { emitEvent: false });
+        }
       }
     });
   }
@@ -276,7 +284,7 @@ export class UserEditComponent implements OnInit {
       }
     });
     this.state.valueChanges.subscribe(state => {
-      if (this.role.value == 'distributor' && state) {
+      if ((this.role.value == 'distributor' || this.role.value == 'rto') && state) {
         this.state.patchValue(state.name, { emitEvent: false });
         this.state_code.patchValue(state.code, { emitEvent: false });
       }
@@ -305,6 +313,9 @@ export class UserEditComponent implements OnInit {
     }
     let detailControls: string[] = ["address", "address_l1", "address_l2", "locality", "city", "state", "pincode", "gstn", "state_code"];
     let employeeControls: string[] = ["base_salary", "hra", "transport_allowance", "gpf", "esic"];
+    if (this.role.value == 'rto') {
+      detailControls = detailControls.filter(data => data != 'state' && data != 'state_code');
+    }
     detailControls.map(control => {
       if (this.role.value != 'distributor' && this.role.value != 'dealer') {
         this.details.get(control).disable();
@@ -313,7 +324,7 @@ export class UserEditComponent implements OnInit {
       }
     });
     employeeControls.map(control => {
-      if (this.role.value != 'distributor' && this.role.value != 'dealer') {
+      if (this.role.value != 'distributor' && this.role.value != 'dealer' && this.role.value != 'rto') {
         this.details.get(control).enable();
       } else {
         this.details.get(control).disable();
