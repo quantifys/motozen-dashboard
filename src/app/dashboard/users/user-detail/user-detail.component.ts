@@ -3,12 +3,12 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Location } from '@angular/common';
 import { MatBottomSheet } from '@angular/material';
 import { Store } from '@ngrx/store';
+import { Subscription } from 'rxjs';
 
 import * as fromRoot from '../../../shared/reducers';
 import * as userActions from '../../../shared/actions/user.actions';
 import { UserStats, PieChartConfig, User } from '../../../shared/models';
 import { UserDeleteComponent, UserChangePasswordComponent } from '../user-control/user-control.component';
-import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-user-detail',
