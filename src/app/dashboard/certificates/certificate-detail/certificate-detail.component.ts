@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Location } from '@angular/common';
 import { MatBottomSheet } from '@angular/material';
 import { Store } from '@ngrx/store';
+import { IAlbum, Lightbox } from 'ngx-lightbox';
 
 import * as fromRoot from '../../../shared/reducers';
 import * as certificateActions from '../../../shared/actions/certificate.actions';
@@ -26,7 +27,8 @@ export class CertificateDetailComponent implements OnInit {
     public _location: Location,
     private _store: Store<fromRoot.State>,
     private bottomSheet: MatBottomSheet,
-    private _certificateService: CertificateService
+    private _certificateService: CertificateService,
+    private _lightbox: Lightbox
   ) {
     this._activatedRoute.queryParams.subscribe(params => {
       if (params["id"]) {
@@ -52,6 +54,16 @@ export class CertificateDetailComponent implements OnInit {
 
   certificateAction(type: boolean) {
     this._certificateService.certificateActions(type);
+  }
+
+  openImage() {
+    let album: IAlbum[] = [];
+    let image: IAlbum = {
+      src: this.certificate.picture_data.getPicUrl(),
+      thumb: null
+    }
+    album.push(image);
+    this._lightbox.open(album, 0);
   }
 
 }

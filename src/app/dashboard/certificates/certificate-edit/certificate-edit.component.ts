@@ -9,7 +9,6 @@ import moment from 'moment';
 
 import * as fromRoot from "../../../shared/reducers";
 import * as certificateActions from "../../../shared/actions/certificate.actions";
-import * as deviceActions from "../../../shared/actions/device.actions";
 import { Device, Rto, User, Certificate, Vehicle } from '../../../shared/models';
 import { RtoService } from '../../../shared/services/rto.service';
 
@@ -90,6 +89,10 @@ export class CertificateEditComponent implements OnInit, OnDestroy {
       this.loggedUser = user;
       this.rto = this._rtoService.getRto(user.details.state);
       this.location_state.patchValue(user.details.state, { emitEvent: false });
+      if (this.loggedUser.details.state = "Delhi") {
+        this.picture_data.setValidators(Validators.required);
+        this.picture_data.updateValueAndValidity();
+      }
     });
   }
 
@@ -121,7 +124,8 @@ export class CertificateEditComponent implements OnInit, OnDestroy {
       location_rto: [null, Validators.required],
       location_state: [null, Validators.required],
       mfg_month_year: [null, Validators.required],
-      reg_month_year: [null, Validators.required]
+      reg_month_year: [null, Validators.required],
+      picture_data: [null]
     });
   }
 
@@ -177,6 +181,10 @@ export class CertificateEditComponent implements OnInit, OnDestroy {
     return this.certificateForm.get('location_state') as FormControl;
   }
 
+  get picture_data(): FormControl {
+    return this.certificateForm.get('picture_data') as FormControl;
+  }
+
   loadFormdata(id?: number) {
     this._store.dispatch(new certificateActions.FetchCertificateFormdataAction(id));
     this._store.select(fromRoot.getCertificateFormdata).subscribe(data => {
@@ -199,11 +207,13 @@ export class CertificateEditComponent implements OnInit, OnDestroy {
       if (this.vehicle_make.value) {
         this.models = [];
         this.variants = [];
-        this.formdata.vehicle_makes[this.vehicle_make.value].map(vehicle => {
-          if (!this.models.includes(vehicle.model)) {
-            this.models.push(vehicle.model);
-          }
-        })
+        if (this.formdata.vehicle_makes[this.vehicle_make.value]) {
+          this.formdata.vehicle_makes[this.vehicle_make.value].map(vehicle => {
+            if (!this.models.includes(vehicle.model)) {
+              this.models.push(vehicle.model);
+            }
+          });
+        }
       }
       return this.models;
     }
@@ -213,7 +223,8 @@ export class CertificateEditComponent implements OnInit, OnDestroy {
   getVariants(): Vehicle[] {
     if (this.formdata) {
       if (this.vehicle_make.value) {
-        return this.formdata.vehicle_makes[this.vehicle_make.value].filter((vehicle: Vehicle) => vehicle.model == this.vehicle_model.value ? vehicle : null);
+        if (this.formdata.vehicle_makes[this.vehicle_make.value])
+          return this.formdata.vehicle_makes[this.vehicle_make.value].filter((vehicle: Vehicle) => vehicle.model == this.vehicle_model.value ? vehicle : null);
       }
     }
     return;
@@ -255,6 +266,17 @@ export class CertificateEditComponent implements OnInit, OnDestroy {
     this.customer_address.updateValueAndValidity();
   }
 
+  pictureLoaded(event) {
+    if (event.target.files && event.target.files[0]) {
+      var reader = new FileReader();
+      reader.onload = (e: any) => {
+        this.picture_data.patchValue(e.target.result);
+        this.picture_data.markAsDirty();
+      }
+      reader.readAsDataURL(event.target.files[0]);
+    }
+  }
+
   initializers() {
     this._store.select(fromRoot.getAllDevices).subscribe(devices => this.devices = devices);
   }
@@ -275,6 +297,9 @@ export class CertificateEditComponent implements OnInit, OnDestroy {
       delete formData['pincode'];
       this._store.dispatch(new certificateActions.CreateCertificateAction(formData));
     } else {
+      if (this.picture_data.pristine) {
+        delete formData["picture_data"];
+      }
       this._store.dispatch(new certificateActions.UpdateCertificateAction(formData));
     }
   }

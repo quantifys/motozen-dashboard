@@ -12,6 +12,7 @@ export * from './transaction.model';
 export * from './vendor.model';
 export * from './stats.model';
 export * from './chart.model';
+export * from './picture-data.model';
 
 export class PageData {
   public total: number;
@@ -53,15 +54,5 @@ export class State {
   constructor(data: any) {
     this.code = data.code ? data.code : null;
     this.name = data.name ? data.name : null;
-  }
-}
-
-export class IcatData {
-  public url: string;
-  public data: string;
-
-  constructor(data: any) {
-    this.url = data.url ? data.url : null;
-    this.data = data.data ? data.data : null;
   }
 }

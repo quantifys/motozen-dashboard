@@ -58,6 +58,10 @@
           <h6 class="ml-3">{{certificate.mfg_month_year | date: 'MMMM, yyyy'}}</h6>
           <h6 class="text-grey-dark">Registration month & year:</h6>
           <h6 class="ml-3">{{certificate.reg_month_year | date: 'fullDate'}}</h6>
+          <ng-container *ngIf="certificate.picture_data.url">
+            <h6 class="text-grey-dark">Vehicle photograph:</h6>
+            <img [src]="certificate.picture_data.getPicUrl()" class="img-fluid" (click)="openImage()">
+          </ng-container>
         </div>
       </div>
     </div>

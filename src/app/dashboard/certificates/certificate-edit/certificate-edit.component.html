@@ -10,10 +10,12 @@
       <form [formGroup]="certificateForm" autocomplete="off">
         <div class="card mt-5">
           <div class="card-body">
-            <h5 class="text-grey-dark font-weight-bold mb-2">Device details <span *ngIf="!addCertificate">for SLD No.: {{certificate.device.sld_number}}</span></h5>
+            <h5 class="text-grey-dark font-weight-bold mb-2">Device details <span *ngIf="!addCertificate">for SLD No.:
+                {{certificate.device.sld_number}}</span></h5>
             <div class="row">
               <div class="col-lg-4" *ngIf="addCertificate">
-                <ng-select [items]="devices" bindLabel="sld_number" bindValue="id" formControlName="device_id" placeholder="Select SLD number"></ng-select>
+                <ng-select [items]="devices" bindLabel="sld_number" bindValue="id" formControlName="device_id"
+                  placeholder="Select SLD number"></ng-select>
               </div>
               <ng-container *ngIf="device_id.valid">
                 <div class="col-lg-4 d-flex align-items-end">
@@ -93,7 +95,8 @@
                   <ng-select [items]="models" formControlName="vehicle_model" placeholder="Select vehicle model"></ng-select>
                 </div>
                 <div class="col-lg-4">
-                  <ng-select [items]="variants" bindLabel="variant" bindValue="id" formControlName="vehicle_id" placeholder="Select vehicle variant"></ng-select>
+                  <ng-select [items]="variants" bindLabel="variant" bindValue="id" formControlName="vehicle_id"
+                    placeholder="Select vehicle variant"></ng-select>
                 </div>
                 <div class="col-lg-4 d-flex align-items-end">
                   <mat-form-field class="w-100">
@@ -116,15 +119,22 @@
                     <mat-hint>AA 00 A 0000</mat-hint>
                   </mat-form-field>
                 </div>
+                <div class="col-lg-12" *ngIf="loggedUser.details.state == 'Delhi'">
+                  <p class="mb-1 mt-3 text-muted">Photograph of vehicle</p>
+                  <img [src]="certificate.picture_data.getPicUrl()" *ngIf="certificate.picture_data.url" class="img-fluid mb-2 rounded">
+                  <input type="file" placeholder="Car Registration No." (change)="pictureLoaded($event)">
+                </div>
               </div>
               <hr>
               <h5 class="text-grey-dark font-weight-bold mb-2">RTO details</h5>
               <div class="row">
                 <div class="col-lg-4">
-                  <ng-select [items]="rto" bindLabel="full_name" bindValue="full_name" formControlName="location_rto" placeholder="Select RTO office"></ng-select>
+                  <ng-select [items]="rto" bindLabel="full_name" bindValue="full_name" formControlName="location_rto"
+                    placeholder="Select RTO office"></ng-select>
                 </div>
                 <div class="col-lg-4 datepicker d-flex align-items-end">
-                  <month-picker class="w-100" label="MFG month & year" [min]="monthMin" [max]="monthMax" formControlName="mfg_month_year"></month-picker>
+                  <month-picker class="w-100" label="MFG month & year" [min]="monthMin" [max]="monthMax"
+                    formControlName="mfg_month_year"></month-picker>
                 </div>
                 <div class="col-lg-4 d-flex align-items-end">
                   <mat-form-field class="w-100">
@@ -135,7 +145,8 @@
                 </div>
               </div>
               <hr>
-              <button class="btn btn-orange text-light btn-save" [disabled]="certificateForm.invalid || certificateForm.pristine" (click)="saveChanges()">Save</button>
+              <button class="btn btn-orange text-light btn-save" [disabled]="certificateForm.invalid || certificateForm.pristine"
+                (click)="saveChanges()">Save</button>
             </div>
           </div>
         </ng-container>
