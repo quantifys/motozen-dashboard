@@ -12,7 +12,6 @@ import * as pdfMake from 'pdfmake/build/pdfmake';
 
 import * as fromRoot from "../../shared/reducers";
 import { Certificate, User, PictureData } from './../models';
-import { environment } from '../../../environments/environment';
 
 const toast = (swal as any).mixin({
   toast: true,
@@ -801,22 +800,26 @@ export class CertificateService {
           50,
           0,
           0
-        ]
+        ],
+        "pageBreak": "after"
       }
     ];
   }
 
   printIcat(certificate: Certificate) {
     let icats = [];
-    certificate.vehicle.icats.map(icat => {
+    certificate.vehicle.icats.map((icat, indexIcat) => {
       icat.pages.map(page => {
         let base64 = this.icats_global.find(data => data.url == page.getPageUrl());
-        icats.push({
+        let x: any = {
           image: base64.data,
           fit: [595, 842],
-          margin: [-35, -30, 0, 0],
-          pageBreak: 'before'
-        });
+          margin: [-35, -30, 0, 0]
+        };
+        if (indexIcat > 0) {
+          x["pageBreak"] = "before";
+        }
+        icats.push(x);
       });
     });
     this.certificateDoc.content.push(icats);
