@@ -4,6 +4,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule, MatInputModule, MatDatepickerModule, MatNativeDateModule, MatTabsModule, MatPaginatorModule, MatButtonModule, MatBottomSheetModule, MatRadioModule, MatIconModule } from '@angular/material';
 import { NgSelectModule } from '@ng-select/ng-select';
+import { LightboxModule } from 'ngx-lightbox';
 
 import { CertificatesComponent } from './certificates.component';
 import { CertificateTableComponent } from './certificate-table/certificate-table.component';
@@ -52,6 +53,7 @@ const routes: Routes = [
     MatRadioModule,
     MatIconModule,
     NgSelectModule,
+    LightboxModule,
     RouterModule.forChild(routes)
   ],
   declarations: [CertificatesComponent, CertificateTableComponent, CertificateEditComponent, MonthPickerComponent, CertificateDetailComponent, CertificateFilterComponent, CertificateDeleteComponent, CertificateIssueComponent],

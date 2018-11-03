@@ -15,7 +15,11 @@ export class GoogleBarChartService extends GoogleChartsBaseService {
   public BuildBarChart(elementId: string, data: any[], config: any): void {
     var chartFunc = () => { return new google.charts.Bar(document.getElementById(elementId)); };
     this.buildChart(data, chartFunc, config);
-    $(window).resize(() => this.buildChart(data, chartFunc, config));
+    $(window).resize(() => {
+      if (document.getElementById(elementId)) {
+        this.buildChart(data, chartFunc, config)
+      }
+    });
   }
 
 }

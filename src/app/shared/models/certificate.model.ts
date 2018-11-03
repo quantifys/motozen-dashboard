@@ -2,6 +2,7 @@ import { Device } from "./device.model";
 import { Vehicle } from "./vehicle.model";
 import { User } from "./user.model";
 import * as moment from 'moment';
+import { PictureData } from "./picture-data.model";
 
 export class Certificate {
 	public id: number;
@@ -26,12 +27,13 @@ export class Certificate {
 	public user: User;
 	public mfg_month_year: Date;
 	public reg_month_year: Date;
+	public picture_data: PictureData;
 
 	constructor(data: any) {
 		this.id = data.id ? data.id : null;
 		this.certificate_number = data.certificate_number ? data.certificate_number : null;
 		this.date_generated = data.date_generated ? moment(data.date_generated, "YYYY-MM-DD").toDate() : null;
-		this.due_date = data.due_date ? moment(data.due_date, "YYYY-MM-DD").toDate() : null;
+		this.due_date = data.due_date ? moment(data.due_date).subtract(1, 'day').toDate() : null;
 		this.status = data.status ? data.status : null;
 		this.sld_number = data.sld_number ? data.sld_number : null;
 		this.device = data.device ? new Device(data.device) : new Device({});
@@ -46,6 +48,7 @@ export class Certificate {
 		this.location_state = data.location_state ? data.location_state : null;
 		this.location_rto = data.location_rto ? data.location_rto : null;
 		this.seals = data.seals ? data.seals : null;
+		this.picture_data = data.picture_data ? new PictureData(data.picture_data) : new PictureData({});
 		this.vehicle = data.vehicle ? new Vehicle(data.vehicle) : new Vehicle({});
 		this.user = data.user ? new User(data.user) : new User({});
 		this.mfg_month_year = data.mfg_month_year ? moment(data.mfg_month_year, 'YYYY-MM-DD').toDate() : new Date();
