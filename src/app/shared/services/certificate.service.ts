@@ -4,14 +4,13 @@ import { HttpClient } from '@angular/common/http';
 import { Observable, Observer } from 'rxjs';
 import { retry } from 'rxjs/operators';
 import { DatePipe } from '@angular/common';
-import moment from 'moment';
 import swal from 'sweetalert2';
 
 import * as pdfFonts from 'pdfmake/build/vfs_fonts';
 import * as pdfMake from 'pdfmake/build/pdfmake';
 
 import * as fromRoot from "../../shared/reducers";
-import { Certificate, User, PictureData } from './../models';
+import { Certificate, PictureData } from './../models';
 
 const toast = (swal as any).mixin({
   toast: true,
@@ -26,7 +25,6 @@ export class CertificateService {
   private certificate: Certificate = new Certificate({});
   public certificateDoc: any;
   private icats_global: PictureData[] = [];
-  private loggedUser: User = new User({});
   private picture_data: PictureData = new PictureData({});
 
   constructor(
@@ -36,7 +34,6 @@ export class CertificateService {
   ) {
     pdfMake.vfs = pdfFonts.pdfMake.vfs;
     this._store.select(fromRoot.getCurrentCertificate).subscribe(certificate => this.certificate = certificate);
-    this._store.select(fromRoot.getLoggedUser).subscribe(user => this.loggedUser = user);
   }
 
   createCertificate(certificate: Certificate): any {
@@ -93,7 +90,16 @@ export class CertificateService {
               }
             ],
             {
-              "text": ""
+              "columns": [
+                {
+
+                },
+                {
+                  image: this.picture_data.data,
+                  width: 100,
+                  "alignment": "right"
+                }
+              ]
             }
           ]
         },
@@ -175,8 +181,28 @@ export class CertificateService {
               ]
             },
             {
-              image: this.picture_data.data,
-              width: 200
+              "text": [
+                "Dealer Name: ",
+                {
+                  "text": certificate.user.name,
+                  "bold": true
+                },
+                "\nDealer Address:\n",
+                {
+                  "text": certificate.user.details.address,
+                  "bold": true
+                },
+                "\n\n\nCut-off speed: ",
+                {
+                  "text": certificate.cutoff_speed + "kmph",
+                  "bold": true
+                },
+                "\n\nDue date: ",
+                {
+                  "text": this._datePipe.transform(certificate.due_date, 'yyyy-MM-dd'),
+                  "bold": true
+                },
+              ]
             }
           ]
         },
@@ -726,7 +752,7 @@ export class CertificateService {
             "text": [
               "Dealer Name:\n",
               {
-                text: this.loggedUser.name,
+                text: certificate.user.name,
                 bold: true
               }
             ]
@@ -735,7 +761,7 @@ export class CertificateService {
             "text": [
               "Dealer Address:\n",
               {
-                text: this.loggedUser.details.address,
+                text: certificate.user.details.address,
                 bold: true
               }
             ]
@@ -837,7 +863,6 @@ export class CertificateService {
     let count: number = this.getCertficateIcatPageCount(this.certificate);
     let totalPageCount = count;
     if (this.certificate.vehicle.icats.length == 0) {
-      this.certificate.due_date = moment(this.certificate.due_date).subtract(1, 'day').toDate();
       this.createCertificate(this.certificate);
       type ? pdfMake.createPdf(this.certificateDoc).download(this.certificate.certificate_number + ".pdf") : pdfMake.createPdf(this.certificateDoc).print();
       toast({
@@ -867,7 +892,6 @@ export class CertificateService {
               toast.showLoading();
               this.icats_global.push(data);
               if (count == 1) {
-                this.certificate.due_date = moment(this.certificate.due_date).subtract(1, 'day').toDate();
                 this.createCertificate(this.certificate);
                 type ? pdfMake.createPdf(this.certificateDoc).download(this.certificate.certificate_number + ".pdf") : pdfMake.createPdf(this.certificateDoc).print();
                 toast({

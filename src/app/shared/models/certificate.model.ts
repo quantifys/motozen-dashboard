@@ -33,7 +33,7 @@ export class Certificate {
 		this.id = data.id ? data.id : null;
 		this.certificate_number = data.certificate_number ? data.certificate_number : null;
 		this.date_generated = data.date_generated ? moment(data.date_generated, "YYYY-MM-DD").toDate() : null;
-		this.due_date = data.due_date ? moment(data.due_date, "YYYY-MM-DD").toDate() : null;
+		this.due_date = data.due_date ? moment(data.due_date).subtract(1, 'day').toDate() : null;
 		this.status = data.status ? data.status : null;
 		this.sld_number = data.sld_number ? data.sld_number : null;
 		this.device = data.device ? new Device(data.device) : new Device({});

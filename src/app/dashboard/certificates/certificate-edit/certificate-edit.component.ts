@@ -89,7 +89,7 @@ export class CertificateEditComponent implements OnInit, OnDestroy {
       this.loggedUser = user;
       this.rto = this._rtoService.getRto(user.details.state);
       this.location_state.patchValue(user.details.state, { emitEvent: false });
-      if (this.loggedUser.details.state = "Delhi") {
+      if (this.loggedUser.details.state == "Delhi") {
         this.picture_data.setValidators(Validators.required);
         this.picture_data.updateValueAndValidity();
       }
