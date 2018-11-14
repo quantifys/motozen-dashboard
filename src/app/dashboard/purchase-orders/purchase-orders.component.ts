@@ -7,6 +7,7 @@ import { MatBottomSheet } from '@angular/material';
 import * as fromRoot from '../../shared/reducers';
 import { User } from '../../shared/models';
 import { PurchaseOrderFilterComponent } from './purchase-order-filter/purchase-order-filter.component';
+import { PurchaseOrderReportComponent } from './purchase-order-report/purchase-order-report.component';
 
 
 @Component({
@@ -76,6 +77,10 @@ export class PurchaseOrdersComponent implements OnInit, OnDestroy {
 
   openFilters() {
     this.bottomSheet.open(PurchaseOrderFilterComponent);
+  }
+
+  openReports() {
+    this.bottomSheet.open(PurchaseOrderReportComponent);
   }
 
 }

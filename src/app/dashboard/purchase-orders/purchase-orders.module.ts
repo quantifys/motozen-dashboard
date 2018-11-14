@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Routes, RouterModule } from '@angular/router';
-import { MatInputModule, MatFormFieldModule, MatDatepickerModule, MatNativeDateModule, MatSlideToggleModule, MatAutocompleteModule, MatButtonModule, MatTabsModule, MatPaginatorModule, MatBottomSheetModule, MatProgressSpinnerModule } from '@angular/material';
+import { MatInputModule, MatFormFieldModule, MatDatepickerModule, MatNativeDateModule, MatSlideToggleModule, MatAutocompleteModule, MatButtonModule, MatTabsModule, MatPaginatorModule, MatBottomSheetModule, MatProgressSpinnerModule, MatRadioModule } from '@angular/material';
 import { NgSelectModule } from '@ng-select/ng-select';
 
 import { PurchaseOrdersComponent } from './purchase-orders.component';
@@ -15,6 +15,7 @@ import { PurchaseOrderOpenComponent, PurchaseOrderDeleteComponent } from './purc
 import { PurchaseOrderConfirmComponent } from './purchase-order-confirm/purchase-order-confirm.component';
 import { PurchaseOrderDispatchComponent } from './purchase-order-dispatch/purchase-order-dispatch.component';
 import { PurchaseOrderCloseComponent } from './purchase-order-close/purchase-order-close.component';
+import { PurchaseOrderReportComponent } from './purchase-order-report/purchase-order-report.component';
 
 const routes: Routes = [
   {
@@ -63,10 +64,11 @@ const routes: Routes = [
     MatPaginatorModule,
     MatBottomSheetModule,
     MatProgressSpinnerModule,
+    MatRadioModule,
     NgSelectModule,
     RouterModule.forChild(routes)
   ],
-  declarations: [PurchaseOrdersComponent, PurchaseOrderTableComponent, PurchaseOrderDetailComponent, PurchaseOrderEditComponent, PurchaseOrderDeleteComponent, PurchaseOrderParticularComponent, PurchaseOrderFilterComponent, PurchaseOrderOpenComponent, PurchaseOrderConfirmComponent, PurchaseOrderDispatchComponent, PurchaseOrderCloseComponent],
-  entryComponents: [PurchaseOrderFilterComponent, PurchaseOrderDeleteComponent, PurchaseOrderOpenComponent, PurchaseOrderConfirmComponent, PurchaseOrderCloseComponent]
+  declarations: [PurchaseOrdersComponent, PurchaseOrderTableComponent, PurchaseOrderDetailComponent, PurchaseOrderEditComponent, PurchaseOrderDeleteComponent, PurchaseOrderParticularComponent, PurchaseOrderFilterComponent, PurchaseOrderOpenComponent, PurchaseOrderConfirmComponent, PurchaseOrderDispatchComponent, PurchaseOrderCloseComponent, PurchaseOrderReportComponent],
+  entryComponents: [PurchaseOrderFilterComponent, PurchaseOrderDeleteComponent, PurchaseOrderOpenComponent, PurchaseOrderConfirmComponent, PurchaseOrderCloseComponent, PurchaseOrderReportComponent]
 })
 export class PurchaseOrdersModule { }

@@ -14,6 +14,7 @@ import * as fromRequisitionOrder from "./requisition-order.reducer";
 import * as fromSalarySlip from "./salary-slip.reducer";
 import * as fromTransaction from "./transaction.reducer";
 import * as fromVendor from "./vendor.reducer";
+import * as fromReports from "./reports.reducer";
 
 export interface State {
   dashboard: fromDashboard.State;
@@ -30,6 +31,7 @@ export interface State {
   salarySlips: fromSalarySlip.State;
   transactions: fromTransaction.State;
   vendors: fromVendor.State;
+  reports: fromReports.State;
 }
 
 export const reducers: ActionReducerMap<State> = {
@@ -46,7 +48,8 @@ export const reducers: ActionReducerMap<State> = {
   requisitionOrders: fromRequisitionOrder.reducer,
   salarySlips: fromSalarySlip.reducer,
   transactions: fromTransaction.reducer,
-  vendors: fromVendor.reducer
+  vendors: fromVendor.reducer,
+  reports: fromReports.reducer
 };
 
 export const dashboard = (state: State) => state.dashboard;
@@ -128,3 +131,7 @@ export const getAllRequisitionOrders = createSelector(requisitionOrders, (state:
 export const getCurrentRequisitionOrder = createSelector(requisitionOrders, (state: fromRequisitionOrder.State) => state.currentRequisitionOrder);
 export const getRequisitionOrderFormdata = createSelector(requisitionOrders, (state: fromRequisitionOrder.State) => state.requisitionOrderFormData);
 export const getRequisitionOrderPageStatus = createSelector(requisitionOrders, (state: fromRequisitionOrder.State) => state.requisitionOrderPageStatus);
+
+export const reports = (state: State) => state.reports;
+export const getPOSummary = createSelector(reports, (state: fromReports.State) => state.poSummary);
+export const getDistributorsForSummary = createSelector(reports, (state: fromReports.State) => state.distributors);

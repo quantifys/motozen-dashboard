@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Angular5Csv } from 'angular5-csv/Angular5-csv';
+import { Subscription } from 'rxjs';
 
 import * as fromRoot from "../../shared/reducers";
 import { Certificate } from '../models';
@@ -12,15 +13,33 @@ export class CsvReportService {
 
   public certificates: Certificate[] = [];
 
+  public certificateSubscription: Subscription = new Subscription();
+  public poSummarySubscription: Subscription = new Subscription();
+
   constructor(
     private _store: Store<fromRoot.State>,
-  ) {
-    this._store.select(fromRoot.getReportCertificates).subscribe(certificates => {
+  ) { }
+
+  subscribeToCertificateReport() {
+    this.certificateSubscription = this._store.select(fromRoot.getReportCertificates).subscribe(certificates => {
       this.certificates = certificates;
       if (certificates.length > 0) {
         this.generateCertificateCsv();
       }
     });
+  }
+
+  subscribeToPOSummary() {
+    this.poSummarySubscription = this._store.select(fromRoot.getPOSummary).subscribe(summary => {
+      if (summary.length > 0) {
+        this.generatePOSummary(summary);
+      }
+    });
+  }
+
+  unsubscribe() {
+    this.certificateSubscription.unsubscribe();
+    this.poSummarySubscription.unsubscribe();
   }
 
   generateCertificateCsv() {
@@ -58,6 +77,14 @@ export class CsvReportService {
       csvData.push(data);
     });
     new Angular5Csv(csvData, 'certificate-report ' + new Date().toDateString(), options);
+  }
+
+  generatePOSummary(summary: any) {
+    let options = {
+      showLabels: true,
+      headers: summary[0]
+    };
+    new Angular5Csv(summary.filter((data, index) => index > 0), 'po-summary ' + new Date().toDateString(), options);
   }
 
 }
