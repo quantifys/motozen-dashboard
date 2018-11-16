@@ -77,8 +77,8 @@ export class PurchaseOrderReportComponent implements OnInit, OnDestroy {
 
   buildForm() {
     this.reportForm = this._fb.group({
-      start: null,
-      end: null,
+      start: [null, Validators.required],
+      end: [null, Validators.required],
       dist_id: null,
       state_code: null,
       interval: ['month', Validators.required]
@@ -108,8 +108,8 @@ export class PurchaseOrderReportComponent implements OnInit, OnDestroy {
   closeSheet() {
     let formData: any = {
       dist_id: this.dist_id.value,
-      start: moment(this.start.value).format('YYYY-MM-DD'),
-      end: moment(this.end.value).format('YYYY-MM-DD'),
+      start: this.start.value ? moment(this.start.value).format('YYYY-MM-DD') : null,
+      end: this.end.value ? moment(this.end.value).format('YYYY-MM-DD') : null,
       state_code: this.state_code.value,
       interval: this.interval.value
     };
