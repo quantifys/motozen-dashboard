@@ -36,4 +36,14 @@ export class ReportEffects {
       ))
   ));
 
+  @Effect()
+  fetchStockSummary$: Observable<Action> = this._action$.ofType(fromReports.FETCH_STOCK_SUMMARY_ACTION).pipe(
+    map((action: fromReports.FetchStockSummaryAction) => action.payload),
+    exhaustMap(body => this._tokenService.post(`reports/stock-summary`, body)
+      .pipe(
+        map(response => new fromReports.FetchStockSummaryCompleteAction(response.json().message),
+        catchError(error => of(new fromReports.FetchStockSummaryFailedAction(error.json().message)))
+      ))
+  ));
+
 }

@@ -15,6 +15,7 @@ export class CsvReportService {
 
   public certificateSubscription: Subscription = new Subscription();
   public poSummarySubscription: Subscription = new Subscription();
+  public stockSummarySubscription: Subscription = new Subscription();
 
   constructor(
     private _store: Store<fromRoot.State>,
@@ -32,7 +33,15 @@ export class CsvReportService {
   subscribeToPOSummary() {
     this.poSummarySubscription = this._store.select(fromRoot.getPOSummary).subscribe(summary => {
       if (summary.length > 0) {
-        this.generatePOSummary(summary);
+        this.generatePOSummary(summary, true);
+      }
+    });
+  }
+
+  subscribeToStockSummary() {
+    this.poSummarySubscription = this._store.select(fromRoot.getStockSummary).subscribe(summary => {
+      if (summary.length > 0) {
+        this.generatePOSummary(summary, false);
       }
     });
   }
@@ -40,6 +49,7 @@ export class CsvReportService {
   unsubscribe() {
     this.certificateSubscription.unsubscribe();
     this.poSummarySubscription.unsubscribe();
+    this.stockSummarySubscription.unsubscribe();
   }
 
   generateCertificateCsv() {
@@ -79,12 +89,12 @@ export class CsvReportService {
     new Angular5Csv(csvData, 'certificate-report ' + new Date().toDateString(), options);
   }
 
-  generatePOSummary(summary: any) {
+  generatePOSummary(summary: any, type: boolean) {
     let options = {
       showLabels: true,
       headers: summary[0]
     };
-    new Angular5Csv(summary.filter((data, index) => index > 0), 'po-summary ' + new Date().toDateString(), options);
+    new Angular5Csv(summary.filter((data, index) => index > 0), type ? 'po-summary ' : 'stock-summary' + new Date().toDateString(), options);
   }
 
 }
