@@ -12,10 +12,10 @@ import { Certificate } from '../models';
 export class CsvReportService {
 
   public certificates: Certificate[] = [];
-
   public certificateSubscription: Subscription = new Subscription();
   public poSummarySubscription: Subscription = new Subscription();
   public stockSummarySubscription: Subscription = new Subscription();
+  public poDetailsSubscription: Subscription = new Subscription();
 
   constructor(
     private _store: Store<fromRoot.State>,
@@ -38,6 +38,14 @@ export class CsvReportService {
     });
   }
 
+  subscribeToPODetails() {
+    this.poDetailsSubscription = this._store.select(fromRoot.getPODetails).subscribe(details => {
+      if (details.length > 0) {
+        this.generatePODetails(details);
+      }
+    });
+  }
+
   subscribeToStockSummary() {
     this.stockSummarySubscription = this._store.select(fromRoot.getStockSummary).subscribe(summary => {
       if (summary.length > 0) {
@@ -50,6 +58,42 @@ export class CsvReportService {
     this.certificateSubscription.unsubscribe();
     this.poSummarySubscription.unsubscribe();
     this.stockSummarySubscription.unsubscribe();
+    this.poDetailsSubscription.unsubscribe();
+  }
+
+  generatePODetails(details: any[]) {
+    let options = {
+      showLabels: true,
+      headers: [
+        "Sr. No.",
+        "Date",
+        "Serial No.",
+        "Distributor",
+        "State",
+        "GSTN",
+        "Total",
+        "Total Amount Paid",
+        "SLD Nos",
+        "Vehicles (quantity)"
+      ]
+    };
+    let csvData: any[] = [];
+    details.map((detail, index) => {
+      let data: any = {
+        srNo: index + 1,
+        date: detail.created_at,
+        serial_no: detail.serial_no,
+        distributor: detail.user.name,
+        state: detail.state,
+        gstn: detail.user.details.gstn,
+        total: detail.total_quantity,
+        amount_paid: detail.amount_paid,
+        sld: detail.devices.map(device => device.sld_number),
+        vehicles: detail.particulars.map(particular => particular.vehicle.make + " " + particular.vehicle.model + " " + particular.vehicle.variant + "(" + particular.quantity + ")"),
+      };
+      csvData.push(data);
+    });
+    new Angular5Csv(csvData, 'po-list-report ' + new Date().toDateString(), options);
   }
 
   generateCertificateCsv() {

@@ -134,5 +134,6 @@ export const getRequisitionOrderPageStatus = createSelector(requisitionOrders, (
 
 export const reports = (state: State) => state.reports;
 export const getPOSummary = createSelector(reports, (state: fromReports.State) => state.poSummary);
+export const getPODetails = createSelector(reports, (state: fromReports.State) => state.poDetails);
 export const getStockSummary = createSelector(reports, (state: fromReports.State) => state.stockSummary);
 export const getDistributorsForSummary = createSelector(reports, (state: fromReports.State) => state.distributors);

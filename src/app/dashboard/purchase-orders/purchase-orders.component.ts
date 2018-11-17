@@ -10,6 +10,7 @@ import { User } from '../../shared/models';
 import * as reportActions from '../../shared/actions/reports.actions';
 import { PurchaseOrderFilterComponent } from './purchase-order-filter/purchase-order-filter.component';
 import { PurchaseOrderReportComponent } from './purchase-order-report/purchase-order-report.component';
+import { CsvReportService } from 'src/app/shared/services/csv-report.service';
 
 
 @Component({
@@ -26,8 +27,10 @@ export class PurchaseOrdersComponent implements OnInit, OnDestroy {
     private _store: Store<fromRoot.State>,
     private _router: Router,
     private _activatedRoute: ActivatedRoute,
-    private bottomSheet: MatBottomSheet
+    private bottomSheet: MatBottomSheet,
+    private _csvService: CsvReportService
   ) {
+    this._store.dispatch(new reportActions.POSummaryClearAction);
     this.userSubscription$ = this._store.select(fromRoot.getLoggedUser).subscribe(user => {
       this.loggedUser = user;
       if (user.role) {
@@ -67,10 +70,12 @@ export class PurchaseOrdersComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    this._csvService.subscribeToPODetails();
   }
 
   ngOnDestroy() {
     this.userSubscription$.unsubscribe();
+    this._csvService.unsubscribe();
   }
 
   getQueryParams(type: string): any {

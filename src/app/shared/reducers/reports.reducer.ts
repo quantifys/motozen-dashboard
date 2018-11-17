@@ -3,12 +3,14 @@ import { User } from '../models';
 
 export interface State {
   poSummary: any[];
+  poDetails: any[];
   stockSummary: any[];
   distributors: User[]
 }
 
 const initialState: State = {
   poSummary: [],
+  poDetails: [],
   stockSummary: [],
   distributors: []
 };
@@ -36,6 +38,7 @@ export function reducer(state = initialState, action: reportActions.Actions): St
     case reportActions.PO_SUMMARY_CLEAR_ACTION:
       return Object.assign({}, state, {
         poSummary: [],
+        poDetails: [],
         stockSummary: [],
         distributors: []
       });
@@ -54,6 +57,11 @@ export function reducer(state = initialState, action: reportActions.Actions): St
     case reportActions.FETCH_STOCK_SUMMARY_COMPLETE_ACTION:
       return Object.assign({}, state, {
         stockSummary: [...action.payload["stock_summary"]]
+      });
+    case reportActions.FETCH_PO_DETAILS_REPORT_COMPLETE_ACTION:
+      console.log(action.payload);
+      return Object.assign({}, state, {
+        poDetails: [...action.payload]
       });
     default:
       return state;
