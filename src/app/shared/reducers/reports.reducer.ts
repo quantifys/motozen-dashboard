@@ -59,7 +59,6 @@ export function reducer(state = initialState, action: reportActions.Actions): St
         stockSummary: [...action.payload["stock_summary"]]
       });
     case reportActions.FETCH_PO_DETAILS_REPORT_COMPLETE_ACTION:
-      console.log(action.payload);
       return Object.assign({}, state, {
         poDetails: [...action.payload]
       });
