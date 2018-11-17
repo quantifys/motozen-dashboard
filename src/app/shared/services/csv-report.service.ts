@@ -88,7 +88,7 @@ export class CsvReportService {
         gstn: detail.user.details.gstn,
         total: detail.total_quantity,
         amount_paid: detail.amount_paid,
-        sld: detail.devices.map(device => device.sld_number),
+        sld: detail.devices.join(' '),
         vehicles: detail.particulars.map(particular => particular.vehicle.make + " " + particular.vehicle.model + " " + particular.vehicle.variant + "(" + particular.quantity + ")"),
       };
       csvData.push(data);
