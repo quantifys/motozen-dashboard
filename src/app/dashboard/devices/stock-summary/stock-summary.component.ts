@@ -55,7 +55,7 @@ export class StockSummaryComponent implements OnInit, OnDestroy {
   buildForm() {
     this.reportForm = this._fb.group({
       dist_id: null,
-      role: null,
+      role: 'distributor',
       state_code: null
     });
   }
@@ -82,6 +82,5 @@ export class StockSummaryComponent implements OnInit, OnDestroy {
     formData["state_code"] ? null : delete formData["state_code"]
     formData["role"] ? null : delete formData["role"]
     this._store.dispatch(new reportActions.FetchStockSummaryAction(formData));
-    this.bottomSheetRef.dismiss();
   }
 }

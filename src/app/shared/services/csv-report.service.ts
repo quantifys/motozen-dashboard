@@ -39,7 +39,7 @@ export class CsvReportService {
   }
 
   subscribeToStockSummary() {
-    this.poSummarySubscription = this._store.select(fromRoot.getStockSummary).subscribe(summary => {
+    this.stockSummarySubscription = this._store.select(fromRoot.getStockSummary).subscribe(summary => {
       if (summary.length > 0) {
         this.generatePOSummary(summary, false);
       }
