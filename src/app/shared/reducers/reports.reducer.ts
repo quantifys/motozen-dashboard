@@ -33,17 +33,23 @@ export function reducer(state = initialState, action: reportActions.Actions): St
         stockSummary: [],
         distributors: []
       });
+    case reportActions.PO_SUMMARY_CLEAR_ACTION:
+      return Object.assign({}, state, {
+        poSummary: [],
+        stockSummary: [],
+        distributors: []
+      });
     case reportActions.FETCH_PO_SUMMARY_MFG_FORM_DATA_COMPLETE_ACTION:
       return Object.assign({}, state, {
         distributors: [...action.payload.distributors.filter(user => new User(user))]
       });
     case reportActions.FETCH_STOCK_SUMMARY_ACTION:
       return Object.assign({}, state, {
-        poSummary: []
+        stockSummary: []
       });
     case reportActions.FETCH_STOCK_SUMMARY_FAILED_ACTION:
       return Object.assign({}, state, {
-        poSummary: []
+        stockSummary: []
       });
     case reportActions.FETCH_STOCK_SUMMARY_COMPLETE_ACTION:
       return Object.assign({}, state, {

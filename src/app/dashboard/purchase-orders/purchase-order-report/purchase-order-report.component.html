@@ -21,7 +21,7 @@
         <mat-datepicker #end></mat-datepicker>
       </mat-form-field>
     </div>
-    <ng-container *ngIf="loggedUser.role != 'distributor'">
+    <ng-container *ngIf="loggedUser.role == 'sales' || loggedUser.role == 'manufacturer'">
       <div class="col-sm-12 col-md-6">
         <ng-select [items]="users" bindLabel="email" bindValue="id" formControlName="dist_id" placeholder="Choose distributor"></ng-select>
       </div>

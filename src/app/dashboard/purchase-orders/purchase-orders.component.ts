@@ -3,9 +3,11 @@ import { Store } from '@ngrx/store';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { MatBottomSheet } from '@angular/material';
+import moment from 'moment';
 
 import * as fromRoot from '../../shared/reducers';
 import { User } from '../../shared/models';
+import * as reportActions from '../../shared/actions/reports.actions';
 import { PurchaseOrderFilterComponent } from './purchase-order-filter/purchase-order-filter.component';
 import { PurchaseOrderReportComponent } from './purchase-order-report/purchase-order-report.component';
 
@@ -81,6 +83,15 @@ export class PurchaseOrdersComponent implements OnInit, OnDestroy {
 
   openReports() {
     this.bottomSheet.open(PurchaseOrderReportComponent);
+  }
+
+  detailsReport() {
+    let data: any = this._activatedRoute.snapshot.queryParams;
+    data.start ? data.start : delete data["start"];
+    data.end ? data.end : delete data["end"];
+    data.user_id ? data.user_id : delete data["user_id"];
+    data.status ? data.status : delete data["status"];
+    this._store.dispatch(new reportActions.FetchPODetailsReportAction(data));
   }
 
 }

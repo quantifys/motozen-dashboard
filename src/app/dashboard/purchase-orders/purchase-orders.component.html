@@ -5,7 +5,8 @@
     </div>
     <div class="col-sm-12 col-lg-6 controls">
       <button mat-stroked-button color="warn" (click)="openFilters()">Add Filters</button>
-      <button mat-stroked-button class="ml-3" color="warn" (click)="openReports()">P.O. Reports</button>
+      <button mat-stroked-button class="ml-3" color="warn" (click)="openReports()" *ngIf="loggedUser.role == 'manufacturer' || loggedUser.role == 'sales' || loggedUser.role == 'distributor'">P.O. Reports</button>
+      <button mat-stroked-button class="ml-3" color="warn" *ngIf="loggedUser.role == 'manufacturer'" (click)="detailsReport()">P.O. List Report</button>
       <a class="btn btn-orange text-light ml-3" routerLink="edit" [queryParams]="{type: 'new'}" *ngIf="loggedUser.role == 'distributor'">
         <i class="far fa-credit-card mr-2"></i>Raise Purchase Order</a>
     </div>

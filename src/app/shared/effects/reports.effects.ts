@@ -46,4 +46,14 @@ export class ReportEffects {
       ))
   ));
 
+  @Effect()
+  fetchPODetailsReporty$: Observable<Action> = this._action$.ofType(fromReports.FETCH_PO_DETAILS_REPORT_ACTION).pipe(
+    map((action: fromReports.FetchPODetailsReportAction) => action.payload),
+    exhaustMap(body => this._tokenService.post(`purchase_orders/list/for-report`, body)
+      .pipe(
+        map(response => new fromReports.FetchPODetailsReportCompleteAction(response.json().message),
+        catchError(error => of(new fromReports.FetchPODetailsReportFailedAction(error.json().message)))
+      ))
+  ));
+
 }

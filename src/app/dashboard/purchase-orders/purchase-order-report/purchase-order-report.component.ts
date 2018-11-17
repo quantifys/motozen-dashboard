@@ -53,6 +53,8 @@ export class PurchaseOrderReportComponent implements OnInit, OnDestroy {
       this.loggedUser = user;
       if (user.role && user.role != 'distributor') {
         this._store.dispatch(new reportActions.FetchPOSummaryMFGFormDataAction);
+      } else {
+        this._store.dispatch(new reportActions.POSummaryClearAction);
       }
     });
     this.states = this._rtoService.getStates();
