@@ -398,7 +398,7 @@ export class CertificateService {
                 0,
                 50,
                 0,
-                5
+                0
               ]
             },
             {
@@ -823,7 +823,7 @@ export class CertificateService {
         ],
         "margin": [
           0,
-          50,
+          30,
           0,
           0
         ],
