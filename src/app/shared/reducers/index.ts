@@ -86,6 +86,7 @@ export const getCurrentCertificate = createSelector(certificates, (state: fromCe
 export const getCertificateFormdata = createSelector(certificates, (state: fromCertificate.State) => state.certificateFormdata);
 export const getCertificateFilterUsers = createSelector(certificates, (state: fromCertificate.State) => state.certificateFilterUsers);
 export const getCertificatePageStatus = createSelector(certificates, (state: fromCertificate.State) => state.certificatePageStatus);
+export const checkCertificateUnique = createSelector(certificates, (state: fromCertificate.State) => state.isUnique);
 
 export const expenses = (state: State) => state.expenses;
 export const getAllExpenses = createSelector(expenses, (state: fromExpense.State) => state.allExpenses);

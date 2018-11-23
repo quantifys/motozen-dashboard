@@ -48,6 +48,11 @@ export const FETCH_CERTIFICATE_CSV_REPORT_ACTION = '[Certificate] Fetch Certific
 export const FETCH_CERTIFICATE_CSV_REPORT_COMPLETE_ACTION = '[Certificate] Fetch Certificate CSV Report Complete Action';
 export const FETCH_CERTIFICATE_CSV_REPORT_FAILED_ACTION = '[Certificate] Fetch Certificate CSV Report Failed Action';
 
+export const CERTIFICATE_CHECK_UNIQUE_ACTION = '[Certificate] Certificate Check Unique Action';
+export const CERTIFICATE_CHECK_UNIQUE_COMPLETE_ACTION = '[Certificate] Certificate Check Unique Complete Action';
+export const CERTIFICATE_CHECK_UNIQUE_FAILED_ACTION = '[Certificate] Certificate Check Unique Failed Action';
+export const CERTIFICATE_EDITED_ACTION = '[Certificate] Certificate Edited Action';
+
 export const CLEAR_CERTIFICATE_DATA_ACTION = '[Certificate] Clear Certificate Data Action';
 
 export class FetchAllCertificatesAction implements Action {
@@ -350,6 +355,40 @@ export class FetchCertificateCSVReportFailedAction implements Action {
 	}
 }
 
+export class CertificateCheckUniqueAction implements Action {
+	readonly type = CERTIFICATE_CHECK_UNIQUE_ACTION;
+	constructor(public payload: any) {
+		toast({
+			title: 'Verifying data...'
+		});
+		toast.showLoading();
+	}
+}
+
+export class CertificateCheckUniqueCompleteAction implements Action {
+	readonly type = CERTIFICATE_CHECK_UNIQUE_COMPLETE_ACTION;
+	constructor(public payload: any) {
+		toast({
+			type: 'success',
+			title: 'Data verified!'
+		});
+	}
+}
+
+export class CertificateCheckUniqueFailedAction implements Action {
+	readonly type = CERTIFICATE_CHECK_UNIQUE_FAILED_ACTION;
+	constructor(public payload: any) {
+		toast({
+			type: 'error',
+			title: payload
+		});
+	}
+}
+
+export class CertificateEditedAction implements Action {
+	readonly type = CERTIFICATE_EDITED_ACTION;
+}
+
 export class ClearCertificateDataAction implements Action {
 	readonly type = CLEAR_CERTIFICATE_DATA_ACTION;
 }
@@ -385,4 +424,8 @@ export type Actions =
 	| FetchCertificateCSVReportAction
 	| FetchCertificateCSVReportCompleteAction
 	| FetchCertificateCSVReportFailedAction
+	| CertificateCheckUniqueAction
+	| CertificateCheckUniqueCompleteAction
+	| CertificateCheckUniqueFailedAction
+	| CertificateEditedAction
 	| ClearCertificateDataAction;

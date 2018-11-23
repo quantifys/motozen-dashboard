@@ -127,4 +127,14 @@ export class CertificateEffects {
       ))
   );
 
+  @Effect()
+  checkCertificateUnique$: Observable<Action> = this._action$.ofType(fromCertificate.CERTIFICATE_CHECK_UNIQUE_ACTION).pipe(
+    map((action: fromCertificate.CertificateCheckUniqueAction) => action.payload),
+    exhaustMap(body => this._tokenService.post("certificates/check-unique", body)
+      .pipe(
+        map(response => new fromCertificate.CertificateCheckUniqueCompleteAction(response.json().message)),
+        catchError(error => of(new fromCertificate.CertificateCheckUniqueFailedAction(error.json().message)))
+      ))
+  );
+
 }

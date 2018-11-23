@@ -46,8 +46,16 @@ export class CertificateEditComponent implements OnInit, OnDestroy {
   public monthMax: Date = new Date();
   public loggedUser: User = new User({});
   public certificate: Certificate;
-  public certificateSubscription$: Subscription;
+  public unique: boolean;
   public variants: Vehicle[] = [];
+  public certificateSubscription$: Subscription = new Subscription();
+  public routeSubscription$: Subscription = new Subscription();
+  public userSubscription$: Subscription = new Subscription();
+  public uniqeSubscription$: Subscription = new Subscription();
+  public formDataSubscription$: Subscription = new Subscription();
+  public makeSubscription$: Subscription = new Subscription();
+  public modelSubscription$: Subscription = new Subscription();
+  public deviceSubscription$: Subscription = new Subscription();
 
   constructor(
     private _store: Store<fromRoot.State>,
@@ -57,7 +65,7 @@ export class CertificateEditComponent implements OnInit, OnDestroy {
   ) {
     this._store.dispatch(new certificateActions.ClearCertificateDataAction);
     this.certificate = new Certificate({});
-    this._activatedRoute.queryParams.subscribe(params => {
+    this.routeSubscription$ = this._activatedRoute.queryParams.subscribe(params => {
       if (params["id"]) {
         this.addCertificate = false;
         this.loadFormdata(+params["id"]);
@@ -85,7 +93,7 @@ export class CertificateEditComponent implements OnInit, OnDestroy {
         certificate.car_reg_number == 'NEW' ? this.car_reg_number.patchValue("", { emitEvent: false }) : null
       }
     });
-    this._store.select(fromRoot.getLoggedUser).subscribe(user => {
+    this.userSubscription$ = this._store.select(fromRoot.getLoggedUser).subscribe(user => {
       this.loggedUser = user;
       this.rto = this._rtoService.getRto(user.details.state);
       this.location_state.patchValue(user.details.state, { emitEvent: false });
@@ -94,10 +102,22 @@ export class CertificateEditComponent implements OnInit, OnDestroy {
         this.picture_data.updateValueAndValidity();
       }
     });
+    this.uniqeSubscription$ = this._store.select(fromRoot.checkCertificateUnique).subscribe(unique => {
+      if (unique) {
+        this.saveChanges();
+      }
+    })
   }
 
   ngOnDestroy() {
     this.certificateSubscription$.unsubscribe();
+    this.routeSubscription$.unsubscribe();
+    this.userSubscription$.unsubscribe();
+    this.uniqeSubscription$.unsubscribe();
+    this.formDataSubscription$.unsubscribe();
+    this.makeSubscription$.unsubscribe();
+    this.modelSubscription$.unsubscribe();
+    this.deviceSubscription$.unsubscribe();
   }
 
   buildForm() {
@@ -161,6 +181,14 @@ export class CertificateEditComponent implements OnInit, OnDestroy {
     return this.certificateForm.get('pincode') as FormControl;
   }
 
+  get chassis_number(): FormControl {
+    return this.certificateForm.get('chassis_number') as FormControl;
+  }
+
+  get engine_number(): FormControl {
+    return this.certificateForm.get('engine_number') as FormControl;
+  }
+
   get car_reg_number(): FormControl {
     return this.certificateForm.get('car_reg_number') as FormControl;
   }
@@ -187,7 +215,7 @@ export class CertificateEditComponent implements OnInit, OnDestroy {
 
   loadFormdata(id?: number) {
     this._store.dispatch(new certificateActions.FetchCertificateFormdataAction(id));
-    this._store.select(fromRoot.getCertificateFormdata).subscribe(data => {
+    this.formDataSubscription$ = this._store.select(fromRoot.getCertificateFormdata).subscribe(data => {
       if (data) {
         let newFormData: any = {};
         this.devices = data.devices.filter(device => new Device(device));
@@ -231,12 +259,12 @@ export class CertificateEditComponent implements OnInit, OnDestroy {
   }
 
   formListener() {
-    this.vehicle_make.valueChanges.subscribe(value => {
+    this.makeSubscription$ = this.vehicle_make.valueChanges.subscribe(value => {
       this.vehicle_model.patchValue(null, { emitEvent: false });
       this.vehicle_id.patchValue(null, { emitEvent: false });
       this.getModels();
     });
-    this.vehicle_model.valueChanges.subscribe(value => {
+    this.modelSubscription$ = this.vehicle_model.valueChanges.subscribe(value => {
       this.variants = this.getVariants();
       this.vehicle_id.patchValue(null, { emitEvent: false });
     });
@@ -278,7 +306,7 @@ export class CertificateEditComponent implements OnInit, OnDestroy {
   }
 
   initializers() {
-    this._store.select(fromRoot.getAllDevices).subscribe(devices => this.devices = devices);
+    this.deviceSubscription$ = this._store.select(fromRoot.getAllDevices).subscribe(devices => this.devices = devices);
   }
 
   saveChanges() {
@@ -304,4 +332,14 @@ export class CertificateEditComponent implements OnInit, OnDestroy {
     }
   }
 
+  verify() {
+    let data: any = {};
+    ['car_reg_number', 'chassis_number', 'engine_number'].map(field => {
+      let control: FormControl = this.certificateForm.get(field) as FormControl;
+      if (control.dirty) {
+        data[field] = control.value;
+      }
+    });
+    this._store.dispatch(new certificateActions.CertificateCheckUniqueAction(data));
+  }
 }
