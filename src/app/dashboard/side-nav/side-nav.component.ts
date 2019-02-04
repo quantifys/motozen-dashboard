@@ -12,7 +12,7 @@ export interface RouteInfo {
   icontype: string;
   collapse?: string;
   children?: ChildrenItems[];
-  users: string[]
+  users: string[];
 }
 
 export interface ChildrenItems {
@@ -77,7 +77,7 @@ export const ROUTES: RouteInfo[] = [
     title: 'Purchase Orders',
     type: 'link',
     icontype: 'fa-credit-card',
-    users: ['manufacturer', 'distributor', 'store_purchases', 'accounts', 'store_dispatch', 'store_logistics', 'sales']
+    users: ['manufacturer', 'distributor', 'store_purchases', 'accounts', 'store_dispatch', 'store_logistics', 'sales', 'admin']
   },
   {
     path: 'receive-notes',
@@ -151,7 +151,7 @@ export class SideNavComponent implements OnInit {
     this.routes = [];
     ROUTES.filter(menuItem => {
       menuItem.users.map(user => {
-        if (user == this.loggedUser.role) {
+        if (user === this.loggedUser.role) {
           this.routes.push(menuItem);
         }
       });

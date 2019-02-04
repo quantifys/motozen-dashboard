@@ -5,7 +5,7 @@
     </div>
     <div class="col-sm-12 col-lg-6 controls">
       <button mat-stroked-button color="warn" *ngIf="loggedUser.role == 'manufacturer'" (click)="stockSummary()">Stock summary</button>
-      <a class="btn btn-orange text-light" routerLink="transfer" *ngIf="loggedUser.role == 'distributor'">
+      <a class="btn btn-orange text-light" routerLink="transfer" *ngIf="loggedUser.role == 'distributor' || loggedUser.role == 'dealer'">
         <i class="fas fa-desktop mr-2"></i>Transfer stock</a>
       <a class="btn btn-orange text-light" routerLink="edit" [queryParams]="{type: 'new'}" *ngIf="loggedUser.role == 'store_purchases'">
         <i class="fas fa-desktop mr-2"></i>Add Devices</a>

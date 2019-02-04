@@ -1,20 +1,20 @@
-import { ActionReducerMap, createSelector } from "@ngrx/store";
+import { ActionReducerMap, createSelector } from '@ngrx/store';
 
-import * as fromDashboard from "./dashboard.reducer";
-import * as fromUser from "./user.reducer";
-import * as fromDevice from "./device.reducer";
-import * as fromVehicle from "./vehicle.reducer";
-import * as fromInventory from "./inventory.reducer";
-import * as fromCertificate from "./certificate.reducer";
-import * as fromExpense from "./expense.reducer";
-import * as fromIncome from "./income.reducer";
-import * as fromPurchaseOrder from "./purchase-order.reducer";
-import * as fromReceiveNote from "./receive-note.reducer";
-import * as fromRequisitionOrder from "./requisition-order.reducer";
-import * as fromSalarySlip from "./salary-slip.reducer";
-import * as fromTransaction from "./transaction.reducer";
-import * as fromVendor from "./vendor.reducer";
-import * as fromReports from "./reports.reducer";
+import * as fromDashboard from './dashboard.reducer';
+import * as fromUser from './user.reducer';
+import * as fromDevice from './device.reducer';
+import * as fromVehicle from './vehicle.reducer';
+import * as fromInventory from './inventory.reducer';
+import * as fromCertificate from './certificate.reducer';
+import * as fromExpense from './expense.reducer';
+import * as fromIncome from './income.reducer';
+import * as fromPurchaseOrder from './purchase-order.reducer';
+import * as fromReceiveNote from './receive-note.reducer';
+import * as fromRequisitionOrder from './requisition-order.reducer';
+import * as fromSalarySlip from './salary-slip.reducer';
+import * as fromTransaction from './transaction.reducer';
+import * as fromVendor from './vendor.reducer';
+import * as fromReports from './reports.reducer';
 
 export interface State {
   dashboard: fromDashboard.State;
@@ -57,7 +57,7 @@ export const getDashboardCertificateGraphData = createSelector(dashboard, (state
 export const getDashboardCertificateTableData = createSelector(dashboard, (state: fromDashboard.State) => state.certificateTableData);
 
 export const users = (state: State) => state.users;
-export const getAllUsers = createSelector(users, (state: fromUser.State) => state.allUsers.filter(user => user.id != state.loggedUser.id));
+export const getAllUsers = createSelector(users, (state: fromUser.State) => state.allUsers.filter(user => user.id !== state.loggedUser.id));
 export const getLoggedUser = createSelector(users, (state: fromUser.State) => state.loggedUser);
 export const getCurrentUserStats = createSelector(users, (state: fromUser.State) => state.currentUserStats);
 export const getUserPageStatus = createSelector(users, (state: fromUser.State) => state.userPageStatus);
@@ -129,9 +129,12 @@ export const getReceiveNotePageStatus = createSelector(receiveNotes, (state: fro
 
 export const requisitionOrders = (state: State) => state.requisitionOrders;
 export const getAllRequisitionOrders = createSelector(requisitionOrders, (state: fromRequisitionOrder.State) => state.allRequisitionOrders);
-export const getCurrentRequisitionOrder = createSelector(requisitionOrders, (state: fromRequisitionOrder.State) => state.currentRequisitionOrder);
-export const getRequisitionOrderFormdata = createSelector(requisitionOrders, (state: fromRequisitionOrder.State) => state.requisitionOrderFormData);
-export const getRequisitionOrderPageStatus = createSelector(requisitionOrders, (state: fromRequisitionOrder.State) => state.requisitionOrderPageStatus);
+export const getCurrentRequisitionOrder = createSelector(
+  requisitionOrders, (state: fromRequisitionOrder.State) => state.currentRequisitionOrder);
+export const getRequisitionOrderFormdata = createSelector(
+  requisitionOrders, (state: fromRequisitionOrder.State) => state.requisitionOrderFormData);
+export const getRequisitionOrderPageStatus = createSelector(
+  requisitionOrders, (state: fromRequisitionOrder.State) => state.requisitionOrderPageStatus);
 
 export const reports = (state: State) => state.reports;
 export const getPOSummary = createSelector(reports, (state: fromReports.State) => state.poSummary);

@@ -12,6 +12,8 @@ import * as certificateActions from "../../../shared/actions/certificate.actions
 import { Device, Rto, User, Certificate, Vehicle } from '../../../shared/models';
 import { RtoService } from '../../../shared/services/rto.service';
 
+declare var $: any;
+
 export const MY_FORMATS = {
   parse: {
     dateInput: 'LL',
@@ -340,6 +342,10 @@ export class CertificateEditComponent implements OnInit, OnDestroy {
         data[field] = control.value;
       }
     });
-    this._store.dispatch(new certificateActions.CertificateCheckUniqueAction(data));
+    if ($.isEmptyObject(data)) {
+      this.saveChanges();
+    } else {
+      this._store.dispatch(new certificateActions.CertificateCheckUniqueAction(data));
+    }
   }
 }

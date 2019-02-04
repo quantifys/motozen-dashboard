@@ -216,8 +216,9 @@ form {
 }
 
 .card {
+  border-radius: 8px;
   border: none;
-  box-shadow: 5px 5px 25px 0 rgba(46, 61, 73, .2);
+  box-shadow: 0 10px 40px -10px rgba(0,64,128,.2);
 }
 
 // For month and year picker

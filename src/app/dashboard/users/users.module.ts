@@ -1,7 +1,17 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Routes, RouterModule } from '@angular/router';
-import { MatTabsModule, MatPaginatorModule, MatInputModule, MatFormFieldModule, MatIconModule, MatButtonModule, MatBottomSheetModule, MatCardModule } from '@angular/material';
+import {
+  MatTabsModule,
+  MatPaginatorModule,
+  MatInputModule,
+  MatFormFieldModule,
+  MatIconModule,
+  MatButtonModule,
+  MatBottomSheetModule,
+  MatCardModule,
+  MatProgressSpinnerModule
+} from '@angular/material';
 import { ReactiveFormsModule } from '@angular/forms';
 import { NgSelectModule } from '@ng-select/ng-select';
 
@@ -48,11 +58,14 @@ const routes: Routes = [
     MatButtonModule,
     MatBottomSheetModule,
     MatCardModule,
+    MatProgressSpinnerModule,
     NgSelectModule,
     ChartsModule,
     RouterModule.forChild(routes)
   ],
-  declarations: [UsersComponent, UserTableComponent, UserEditComponent, UserDetailComponent, UserDeleteComponent, UserChangePasswordComponent],
+  declarations: [
+    UsersComponent, UserTableComponent, UserEditComponent, UserDetailComponent, UserDeleteComponent, UserChangePasswordComponent
+  ],
   entryComponents: [UserDeleteComponent, UserChangePasswordComponent]
 })
 export class UsersModule { }
