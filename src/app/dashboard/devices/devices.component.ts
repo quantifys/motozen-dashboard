@@ -31,7 +31,7 @@ export class DevicesComponent implements OnInit, OnDestroy {
     this.userSubscription$ = this._store.select(fromRoot.getLoggedUser).subscribe(user => {
       this.loggedUser = user;
       if (user.role) {
-        if (user.role == 'distributor' || user.role == 'dealer' || user.role == 'manufacturer' || user.role == 'store_purchases') {
+        if (user.role == 'distributor' || user.role == 'dealer' || user.role == 'sub_dealer' || user.role == 'manufacturer' || user.role == 'store_purchases') {
           let newParams: any = {};
           if (!this._activatedRoute.snapshot.queryParams["status"]) {
             newParams["status"] = (user.role == 'manufacturer' || user.role == 'store_purchases') ? "unsold" : "sold";

@@ -24,7 +24,7 @@
     <ng-container *ngIf="(loggedUser.role == 'distributor' || loggedUser.role == 'store_purchases') && purchaseOrder.status == 'can_modify'">
       <a mat-stroked-button color="primary" routerLink="../edit" [queryParams]="{id: purchaseOrder.id}">Edit</a>
     </ng-container>
-    <ng-container *ngIf="(loggedUser.role == 'distributor' || loggedUser.role == 'admin') && purchaseOrder.status == 'can_modify'">
+    <ng-container *ngIf="(loggedUser.role == 'distributor' && purchaseOrder.status == 'can_modify') || (loggedUser.role == 'admin' && purchaseOrder.status != 'closed')">
       <button class="ml-2" mat-stroked-button color="warn" (click)="deletePurchaseOrder()">Delete</button>
     </ng-container>
   </div>

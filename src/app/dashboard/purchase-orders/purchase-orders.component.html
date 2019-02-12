@@ -15,7 +15,7 @@
   </div>
   <div class="content mt-4">
     <nav mat-tab-nav-bar color="warn">
-      <a *ngIf="loggedUser.role == 'store_purchases' || loggedUser.role == 'distributor' || loggedUser.role == 'manufacturer'"
+      <a *ngIf="loggedUser.role == 'store_purchases' || loggedUser.role == 'distributor' || loggedUser.role == 'manufacturer' || loggedUser.role == 'admin'"
         mat-tab-link routerLink="../" [queryParams]="getQueryParams('can_modify')" routerLinkActive #new="routerLinkActive"
         [active]="new.isActive">
         <strong>New</strong>
@@ -24,7 +24,7 @@
         [queryParams]="getQueryParams('opened')" routerLinkActive #opened="routerLinkActive" [active]="opened.isActive">
         <strong>Opened</strong>
       </a>
-      <a *ngIf="loggedUser.role == 'store_purchases' || loggedUser.role == 'store_dispatch' || loggedUser.role == 'manufacturer'"
+      <a *ngIf="loggedUser.role == 'store_purchases' || loggedUser.role == 'store_dispatch' || loggedUser.role == 'manufacturer' || loggedUser.role == 'admin'"
         mat-tab-link routerLink="../" [queryParams]="getQueryParams('processing')" routerLinkActive #processing="routerLinkActive"
         [active]="processing.isActive">
         <strong>Processing</strong>
