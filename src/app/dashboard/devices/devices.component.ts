@@ -4,9 +4,11 @@ import { debounce } from 'rxjs/operators';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, FormGroup, FormControl } from '@angular/forms';
 import { Store } from '@ngrx/store';
+import { MatBottomSheet } from '@angular/material';
 
 import * as fromRoot from '../../shared/reducers';
 import { User } from '../../shared/models';
+import { StockSummaryComponent } from './stock-summary/stock-summary.component';
 
 @Component({
   selector: 'app-devices',
@@ -23,12 +25,13 @@ export class DevicesComponent implements OnInit, OnDestroy {
     private _activatedRoute: ActivatedRoute,
     private _router: Router,
     private _store: Store<fromRoot.State>,
-    private _fb: FormBuilder
+    private _fb: FormBuilder,
+    private bottomSheet: MatBottomSheet
   ) {
     this.userSubscription$ = this._store.select(fromRoot.getLoggedUser).subscribe(user => {
       this.loggedUser = user;
       if (user.role) {
-        if (user.role == 'distributor' || user.role == 'dealer' || user.role == 'manufacturer' || user.role == 'store_purchases') {
+        if (user.role == 'distributor' || user.role == 'dealer' || user.role == 'sub_dealer' || user.role == 'manufacturer' || user.role == 'store_purchases') {
           let newParams: any = {};
           if (!this._activatedRoute.snapshot.queryParams["status"]) {
             newParams["status"] = (user.role == 'manufacturer' || user.role == 'store_purchases') ? "unsold" : "sold";
@@ -84,6 +87,10 @@ export class DevicesComponent implements OnInit, OnDestroy {
 
   getQueryParams(type: string): any {
     return { ...this._activatedRoute.snapshot.queryParams, status: type }
+  }
+
+  stockSummary() {
+    this.bottomSheet.open(StockSummaryComponent);
   }
 
 }

@@ -100,7 +100,7 @@ export class FetchDeviceFailedAction implements Action {
 
 export class CreateDeviceAction implements Action {
   readonly type = CREATE_DEVICE_ACTION;
-  constructor(public payload:any) {
+  constructor(public payload: any) {
     toast({
       title: 'Adding devices...'
     });
@@ -110,7 +110,7 @@ export class CreateDeviceAction implements Action {
 
 export class CreateDeviceCompleteAction implements Action {
   readonly type = CREATE_DEVICE_COMPLETE_ACTION;
-  constructor(public payload:any) {
+  constructor(public payload: any) {
     toast({
       type: 'success',
       title: 'Devices added!'
@@ -120,7 +120,7 @@ export class CreateDeviceCompleteAction implements Action {
 
 export class CreateDeviceFailedAction implements Action {
   readonly type = CREATE_DEVICE_FAILED_ACTION;
-  constructor(public payload:any) {
+  constructor(public payload: any) {
     toast({
       type: 'error',
       title: payload
@@ -190,7 +190,7 @@ export class DeleteDeviceFailedAction implements Action {
 
 export class TransferDevicesAction implements Action {
   readonly type = TRANSFER_DEVICE_ACTION;
-  constructor(public payload:any) {
+  constructor(public payload: any) {
     toast({
       title: 'Transferring devices...'
     });
@@ -200,7 +200,7 @@ export class TransferDevicesAction implements Action {
 
 export class TransferDevicesCompleteAction implements Action {
   readonly type = TRANSFER_DEVICE_COMPLETE_ACTION;
-  constructor(public payload:any) {
+  constructor(public payload: any) {
     toast({
       type: 'success',
       title: 'Devices transferred!'
@@ -210,7 +210,7 @@ export class TransferDevicesCompleteAction implements Action {
 
 export class TransferDevicesFailedAction implements Action {
   readonly type = TRANSFER_DEVICE_FAILED_ACTION;
-  constructor(public payload:any) {
+  constructor(public payload: any) {
     toast({
       type: 'error',
       title: payload

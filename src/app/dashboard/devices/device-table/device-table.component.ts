@@ -59,7 +59,12 @@ export class DeviceTableComponent implements OnInit, OnDestroy {
 
   fetchDevices() {
     this.loading = true;
-    this._store.dispatch(new deviceActions.FetchAllDevicesAction(this.queryParams));
+    let data: any = {};
+    Object.assign(data, this.queryParams);
+    data["order"] = {
+      sld_number: 'desc'
+    }
+    this._store.dispatch(new deviceActions.FetchAllDevicesAction(data));
   }
 
   getPage(pageEvent: PageEvent) {

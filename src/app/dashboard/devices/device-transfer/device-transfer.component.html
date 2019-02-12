@@ -10,7 +10,7 @@
         <div class="card-body">
           <h5 class="text-grey-dark font-weight-bold mb-3">Transfer Details</h5>
           <form [formGroup]="transferForm">
-            <ng-select id="user_id" [items]="users" bindLabel="name" bindValue="id" formControlName="user_id" placeholder="Select dealer"></ng-select>
+            <ng-select id="user_id" [items]="users" bindLabel="name" bindValue="id" formControlName="user_id" [placeholder]="'Select ' + (loggedUser.role == 'dealer' ? 'sub-dealer' : 'dealer')"></ng-select>
             <ng-select id="device_ids" [items]="devices" [hideSelected]="true" bindLabel="sld_number" bindValue="id" formControlName="device_ids" placeholder="Choose devices for transfer"
               [multiple]="true"></ng-select>
             <button class="btn btn-orange text-light btn-save" [disabled]="transferForm.invalid" (click)="saveChanges()">Save</button>

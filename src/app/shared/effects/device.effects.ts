@@ -54,8 +54,8 @@ export class DeviceEffects {
     exhaustMap(body => this._tokenService.post('devices', body)
       .pipe(
         map(response => {
-          this._router.navigate(["dashboard", "devices", "view"], { queryParams: { id: response.json().message.id } })
-          return new fromDevice.CreateDeviceCompleteAction(response.json().message)
+          this._router.navigate(['dashboard', 'devices', 'view'], { queryParams: { id: response.json().message.id } });
+          return new fromDevice.CreateDeviceCompleteAction(response.json().message);
         }),
         catchError(error => of(new fromDevice.CreateDeviceFailedAction(error.json().message)))
       ))
@@ -67,7 +67,7 @@ export class DeviceEffects {
     exhaustMap(() => this._tokenService.delete(`devices/${this.device.id}`)
       .pipe(
         map(() => {
-          this._router.navigate(["dashboard", "devices"]);
+          this._router.navigate(['dashboard', 'devices']);
           return new fromDevice.DeleteDeviceCompleteAction(this.device.id);
         }),
         catchError(error => of(new fromDevice.DeleteDeviceFailedAction(error.json().message)))
@@ -80,8 +80,8 @@ export class DeviceEffects {
     exhaustMap(body => this._tokenService.patch(`devices/${this.device.id}`, body)
       .pipe(
         map(response => {
-          this._router.navigate(["dashboard", "devices", "view"], { queryParams: { id: response.json().message.id } });
-          return new fromDevice.UpdateDeviceCompleteAction(response.json().message)
+          this._router.navigate(['dashboard', 'devices', 'view'], { queryParams: { id: response.json().message.id } });
+          return new fromDevice.UpdateDeviceCompleteAction(response.json().message);
         }),
         catchError(error => of(new fromDevice.UpdateDeviceFailedAction(error.json().message)))
       ))
@@ -93,7 +93,7 @@ export class DeviceEffects {
     exhaustMap(body => this._tokenService.post('devices/transfer', body)
       .pipe(
         map(() => {
-          this._router.navigate(["dashboard", "devices"]);
+          this._router.navigate(['dashboard', 'devices']);
           return new fromDevice.TransferDevicesCompleteAction(this.device.id);
         }),
         catchError(error => of(new fromDevice.TransferDevicesFailedAction(error.json().message)))

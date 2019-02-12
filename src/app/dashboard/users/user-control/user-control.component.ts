@@ -12,7 +12,7 @@ import { PasswordValidation } from '../../../shared/validators/password.validato
 })
 export class UserDeleteComponent {
 
-  public type: boolean = true;
+  public type = true;
 
   constructor(
     private _store: Store<fromRoot.State>,
@@ -35,7 +35,7 @@ export class UserDeleteComponent {
 })
 export class UserChangePasswordComponent implements OnInit {
 
-  public type: boolean = false;
+  public type = false;
   public passwordForm: FormGroup;
 
   constructor(
@@ -68,5 +68,4 @@ export class UserChangePasswordComponent implements OnInit {
   close() {
     this.bottomSheetRef.dismiss();
   }
-
 }

@@ -27,6 +27,7 @@ import { IncomeEffects } from './shared/effects/income.effects';
 import { ExpenseEffects } from './shared/effects/expense.effects';
 import { TransactionEffects } from './shared/effects/transaction.effects';
 import { VendorEffects } from './shared/effects/vendor.effects';
+import { ReportEffects } from './shared/effects/reports.effects';
 
 import { RtoService } from './shared/services/rto.service';
 import { CertificateService } from './shared/services/certificate.service';
@@ -60,7 +61,8 @@ import { CsvReportService } from './shared/services/csv-report.service';
       ExpenseEffects,
       TransactionEffects,
       SalarySlipEffects,
-      VendorEffects
+      VendorEffects,
+      ReportEffects
     ]),
     StoreDevtoolsModule.instrument({
       maxAge: 25, // Retains last 25 states

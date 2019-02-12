@@ -13,7 +13,12 @@ export class GoogleBarChartService extends GoogleChartsBaseService {
   constructor() { super(); }
 
   public BuildBarChart(elementId: string, data: any[], config: any): void {
-    var chartFunc = () => { return new google.charts.Bar(document.getElementById(elementId)); };
+    var chartFunc = () => {
+      if (document.getElementById(elementId)) {
+        return new google.charts.Bar(document.getElementById(elementId));
+      }
+      return null;
+    };
     this.buildChart(data, chartFunc, config);
     $(window).resize(() => {
       if (document.getElementById(elementId)) {
