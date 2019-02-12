@@ -9,6 +9,7 @@ export interface State {
   certificateFormdata: any;
   certificateFilterUsers: User[];
   certificatePageStatus: PageData;
+  isUnique: boolean;
 }
 
 const initialState: State = {
@@ -17,7 +18,8 @@ const initialState: State = {
   currentCertificate: new Certificate({}),
   certificateFormdata: null,
   certificateFilterUsers: [],
-  certificatePageStatus: new PageData({})
+  certificatePageStatus: new PageData({}),
+  isUnique: false
 };
 
 export function reducer(state = initialState, action: certificateActions.Actions): State {
@@ -67,7 +69,8 @@ export function reducer(state = initialState, action: certificateActions.Actions
       });
     case certificateActions.CLEAR_CERTIFICATE_DATA_ACTION:
       return Object.assign({}, state, {
-        currentCertificate: new Certificate({})
+        currentCertificate: new Certificate({}),
+        isUnique: false
       });
     case certificateActions.FETCH_CERTIFICATE_FILTER_FORMDATA_COMPLETE_ACTION:
       return Object.assign({}, state, {
@@ -84,6 +87,18 @@ export function reducer(state = initialState, action: certificateActions.Actions
     case certificateActions.FETCH_CERTIFICATE_CSV_REPORT_FAILED_ACTION:
       return Object.assign({}, state, {
         reportCertificates: []
+      });
+    case certificateActions.CERTIFICATE_CHECK_UNIQUE_ACTION:
+      return Object.assign({}, state, {
+        isUnique: false
+      });
+    case certificateActions.CERTIFICATE_CHECK_UNIQUE_COMPLETE_ACTION:
+      return Object.assign({}, state, {
+        isUnique: true
+      });
+    case certificateActions.CERTIFICATE_CHECK_UNIQUE_FAILED_ACTION:
+      return Object.assign({}, state, {
+        isUnique: false
       });
     default:
       return state;

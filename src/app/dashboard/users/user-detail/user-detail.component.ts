@@ -15,7 +15,7 @@ import { UserDeleteComponent, UserChangePasswordComponent } from '../user-contro
   templateUrl: './user-detail.component.html',
   styleUrls: ['./user-detail.component.scss']
 })
-export class UserDetailComponent implements OnDestroy{
+export class UserDetailComponent implements OnDestroy {
 
   public loggedUser: User = new User({});
   public userStats: UserStats = new UserStats({});
@@ -37,25 +37,25 @@ export class UserDetailComponent implements OnDestroy{
     this.pieChartConfig = new PieChartConfig({
       is3D: true,
       legend: {
-        position: "bottom"
+        position: 'bottom'
       }
     });
     this.barChartConfig = {
-      bars: "vertical",
+      bars: 'vertical',
       legend: {
-        position: "none"
+        position: 'none'
       }
     };
     this.statSubscription$ = this._store.select(fromRoot.getCurrentUserStats).subscribe(stats => {
       this.userStats = stats;
-      if (this.userStats.user.role == 'distributor' || this.userStats.user.role == 'dealer') {
+      if (this.userStats.user.role === 'distributor' || this.userStats.user.role === 'dealer') {
         this.deviceChartData = [
           ['Type', 'Devices'],
-          ["Certified", this.userStats.device_stats.certified_count],
-          ["In stock", this.userStats.device_stats.in_stock_count]
+          ['Certified', this.userStats.device_stats.certified_count],
+          ['In stock', this.userStats.device_stats.in_stock_count]
         ];
 
-        if (this.userStats.user.role == 'distributor') {
+        if (this.userStats.user.role === 'distributor') {
           this.poChartData = [['Months', 'Devices Purchased']];
           this.userStats.po_stats.purchase_graph.data.map(month => this.poChartData.push(month));
         }
@@ -64,10 +64,10 @@ export class UserDetailComponent implements OnDestroy{
       }
     });
     this._activatedRoute.queryParams.subscribe(params => {
-      if (params["id"]) {
-        this._store.dispatch(new userActions.FetchUserAction(params["id"]));
+      if (params['id']) {
+        this._store.dispatch(new userActions.FetchUserAction(params['id']));
       } else {
-        this._router.navigate(["dashboard", "users"]);
+        this._router.navigate(['dashboard', 'users']);
       }
     });
   }

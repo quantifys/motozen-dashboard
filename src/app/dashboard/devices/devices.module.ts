@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { DevicesComponent } from './devices.component';
 import { Routes, RouterModule } from '@angular/router';
 import { NgSelectModule } from '@ng-select/ng-select';
-import { MatTabsModule, MatPaginatorModule, MatIconModule, MatButtonModule, MatFormFieldModule, MatInputModule, MatBottomSheetModule } from '@angular/material';
+import { MatTabsModule, MatPaginatorModule, MatIconModule, MatButtonModule, MatFormFieldModule, MatInputModule, MatBottomSheetModule, MatRadioModule } from '@angular/material';
 import { ReactiveFormsModule } from '@angular/forms';
 
 import { DeviceTableComponent } from './device-table/device-table.component';
@@ -11,6 +11,7 @@ import { DeviceDetailComponent, DeviceDeleteComponent } from './device-detail/de
 import { DeviceEditComponent } from './device-edit/device-edit.component';
 import { SldComponent } from './device-edit/sld/sld.component';
 import { DeviceTransferComponent } from './device-transfer/device-transfer.component';
+import { StockSummaryComponent } from './stock-summary/stock-summary.component';
 
 const routes: Routes = [
   {
@@ -54,10 +55,11 @@ const routes: Routes = [
     MatInputModule,
     MatPaginatorModule,
     MatBottomSheetModule,
+    MatRadioModule,
     NgSelectModule,
     RouterModule.forChild(routes)
   ],
-  declarations: [DevicesComponent, DeviceTableComponent, DeviceEditComponent, DeviceDetailComponent, SldComponent, DeviceTransferComponent, DeviceDeleteComponent],
-  entryComponents: [DeviceDeleteComponent]
+  declarations: [DevicesComponent, DeviceTableComponent, DeviceEditComponent, DeviceDetailComponent, SldComponent, DeviceTransferComponent, DeviceDeleteComponent, StockSummaryComponent],
+  entryComponents: [DeviceDeleteComponent, StockSummaryComponent]
 })
 export class DevicesModule { }
