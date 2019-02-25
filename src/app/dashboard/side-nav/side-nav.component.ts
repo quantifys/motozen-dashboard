@@ -12,7 +12,7 @@ export interface RouteInfo {
   icontype: string;
   collapse?: string;
   children?: ChildrenItems[];
-  users: string[]
+  users: string[];
 }
 
 export interface ChildrenItems {
@@ -42,7 +42,7 @@ export const ROUTES: RouteInfo[] = [
     title: 'Devices',
     type: 'link',
     icontype: 'fa-desktop',
-    users: ['manufacturer', 'distributor', 'dealer', 'store_purchases']
+    users: ['manufacturer', 'distributor', 'dealer', 'sub_dealer', 'store_purchases']
   },
   {
     path: 'vehicles',
@@ -63,7 +63,7 @@ export const ROUTES: RouteInfo[] = [
     title: 'Certificates',
     type: 'link',
     icontype: 'fa-certificate',
-    users: ['manufacturer', 'distributor', 'dealer', 'sales', 'rto', 'admin']
+    users: ['manufacturer', 'distributor', 'dealer', 'sub_dealer', 'sales', 'rto', 'admin']
   },
   {
     path: 'vendors',
@@ -77,7 +77,7 @@ export const ROUTES: RouteInfo[] = [
     title: 'Purchase Orders',
     type: 'link',
     icontype: 'fa-credit-card',
-    users: ['manufacturer', 'distributor', 'store_purchases', 'accounts', 'store_dispatch', 'store_logistics', 'sales']
+    users: ['manufacturer', 'distributor', 'store_purchases', 'accounts', 'store_dispatch', 'store_logistics', 'sales', 'admin']
   },
   {
     path: 'receive-notes',
@@ -151,7 +151,7 @@ export class SideNavComponent implements OnInit {
     this.routes = [];
     ROUTES.filter(menuItem => {
       menuItem.users.map(user => {
-        if (user == this.loggedUser.role) {
+        if (user === this.loggedUser.role) {
           this.routes.push(menuItem);
         }
       });

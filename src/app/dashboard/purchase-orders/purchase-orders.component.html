@@ -5,13 +5,17 @@
     </div>
     <div class="col-sm-12 col-lg-6 controls">
       <button mat-stroked-button color="warn" (click)="openFilters()">Add Filters</button>
+      <ng-container *ngIf="loggedUser.role == 'manufacturer' || loggedUser.role == 'sales' || loggedUser.role == 'distributor'">
+        <button mat-stroked-button class="ml-3 mb-3" color="warn" (click)="openReports()">P.O. Reports</button>
+        <button mat-stroked-button class="ml-3 mb-3" color="warn" (click)="detailsReport()">P.O. List Report</button>
+      </ng-container>
       <a class="btn btn-orange text-light ml-3" routerLink="edit" [queryParams]="{type: 'new'}" *ngIf="loggedUser.role == 'distributor'">
         <i class="far fa-credit-card mr-2"></i>Raise Purchase Order</a>
     </div>
   </div>
   <div class="content mt-4">
     <nav mat-tab-nav-bar color="warn">
-      <a *ngIf="loggedUser.role == 'store_purchases' || loggedUser.role == 'distributor' || loggedUser.role == 'manufacturer'"
+      <a *ngIf="loggedUser.role == 'store_purchases' || loggedUser.role == 'distributor' || loggedUser.role == 'manufacturer' || loggedUser.role == 'admin'"
         mat-tab-link routerLink="../" [queryParams]="getQueryParams('can_modify')" routerLinkActive #new="routerLinkActive"
         [active]="new.isActive">
         <strong>New</strong>
@@ -20,7 +24,7 @@
         [queryParams]="getQueryParams('opened')" routerLinkActive #opened="routerLinkActive" [active]="opened.isActive">
         <strong>Opened</strong>
       </a>
-      <a *ngIf="loggedUser.role == 'store_purchases' || loggedUser.role == 'store_dispatch' || loggedUser.role == 'manufacturer'"
+      <a *ngIf="loggedUser.role == 'store_purchases' || loggedUser.role == 'store_dispatch' || loggedUser.role == 'manufacturer' || loggedUser.role == 'admin'"
         mat-tab-link routerLink="../" [queryParams]="getQueryParams('processing')" routerLinkActive #processing="routerLinkActive"
         [active]="processing.isActive">
         <strong>Processing</strong>

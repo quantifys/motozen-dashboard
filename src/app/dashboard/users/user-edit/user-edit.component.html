@@ -27,9 +27,9 @@
                   <ng-select id="role" [items]="roles" bindLabel="display" bindValue="value" formControlName="role"
                     placeholder="Select role"></ng-select>
                 </div>
-                <div class="col-lg-6" *ngIf="role.value == 'dealer'">
+                <div class="col-lg-6" *ngIf="role.value == 'dealer' || role.value == 'sub_dealer'">
                   <ng-select [items]="distributors" bindLabel="name" bindValue="id" formControlName="distributor_id"
-                    placeholder="Select distributor"></ng-select>
+                    [placeholder]="'Select ' + (role.value == 'dealer' ? 'distributor' : 'dealer')"></ng-select>
                 </div>
                 <ng-container formGroupName="details" *ngIf="role.value == 'rto'">
                   <div class="col-lg-6">
@@ -38,7 +38,8 @@
                 </ng-container>
               </div>
             </div>
-            <ng-container *ngIf="role.value != 'manufacturer' && role.value" formGroupName="details">
+            <mat-progress-spinner mode="indeterminate" *ngIf="loading"></mat-progress-spinner>
+            <ng-container *ngIf="role.value != 'manufacturer' && role.value && !loading" formGroupName="details">
               <hr>
               <h5 class="text-grey-dark font-weight-bold mb-3">Contact details</h5>
               <div class="container-fluid">
@@ -52,7 +53,7 @@
                     </mat-form-field>
                   </div>
                 </div>
-                <div class="row" *ngIf="role.value == 'distributor' || role.value == 'dealer'">
+                <div class="row" *ngIf="role.value == 'distributor' || role.value == 'dealer' || role.value == 'sub_dealer'">
                   <ng-container *ngIf="addUser">
                     <div class="col-lg-6">
                       <mat-form-field class="w-100">
@@ -87,7 +88,7 @@
                     </mat-form-field>
                   </div>
                   <div class="col-lg-4">
-                    <mat-form-field class="w-100" *ngIf="role.value == 'dealer'">
+                    <mat-form-field class="w-100" *ngIf="role.value == 'dealer' || role.value == 'sub_dealer'">
                       <input matInput placeholder="State" readonly formControlName="state">
                     </mat-form-field>
                     <ng-select *ngIf="role.value == 'distributor'" id="state" [items]="states" bindLabel="name"
@@ -99,7 +100,7 @@
                 <hr>
                 <h5 class="text-grey-dark font-weight-bold mb-3">Company information</h5>
                 <div class="container-fluid">
-                  <div class="row" *ngIf="role.value == 'distributor' || role.value == 'dealer'">
+                  <div class="row" *ngIf="role.value == 'distributor' || role.value == 'dealer' || role.value == 'sub_dealer'">
                     <div class="col-lg-6">
                       <mat-form-field class="w-100">
                         <input matInput placeholder="GSTN" maxlength="15" formControlName="gstn">
@@ -110,7 +111,7 @@
                       </mat-form-field>
                     </div>
                   </div>
-                  <div class="row" *ngIf="role.value != 'distributor' && role.value != 'dealer'">
+                  <div class="row" *ngIf="role.value != 'distributor' && role.value != 'dealer' && role.value != 'sub_dealer'">
                     <div class="col-sm-6">
                       <mat-form-field class="w-100">
                         <input matInput placeholder="Base salary" type="number" formControlName="base_salary">

@@ -31,11 +31,11 @@ export class UserEffects {
       .pipe(
         map(response => {
           this._router.navigate(['/dashboard']);
-          return new fromUser.LoginUserCompleteAction(response.json().data)
+          return new fromUser.LoginUserCompleteAction(response.json().data);
         }),
         catchError(error => {
-          let errMessage: any = error.json();
-          return of(new fromUser.LoginUserFailedAction(errMessage.errors ? errMessage.errors[0] : "Error connecting to the server."))
+          const errMessage: any = error.json();
+          return of(new fromUser.LoginUserFailedAction(errMessage.errors ? errMessage.errors[0] : 'Error connecting to the server.'));
         })
       ))
   );
@@ -47,7 +47,7 @@ export class UserEffects {
       .pipe(
         map(response => new fromUser.ValidateUserTokenCompleteAction(response.json().data)),
         catchError(error => {
-          let errMessage: any = error.json();
+          const errMessage: any = error.json();
           return of(new fromUser.ValidateUserTokenFailedAction(errMessage.type ? errMessage.type : errMessage));
         })
       ))
@@ -59,8 +59,8 @@ export class UserEffects {
     exhaustMap(() => this._tokenService.signOut()
       .pipe(
         map(response => {
-          this._router.navigate(["login"]);
-          return new fromUser.SignoutUserCompleteAction
+          this._router.navigate(['login']);
+          return new fromUser.SignoutUserCompleteAction;
         }),
         catchError(error => of(new fromUser.SignoutUserFailedAction(error.json())))
       ))
@@ -96,7 +96,7 @@ export class UserEffects {
     exhaustMap(userData => this._tokenService.post('users', userData)
       .pipe(
         map(response => {
-          this._router.navigate(["dashboard", "users", "view"], { queryParams: { id: response.json().message.id } });
+          this._router.navigate(['dashboard', 'users', 'view'], { queryParams: { id: response.json().message.id } });
           return new fromUser.CreateNewUserCompleteAction(response.json().message);
         }),
         catchError(error => of(new fromUser.CreateNewUserFailedAction(error.json().message)))
@@ -109,7 +109,7 @@ export class UserEffects {
     exhaustMap(() => this._tokenService.delete(`users/${this.user.id}`)
       .pipe(
         map(() => {
-          this._router.navigate(["dashboard", "users"]);
+          this._router.navigate(['dashboard', 'users']);
           return new fromUser.DeleteUserCompleteAction(this.user.id);
         }),
         catchError(error => of(new fromUser.DeleteUserFailedAction(error.json().message)))
@@ -123,11 +123,10 @@ export class UserEffects {
     exhaustMap(userData => this._tokenService.patch(`users/${this.user.id}`, userData)
       .pipe(
         map(response => {
-          this._router.navigate(["dashboard", "users", "view"], { queryParams: { id: response.json().message.id } });
+          this._router.navigate(['dashboard', 'users', 'view'], { queryParams: { id: response.json().message.id } });
           return new fromUser.UpdateUserCompleteAction(response.json().message);
         }),
         catchError(error => of(new fromUser.UpdateUserFailedAction(error.json().message)))
       ))
   );
-
 }

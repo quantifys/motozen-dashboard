@@ -338,7 +338,7 @@ export class CertificateService {
           [
             {
               "qr": "GEMENI ENTERPRISES GOA\nSLD_NUMBER: " + certificate.device.sld_number + "\nCERTIFICATE NUMBER: " + certificate.certificate_number + "\nDATE GENERATED: " + this._datePipe.transform(certificate.date_generated, 'yyyy-MM-dd') + "\nDUE DATE: " + this._datePipe.transform(certificate.due_date, 'yyyy-MM-dd') + "\nCHASSIS NUMBER: " + certificate.chassis_number + "\nENGINE NUMBER: " + certificate.engine_number + "\nCUSTOMER NAME: " + certificate.customer_name + "\nCAR REG NUMBER: " + certificate.car_reg_number + "\nTesting Report Number: " + certificate.vehicle.report_no,
-              "fit": 120
+              "fit": 140
             },
             {
               "text": "To,",
@@ -398,7 +398,7 @@ export class CertificateService {
                 0,
                 50,
                 0,
-                10
+                0
               ]
             },
             {
@@ -439,7 +439,7 @@ export class CertificateService {
           0,
           5,
           0,
-          2
+          0
         ]
       },
       {
@@ -768,7 +768,7 @@ export class CertificateService {
           }
         ],
         fontSize: 11,
-        margin: [0, 10, 0, 5]
+        margin: [0, 5, 0, 5]
       },
       {
         "canvas": [
@@ -823,7 +823,7 @@ export class CertificateService {
         ],
         "margin": [
           0,
-          50,
+          30,
           0,
           0
         ],

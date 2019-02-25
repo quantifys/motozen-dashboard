@@ -19,6 +19,10 @@ export class User {
     this.password_confirmation = data.password_confirmation ? data.password_confirmation : null;
     this.distributor_id = data.distributor_id ? data.distributor_id : null;
     this.details = data.details ? new UserDetails(data.details) : new UserDetails({});
+
+    if (this.role === 'sub_dealer') {
+      this.distributor_id = data.dealer_id ? data.dealer_id : null;
+    }
   }
 
   getRole(): string {
@@ -29,7 +33,7 @@ export class User {
   }
 
   hasEsic(): boolean {
-    return this.details.base_salary + this.details.transport_allowance + this.details.hra + this.details.gpf < 16000 ? true : false
+    return this.details.base_salary + this.details.transport_allowance + this.details.hra + this.details.gpf < 16000 ? true : false;
   }
 }
 

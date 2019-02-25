@@ -70,6 +70,7 @@ export class CertificatesComponent implements OnInit, OnDestroy {
         }
       }
     });
+    this._csvReportService.subscribeToCertificateReport();
   }
 
   ngOnInit() {
@@ -80,6 +81,7 @@ export class CertificatesComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.userSubscription$.unsubscribe();
+    this._csvReportService.unsubscribe();
   }
 
   buildForm() {
