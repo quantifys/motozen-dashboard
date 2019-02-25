@@ -16,7 +16,7 @@
       <div class="row">
         <div class="col-sm-10 offset-sm-2 col-md-8 offset-md-2 col-lg-6 offset-lg-3">
           <mat-form-field color="warn" class="w-100">
-            <input matInput [placeholder]="getSearchPlaceholder()" formControlName="search">
+            <input matInput #search [placeholder]="getSearchPlaceholder()" formControlName="search">
             <mat-icon color="warn" matSuffix>search</mat-icon>
           </mat-form-field>
         </div>

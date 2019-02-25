@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild, ElementRef } from '@angular/core';
 import { Subscription, timer } from 'rxjs';
 import { debounce } from 'rxjs/operators';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -18,6 +18,7 @@ export class DevicesComponent implements OnInit, OnDestroy {
   private userSubscription$: Subscription = new Subscription();
   public loggedUser: User = new User({});
   public searchForm: FormGroup;
+  @ViewChild('search') searchField: ElementRef;
 
   constructor(
     private _activatedRoute: ActivatedRoute,
@@ -28,23 +29,28 @@ export class DevicesComponent implements OnInit, OnDestroy {
     this.userSubscription$ = this._store.select(fromRoot.getLoggedUser).subscribe(user => {
       this.loggedUser = user;
       if (user.role) {
-        if (user.role == 'distributor' || user.role == 'dealer' || user.role == 'manufacturer' || user.role == 'store_purchases') {
-          let newParams: any = {};
-          if (!this._activatedRoute.snapshot.queryParams["status"]) {
-            newParams["status"] = (user.role == 'manufacturer' || user.role == 'store_purchases') ? "unsold" : "sold";
+        if (user.role
+          === 'distributor' || user.role
+          === 'dealer' || user.role
+          === 'sub_dealer' || user.role
+          === 'manufacturer' || user.role
+          === 'store_purchases') {
+          const newParams: any = {};
+          if (!this._activatedRoute.snapshot.queryParams['status']) {
+            newParams['status'] = (user.role === 'manufacturer' || user.role === 'store_purchases') ? 'unsold' : 'sold';
           }
-          if (!this._activatedRoute.snapshot.queryParams["page"]) {
-            newParams["page"] = 1;
+          if (!this._activatedRoute.snapshot.queryParams['page']) {
+            newParams['page'] = 1;
           }
-          if (!this._activatedRoute.snapshot.queryParams["per_page"]) {
-            newParams["per_page"] = 10;
+          if (!this._activatedRoute.snapshot.queryParams['per_page']) {
+            newParams['per_page'] = 10;
           }
-          if (this._activatedRoute.snapshot.queryParams["sld_number"]) {
-            this.search.patchValue(this._activatedRoute.snapshot.queryParams["sld_number"], { emitEvent: false });
+          if (this._activatedRoute.snapshot.queryParams['sld_number']) {
+            this.search.patchValue(this._activatedRoute.snapshot.queryParams['sld_number'], { emitEvent: false });
           }
-          this._router.navigate(["dashboard", "devices"], { queryParams: { ...this._activatedRoute.snapshot.queryParams, ...newParams } });
+          this._router.navigate(['dashboard', 'devices'], { queryParams: { ...this._activatedRoute.snapshot.queryParams, ...newParams } });
         } else {
-          this._router.navigate(["403-forbidden"]);
+          this._router.navigate(['403-forbidden']);
         }
       }
     });
@@ -53,6 +59,7 @@ export class DevicesComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.buildForm();
     this.formListener();
+    this._router.events.subscribe(events => this.searchField.nativeElement.focus());
   }
 
   ngOnDestroy() {
@@ -74,16 +81,16 @@ export class DevicesComponent implements OnInit, OnDestroy {
   }
 
   makeSearchRequest() {
-    this._router.navigate(["dashboard", "devices"], {
+    this._router.navigate(['dashboard', 'devices'], {
       queryParams: {
         ...this._activatedRoute.snapshot.queryParams,
-        sld_number: this.search.value != '' ? this.search.value : null
+        sld_number: this.search.value !== '' ? this.search.value : null
       }
     });
   }
 
   getQueryParams(type: string): any {
-    return { ...this._activatedRoute.snapshot.queryParams, status: type }
+    return { ...this._activatedRoute.snapshot.queryParams, status: type };
   }
 
 }
