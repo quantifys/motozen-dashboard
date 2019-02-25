@@ -32,7 +32,6 @@ export class DevicesComponent implements OnInit, OnDestroy {
     this.userSubscription$ = this._store.select(fromRoot.getLoggedUser).subscribe(user => {
       this.loggedUser = user;
       if (user.role) {
-<<<<<<< HEAD
         if (user.role
           === 'distributor' || user.role
           === 'dealer' || user.role
@@ -42,12 +41,6 @@ export class DevicesComponent implements OnInit, OnDestroy {
           const newParams: any = {};
           if (!this._activatedRoute.snapshot.queryParams['status']) {
             newParams['status'] = (user.role === 'manufacturer' || user.role === 'store_purchases') ? 'unsold' : 'sold';
-=======
-        if (user.role == 'distributor' || user.role == 'dealer' || user.role == 'sub_dealer' || user.role == 'manufacturer' || user.role == 'store_purchases') {
-          let newParams: any = {};
-          if (!this._activatedRoute.snapshot.queryParams["status"]) {
-            newParams["status"] = (user.role == 'manufacturer' || user.role == 'store_purchases') ? "unsold" : "sold";
->>>>>>> 1bf2742cfc65ea097a312f58433b269e34fa4c3c
           }
           if (!this._activatedRoute.snapshot.queryParams['page']) {
             newParams['page'] = 1;
