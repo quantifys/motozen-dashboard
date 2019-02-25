@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild, ElementRef } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, FormGroup, FormControl } from '@angular/forms';
 import { debounce } from 'rxjs/operators';
@@ -18,6 +18,7 @@ export class VehiclesComponent implements OnInit, OnDestroy {
   public loggedUser: User = new User({});
   public searchForm: FormGroup;
   private userSubscription$: Subscription = new Subscription();
+  @ViewChild('search') searchField: ElementRef;
 
   constructor(
     private _store: Store<fromRoot.State>,
@@ -28,20 +29,20 @@ export class VehiclesComponent implements OnInit, OnDestroy {
     this.userSubscription$ = this._store.select(fromRoot.getLoggedUser).subscribe(user => {
       this.loggedUser = user;
       if (user.role) {
-        if (user.role == 'manufacturer' || user.role == 'sales') {
-          let newParams: any = {};
-          if (!this._activatedRoute.snapshot.queryParams["page"]) {
-            newParams["page"] = 1;
+        if (user.role === 'manufacturer' || user.role === 'sales') {
+          const newParams: any = {};
+          if (!this._activatedRoute.snapshot.queryParams['page']) {
+            newParams['page'] = 1;
           }
-          if (!this._activatedRoute.snapshot.queryParams["per_page"]) {
-            newParams["per_page"] = 10;
+          if (!this._activatedRoute.snapshot.queryParams['per_page']) {
+            newParams['per_page'] = 10;
           }
-          if (this._activatedRoute.snapshot.queryParams["mmv_search"]) {
-            this.search.patchValue(this._activatedRoute.snapshot.queryParams["mmv_search"], { emitEvent: false });
+          if (this._activatedRoute.snapshot.queryParams['mmv_search']) {
+            this.search.patchValue(this._activatedRoute.snapshot.queryParams['mmv_search'], { emitEvent: false });
           }
-          this._router.navigate(["dashboard", "vehicles"], { queryParams: { ...this._activatedRoute.snapshot.queryParams, ...newParams } });
+          this._router.navigate(['dashboard', 'vehicles'], { queryParams: { ...this._activatedRoute.snapshot.queryParams, ...newParams } });
         } else {
-          this._router.navigate(["403-forbidden"]);
+          this._router.navigate(['403-forbidden']);
         }
       }
     });
@@ -50,6 +51,7 @@ export class VehiclesComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.buildForm();
     this.formListener();
+    this._router.events.subscribe(events => this.searchField.nativeElement.focus());
   }
 
   ngOnDestroy() {
@@ -71,7 +73,7 @@ export class VehiclesComponent implements OnInit, OnDestroy {
   }
 
   makeSearchRequest() {
-    this._router.navigate(["dashboard", "vehicles"], {
+    this._router.navigate(['dashboard', 'vehicles'], {
       queryParams: {
         ...this._activatedRoute.snapshot.queryParams,
         mmv_search: this.search.value != null ? this.search.value : null
@@ -80,7 +82,7 @@ export class VehiclesComponent implements OnInit, OnDestroy {
   }
 
   getQueryParams(status: string): any {
-    return { ...this._activatedRoute.snapshot.queryParams, status: status }
+    return { ...this._activatedRoute.snapshot.queryParams, status: status };
   }
 
 }

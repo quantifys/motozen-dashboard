@@ -16,7 +16,7 @@
       <div class="col-md-6">
         <form [formGroup]="searchForm" autocomplete="off">
           <mat-form-field color="warn" class="w-100">
-            <input matInput placeholder="Search by SLD number" formControlName="search" id="searchInput">
+            <input matInput #search placeholder="Search by SLD number" formControlName="search" id="searchInput">
             <mat-icon color="warn" matSuffix>search</mat-icon>
           </mat-form-field>
         </form>
