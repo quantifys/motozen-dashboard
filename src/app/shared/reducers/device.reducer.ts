@@ -1,4 +1,4 @@
-import { Device, PageData, User } from '../models';
+import { Device, PageData, User, Vehicle } from '../models';
 import * as deviceActions from '../actions/device.actions';
 
 export interface State {
@@ -7,6 +7,7 @@ export interface State {
   devicePageStatus: PageData;
   dealers: User[];
   devices: Device[];
+  deviceformVehicles: Vehicle[];
 }
 
 const initialState: State = {
@@ -14,16 +15,17 @@ const initialState: State = {
   currentDevice: new Device({}),
   devicePageStatus: new PageData({}),
   dealers: [],
-  devices: []
+  devices: [],
+  deviceformVehicles: []
 };
 
 export function reducer(state = initialState, action: deviceActions.Actions): State {
   let devices: Device[] = [];
   switch (action.type) {
     case deviceActions.FETCH_ALL_DEVICES_ACTION:
-    return Object.assign({}, state, {
-      allDevices: []
-    });
+      return Object.assign({}, state, {
+        allDevices: []
+      });
     case deviceActions.FETCH_ALL_DEVICES_COMPLETE_ACTION:
       devices = action.payload.data.map(device => new Device(device));
       return Object.assign({}, state, {
@@ -41,14 +43,18 @@ export function reducer(state = initialState, action: deviceActions.Actions): St
       return Object.assign({}, state, {
         currentDevice: new Device(action.payload)
       });
+    case deviceActions.FETCH_DEVICE_NEW_COMPLETE_ACTION:
+      return Object.assign({}, state, {
+        deviceformVehicles: action.payload
+      });
     case deviceActions.DELETE_DEVICE_COMPLETE_ACTION:
       return Object.assign({}, state, {
-        allDevices: [...state.allDevices.filter(device => device.id != action.payload ? device : null)],
+        allDevices: [...state.allDevices.filter(device => device.id !== action.payload ? device : null)],
         currentDevice: new Device({})
       });
     case deviceActions.UPDATE_DEVICE_COMPLETE_ACTION:
       return Object.assign({}, state, {
-        allDevices: [...state.allDevices.map(device => device.id != action.payload.id ? device : new Device(action.payload))],
+        allDevices: [...state.allDevices.map(device => device.id !== action.payload.id ? device : new Device(action.payload))],
         showDeviceModal: false
       });
     case deviceActions.CREATE_DEVICE_COMPLETE_ACTION:
@@ -56,7 +62,7 @@ export function reducer(state = initialState, action: deviceActions.Actions): St
         allDevices: [...state.allDevices, new Device(action.payload)]
       });
     case deviceActions.TRANSFER_DEVICE_COMPLETE_ACTION:
-      devices = state.allDevices.filter(device => action.payload.find(id => device.id == id) ? null : device);
+      devices = state.allDevices.filter(device => action.payload.find(id => device.id === id) ? null : device);
       return Object.assign({}, state, {
         allDevices: [...devices]
       });

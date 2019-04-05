@@ -46,20 +46,24 @@
                 <ng-select [items]="inventory" formControlName="connector_id" bindValue="id" bindLabel="description"
                   placeholder="Select connector"></ng-select>
               </div>
+              <div class="col-sm-12 col-lg-6 d-flex align-items-center">
+                <mat-checkbox formControlName="restricted"><h6 class="m-0">Restricted vehicle?</h6></mat-checkbox>
+              </div>
             </div>
             <div class="form-group" formArrayName="icats" *ngIf="icats.controls.length > 0">
               <label for="icat">Select document</label>
               <ng-container *ngFor="let icat of icats.controls; let i = index">
                 <div class="d-flex mb-2">
-                  <input [formGroupName]="i" accept="application/pdf" type="file" class="form-control-file" [id]="'icat' + i"
-                    (change)="onFileChange($event, i)">
+                  <input [formGroupName]="i" accept="application/pdf" type="file" class="form-control-file"
+                    [id]="'icat' + i" (change)="onFileChange($event, i)">
                   <button mat-icon-button color="warn" (click)="icats.removeAt(i)">
                     <mat-icon color="danger">delete</mat-icon>
                   </button>
                 </div>
               </ng-container>
             </div>
-            <button mat-stroked-button color="warn" (click)="addIcat()" *ngIf="(addVehicle && icats.length < 1) || !addVehicle">Add
+            <button mat-stroked-button color="warn" (click)="addIcat()"
+              *ngIf="(addVehicle && icats.length < 1) || !addVehicle">Add
               Document
             </button>
             <ng-container *ngIf="icat_pages.length > 0">
@@ -82,8 +86,8 @@
               <hr>
             </ng-container>
             <div class="w-100 mt-2">
-              <button class="btn btn-orange text-light btn-save" [disabled]="vehicleForm.invalid || vehicleForm.pristine"
-                (click)="saveChanges()">Save</button>
+              <button class="btn btn-orange text-light btn-save"
+                [disabled]="vehicleForm.invalid || vehicleForm.pristine" (click)="saveChanges()">Save</button>
             </div>
           </form>
         </div>

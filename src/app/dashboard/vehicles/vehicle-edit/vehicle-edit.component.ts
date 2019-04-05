@@ -3,12 +3,12 @@ import { Location } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators, FormArray, FormControl } from '@angular/forms';
 import { Subscription } from 'rxjs';
-import { Store } from "@ngrx/store";
+import { Store } from '@ngrx/store';
 import swal from 'sweetalert2';
 
-import * as fromRoot from "../../../shared/reducers";
-import * as inventoryActions from "../../../shared/actions/inventory.actions";
-import * as vehicleActions from "../../../shared/actions/vehicle.actions";
+import * as fromRoot from '../../../shared/reducers';
+import * as inventoryActions from '../../../shared/actions/inventory.actions';
+import * as vehicleActions from '../../../shared/actions/vehicle.actions';
 import { Icat, Inventory } from '../../../shared/models';
 
 @Component({
@@ -18,7 +18,7 @@ import { Icat, Inventory } from '../../../shared/models';
 })
 export class VehicleEditComponent implements OnInit {
 
-  public addVehicle: boolean = false;
+  public addVehicle = false;
   public vehicleForm: FormGroup;
   public icat_pages: Icat[] = [];
   public inventory: Inventory[] = [];
@@ -35,9 +35,9 @@ export class VehicleEditComponent implements OnInit {
       category: 'automotive_connector'
     }));
     this._activatedRoute.queryParams.subscribe(params => {
-      if (params["id"]) {
+      if (params['id']) {
         this.addVehicle = false;
-        this._store.dispatch(new vehicleActions.FetchVehicleAction(params["id"]));
+        this._store.dispatch(new vehicleActions.FetchVehicleAction(params['id']));
       } else {
         this.addVehicle = true;
       }
@@ -63,21 +63,22 @@ export class VehicleEditComponent implements OnInit {
       tac_number: [null, Validators.required],
       report_no: [null, Validators.required],
       category: [null, Validators.required],
+      restricted: [false, Validators.required],
       connector_id: [null, Validators.required],
       icats: this._fb.array([])
     });
   }
 
   get vehicle_id(): FormControl {
-    return this.vehicleForm.get("id") as FormControl;
+    return this.vehicleForm.get('id') as FormControl;
   }
 
   get connector_id(): FormControl {
-    return this.vehicleForm.get("connector_id") as FormControl;
+    return this.vehicleForm.get('connector_id') as FormControl;
   }
 
   get icats(): FormArray {
-    return this.vehicleForm.get("icats") as FormArray;
+    return this.vehicleForm.get('icats') as FormArray;
   }
 
   addIcat() {
@@ -86,13 +87,13 @@ export class VehicleEditComponent implements OnInit {
 
   deleteIcat(id: number) {
     swal({
-      title: "Are you sure?",
-      text: "You won't be able to revert this!",
-      type: "warning",
+      title: 'Are you sure?',
+      text: 'You won\'t be able to revert this!',
+      type: 'warning',
       showCancelButton: true,
-      confirmButtonColor: "#3085d6",
-      cancelButtonColor: "#d33",
-      confirmButtonText: "Yes, delete document!"
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete document!'
     }).then(result => {
       if (result.value) {
         this._store.dispatch(new vehicleActions.DeleteVehicleIcatAction({
@@ -104,17 +105,17 @@ export class VehicleEditComponent implements OnInit {
   }
 
   onFileChange($event, index: number) {
-    let reader = new FileReader();
-    let file = $event.target.files[0];
+    const reader = new FileReader();
+    const file = $event.target.files[0];
     reader.readAsDataURL(file);
     reader.onload = () => {
-      this.icats.at(index).patchValue((reader.result + "").split(',')[1], { emitEvent: false })
+      this.icats.at(index).patchValue((reader.result + '').split(',')[1], { emitEvent: false });
       this.icats.at(index).markAsDirty();
-    }
+    };
   }
 
   saveChanges() {
-    let formData: any = this.vehicleForm.value;
+    const formData: any = this.vehicleForm.value;
     if (this.icats.pristine) {
       delete formData.icats;
     }
@@ -130,20 +131,20 @@ export class VehicleEditComponent implements OnInit {
         this._store.dispatch(new vehicleActions.UpdateVehicleIcatAction({
           id: formData.id,
           icats: formData.icats
-        }))
+        }));
       }
     }
   }
 
   deleteVehicle(id: number) {
     swal({
-      title: "Are you sure?",
-      text: "You won't be able to revert this!",
-      type: "warning",
+      title: 'Are you sure?',
+      text: 'You won\'t be able to revert this!',
+      type: 'warning',
       showCancelButton: true,
-      confirmButtonColor: "#3085d6",
-      cancelButtonColor: "#d33",
-      confirmButtonText: "Yes, delete vehicle!"
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete vehicle!'
     }).then(result => {
       if (result.value) {
         this._store.dispatch(new vehicleActions.DeleteVehicleAction);

@@ -68,6 +68,7 @@ export const getCurrentDevice = createSelector(devices, (state: fromDevice.State
 export const getDevicePageStatus = createSelector(devices, (state: fromDevice.State) => state.devicePageStatus);
 export const getDeviceDealers = createSelector(devices, (state: fromDevice.State) => state.dealers);
 export const getTransferableDevices = createSelector(devices, (state: fromDevice.State) => state.devices);
+export const getDeviceFormVehicles = createSelector(devices, (state: fromDevice.State) => state.deviceformVehicles);
 
 export const vehicles = (state: State) => state.vehicles;
 export const getAllVehicles = createSelector(vehicles, (state: fromVehicle.State) => state.allVehicles);
@@ -84,6 +85,7 @@ export const getAllCertificates = createSelector(certificates, (state: fromCerti
 export const getReportCertificates = createSelector(certificates, (state: fromCertificate.State) => state.reportCertificates);
 export const getCurrentCertificate = createSelector(certificates, (state: fromCertificate.State) => state.currentCertificate);
 export const getCertificateFormdata = createSelector(certificates, (state: fromCertificate.State) => state.certificateFormdata);
+export const getVehicleFormData = createSelector(certificates, (state: fromCertificate.State) => state.vehicleFormData);
 export const getCertificateFilterUsers = createSelector(certificates, (state: fromCertificate.State) => state.certificateFilterUsers);
 export const getCertificatePageStatus = createSelector(certificates, (state: fromCertificate.State) => state.certificatePageStatus);
 export const checkCertificateUnique = createSelector(certificates, (state: fromCertificate.State) => state.isUnique);

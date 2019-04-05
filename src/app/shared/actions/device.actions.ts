@@ -16,6 +16,10 @@ export const FETCH_DEVICE_ACTION = '[Device] Fetch Device Action';
 export const FETCH_DEVICE_COMPLETE_ACTION = '[Device] Fetch Device Complete Action';
 export const FETCH_DEVICE_FAILED_ACTION = '[Device] Fetch Device Failed Action';
 
+export const FETCH_DEVICE_NEW_ACTION = '[Device] Fetch Device New Action';
+export const FETCH_DEVICE_NEW_COMPLETE_ACTION = '[Device] Fetch Device New Complete Action';
+export const FETCH_DEVICE_NEW_FAILED_ACTION = '[Device] Fetch Device New Failed Action';
+
 export const CREATE_DEVICE_ACTION = '[Device] Create Device Action';
 export const CREATE_DEVICE_COMPLETE_ACTION = '[Device] Create Device Complete Action';
 export const CREATE_DEVICE_FAILED_ACTION = '[Device] Create Device Failed Action';
@@ -90,6 +94,36 @@ export class FetchDeviceCompleteAction implements Action {
 
 export class FetchDeviceFailedAction implements Action {
   readonly type = FETCH_DEVICE_FAILED_ACTION;
+  constructor(public payload: any) {
+    toast({
+      type: 'error',
+      title: payload
+    });
+  }
+}
+
+export class FetchDeviceNewAction implements Action {
+  readonly type = FETCH_DEVICE_NEW_ACTION;
+  constructor() {
+    toast({
+      title: 'Fetching form data...'
+    });
+    toast.showLoading();
+  }
+}
+
+export class FetchDeviceNewCompleteAction implements Action {
+  readonly type = FETCH_DEVICE_NEW_COMPLETE_ACTION;
+  constructor(public payload?: any) {
+    toast({
+      type: 'success',
+      title: 'Device form data loaded!'
+    });
+  }
+}
+
+export class FetchDeviceNewFailedAction implements Action {
+  readonly type = FETCH_DEVICE_NEW_FAILED_ACTION;
   constructor(public payload: any) {
     toast({
       type: 'error',
@@ -259,6 +293,9 @@ export type Actions =
   | FetchDeviceAction
   | FetchDeviceCompleteAction
   | FetchDeviceFailedAction
+  | FetchDeviceNewAction
+  | FetchDeviceNewCompleteAction
+  | FetchDeviceNewFailedAction
   | CreateDeviceAction
   | CreateDeviceCompleteAction
   | CreateDeviceFailedAction

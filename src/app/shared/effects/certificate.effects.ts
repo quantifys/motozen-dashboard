@@ -59,13 +59,23 @@ export class CertificateEffects {
   );
 
   @Effect()
+  fetchCreateCertificate$: Observable<Action> = this._action$.ofType(fromCertificate.FETCH_CREATE_CERTIFICATE_ACTION).pipe(
+    map((action: fromCertificate.FetchCreateCertificateAction) => action.payload),
+    exhaustMap(id => this._tokenService.get(`devices/${id}/certificate/new`)
+      .pipe(
+        map(response => new fromCertificate.FetchCreateCertificateCompleteAction(response.json().message)),
+        catchError(error => of(new fromCertificate.FetchCreateCertificateFailedAction(error.json().message)))
+      ))
+  );
+
+  @Effect()
   createNewCertificate$: Observable<Action> = this._action$.ofType(fromCertificate.CREATE_CERTIFICATE_ACTION).pipe(
     map((action: fromCertificate.CreateCertificateAction) => action.payload),
     exhaustMap(body => this._tokenService.post('certificates', body)
       .pipe(
         map(response => {
-          this._router.navigate(["dashboard", "certificates", "view"], { queryParams: { id: response.json().message.id } });
-          return new fromCertificate.CreateCertificateCompleteAction(response.json().message)
+          this._router.navigate(['dashboard', 'certificates', 'view'], { queryParams: { id: response.json().message.id } });
+          return new fromCertificate.CreateCertificateCompleteAction(response.json().message);
         }),
         catchError(error => of(new fromCertificate.CreateCertificateFailedAction(error.json().message)))
       ))
@@ -77,7 +87,7 @@ export class CertificateEffects {
     exhaustMap(() => this._tokenService.delete(`certificates/${this.certificate.id}`)
       .pipe(
         map(() => {
-          this._router.navigate(["dashboard", "certificates"]);
+          this._router.navigate(['dashboard', 'certificates']);
           return new fromCertificate.DeleteCertificateCompleteAction(this.certificate.id);
         }),
         catchError(error => of(new fromCertificate.DeleteCertificateFailedAction(error.json().message)))
@@ -90,8 +100,8 @@ export class CertificateEffects {
     exhaustMap(body => this._tokenService.patch(`certificates/${this.certificate.id}`, body)
       .pipe(
         map(response => {
-          this._router.navigate(["dashboard", "certificates", "view"], { queryParams: { id: response.json().message.id } });
-          return new fromCertificate.UpdateCertificateCompleteAction(response.json().message)
+          this._router.navigate(['dashboard', 'certificates', 'view'], { queryParams: { id: response.json().message.id } });
+          return new fromCertificate.UpdateCertificateCompleteAction(response.json().message);
         }),
         catchError(error => of(new fromCertificate.UpdateCertificateFailedAction(error.json().message)))
       ))
@@ -100,7 +110,7 @@ export class CertificateEffects {
   @Effect()
   fetchCertificateFormdata$: Observable<Action> = this._action$.ofType(fromCertificate.FETCH_CERTIFICATE_FORMDATA_ACTION).pipe(
     map((action: fromCertificate.FetchCertificateFormdataAction) => action.payload),
-    exhaustMap(id => (!id ? this._tokenService.get("certificates/new") : this._tokenService.get(`certificates/${id}/edit`))
+    exhaustMap(id => (!id ? this._tokenService.get('certificates/new') : this._tokenService.get(`certificates/${id}/edit`))
       .pipe(
         map(response => new fromCertificate.FetchCertificateFormdataCompleteAction(response.json().message)),
         catchError(error => of(new fromCertificate.FetchCertificateFormdataFailedAction(error.json().message)))
@@ -110,7 +120,7 @@ export class CertificateEffects {
   @Effect()
   fetchCertificateFilterFormdata$: Observable<Action> = this._action$.ofType(fromCertificate.FETCH_CERTIFICATE_FILTER_FORMDATA_ACTION).pipe(
     map((action: fromCertificate.FetchCertificateFilterFormdataAction) => action),
-    exhaustMap(() => this._tokenService.get("certificates/list/filter-data")
+    exhaustMap(() => this._tokenService.get('certificates/list/filter-data')
       .pipe(
         map(response => new fromCertificate.FetchCertificateFilterFormdataCompleteAction(response.json().message)),
         catchError(error => of(new fromCertificate.FetchCertificateFilterFormdataFailedAction(error.json().message)))
@@ -120,7 +130,7 @@ export class CertificateEffects {
   @Effect()
   fetchCertificateCSVReport$: Observable<Action> = this._action$.ofType(fromCertificate.FETCH_CERTIFICATE_CSV_REPORT_ACTION).pipe(
     map((action: fromCertificate.FetchCertificateCSVReportAction) => action.payload),
-    exhaustMap(body => this._tokenService.post("certificates/list/for-report", body)
+    exhaustMap(body => this._tokenService.post('certificates/list/for-report', body)
       .pipe(
         map(response => new fromCertificate.FetchCertificateCSVReportCompleteAction(response.json().message)),
         catchError(error => of(new fromCertificate.FetchCertificateCSVReportFailedAction(error.json().message)))
@@ -130,7 +140,7 @@ export class CertificateEffects {
   @Effect()
   checkCertificateUnique$: Observable<Action> = this._action$.ofType(fromCertificate.CERTIFICATE_CHECK_UNIQUE_ACTION).pipe(
     map((action: fromCertificate.CertificateCheckUniqueAction) => action.payload),
-    exhaustMap(body => this._tokenService.post("certificates/check-unique", body)
+    exhaustMap(body => this._tokenService.post('certificates/check-unique', body)
       .pipe(
         map(response => new fromCertificate.CertificateCheckUniqueCompleteAction(response.json().message)),
         catchError(error => of(new fromCertificate.CertificateCheckUniqueFailedAction(error.json().message)))

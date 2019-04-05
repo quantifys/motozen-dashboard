@@ -20,6 +20,10 @@ export const ISSUE_CERTIFICATE_ACTION = '[Certificate] Issue Certificate Action'
 export const ISSUE_CERTIFICATE_COMPLETE_ACTION = '[Certificate] Issue Certificate Complete Action';
 export const ISSUE_CERTIFICATE_FAILED_ACTION = '[Certificate] Issue Certificate Failed Action';
 
+export const FETCH_CREATE_CERTIFICATE_ACTION = '[Certificate] Fetch Create Certificate Action';
+export const FETCH_CREATE_CERTIFICATE_COMPLETE_ACTION = '[Certificate] Fetch Create Certificate Complete Action';
+export const FETCH_CREATE_CERTIFICATE_FAILED_ACTION = '[Certificate] Fetch Create Certificate Failed Action';
+
 export const CREATE_CERTIFICATE_ACTION = '[Certificate] Create Certificate Action';
 export const CREATE_CERTIFICATE_COMPLETE_ACTION = '[Certificate] Create Certificate Complete Action';
 export const CREATE_CERTIFICATE_FAILED_ACTION = '[Certificate] Create Certificate Failed Action';
@@ -137,6 +141,36 @@ export class IssueCertificateCompleteAction implements Action {
 
 export class IssueCertificateFailedAction implements Action {
   readonly type = ISSUE_CERTIFICATE_FAILED_ACTION;
+  constructor(public payload?: any) {
+    toast({
+      type: 'error',
+      title: payload
+    });
+  }
+}
+
+export class FetchCreateCertificateAction implements Action {
+  readonly type = FETCH_CREATE_CERTIFICATE_ACTION;
+  constructor(public payload?: any) {
+    toast({
+      title: 'Fetching certificate data...'
+    });
+    toast.showLoading();
+  }
+}
+
+export class FetchCreateCertificateCompleteAction implements Action {
+  readonly type = FETCH_CREATE_CERTIFICATE_COMPLETE_ACTION;
+  constructor(public payload?: any) {
+    toast({
+      type: 'success',
+      title: 'Certificate data loaded!'
+    });
+  }
+}
+
+export class FetchCreateCertificateFailedAction implements Action {
+  readonly type = FETCH_CREATE_CERTIFICATE_FAILED_ACTION;
   constructor(public payload?: any) {
     toast({
       type: 'error',
@@ -403,6 +437,9 @@ export type Actions =
   | IssueCertificateAction
   | IssueCertificateCompleteAction
   | IssueCertificateFailedAction
+  | FetchCreateCertificateAction
+  | FetchCreateCertificateCompleteAction
+  | FetchCreateCertificateFailedAction
   | CreateCertificateAction
   | CreateCertificateCompleteAction
   | CreateCertificateFailedAction

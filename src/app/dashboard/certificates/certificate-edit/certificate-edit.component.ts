@@ -225,13 +225,19 @@ export class CertificateEditComponent implements OnInit, OnDestroy {
     this._store.dispatch(new certificateActions.FetchCertificateFormdataAction(id));
     this.formDataSubscription$ = this._store.select(fromRoot.getCertificateFormdata).subscribe(data => {
       if (data) {
-        const newFormData: any = {};
         this.devices = data.devices.filter(device => new Device(device));
+      }
+    });
+    this._store.select(fromRoot.getVehicleFormData).subscribe(data => {
+      if (data) {
+        const newFormData: any = {};
         this.formdata = data;
         this.brands = [];
         for (const make in data['vehicle_makes']) {
-          newFormData[make.toUpperCase()] = data['vehicle_makes'][make];
-          this.brands.push(make.toUpperCase());
+          if (make) {
+            newFormData[make.toUpperCase()] = data['vehicle_makes'][make];
+            this.brands.push(make.toUpperCase());
+          }
         }
         this.formdata['vehicle_makes'] = newFormData;
       }
@@ -357,5 +363,9 @@ export class CertificateEditComponent implements OnInit, OnDestroy {
     } else {
       this._store.dispatch(new certificateActions.CertificateCheckUniqueAction(data));
     }
+  }
+
+  fetchVehicles(data: Device) {
+    this._store.dispatch(new certificateActions.FetchCreateCertificateAction(data.id));
   }
 }

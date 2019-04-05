@@ -9,7 +9,8 @@
     <div class="col-sm-12 col-md-0 col-lg-8">
       <div class="card mt-5">
         <div class="card-body">
-          <h6 class="text-grey-dark font-weight-bold mb-3">{{addDevice ? 'Add list of devices' : 'Change device SLD number'}}</h6>
+          <h6 class="text-grey-dark font-weight-bold mb-3">
+            {{addDevice ? 'Add list of devices' : 'Change device SLD number'}}</h6>
           <form [formGroup]="deviceForm" *ngIf="addDevice; else editDevice">
             <table class="table mb-0">
               <thead>
@@ -25,7 +26,8 @@
                     {{i + 1}}
                   </td>
                   <td>
-                    <sld-device [formGroupName]="i" [group]="device.controls[i]" (enterPressed)="enterPressed($event)" [position]="i"></sld-device>
+                    <sld-device [formGroupName]="i" [group]="device.controls[i]" (enterPressed)="enterPressed($event)"
+                      [position]="i"></sld-device>
                   </td>
                   <td class="align-middle text-right">
                     <button mat-icon-button color="warn" (click)="deleteSld(i)" *ngIf="device.controls.length > 1">
@@ -39,11 +41,37 @@
                   <td colspan="2" class="align-middle text-orange">
                     If you're using a scanner please verify that the input is focused.
                   </td>
-                  <td class="text-right"><button mat-stroked-button color="warn" (click)="addSld()">Add device</button></td>
+                  <td class="text-right"><button mat-stroked-button color="warn" (click)="addSld()">Add device</button>
+                  </td>
                 </tr>
               </tfoot>
             </table>
-            <button class="btn btn-orange text-light btn-save" [disabled]="deviceForm.invalid" (click)="saveChanges()">Save</button>
+            <hr>
+            <h6>Select vehicles to restrict devices</h6>
+            <div class="row" formArrayName="restricted_vehicle_ids">
+              <ng-container *ngFor="let control of restricted_vehicle_ids.controls; let i = index" [formGroupName]="i">
+                <div class="col-lg-4">
+                  <ng-select [items]="brands" formControlName="vehicle_make" placeholder="Select vehicle make">
+                  </ng-select>
+                </div>
+                <div class="col-lg-4">
+                  <ng-select *ngIf="control.get('vehicle_make').valid" bindLabel="model" bindValue="model"
+                    [items]="getModels(control.get('vehicle_make').value)" formControlName="vehicle_model"
+                    placeholder="Select vehicle model" (add)="onAdd($event, i)">
+                  </ng-select>
+                </div>
+                <div class="col-lg-4">
+                  <ng-select *ngIf="control.get('vehicle_model').valid" [items]="variants[i]" bindLabel="variant"
+                    bindValue="id" formControlName="vehicle_id" placeholder="Select vehicle variant"></ng-select>
+                </div>
+              </ng-container>
+            </div>
+            <div class="text-right">
+              <button mat-stroked-button color="warn" (click)="addVehicle()">Add vehicle</button>
+            </div>
+            <hr>
+            <button class="btn btn-orange text-light btn-save" [disabled]="deviceForm.invalid"
+              (click)="saveChanges()">Save</button>
           </form>
         </div>
       </div>
@@ -61,6 +89,7 @@
         </mat-form-field>
       </div>
     </div>
-    <button class="btn btn-orange text-light btn-save" [disabled]="deviceEditForm.invalid" (click)="saveChanges()">Save</button>
+    <button class="btn btn-orange text-light btn-save" [disabled]="deviceEditForm.invalid"
+      (click)="saveChanges()">Save</button>
   </form>
 </ng-template>

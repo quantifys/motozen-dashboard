@@ -7,6 +7,7 @@ export interface State {
   reportCertificates: Certificate[];
   currentCertificate: Certificate;
   certificateFormdata: any;
+  vehicleFormData: any;
   certificateFilterUsers: User[];
   certificatePageStatus: PageData;
   isUnique: boolean;
@@ -17,6 +18,7 @@ const initialState: State = {
   reportCertificates: [],
   currentCertificate: new Certificate({}),
   certificateFormdata: null,
+  vehicleFormData: null,
   certificateFilterUsers: [],
   certificatePageStatus: new PageData({}),
   isUnique: false
@@ -52,12 +54,13 @@ export function reducer(state = initialState, action: certificateActions.Actions
       });
     case certificateActions.DELETE_CERTIFICATE_COMPLETE_ACTION:
       return Object.assign({}, state, {
-        allCertificates: [...state.allCertificates.filter(certificate => certificate.id != action.payload ? certificate : null)],
+        allCertificates: [...state.allCertificates.filter(certificate => certificate.id !== action.payload ? certificate : null)],
         currentCertificate: new Certificate({})
       });
     case certificateActions.UPDATE_CERTIFICATE_COMPLETE_ACTION:
       return Object.assign({}, state, {
-        allCertificates: [...state.allCertificates.map(certificate => certificate.id != action.payload.id ? certificate : new Certificate(action.payload))]
+        allCertificates: [...state.allCertificates.map(certificate =>
+          certificate.id !== action.payload.id ? certificate : new Certificate(action.payload))]
       });
     case certificateActions.CREATE_CERTIFICATE_COMPLETE_ACTION:
       return Object.assign({}, state, {
@@ -66,6 +69,10 @@ export function reducer(state = initialState, action: certificateActions.Actions
     case certificateActions.FETCH_CERTIFICATE_FORMDATA_COMPLETE_ACTION:
       return Object.assign({}, state, {
         certificateFormdata: action.payload
+      });
+    case certificateActions.FETCH_CREATE_CERTIFICATE_COMPLETE_ACTION:
+      return Object.assign({}, state, {
+        vehicleFormData: action.payload
       });
     case certificateActions.CLEAR_CERTIFICATE_DATA_ACTION:
       return Object.assign({}, state, {

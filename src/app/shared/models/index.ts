@@ -40,11 +40,11 @@ export class Rto {
   constructor(data: any) {
     this.id = data.id;
     this.office = data.office;
-    this.full_name = this.id + ": " + this.office;
+    this.full_name = this.id + ': ' + this.office;
   }
 
   getFullName(): string {
-    return this.id + ": " + this.office;
+    return this.id + ': ' + this.office;
   }
 }
 

@@ -4,8 +4,8 @@ import { FormGroup, FormBuilder, Validators, FormControl, FormArray } from '@ang
 import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
 
-import * as fromRoot from "../../../shared/reducers";
-import * as receiveNoteActions from "../../../shared/actions/receive-note.actions";
+import * as fromRoot from '../../../shared/reducers';
+import * as receiveNoteActions from '../../../shared/actions/receive-note.actions';
 import { ReceiveNoteParticular, Vendor } from '../../../shared/models';
 
 @Component({
@@ -31,9 +31,9 @@ export class ReceiveNoteEditComponent implements OnInit, OnDestroy {
   ) {
     this._store.dispatch(new receiveNoteActions.FetchReceiveNoteFormDataAction);
     this.routerSubscription$ = this._activatedRoute.queryParams.subscribe(params => {
-      if (params["id"]) {
+      if (params['id']) {
         this.addReceiveNote = false;
-        this._store.dispatch(new receiveNoteActions.FetchReceiveNoteAction(params["id"]));
+        this._store.dispatch(new receiveNoteActions.FetchReceiveNoteAction(params['id']));
       } else {
         this.addReceiveNote = true;
       }
@@ -44,14 +44,18 @@ export class ReceiveNoteEditComponent implements OnInit, OnDestroy {
     this.buildForm();
     this.formListener();
     this.formDataSubscription$ = this._store.select(fromRoot.getReceiveNoteFormdata).subscribe(data => {
-      data ? this.vendors = data["vendors"].filter(vendor => new Vendor(vendor)) : null
+      if (data) {
+        this.vendors = data['vendors'].filter(vendor => new Vendor(vendor));
+      }
     });
     if (this.addReceiveNote) {
       this.addParticular();
     } else {
       this.receiveNoteSubscription$ = this._store.select(fromRoot.getCurrentReceiveNote).subscribe(receiveNote => {
         this.receiveNoteForm.patchValue(receiveNote);
-        receiveNote.freight > 0 ? this.freight_switch.patchValue(true, { emitEvent: false }) : null
+        if (receiveNote.freight > 0) {
+          this.freight_switch.patchValue(true, { emitEvent: false });
+        }
         receiveNote.rn_particulars.map(particular => this.addParticular(particular));
         this.vendor_id.patchValue(receiveNote.vendor.id);
       });
@@ -74,9 +78,9 @@ export class ReceiveNoteEditComponent implements OnInit, OnDestroy {
         value: null,
         readonly: true
       }],
-      freight_gstn: [null, [Validators.minLength(15), Validators.maxLength(15), Validators.pattern("[a-zA-Z0-9]+")]],
+      freight_gstn: [null, [Validators.minLength(15), Validators.maxLength(15), Validators.pattern('[a-zA-Z0-9]+')]],
       expenses: [null, [Validators.required, Validators.min(0)]],
-      gstn: [null, [Validators.minLength(15), Validators.maxLength(15), Validators.pattern("[a-zA-Z0-9]+")]],
+      gstn: [null, [Validators.minLength(15), Validators.maxLength(15), Validators.pattern('[a-zA-Z0-9]+')]],
       vendor_id: null,
       total: [{
         value: null,
@@ -152,11 +156,11 @@ export class ReceiveNoteEditComponent implements OnInit, OnDestroy {
   }
 
   freightValidate(event) {
-    let controls: string[] = ["freight", "freight_gst", "freight_total"];
+    const controls: string[] = ['freight', 'freight_gst', 'freight_total'];
     if (event) {
-      this.receiveNoteForm.get("freight").setValidators([Validators.required, Validators.min(0)]);
-      this.receiveNoteForm.get("freight_total").setValidators([Validators.required, Validators.min(0)]);
-      this.receiveNoteForm.get("freight_gst").setValidators([Validators.required, Validators.min(0), Validators.max(30)]);
+      this.receiveNoteForm.get('freight').setValidators([Validators.required, Validators.min(0)]);
+      this.receiveNoteForm.get('freight_total').setValidators([Validators.required, Validators.min(0)]);
+      this.receiveNoteForm.get('freight_gst').setValidators([Validators.required, Validators.min(0), Validators.max(30)]);
       controls.map(control => {
         this.receiveNoteForm.get(control).updateValueAndValidity();
       });
@@ -170,20 +174,21 @@ export class ReceiveNoteEditComponent implements OnInit, OnDestroy {
 
   formListener() {
     this.formSubscription$ = this.receiveNoteForm.valueChanges.subscribe(value => {
-      let total: number = 0;
+      let total = 0;
       this.rn_particulars.controls.map(group => total += Number(group.get('total').value >= 0 ? group.get('total').value : 0));
       this.freight_total.patchValue(+(this.freight.value * (1 + (this.freight_gst.value * 0.01))).toFixed(2), { emitEvent: false });
-      this.total.patchValue(Math.ceil((this.freight_switch.value ? this.freight_total.value : 0) + this.expenses.value + Number(total.toFixed(2))), { emitEvent: false });
+      this.total.patchValue(Math.ceil((this.freight_switch.value ? this.freight_total.value : 0)
+        + this.expenses.value + Number(total.toFixed(2))), { emitEvent: false });
     });
   }
 
   saveChanges() {
-    let formData: any = this.receiveNoteForm.value;
+    const formData: any = this.receiveNoteForm.value;
     if (!formData.freight_switch) {
-      let controls: string[] = ["freight_total", "freight_switch", "freight_gstn"];
+      const controls: string[] = ['freight_total', 'freight_switch', 'freight_gstn'];
       controls.map(control => delete formData[control]);
-      formData["freight"] = 0;
-      formData["freight_gst"] = 0;
+      formData['freight'] = 0;
+      formData['freight_gst'] = 0;
     }
     if (this.addReceiveNote) {
       this._store.dispatch(new receiveNoteActions.CreateReceiveNoteAction({
@@ -194,7 +199,7 @@ export class ReceiveNoteEditComponent implements OnInit, OnDestroy {
         formData.rn_particulars.push({
           id: id,
           _destroy: 1
-        })
+        });
       });
       this._store.dispatch(new receiveNoteActions.UpdateReceiveNoteAction({
         receive_note: formData

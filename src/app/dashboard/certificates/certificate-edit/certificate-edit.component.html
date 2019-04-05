@@ -15,7 +15,7 @@
             <div class="row">
               <div class="col-lg-4" *ngIf="addCertificate">
                 <ng-select [items]="devices" bindLabel="sld_number" bindValue="id" formControlName="device_id"
-                  placeholder="Select SLD number"></ng-select>
+                  placeholder="Select SLD number" (add)="fetchVehicles($event)"></ng-select>
               </div>
               <ng-container *ngIf="device_id.valid">
                 <div class="col-lg-4 d-flex align-items-end">
@@ -89,10 +89,12 @@
               <h5 class="text-grey-dark font-weight-bold mb-2">Vehicle information</h5>
               <div class="row">
                 <div class="col-lg-4">
-                  <ng-select [items]="brands" formControlName="vehicle_make" placeholder="Select vehicle make"></ng-select>
+                  <ng-select [items]="brands" formControlName="vehicle_make" placeholder="Select vehicle make">
+                  </ng-select>
                 </div>
                 <div class="col-lg-4">
-                  <ng-select [items]="models" formControlName="vehicle_model" placeholder="Select vehicle model"></ng-select>
+                  <ng-select [items]="models" formControlName="vehicle_model" placeholder="Select vehicle model">
+                  </ng-select>
                 </div>
                 <div class="col-lg-4">
                   <ng-select [items]="variants" bindLabel="variant" bindValue="id" formControlName="vehicle_id"
@@ -121,7 +123,8 @@
                 </div>
                 <div class="col-lg-12" *ngIf="loggedUser.details.state == 'Delhi'">
                   <p class="mb-1 mt-3 text-muted">Photograph of vehicle</p>
-                  <img [src]="certificate.picture_data.getPicUrl()" *ngIf="certificate.picture_data.url" class="img-fluid mb-2 rounded">
+                  <img [src]="certificate.picture_data.getPicUrl()" *ngIf="certificate.picture_data.url"
+                    class="img-fluid mb-2 rounded">
                   <input type="file" placeholder="Car Registration No." (change)="pictureLoaded($event)">
                 </div>
               </div>
@@ -138,15 +141,17 @@
                 </div>
                 <div class="col-lg-4 d-flex align-items-end">
                   <mat-form-field class="w-100">
-                    <input matInput [matDatepicker]="dp" placeholder="Registration date" formControlName="reg_month_year">
+                    <input matInput [matDatepicker]="dp" placeholder="Registration date"
+                      formControlName="reg_month_year">
                     <mat-datepicker-toggle matSuffix [for]="dp"></mat-datepicker-toggle>
                     <mat-datepicker #dp></mat-datepicker>
                   </mat-form-field>
                 </div>
               </div>
               <hr>
-              <button class="btn btn-orange text-light btn-save" [disabled]="certificateForm.invalid || certificateForm.pristine"
-                (click)="verify()">Verify & Save</button>
+              <button class="btn btn-orange text-light btn-save"
+                [disabled]="certificateForm.invalid || certificateForm.pristine" (click)="verify()">Verify &
+                Save</button>
             </div>
           </div>
         </ng-container>
