@@ -226,22 +226,27 @@ export class CertificateEditComponent implements OnInit, OnDestroy {
     this.formDataSubscription$ = this._store.select(fromRoot.getCertificateFormdata).subscribe(data => {
       if (data) {
         this.devices = data.devices.filter(device => new Device(device));
+        this.populateVehicles(data);
       }
     });
     this._store.select(fromRoot.getVehicleFormData).subscribe(data => {
       if (data) {
-        const newFormData: any = {};
-        this.formdata = data;
-        this.brands = [];
-        for (const make in data['vehicle_makes']) {
-          if (make) {
-            newFormData[make.toUpperCase()] = data['vehicle_makes'][make];
-            this.brands.push(make.toUpperCase());
-          }
-        }
-        this.formdata['vehicle_makes'] = newFormData;
+        this.populateVehicles(data);
       }
     });
+  }
+
+  populateVehicles(data: any) {
+    const newFormData: any = {};
+    this.formdata = data;
+    this.brands = [];
+    for (const make in data['vehicle_makes']) {
+      if (make) {
+        newFormData[make.toUpperCase()] = data['vehicle_makes'][make];
+        this.brands.push(make.toUpperCase());
+      }
+    }
+    this.formdata['vehicle_makes'] = newFormData;
   }
 
   getModels(): any[] {
