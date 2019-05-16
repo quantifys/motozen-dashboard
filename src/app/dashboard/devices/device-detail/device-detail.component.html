@@ -4,7 +4,8 @@
       <i class="fas fa-arrow-left mr-2"></i>Go back</button>
     <h4 class="text-grey-dark m-0">Device details</h4>
   </div>
-  <div class="d-flex justify-content-end mt-3" *ngIf="device.status == 'unsold' && loggedUser.role == 'store_purchases'">
+  <div class="d-flex justify-content-end mt-3"
+    *ngIf="device.status == 'unsold' && loggedUser.role == 'store_purchases'">
     <a mat-stroked-button color="primary" routerLink="../edit" [queryParams]="{id: device.id}">Edit</a>
     <button class="ml-2" mat-stroked-button color="warn" (click)="deleteDevice()">Delete</button>
   </div>
@@ -20,6 +21,28 @@
           <h6 class="ml-3">{{device.created_at | date: 'fullDate'}}</h6>
           <h6 class="text-grey-dark">Status:</h6>
           <h6 class="ml-3 font-weight-bold">{{device.status | uppercase}}</h6>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-12 col-md-6 col-lg-5 col-xl-4">
+      <div class="card">
+        <div class="card-body">
+          <h6 class="text-grey-dark font-weight-bold mb-3">
+            <i class="fas fa-info-circle mr-2 fa-fw text-orange"></i>Restricted vehicles</h6>
+          <table class="table text-center">
+            <thead>
+              <tr>
+                <th>Make</th>
+                <th>Model</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let vehicle of device.restricted_to_vehicles">
+                <td>{{vehicle.make}}</td>
+                <td>{{vehicle.model}}</td>
+              </tr>
+            </tbody>
+          </table>
         </div>
       </div>
     </div>
