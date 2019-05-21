@@ -1,6 +1,6 @@
-import { Certificate } from "./certificate.model";
-import { PurchaseOrder } from "./purchase-order.model";
-import { User } from "./user.model";
+import { Certificate } from './certificate.model';
+import { PurchaseOrder } from './purchase-order.model';
+import { User } from './user.model';
 
 export class DeviceStats {
   public all_time_count: number;
@@ -51,6 +51,21 @@ export class DealerStats {
   }
 }
 
+export class CreditAccount {
+  public id: number;
+  public created_at: Date;
+  public updated_at: Date;
+  public renewal_credits: number;
+  public user_id: number;
+  constructor(data: any) {
+    this.id = data.id ? data.id : null;
+    this.renewal_credits = data.renewal_credits != null ? data.renewal_credits : null;
+    this.user_id = data.user_id != null ? data.user_id : null;
+    this.created_at = data.created_at ? data.created_at : new Date();
+    this.updated_at = data.updated_at ? data.updated_at : null;
+  }
+}
+
 export class UserStats {
   public user: User;
   public distributor: User;
@@ -58,6 +73,7 @@ export class UserStats {
   public certificate_stats: CertificateStats;
   public device_stats: DeviceStats;
   public dealer_stats: DealerStats;
+  public credit_account: CreditAccount;
   constructor(data: any) {
     this.user = data.user ? new User(data.user) : new User({});
     this.distributor = data.distributor ? new User(data.distributor) : new User({});
@@ -65,5 +81,6 @@ export class UserStats {
     this.certificate_stats = data.certificate_stats ? new CertificateStats(data.certificate_stats) : new CertificateStats({});
     this.device_stats = data.device_stats ? new DeviceStats(data.device_stats) : new DeviceStats({});
     this.dealer_stats = data.dealer_stats ? new DealerStats(data.dealer_stats) : new DealerStats({});
+    this.credit_account = data.credit_account ? new CreditAccount(data.credit_account) : new CreditAccount({});
   }
 }

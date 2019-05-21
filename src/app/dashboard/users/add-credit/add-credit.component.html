@@ -1,0 +1,11 @@
+<form [formGroup]="creditForm">
+  <div class="container">
+    <h5 class="mt-3 mb-3">Update user certificate credits</h5>
+    <mat-form-field class="w-100">
+      <input matInput placeholder="No. of certificates that can be renewed" formControlName="renewal_credits" type="number">
+    </mat-form-field>
+    <div class="text-right">
+      <button mat-raised-button color="primary" (click)="addCredits()">Update credits</button>
+    </div>
+  </div>
+</form>

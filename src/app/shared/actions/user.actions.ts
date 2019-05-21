@@ -1,6 +1,6 @@
-import { Action } from "@ngrx/store";
-import swal from "sweetalert2";
-import { User } from "../models/index";
+import { Action } from '@ngrx/store';
+import swal from 'sweetalert2';
+import { User } from '../models/index';
 
 const toast = (swal as any).mixin({
   toast: true,
@@ -9,39 +9,43 @@ const toast = (swal as any).mixin({
   timer: 3000
 });
 
-export const LOGIN_USER_ACTION = "[User] Login User Action";
-export const LOGIN_USER_COMPLETE_ACTION = "[User] Login User Complete Action";
-export const LOGIN_USER_FAILURE_ACTION = "[User] Login User Failure Action";
+export const LOGIN_USER_ACTION = '[User] Login User Action';
+export const LOGIN_USER_COMPLETE_ACTION = '[User] Login User Complete Action';
+export const LOGIN_USER_FAILURE_ACTION = '[User] Login User Failure Action';
 
-export const VALIDATE_USER_TOKEN_ACTION = "[User] Validate User Token Action";
-export const VALIDATE_USER_TOKEN_COMPLETE_ACTION = "[User] Validate User Token Complete Action";
-export const VALIDATE_USER_TOKEN_FAILED_ACTION = "[User] Validate User Token Failed Action";
+export const VALIDATE_USER_TOKEN_ACTION = '[User] Validate User Token Action';
+export const VALIDATE_USER_TOKEN_COMPLETE_ACTION = '[User] Validate User Token Complete Action';
+export const VALIDATE_USER_TOKEN_FAILED_ACTION = '[User] Validate User Token Failed Action';
 
-export const SIGNOUT_USER_ACTION = "[User] Signout User";
-export const SIGNOUT_USER_COMPLETE_ACTION = "[User] Signout User Complete";
-export const SIGNOUT_USER_FAILED_ACTION = "[User] Signout User Failed";
+export const SIGNOUT_USER_ACTION = '[User] Signout User';
+export const SIGNOUT_USER_COMPLETE_ACTION = '[User] Signout User Complete';
+export const SIGNOUT_USER_FAILED_ACTION = '[User] Signout User Failed';
 
-export const CREATE_NEW_USER_ACTION = "[User] Create New User Action";
-export const CREATE_NEW_USER_COMPLETE_ACTION = "[User] Create New User Complete Action";
-export const CREATE_NEW_USER_FAILED_ACTION = "[User] Create New User Failed Action";
+export const CREATE_NEW_USER_ACTION = '[User] Create New User Action';
+export const CREATE_NEW_USER_COMPLETE_ACTION = '[User] Create New User Complete Action';
+export const CREATE_NEW_USER_FAILED_ACTION = '[User] Create New User Failed Action';
 
-export const UPDATE_USER_ACTION = "[User] Update User Action";
-export const UPDATE_USER_COMPLETE_ACTION = "[User] Update User Complete Action";
-export const UPDATE_USER_FAILED_ACTION = "[User] Update User Failed Action";
+export const UPDATE_USER_ACTION = '[User] Update User Action';
+export const UPDATE_USER_COMPLETE_ACTION = '[User] Update User Complete Action';
+export const UPDATE_USER_FAILED_ACTION = '[User] Update User Failed Action';
 
-export const DELETE_USER_ACTION = "[User] Delete User Action";
-export const DELETE_USER_COMPLETE_ACTION = "[User] Delete User Complete Action";
-export const DELETE_USER_FAILED_ACTION = "[User] Delete User Failed Action";
+export const DELETE_USER_ACTION = '[User] Delete User Action';
+export const DELETE_USER_COMPLETE_ACTION = '[User] Delete User Complete Action';
+export const DELETE_USER_FAILED_ACTION = '[User] Delete User Failed Action';
 
-export const FETCH_ALL_USERS_ACTION = "[User] Fetch All Users Action";
-export const FETCH_ALL_USERS_COMPLETE_ACTION = "[User] Fetch All Users Complete Action";
-export const FETCH_ALL_USERS_FAILED_ACTION = "[User] Fetch All Users Failed Action";
+export const FETCH_ALL_USERS_ACTION = '[User] Fetch All Users Action';
+export const FETCH_ALL_USERS_COMPLETE_ACTION = '[User] Fetch All Users Complete Action';
+export const FETCH_ALL_USERS_FAILED_ACTION = '[User] Fetch All Users Failed Action';
 
-export const FETCH_USER_ACTION = "[User] Fetch User Action";
-export const FETCH_USER_COMPLETE_ACTION = "[User] Fetch User Complete Action";
-export const FETCH_USER_FAILED_ACTION = "[User] Fetch User Failed Action";
+export const FETCH_USER_ACTION = '[User] Fetch User Action';
+export const FETCH_USER_COMPLETE_ACTION = '[User] Fetch User Complete Action';
+export const FETCH_USER_FAILED_ACTION = '[User] Fetch User Failed Action';
 
-export const CLEAR_CURRENT_USER_ACTION = "[User] Clear Current User Action";
+export const UPDATE_USER_CREDITS_ACTION = '[User] Update User Credits Action';
+export const UPDATE_USER_CREDITS_COMPLETE_ACTION = '[User] Update User Credits Complete Action';
+export const UPDATE_USER_CREDITS_FAILED_ACTION = '[User] Update User Credits Failed Action';
+
+export const CLEAR_CURRENT_USER_ACTION = '[User] Clear Current User Action';
 
 export class LoginUserAction implements Action {
   readonly type = LOGIN_USER_ACTION;
@@ -272,6 +276,36 @@ export class FetchUserFailedAction implements Action {
   }
 }
 
+export class UpdateUserCreditsAction implements Action {
+  readonly type = UPDATE_USER_CREDITS_ACTION;
+  constructor(public payload: any) {
+    toast({
+      title: 'Updating user credits...'
+    });
+    toast.showLoading();
+  }
+}
+
+export class UpdateUserCreditsCompleteAction implements Action {
+  readonly type = UPDATE_USER_CREDITS_COMPLETE_ACTION;
+  constructor(public payload: any) {
+    toast({
+      type: 'success',
+      title: 'Added credits to user!'
+    });
+  }
+}
+
+export class UpdateUserCreditsFailedAction implements Action {
+  readonly type = UPDATE_USER_CREDITS_FAILED_ACTION;
+  constructor(public payload: any) {
+    toast({
+      type: 'error',
+      title: payload
+    });
+  }
+}
+
 export class ClearCurrentUserAction implements Action {
   readonly type = CLEAR_CURRENT_USER_ACTION;
 }
@@ -301,4 +335,7 @@ export type Actions =
   | FetchUserAction
   | FetchUserCompleteAction
   | FetchUserFailedAction
+  | UpdateUserCreditsAction
+  | UpdateUserCreditsCompleteAction
+  | UpdateUserCreditsFailedAction
   | ClearCurrentUserAction;

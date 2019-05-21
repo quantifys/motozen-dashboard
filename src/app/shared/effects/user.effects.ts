@@ -116,7 +116,6 @@ export class UserEffects {
       ))
   );
 
-
   @Effect()
   updateUser$: Observable<Action> = this._action$.ofType(fromUser.UPDATE_USER_ACTION).pipe(
     map((action: fromUser.UpdateUserAction) => action.payload),
@@ -127,6 +126,18 @@ export class UserEffects {
           return new fromUser.UpdateUserCompleteAction(response.json().message);
         }),
         catchError(error => of(new fromUser.UpdateUserFailedAction(error.json().message)))
+      ))
+  );
+
+  @Effect()
+  updateUserCredits$: Observable<Action> = this._action$.ofType(fromUser.UPDATE_USER_CREDITS_ACTION).pipe(
+    map((action: fromUser.UpdateUserCreditsAction) => action.payload),
+    exhaustMap(userData => this._tokenService.patch(`users/${this.user.id}/credit-account`, userData)
+      .pipe(
+        map(response => {
+          return new fromUser.UpdateUserCreditsCompleteAction(response.json().message);
+        }),
+        catchError(error => of(new fromUser.UpdateUserCreditsFailedAction(error.json().message)))
       ))
   );
 }

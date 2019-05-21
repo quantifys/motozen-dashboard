@@ -59,6 +59,16 @@ export class CertificateEffects {
   );
 
   @Effect()
+  renewCertificate$: Observable<Action> = this._action$.ofType(fromCertificate.RENEW_CERTIFICATE_ACTION).pipe(
+    map((action: fromCertificate.RenewCertificateAction) => action.payload),
+    exhaustMap(() => this._tokenService.post(`certificates/${this.certificate.id}/renew`, null)
+      .pipe(
+        map(response => new fromCertificate.RenewCertificateCompleteAction(response.json().message)),
+        catchError(error => of(new fromCertificate.RenewCertificateFailedAction(error.json().message)))
+      ))
+  );
+
+  @Effect()
   fetchCreateCertificate$: Observable<Action> = this._action$.ofType(fromCertificate.FETCH_CREATE_CERTIFICATE_ACTION).pipe(
     map((action: fromCertificate.FetchCreateCertificateAction) => action.payload),
     exhaustMap(id => this._tokenService.get(`devices/${id}/certificate/new`)

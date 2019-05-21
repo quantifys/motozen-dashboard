@@ -2,7 +2,18 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Routes, RouterModule } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
-import { MatFormFieldModule, MatInputModule, MatDatepickerModule, MatNativeDateModule, MatTabsModule, MatPaginatorModule, MatButtonModule, MatBottomSheetModule, MatRadioModule, MatIconModule } from '@angular/material';
+import {
+  MatFormFieldModule,
+  MatInputModule,
+  MatDatepickerModule,
+  MatNativeDateModule,
+  MatTabsModule,
+  MatPaginatorModule,
+  MatButtonModule,
+  MatBottomSheetModule,
+  MatRadioModule,
+  MatIconModule
+} from '@angular/material';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { LightboxModule } from 'ngx-lightbox';
 
@@ -12,28 +23,32 @@ import { CertificateEditComponent } from './certificate-edit/certificate-edit.co
 import { MonthPickerComponent } from './month-picker/month-picker.component';
 import { CertificateDetailComponent } from './certificate-detail/certificate-detail.component';
 import { CertificateFilterComponent } from './certificate-filter/certificate-filter.component';
-import { CertificateIssueComponent, CertificateDeleteComponent } from './certificate-controls/certificate-controls.component';
+import {
+  CertificateIssueComponent,
+  CertificateDeleteComponent,
+  CertificateRenewComponent
+} from './certificate-controls/certificate-controls.component';
 
 const routes: Routes = [
   {
     path: 'edit',
     component: CertificateEditComponent,
     data: {
-      title: "Certificate edit - Dashboard | Gemeni India"
+      title: 'Certificate edit - Dashboard | Gemeni India'
     }
   },
   {
     path: 'view',
     component: CertificateDetailComponent,
     data: {
-      title: "Certificate details - Dashboard | Gemeni India"
+      title: 'Certificate details - Dashboard | Gemeni India'
     }
   },
   {
     path: '',
     component: CertificatesComponent,
     data: {
-      title: "Certificate management - Dashboard | Gemeni India"
+      title: 'Certificate management - Dashboard | Gemeni India'
     }
   }
 ];
@@ -56,7 +71,17 @@ const routes: Routes = [
     LightboxModule,
     RouterModule.forChild(routes)
   ],
-  declarations: [CertificatesComponent, CertificateTableComponent, CertificateEditComponent, MonthPickerComponent, CertificateDetailComponent, CertificateFilterComponent, CertificateDeleteComponent, CertificateIssueComponent],
-  entryComponents: [CertificateFilterComponent, CertificateDeleteComponent, CertificateIssueComponent]
+  declarations: [
+    CertificatesComponent,
+    CertificateTableComponent,
+    CertificateEditComponent,
+    MonthPickerComponent,
+    CertificateDetailComponent,
+    CertificateFilterComponent,
+    CertificateDeleteComponent,
+    CertificateIssueComponent,
+    CertificateRenewComponent
+  ],
+  entryComponents: [CertificateFilterComponent, CertificateDeleteComponent, CertificateIssueComponent, CertificateRenewComponent]
 })
 export class CertificatesModule { }

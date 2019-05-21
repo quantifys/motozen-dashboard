@@ -9,6 +9,7 @@ import * as fromRoot from '../../../shared/reducers';
 import * as userActions from '../../../shared/actions/user.actions';
 import { UserStats, PieChartConfig, User } from '../../../shared/models';
 import { UserDeleteComponent, UserChangePasswordComponent } from '../user-control/user-control.component';
+import { AddCreditComponent } from '../add-credit/add-credit.component';
 
 @Component({
   selector: 'app-user-detail',
@@ -82,6 +83,10 @@ export class UserDetailComponent implements OnDestroy {
 
   changePassword() {
     this.bottomSheet.open(UserChangePasswordComponent);
+  }
+
+  addCredit() {
+    this.bottomSheet.open(AddCreditComponent);
   }
 
 }

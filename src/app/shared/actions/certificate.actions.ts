@@ -271,7 +271,7 @@ export class DeleteCertificateFailedAction implements Action {
 
 export class RenewCertificateAction implements Action {
   readonly type = RENEW_CERTIFICATE_ACTION;
-  constructor(public payload: any) {
+  constructor(public payload?: any) {
     toast({
       title: 'Renewing certificate...'
     });

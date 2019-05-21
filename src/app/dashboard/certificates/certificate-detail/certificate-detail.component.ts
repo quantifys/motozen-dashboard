@@ -8,7 +8,11 @@ import { IAlbum, Lightbox } from 'ngx-lightbox';
 import * as fromRoot from '../../../shared/reducers';
 import * as certificateActions from '../../../shared/actions/certificate.actions';
 import { Certificate, User } from '../../../shared/models';
-import { CertificateIssueComponent, CertificateDeleteComponent } from '../certificate-controls/certificate-controls.component';
+import {
+  CertificateIssueComponent,
+  CertificateDeleteComponent,
+  CertificateRenewComponent
+} from '../certificate-controls/certificate-controls.component';
 import { CertificateService } from '../../../shared/services/certificate.service';
 
 @Component({
@@ -64,6 +68,10 @@ export class CertificateDetailComponent implements OnInit {
     };
     album.push(image);
     this._lightbox.open(album, 0);
+  }
+
+  renewCertificate() {
+    this.bottomSheet.open(CertificateRenewComponent);
   }
 
 }

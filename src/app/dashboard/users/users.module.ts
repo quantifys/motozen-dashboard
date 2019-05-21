@@ -21,6 +21,7 @@ import { UserEditComponent } from './user-edit/user-edit.component';
 import { UserDetailComponent } from './user-detail/user-detail.component';
 import { UserDeleteComponent, UserChangePasswordComponent } from './user-control/user-control.component';
 import { ChartsModule } from '../charts/charts.module';
+import { AddCreditComponent } from './add-credit/add-credit.component';
 
 const routes: Routes = [
   {
@@ -64,8 +65,14 @@ const routes: Routes = [
     RouterModule.forChild(routes)
   ],
   declarations: [
-    UsersComponent, UserTableComponent, UserEditComponent, UserDetailComponent, UserDeleteComponent, UserChangePasswordComponent
+    UsersComponent,
+    UserTableComponent,
+    UserEditComponent,
+    UserDetailComponent,
+    UserDeleteComponent,
+    UserChangePasswordComponent,
+    AddCreditComponent
   ],
-  entryComponents: [UserDeleteComponent, UserChangePasswordComponent]
+  entryComponents: [UserDeleteComponent, UserChangePasswordComponent, AddCreditComponent]
 })
 export class UsersModule { }

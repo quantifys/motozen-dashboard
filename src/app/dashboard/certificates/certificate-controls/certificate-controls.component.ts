@@ -10,7 +10,7 @@ import * as certificateActions from '../../../shared/actions/certificate.actions
 })
 export class CertificateDeleteComponent {
 
-  public type: string = "delete";
+  public type = 'delete';
 
   constructor(
     private _store: Store<fromRoot.State>,
@@ -33,7 +33,7 @@ export class CertificateDeleteComponent {
 })
 export class CertificateIssueComponent {
 
-  public type: string = "issue";
+  public type = 'issue';
 
   constructor(
     private _store: Store<fromRoot.State>,
@@ -48,5 +48,26 @@ export class CertificateIssueComponent {
   close() {
     this.bottomSheetRef.dismiss();
   }
+}
 
+@Component({
+  templateUrl: './certificate-controls.component.html',
+})
+export class CertificateRenewComponent {
+
+  public type = 'renew';
+
+  constructor(
+    private _store: Store<fromRoot.State>,
+    private bottomSheetRef: MatBottomSheetRef<CertificateRenewComponent>
+  ) { }
+
+  action() {
+    this._store.dispatch(new certificateActions.RenewCertificateAction);
+    this.close();
+  }
+
+  close() {
+    this.bottomSheetRef.dismiss();
+  }
 }

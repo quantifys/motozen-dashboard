@@ -1,4 +1,4 @@
-import { User, PageData, UserStats } from '../models';
+import { User, PageData, UserStats, CreditAccount } from '../models';
 import * as userActions from '../actions/user.actions';
 
 export interface State {
@@ -21,6 +21,12 @@ export function reducer(state = initialState, action: userActions.Actions): Stat
     case userActions.LOGIN_USER_ACTION:
       return Object.assign({}, state, {
         loggedUser: new User(action.payload)
+      });
+    case userActions.UPDATE_USER_CREDITS_COMPLETE_ACTION:
+      const userStats = state.currentUserStats;
+      userStats.credit_account = new CreditAccount(action.payload);
+      return Object.assign({}, state, {
+        currentUserStats: userStats
       });
     case userActions.VALIDATE_USER_TOKEN_COMPLETE_ACTION:
       return Object.assign({}, state, {
@@ -53,12 +59,12 @@ export function reducer(state = initialState, action: userActions.Actions): Stat
       });
     case userActions.DELETE_USER_COMPLETE_ACTION:
       return Object.assign({}, state, {
-        allUsers: [...state.allUsers.filter(user => user.id != action.payload ? user : null)],
+        allUsers: [...state.allUsers.filter(user => user.id !== action.payload ? user : null)],
         currentUserStats: new UserStats({})
       });
     case userActions.UPDATE_USER_COMPLETE_ACTION:
       return Object.assign({}, state, {
-        allUsers: [...state.allUsers.map(user => user.id != action.payload.id ? user : new User(action.payload))]
+        allUsers: [...state.allUsers.map(user => user.id !== action.payload.id ? user : new User(action.payload))]
       });
     case userActions.CLEAR_CURRENT_USER_ACTION:
       return Object.assign({}, state, {
