@@ -31,10 +31,10 @@ export class CertificateDetailComponent implements OnInit {
     private _lightbox: Lightbox
   ) {
     this._activatedRoute.queryParams.subscribe(params => {
-      if (params["id"]) {
-        this._store.dispatch(new certificateActions.FetchCertificateAction(params["id"]));
+      if (params['id']) {
+        this._store.dispatch(new certificateActions.FetchCertificateAction(params['id']));
       } else {
-        this._router.navigate(["dashboard", "devices"]);
+        this._router.navigate(['dashboard', 'devices']);
       }
     });
   }
@@ -57,11 +57,11 @@ export class CertificateDetailComponent implements OnInit {
   }
 
   openImage() {
-    let album: IAlbum[] = [];
-    let image: IAlbum = {
+    const album: IAlbum[] = [];
+    const image: IAlbum = {
       src: this.certificate.picture_data.getPicUrl(),
       thumb: null
-    }
+    };
     album.push(image);
     this._lightbox.open(album, 0);
   }
