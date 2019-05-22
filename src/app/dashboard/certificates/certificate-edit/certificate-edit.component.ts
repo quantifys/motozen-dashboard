@@ -153,6 +153,7 @@ export class CertificateEditComponent implements OnInit, OnDestroy {
       location_state: [null, Validators.required],
       mfg_month_year: [null, Validators.required],
       reg_month_year: [null, Validators.required],
+      date_generated: [null],
       picture_data: [null]
     });
   }
@@ -219,6 +220,10 @@ export class CertificateEditComponent implements OnInit, OnDestroy {
 
   get picture_data(): FormControl {
     return this.certificateForm.get('picture_data') as FormControl;
+  }
+
+  get date_generated(): FormControl {
+    return this.certificateForm.get('date_generated') as FormControl;
   }
 
   loadFormdata(id?: number) {
@@ -350,6 +355,9 @@ export class CertificateEditComponent implements OnInit, OnDestroy {
     } else {
       if (this.picture_data.pristine) {
         delete formData['picture_data'];
+      }
+      if (this.loggedUser.role === 'admin') {
+        formData['date_generated'] = moment(new Date(formData['date_generated']).toISOString()).format('YYYY-MM-DD');
       }
       this._store.dispatch(new certificateActions.UpdateCertificateAction(formData));
     }

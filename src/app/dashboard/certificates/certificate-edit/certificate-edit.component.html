@@ -29,6 +29,14 @@
                     <mat-hint>40kmph - 120kmph</mat-hint>
                   </mat-form-field>
                 </div>
+                <div class="col-lg-4 d-flex align-items-end" *ngIf="loggedUser.role == 'admin'">
+                  <mat-form-field class="w-100">
+                    <input matInput [matDatepicker]="dg" placeholder="Date generated"
+                      formControlName="date_generated">
+                    <mat-datepicker-toggle matSuffix [for]="dg"></mat-datepicker-toggle>
+                    <mat-datepicker #dg></mat-datepicker>
+                  </mat-form-field>
+                </div>
               </ng-container>
             </div>
           </div>
