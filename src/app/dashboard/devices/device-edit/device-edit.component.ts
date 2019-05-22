@@ -1,12 +1,13 @@
 import { Location } from '@angular/common';
-import { Component, OnInit, ChangeDetectorRef, AfterViewInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { FormGroup, FormBuilder, FormArray, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
 
-import { Device } from 'src/app/shared/models';
+import { Device, Vehicle } from 'src/app/shared/models';
 import * as fromRoot from '../../../shared/reducers';
 import * as deviceActions from '../../../shared/actions/device.actions';
+import { VehicleSelectService } from 'src/app/shared/services/vehicle-select.service';
 
 @Component({
   selector: 'app-device-edit',
@@ -20,16 +21,22 @@ export class DeviceEditComponent implements OnInit {
   public addDevice: boolean;
   public filledVehicles = false;
   public currentDevice: Device;
+  public selectedVehicles: Vehicle[];
   public formVehicles: any = {};
   public brands: string[] = [];
   public variants: any[] = [];
+  public groups: any[] = [
+    [221, 218, 222, 236, 235, 217, 231, 232, 220, 234, 223, 237, 216, 233, 226, 227, 224, 225, 228, 230, 229],
+    [244, 245, 240, 241, 242, 246, 243, 238, 239, 215]
+  ];
 
   constructor(
     private _store: Store<fromRoot.State>,
     private _activatedRoute: ActivatedRoute,
     private _fb: FormBuilder,
     private _cdr: ChangeDetectorRef,
-    public _location: Location
+    public _location: Location,
+    private _vehicleSelect: VehicleSelectService
   ) {
     this._activatedRoute.queryParams.subscribe(params => {
       if (params['id']) {
@@ -39,6 +46,7 @@ export class DeviceEditComponent implements OnInit {
         this.addDevice = true;
       }
     });
+    this._vehicleSelect.selectedVehicles.subscribe(ids => this.add(ids, true));
   }
 
   ngOnInit() {
@@ -77,7 +85,7 @@ export class DeviceEditComponent implements OnInit {
       if (device.id) {
         this.currentDevice = device;
         this.deviceEditForm.patchValue(device, { emitEvent: false });
-        if (!this.filledVehicles ) {
+        if (!this.filledVehicles) {
           this.filledVehicles = true;
           device.restricted_to_vehicles.map(vehicle => this.restricted_to_vehicles.push(this._fb.group({
             vehicle_make: [vehicle.make, Validators.required],
@@ -92,7 +100,7 @@ export class DeviceEditComponent implements OnInit {
   buildForm() {
     this.deviceForm = this._fb.group({
       device: this._fb.array([]),
-      restricted_vehicle_ids: this._fb.array([])
+      restricted_to_vehicle_ids: this._fb.array([])
     });
     this.deviceEditForm = this._fb.group({
       id: null,
@@ -105,8 +113,8 @@ export class DeviceEditComponent implements OnInit {
     return this.deviceForm.get('device') as FormArray;
   }
 
-  get restricted_vehicle_ids(): FormArray {
-    return this.deviceForm.get('restricted_vehicle_ids') as FormArray;
+  get restricted_to_vehicle_ids(): FormArray {
+    return this.deviceForm.get('restricted_to_vehicle_ids') as FormArray;
   }
 
   get restricted_to_vehicles(): FormArray {
@@ -124,24 +132,48 @@ export class DeviceEditComponent implements OnInit {
     this.device.removeAt(i);
   }
 
-  addVehicle(type: boolean) {
+  add(ids: number[], type?: boolean) {
     if (type) {
-      this.restricted_vehicle_ids.push(this._fb.group({
-        vehicle_make: [null, Validators.required],
-        vehicle_model: [null, Validators.required],
-        vehicle_id: [null, Validators.required]
-      }));
-    } else {
-      this.restricted_to_vehicles.push(this._fb.group({
-        vehicle_make: [null, Validators.required],
-        vehicle_model: [null, Validators.required],
-        vehicle_id: [null, Validators.required]
-      }));
+      this.selectedVehicles = [];
     }
+    ids.map(id => {
+      this.brands.map(brand => {
+        this.formVehicles['vehicle_makes'][brand].map(vehicle => {
+          if (vehicle.id === id) {
+            this.selectedVehicles.push(new Vehicle({
+              make: brand,
+              model: vehicle.model,
+              variant: vehicle.variant
+            }));
+          }
+        });
+      });
+    });
+  }
+
+  remove(index: number) {
+    this.selectedVehicles = this.selectedVehicles.filter((v, i) => i !== index);
+  }
+
+  addVehicle(type: boolean) {
+    this._vehicleSelect.openVehicleDialog(this.formVehicles);
+    // if (type) {
+    //   this.restricted_to_vehicle_ids.push(this._fb.group({
+    //     vehicle_make: [null, Validators.required],
+    //     vehicle_model: [null, Validators.required],
+    //     vehicle_id: [null, Validators.required]
+    //   }));
+    // } else {
+    //   this.restricted_to_vehicles.push(this._fb.group({
+    //     vehicle_make: [null, Validators.required],
+    //     vehicle_model: [null, Validators.required],
+    //     vehicle_id: [null, Validators.required]
+    //   }));
+    // }
   }
 
   removeVehicle(index: number) {
-    this.restricted_vehicle_ids.removeAt(index);
+    this.restricted_to_vehicle_ids.removeAt(index);
   }
 
   enterPressed(id: number) {
@@ -172,7 +204,7 @@ export class DeviceEditComponent implements OnInit {
   saveChanges() {
     if (this.addDevice) {
       const formData = this.deviceForm.value;
-      formData['restricted_vehicle_ids'] = formData['restricted_vehicle_ids'].map(data => data.vehicle_id);
+      formData['restricted_to_vehicle_ids'] = this.selectedVehicles;
       this._store.dispatch(new deviceActions.CreateDeviceAction(formData));
     } else {
       const formData = this.deviceEditForm.value;
@@ -193,13 +225,19 @@ export class DeviceEditComponent implements OnInit {
   onAdd(data: any, index: number) {
     this.variants[index] = [];
     const models: any[] = [];
-    this.formVehicles['vehicle_makes'][(this.addDevice ? this.restricted_vehicle_ids : this.restricted_to_vehicles)
+    this.formVehicles['vehicle_makes'][(this.addDevice ? this.restricted_to_vehicle_ids : this.restricted_to_vehicles)
       .at(index).get('vehicle_make').value].map(vehicle => {
         if (vehicle.model === data.model) {
           models.push(vehicle);
         }
       });
     this.variants[index] = models;
+  }
+
+  addGroup(group: number) {
+    if (this.addDevice) {
+      this.add(this.groups[group]);
+    }
   }
 
 }

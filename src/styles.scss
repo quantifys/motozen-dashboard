@@ -249,6 +249,13 @@ nav {
   }
 }
 
+.modalCont {
+  min-width: 50%;
+  .mat-dialog-container {
+    min-width: 50%;
+  }
+}
+
 @media only screen and (max-width: 768px) {
   .top-header {
     text-align: center;

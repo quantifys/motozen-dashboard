@@ -73,14 +73,17 @@ export class StockSummaryComponent implements OnInit, OnDestroy {
   }
 
   closeSheet() {
-    let formData: any = {
+    const formData: any = {
       dist_id: this.dist_id.value,
       state_code: this.state_code.value,
       role: [this.role.value, Validators.required]
     };
-    formData["dist_id"] ? null : delete formData["dist_id"]
-    formData["state_code"] ? null : delete formData["state_code"]
-    formData["role"] ? null : delete formData["role"]
+    // tslint:disable-next-line
+    formData['dist_id'] ? null : delete formData['dist_id']
+    // tslint:disable-next-line
+    formData['state_code'] ? null : delete formData['state_code']
+    // tslint:disable-next-line
+    formData['role'] ? null : delete formData['role']
     this._store.dispatch(new reportActions.FetchStockSummaryAction(formData));
   }
 }

@@ -29,7 +29,7 @@
         <div class="card-body">
           <h6 class="text-grey-dark font-weight-bold mb-3">
             <i class="fas fa-info-circle mr-2 fa-fw text-orange"></i>Restricted vehicles</h6>
-          <table class="table text-center">
+          <table class="table text-center" *ngIf="device.restricted_to_vehicles.length > 0">
             <thead>
               <tr>
                 <th>Make</th>
@@ -43,6 +43,7 @@
               </tr>
             </tbody>
           </table>
+          <p class="text-danger" *ngIf="device.restricted_to_vehicles.length == 0">Not restricted!</p>
         </div>
       </div>
     </div>

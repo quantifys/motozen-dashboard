@@ -48,8 +48,25 @@
             </table>
             <hr>
             <h6>Select vehicles to restrict devices</h6>
-            <div class="row" formArrayName="restricted_vehicle_ids">
-              <ng-container *ngFor="let control of restricted_vehicle_ids.controls; let i = index" [formGroupName]="i">
+            <table class="table" *ngIf="selectedVehicles.length > 0">
+              <thead>
+                <tr>
+                  <th>Make</th>
+                  <th>Model</th>
+                  <th>Variant</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let vehicle of selectedVehicles; let i = index">
+                  <td>{{vehicle.make}}</td>
+                  <td>{{vehicle.model}}</td>
+                  <td>{{vehicle.variant}}</td>
+                  <td><button mat-icon-button color="warn" (click)="remove(i)"><mat-icon>delete</mat-icon></button></td>
+                </tr>
+              </tbody>
+            </table>
+            <!-- <div class="row" formArrayName="restricted_to_vehicle_ids">
+              <ng-container *ngFor="let control of restricted_to_vehicle_ids.controls; let i = index" [formGroupName]="i">
                 <div class="col-lg-4 d-flex align-items-center">
                   <button (click)="removeVehicle(i)" mat-icon-button color="warn">
                     <mat-icon>delete</mat-icon>
@@ -69,9 +86,11 @@
                     bindValue="id" formControlName="vehicle_id" placeholder="Select vehicle variant"></ng-select>
                 </div>
               </ng-container>
-            </div>
+            </div> -->
             <div class="text-right">
-              <button mat-stroked-button color="warn" (click)="addVehicle(true)">Add vehicle</button>
+              <button mat-stroked-button color="warn" class="mr-2" (click)="addVehicle(true)">Add vehicle</button>
+              <button mat-stroked-button color="warn" class="mr-2" (click)="addGroup(0)">All WagonR</button>
+              <button mat-stroked-button color="warn" (click)="addGroup(1)">All i20</button>
             </div>
             <hr>
             <button class="btn btn-orange text-light btn-save" [disabled]="deviceForm.invalid"

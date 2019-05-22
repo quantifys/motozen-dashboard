@@ -8,10 +8,13 @@ import { DatePipe } from '@angular/common';
 import { HttpModule } from '@angular/http';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { AppRoutingModule } from './app-routing.module';
+import { MatDialogModule } from '@angular/material';
 
 import { environment } from '../environments/environment';
 import { AppComponent } from './app.component';
 import { reducers } from './shared/reducers';
+
+import { VehicleSelectModule } from './dashboard/vehicle-select/vehicle-select.module';
 
 import { DashboardEffects } from './shared/effects/dashboard.effects';
 import { UserEffects } from './shared/effects/user.effects';
@@ -36,6 +39,7 @@ import { RequisitionOrderService } from './shared/services/requisition-order.ser
 import { GooglePieChartService } from './shared/services/google-pie-chart.service';
 import { GoogleBarChartService } from './shared/services/google-bar-chart.service';
 import { CsvReportService } from './shared/services/csv-report.service';
+import { VehicleSelectService } from './shared/services/vehicle-select.service';
 
 @NgModule({
   declarations: [
@@ -47,6 +51,8 @@ import { CsvReportService } from './shared/services/csv-report.service';
     HttpModule,
     HttpClientModule,
     StoreModule.forRoot(reducers),
+    MatDialogModule,
+    VehicleSelectModule,
     EffectsModule.forRoot([
       DashboardEffects,
       UserEffects,
@@ -69,7 +75,18 @@ import { CsvReportService } from './shared/services/csv-report.service';
       logOnly: environment.production // Restrict extension to log-only mode
     })
   ],
-  providers: [Angular2TokenService, RtoService, CertificateService, PurchaseOrderService, RequisitionOrderService, DatePipe, GooglePieChartService, GoogleBarChartService, CsvReportService],
+  providers: [
+    Angular2TokenService,
+    RtoService,
+    CertificateService,
+    PurchaseOrderService,
+    RequisitionOrderService,
+    DatePipe,
+    GooglePieChartService,
+    GoogleBarChartService,
+    CsvReportService,
+    VehicleSelectService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

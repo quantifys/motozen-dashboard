@@ -3,8 +3,19 @@ import { CommonModule } from '@angular/common';
 import { DevicesComponent } from './devices.component';
 import { Routes, RouterModule } from '@angular/router';
 import { NgSelectModule } from '@ng-select/ng-select';
-import { MatTabsModule, MatPaginatorModule, MatIconModule, MatButtonModule, MatFormFieldModule, MatInputModule, MatBottomSheetModule, MatRadioModule } from '@angular/material';
+import {
+  MatTabsModule,
+  MatPaginatorModule,
+  MatIconModule,
+  MatButtonModule,
+  MatFormFieldModule,
+  MatInputModule,
+  MatBottomSheetModule,
+  MatRadioModule
+} from '@angular/material';
 import { ReactiveFormsModule } from '@angular/forms';
+
+import { VehicleSelectModule } from '../vehicle-select/vehicle-select.module';
 
 import { DeviceTableComponent } from './device-table/device-table.component';
 import { DeviceDetailComponent, DeviceDeleteComponent } from './device-detail/device-detail.component';
@@ -18,28 +29,28 @@ const routes: Routes = [
     path: '',
     component: DevicesComponent,
     data: {
-      title: "Device management - Dashboard | Gemeni India"
+      title: 'Device management - Dashboard | Gemeni India'
     }
   },
   {
     path: 'edit',
     component: DeviceEditComponent,
     data: {
-      title: "Device edit - Dashboard | Gemeni India"
+      title: 'Device edit - Dashboard | Gemeni India'
     }
   },
   {
     path: 'transfer',
     component: DeviceTransferComponent,
     data: {
-      title: "Device transfer - Dashboard | Gemeni India"
+      title: 'Device transfer - Dashboard | Gemeni India'
     }
   },
   {
     path: 'view',
     component: DeviceDetailComponent,
     data: {
-      title: "Device details - Dashboard | Gemeni India"
+      title: 'Device details - Dashboard | Gemeni India'
     }
   }
 ];
@@ -57,9 +68,19 @@ const routes: Routes = [
     MatBottomSheetModule,
     MatRadioModule,
     NgSelectModule,
-    RouterModule.forChild(routes)
+    RouterModule.forChild(routes),
+    VehicleSelectModule
   ],
-  declarations: [DevicesComponent, DeviceTableComponent, DeviceEditComponent, DeviceDetailComponent, SldComponent, DeviceTransferComponent, DeviceDeleteComponent, StockSummaryComponent],
+  declarations: [
+    DevicesComponent,
+    DeviceTableComponent,
+    DeviceEditComponent,
+    DeviceDetailComponent,
+    SldComponent,
+    DeviceTransferComponent,
+    DeviceDeleteComponent,
+    StockSummaryComponent
+  ],
   entryComponents: [DeviceDeleteComponent, StockSummaryComponent]
 })
 export class DevicesModule { }

@@ -1,0 +1,11 @@
+.fill {
+  min-height: 360px;
+  max-height: 560px;
+  .models {
+    max-height: 380px;
+    overflow-x: hidden;
+    overflow-y: auto;
+    margin-bottom: 10px;
+  }
+  flex: 1 1 auto;
+}
