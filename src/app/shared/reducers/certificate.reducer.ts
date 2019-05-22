@@ -48,6 +48,10 @@ export function reducer(state = initialState, action: certificateActions.Actions
       return Object.assign({}, state, {
         currentCertificate: new Certificate(action.payload)
       });
+    case certificateActions.RENEW_CERTIFICATE_COMPLETE_ACTION:
+      return Object.assign({}, state, {
+        currentCertificate: new Certificate(action.payload)
+      });
     case certificateActions.ISSUE_CERTIFICATE_COMPLETE_ACTION:
       return Object.assign({}, state, {
         currentCertificate: new Certificate(action.payload)

@@ -400,7 +400,7 @@ export class CertificateService {
               ]
             },
             {
-              'text': 'Fitment Assurance Certificate',
+              'text': this.certificate.renewal_count === 0 ? 'Fitment Assurance' : 'Re-Calibration' + ' Certificate',
               'alignment': 'center',
               'fontSize': 14,
               'bold': true
@@ -762,7 +762,7 @@ export class CertificateService {
         }
       },
       {
-        'text': 'was compconsted successfully.',
+        'text': this.certificate.renewal_count === 0 ? 'was completed successfully.' : 'is renewed successfully.',
         'margin': [
           0,
           5,
@@ -773,7 +773,8 @@ export class CertificateService {
       {
         'text': 'The above mentioned fitment complies with ISO standard 9001:2015 and is tamper proof to the best of the certifying '
           + 'authority\'s knowledge. Our fitments comply with ICAT norms AIS-018. The manufacturer is not responsible for any misuse '
-          + 'or malpractice towards the certifcate. Any liability towards fitment made without iCAT vehicle approval or without following '
+          + 'or malpractice towards the' + (this.certificate.renewal_count === 0 ? '' : ' renewal')
+          + ' certificate. Any liability towards fitment made without iCAT vehicle approval or without following '
           + 'manufacturers T&C will borne solely by the dealer.',
         'alignment': 'justify',
         'fontSize': 9
@@ -832,11 +833,14 @@ export class CertificateService {
           'This is to acknowledge and confirm that we have got our vehicle bearing above Registration No.: '
           + certificate.car_reg_number +
           ' fitted with Electronic Speed Limitation Device, manufactured by Gemeni Enterprises bearing SR.NO.: '
-          + certificate.device.sld_number + ' & Model No.: GESLD118',
-          'After fitting the Electronic speed limiter my vehicle speed is not exceeding more than 80 km/hr and are working satisfactory.',
+          + certificate.device.sld_number + ' & Model No.: GESLD118'
+          + (this.certificate.renewal_count === 0 ? '' : ' and same has been re-calibrated.'),
+          'After ' + (this.certificate.renewal_count === 0 ? 'fitting' : 're-calibrating')
+          + ' the Electronic speed limiter my vehicle speed is not exceeding more than 80 km/hr and are working satisfactory.',
           'We undertake not to raise any dispute or any legal claims against Gemeni Enterprises in the event that the above mentioned '
           + 'seals are found broken/torn/tampered and more specifically with the respect to any variation in the speed limit set after '
-          + 'fitment, after expiry of warranty period of 12 months from the date of installation.'
+          + 'fitment, after expiry of warranty period of 12 months from the date of installation'
+          + (this.certificate.renewal_count === 0 ? '.' : ' and renewal.')
         ],
         'fontSize': 9
       },
