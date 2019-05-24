@@ -141,6 +141,7 @@ export class DeviceEditComponent implements OnInit {
         this.formVehicles['vehicle_makes'][brand].map(vehicle => {
           if (vehicle.id === id) {
             this.selectedVehicles.push(new Vehicle({
+              id: vehicle.id,
               make: brand,
               model: vehicle.model,
               variant: vehicle.variant
@@ -204,16 +205,13 @@ export class DeviceEditComponent implements OnInit {
   saveChanges() {
     if (this.addDevice) {
       const formData = this.deviceForm.value;
-      formData['restricted_to_vehicle_ids'] = this.selectedVehicles;
+      formData['restricted_to_vehicle_ids'] = this.selectedVehicles.map(vehicle => vehicle.id);
       this._store.dispatch(new deviceActions.CreateDeviceAction(formData));
     } else {
       const formData = this.deviceEditForm.value;
+      formData['restricted_to_vehicles'] = this.selectedVehicles.map(vehicle => vehicle.id);
       this._store.dispatch(new deviceActions.UpdateDeviceAction({
-        device: {
-          id: formData['id'],
-          sld_number: formData['sld_number'],
-          restricted_to_vehicle_ids: formData['restricted_to_vehicles'].map(vehicle => vehicle['vehicle_id'])
-        }
+        device: formData
       }));
     }
   }
@@ -235,9 +233,7 @@ export class DeviceEditComponent implements OnInit {
   }
 
   addGroup(group: number) {
-    if (this.addDevice) {
-      this.add(this.groups[group]);
-    }
+    this.add(this.groups[group]);
   }
 
 }
