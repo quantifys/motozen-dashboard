@@ -205,11 +205,16 @@ export class DeviceEditComponent implements OnInit {
   saveChanges() {
     if (this.addDevice) {
       const formData = this.deviceForm.value;
-      formData['restricted_to_vehicle_ids'] = this.selectedVehicles.map(vehicle => vehicle.id);
+      const restricted_to_vehicle_ids = this.selectedVehicles.map(vehicle => vehicle.id);
+      formData['device'].map(data => {
+        const device = data;
+        device['restricted_to_vehicle_ids'] = restricted_to_vehicle_ids;
+        return device;
+      });
       this._store.dispatch(new deviceActions.CreateDeviceAction(formData));
     } else {
       const formData = this.deviceEditForm.value;
-      formData['restricted_to_vehicles'] = this.selectedVehicles.map(vehicle => vehicle.id);
+      formData['restricted_to_vehicle_ids'] = this.selectedVehicles.map(vehicle => vehicle.id);
       this._store.dispatch(new deviceActions.UpdateDeviceAction({
         device: formData
       }));
