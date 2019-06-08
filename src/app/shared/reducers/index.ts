@@ -3,6 +3,7 @@ import { ActionReducerMap, createSelector } from '@ngrx/store';
 import * as fromDashboard from './dashboard.reducer';
 import * as fromUser from './user.reducer';
 import * as fromDevice from './device.reducer';
+import * as fromTrackerDevice from './tracker-device.reducer';
 import * as fromVehicle from './vehicle.reducer';
 import * as fromInventory from './inventory.reducer';
 import * as fromCertificate from './certificate.reducer';
@@ -20,6 +21,7 @@ export interface State {
   dashboard: fromDashboard.State;
   users: fromUser.State;
   devices: fromDevice.State;
+  trackerDevices: fromTrackerDevice.State;
   vehicles: fromVehicle.State;
   inventories: fromInventory.State;
   certificates: fromCertificate.State;
@@ -38,6 +40,7 @@ export const reducers: ActionReducerMap<State> = {
   dashboard: fromDashboard.reducer,
   users: fromUser.reducer,
   devices: fromDevice.reducer,
+  trackerDevices: fromTrackerDevice.reducer,
   vehicles: fromVehicle.reducer,
   inventories: fromInventory.reducer,
   certificates: fromCertificate.reducer,
@@ -69,6 +72,13 @@ export const getDevicePageStatus = createSelector(devices, (state: fromDevice.St
 export const getDeviceDealers = createSelector(devices, (state: fromDevice.State) => state.dealers);
 export const getTransferableDevices = createSelector(devices, (state: fromDevice.State) => state.devices);
 export const getDeviceFormVehicles = createSelector(devices, (state: fromDevice.State) => state.deviceformVehicles);
+
+export const trackerDevices = (state: State) => state.trackerDevices;
+export const getAllTrackerDevices = createSelector(trackerDevices, (state: fromTrackerDevice.State) => state.allTrackerDevices);
+export const getCurrentTrackerDevice = createSelector(trackerDevices, (state: fromTrackerDevice.State) => state.currentTrackerDevice);
+export const getTrackerDevicePageStatus = createSelector(trackerDevices, (state: fromTrackerDevice.State) => state.trackerDevicePageStatus);
+export const getTrackerDeviceDealers = createSelector(trackerDevices, (state: fromTrackerDevice.State) => state.dealers);
+export const getTransferableTrackerDevices = createSelector(trackerDevices, (state: fromTrackerDevice.State) => state.trackerDevices);
 
 export const vehicles = (state: State) => state.vehicles;
 export const getAllVehicles = createSelector(vehicles, (state: fromVehicle.State) => state.allVehicles);

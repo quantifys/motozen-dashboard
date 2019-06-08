@@ -5,21 +5,21 @@ import { Store } from '@ngrx/store';
 import { PageEvent } from '@angular/material';
 
 import * as fromRoot from '../../../shared/reducers';
-import * as deviceActions from '../../../shared/actions/device.actions';
-import { Device } from '../../../shared/models/device.model';
+import * as trackerDeviceActions from '../../../shared/actions/tracker-device.actions';
+import { TrackerDevice } from 'src/app/shared/models';
 
 @Component({
-  selector: 'app-device-table',
-  templateUrl: './device-table.component.html',
-  styleUrls: ['./device-table.component.scss']
+  selector: 'app-tracker-devices-table',
+  templateUrl: './tracker-devices-table.component.html',
+  styleUrls: ['./tracker-devices-table.component.scss']
 })
-export class DeviceTableComponent implements OnInit, OnDestroy {
+export class TrackerDevicesTableComponent implements OnInit, OnDestroy {
 
   private routerSubscription$: Subscription = new Subscription();
   private pageSubscription$: Subscription = new Subscription();
   private devicesSubscription$: Subscription = new Subscription();
   public queryParams: any = {};
-  public devices: Device[] = [];
+  public devices: TrackerDevice[] = [];
   public loading = false;
   public pageEvent: PageEvent = new PageEvent();
 
@@ -37,17 +37,18 @@ export class DeviceTableComponent implements OnInit, OnDestroy {
         this.pageEvent.pageSize = +params['per_page'];
       }
       if (params['page'] && params['per_page'] && params['status']) {
-        this.fetchDevices();
+        this.fetchTrackerDevices();
       }
     });
   }
 
   ngOnInit() {
-    this.devicesSubscription$ = this._store.select(fromRoot.getAllDevices).subscribe(devices => {
+    this.devicesSubscription$ = this._store.select(fromRoot.getAllTrackerDevices).subscribe(devices => {
       this.loading = false;
       this.devices = devices;
     });
-    this.pageSubscription$ = this._store.select(fromRoot.getDevicePageStatus).subscribe(pageData => this.pageEvent.length = pageData.total);
+    this.pageSubscription$ = this._store.select(fromRoot.getTrackerDevicePageStatus)
+      .subscribe(pageData => this.pageEvent.length = pageData.total);
   }
 
   ngOnDestroy() {
@@ -57,19 +58,19 @@ export class DeviceTableComponent implements OnInit, OnDestroy {
   }
 
 
-  fetchDevices() {
+  fetchTrackerDevices() {
     this.loading = true;
     const data: any = {};
     Object.assign(data, this.queryParams);
     data['order'] = {
-      sld_number: 'desc'
+      serial_no: 'desc'
     };
-    this._store.dispatch(new deviceActions.FetchAllDevicesAction(data));
+    this._store.dispatch(new trackerDeviceActions.FetchAllTrackerDevicesAction(data));
   }
 
   getPage(pageEvent: PageEvent) {
     this.pageEvent = pageEvent;
-    this._router.navigate(['dashboard', 'devices'], {
+    this._router.navigate(['dashboard', 'vts-devices'], {
       queryParams: {
         ...this.queryParams,
         page: pageEvent.pageIndex + 1,

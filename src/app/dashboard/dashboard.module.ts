@@ -1,7 +1,14 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Routes, RouterModule } from '@angular/router';
-import { MatDatepickerModule, NativeDateModule, MatFormFieldModule, MatInputModule, MatButtonModule, MatIconModule } from '@angular/material';
+import {
+  MatDatepickerModule,
+  NativeDateModule,
+  MatFormFieldModule,
+  MatInputModule,
+  MatButtonModule,
+  MatIconModule
+} from '@angular/material';
 import { ReactiveFormsModule } from '@angular/forms';
 import { Angular2TokenService } from 'angular2-token';
 
@@ -70,6 +77,10 @@ const routes: Routes = [
       {
         path: 'vendors',
         loadChildren: './vendors/vendors.module#VendorsModule'
+      },
+      {
+        path: 'vts-devices',
+        loadChildren: './tracker-devices/tracker-devices.module#TrackerDevicesModule'
       },
       {
         path: '',

@@ -39,9 +39,16 @@ export const ROUTES: RouteInfo[] = [
   },
   {
     path: 'devices',
-    title: 'Devices',
+    title: 'Speed Governors',
     type: 'link',
     icontype: 'fa-desktop',
+    users: ['manufacturer', 'distributor', 'dealer', 'sub_dealer', 'store_purchases']
+  },
+  {
+    path: 'vts-devices',
+    title: 'VTS devices',
+    type: 'link',
+    icontype: 'fa-map',
     users: ['manufacturer', 'distributor', 'dealer', 'sub_dealer', 'store_purchases']
   },
   {
@@ -124,7 +131,7 @@ export const ROUTES: RouteInfo[] = [
 ];
 
 @Component({
-  selector: 'side-nav',
+  selector: 'app-side-nav',
   templateUrl: './side-nav.component.html',
   styleUrls: ['./side-nav.component.scss']
 })

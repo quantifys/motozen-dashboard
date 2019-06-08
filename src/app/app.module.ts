@@ -31,6 +31,7 @@ import { ExpenseEffects } from './shared/effects/expense.effects';
 import { TransactionEffects } from './shared/effects/transaction.effects';
 import { VendorEffects } from './shared/effects/vendor.effects';
 import { ReportEffects } from './shared/effects/reports.effects';
+import { TrackerDeviceEffects } from './shared/effects/tracker-device.effects';
 
 import { RtoService } from './shared/services/rto.service';
 import { CertificateService } from './shared/services/certificate.service';
@@ -68,7 +69,8 @@ import { VehicleSelectService } from './shared/services/vehicle-select.service';
       TransactionEffects,
       SalarySlipEffects,
       VendorEffects,
-      ReportEffects
+      ReportEffects,
+      TrackerDeviceEffects
     ]),
     StoreDevtoolsModule.instrument({
       maxAge: 25, // Retains last 25 states

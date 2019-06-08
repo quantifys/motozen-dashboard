@@ -1,0 +1,56 @@
+<section class="container">
+  <div class="d-flex align-items-center justify-content-between">
+    <a (click)="_location.back()" class="btn btn-orange text-light text-light">
+      <i class="fas fa-arrow-left mr-2"></i>Go back</a>
+    <h4 class="text-grey-dark m-0">{{addTrackerDevice ? 'Add VTS' : 'Edit VTS'}}</h4>
+  </div>
+
+  <div class="row justify-content-center">
+    <div class="col-sm-12 col-md-0 col-lg-8">
+      <div class="card mt-5">
+        <div class="card-body">
+          <h6 class="text-grey-dark font-weight-bold mb-3">Add list of devices</h6>
+          <form [formGroup]="deviceForm">
+            <table class="table mb-0">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>VTS devices</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody formArrayName="device">
+                <tr *ngFor="let sld of device.controls; let i=index">
+                  <td class="align-middle">
+                    {{i + 1}}
+                  </td>
+                  <td>
+                    <app-vts-device [formGroupName]="i" [sldForm]="device.controls[i]" (enterPressed)="enterPressed($event)"
+                      [position]="i"></app-vts-device>
+                  </td>
+                  <td class="align-middle text-right">
+                    <button mat-icon-button color="warn" (click)="deleteVTS(i)" *ngIf="device.controls.length > 1">
+                      <mat-icon>delete</mat-icon>
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+              <tfoot>
+                <tr>
+                  <td colspan="2" class="align-middle text-orange">
+                    If you're using a scanner please verify that the input is focused.
+                  </td>
+                  <td class="text-right"><button mat-stroked-button color="warn" (click)="addVTS()">Add device</button>
+                  </td>
+                </tr>
+              </tfoot>
+            </table>
+            <hr>
+            <button class="btn btn-orange text-light btn-save" [disabled]="deviceForm.invalid"
+              (click)="saveChanges()">Save</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

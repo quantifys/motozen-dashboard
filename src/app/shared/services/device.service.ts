@@ -7,7 +7,7 @@ import { take } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class DeviceService {
-  
+
   public exists: Subject<boolean> = new Subject();
 
   constructor(
@@ -16,6 +16,15 @@ export class DeviceService {
 
   checkIfDeviceExists(sld_number: string): Observable<any> {
     this._tokenService.get(`devices/exists/${sld_number}`).pipe(take(1)).subscribe(res => {
+      this.exists.next(true);
+    }, err => {
+      this.exists.next(false);
+    });
+    return this.exists.asObservable();
+  }
+
+  checkIfVTSExists(sld_number: string): Observable<any> {
+    this._tokenService.get(`tracker_devices/exists/${sld_number}`).pipe(take(1)).subscribe(res => {
       this.exists.next(true);
     }, err => {
       this.exists.next(false);

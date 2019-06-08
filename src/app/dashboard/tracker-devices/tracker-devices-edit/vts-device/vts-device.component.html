@@ -1,0 +1,17 @@
+<form class="mb-0 d-flex align-items-center" autocomplete="off" [formGroup]="sldForm">
+  <input [attr.id]="'serial_no' + position" type="text" class="form-control" formControlName="serial_no"
+    placeholder="Enter Serial No">
+  <input [attr.id]="'serial_no' + position" type="text" class="form-control" formControlName="imei"
+    placeholder="Enter IMEI">
+  <input [attr.id]="'serial_no' + position" type="text" class="form-control" formControlName="esim1"
+    placeholder="Enter ESIM 1">
+  <input [attr.id]="'serial_no' + position" type="text" class="form-control" formControlName="esim2"
+    placeholder="Enter ESIM 2">
+  <p class="text-danger ml-2 mb-0" *ngIf="sldForm.hasError('exists')" title="Device already exists!">
+    <i class="fas fa-times-circle"></i>
+  </p>
+  <p class="text-danger ml-2 mb-0" *ngIf="serial_no.touched && serial_no.hasError('minlength')"
+    title="Device ID should be 9 characters in length!">
+    <i class="fas fa-times-circle"></i>
+  </p>
+</form>
