@@ -14,7 +14,7 @@ export class TrackerDevice {
 
   constructor(data: any) {
     this.id = data.id ? data.id : null;
-    this.serial_no = data.serial_no ? data.sld_number : null;
+    this.serial_no = data.serial_no ? data.serial_no : null;
     this.status = data.status ? data.status : null;
     this.created_at = data.created_at ? new Date(data.created_at) : new Date();
     this.certificate = data.certificate ? new CertificateInfo(data.certificate) : new CertificateInfo({});

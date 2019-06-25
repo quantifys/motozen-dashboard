@@ -7,6 +7,7 @@ import * as fromTrackerDevice from './tracker-device.reducer';
 import * as fromVehicle from './vehicle.reducer';
 import * as fromInventory from './inventory.reducer';
 import * as fromCertificate from './certificate.reducer';
+import * as fromTrackerCertificate from './tracker-certificate.reducer';
 import * as fromExpense from './expense.reducer';
 import * as fromIncome from './income.reducer';
 import * as fromPurchaseOrder from './purchase-order.reducer';
@@ -25,6 +26,7 @@ export interface State {
   vehicles: fromVehicle.State;
   inventories: fromInventory.State;
   certificates: fromCertificate.State;
+  trackerCertificates: fromTrackerCertificate.State;
   expenses: fromExpense.State;
   incomes: fromIncome.State;
   purchaseOrders: fromPurchaseOrder.State;
@@ -44,6 +46,7 @@ export const reducers: ActionReducerMap<State> = {
   vehicles: fromVehicle.reducer,
   inventories: fromInventory.reducer,
   certificates: fromCertificate.reducer,
+  trackerCertificates: fromTrackerCertificate.reducer,
   expenses: fromExpense.reducer,
   incomes: fromIncome.reducer,
   purchaseOrders: fromPurchaseOrder.reducer,
@@ -99,6 +102,21 @@ export const getVehicleFormData = createSelector(certificates, (state: fromCerti
 export const getCertificateFilterUsers = createSelector(certificates, (state: fromCertificate.State) => state.certificateFilterUsers);
 export const getCertificatePageStatus = createSelector(certificates, (state: fromCertificate.State) => state.certificatePageStatus);
 export const checkCertificateUnique = createSelector(certificates, (state: fromCertificate.State) => state.isUnique);
+
+export const trackerCertificates = (state: State) => state.trackerCertificates;
+export const getAllTrackerCertificates = createSelector(trackerCertificates,
+  (state: fromTrackerCertificate.State) => state.allTrackerCertificates);
+export const getReportTrackerCertificates = createSelector(trackerCertificates,
+  (state: fromTrackerCertificate.State) => state.reportTrackerCertificates);
+export const getCurrentTrackerCertificate = createSelector(trackerCertificates,
+  (state: fromTrackerCertificate.State) => state.currentTrackerCertificate);
+export const getTrackerCertificateFormdata = createSelector(trackerCertificates,
+  (state: fromTrackerCertificate.State) => state.trackerCertificateFormdata);
+export const getTrackerCertificateFilterUsers = createSelector(trackerCertificates,
+  (state: fromTrackerCertificate.State) => state.trackerCertificateFilterUsers);
+export const getTrackerCertificatePageStatus = createSelector(trackerCertificates,
+  (state: fromTrackerCertificate.State) => state.trackerCertificatePageStatus);
+export const checkTrackerCertificateUnique = createSelector(trackerCertificates, (state: fromTrackerCertificate.State) => state.isUnique);
 
 export const expenses = (state: State) => state.expenses;
 export const getAllExpenses = createSelector(expenses, (state: fromExpense.State) => state.allExpenses);

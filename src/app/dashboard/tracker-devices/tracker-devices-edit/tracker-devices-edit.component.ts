@@ -41,7 +41,7 @@ export class TrackerDevicesEditComponent implements OnInit {
     this.buildForm();
     this.addVTS();
     this.deviceForm.valueChanges.subscribe(value => {
-      if (this.checkDuplicateInObject('sld_number', value.device)) {
+      if (this.checkDuplicateInObject('serial_no', value.device)) {
         this.deviceForm.setErrors({ 'duplicates': true });
       } else {
         this.deviceForm.setErrors(null);
@@ -57,20 +57,20 @@ export class TrackerDevicesEditComponent implements OnInit {
 
   buildForm() {
     this.deviceForm = this._fb.group({
-      device: this._fb.array([])
+      tracker_device: this._fb.array([])
     });
   }
 
   get device(): FormArray {
-    return this.deviceForm.get('device') as FormArray;
+    return this.deviceForm.get('tracker_device') as FormArray;
   }
 
   addVTS() {
     this.device.push(this._fb.group({
-      serial_no: ['', [Validators.required, Validators.minLength(4)]],
-      imei: ['', [Validators.required, Validators.minLength(4)]],
-      esim1: ['', [Validators.required, Validators.minLength(4)]],
-      esim2: ['', [Validators.required, Validators.minLength(4)]]
+      serial_no: ['', [Validators.required, Validators.minLength(5)]],
+      imei: ['', [Validators.required, Validators.minLength(15)]],
+      esim1: ['', [Validators.required, Validators.minLength(10)]],
+      esim2: ['', [Validators.minLength(10)]]
     }));
     this._cdr.detectChanges();
   }

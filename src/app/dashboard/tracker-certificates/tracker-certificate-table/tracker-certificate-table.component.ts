@@ -5,21 +5,21 @@ import { Store } from '@ngrx/store';
 import { PageEvent } from '@angular/material';
 
 import * as fromRoot from '../../../shared/reducers';
-import * as certificateActions from '../../../shared/actions/certificate.actions';
-import { Certificate } from '../../../shared/models';
+import * as certificateActions from '../../../shared/actions/tracker-certificate.actions';
+import { TrackerCertificate } from '../../../shared/models';
 
 @Component({
-  selector: 'app-certificate-table',
-  templateUrl: './certificate-table.component.html',
-  styleUrls: ['./certificate-table.component.scss']
+  selector: 'app-tracker-certificate-table',
+  templateUrl: './tracker-certificate-table.component.html',
+  styleUrls: ['./tracker-certificate-table.component.scss']
 })
-export class CertificateTableComponent implements OnInit, OnDestroy {
+export class TrackerCertificateTableComponent implements OnInit, OnDestroy {
 
   private routerSubscription$: Subscription = new Subscription();
   private pageSubscription$: Subscription = new Subscription();
   private certificatesSubscription$: Subscription = new Subscription();
   public queryParams: any = {};
-  public certificates: Certificate[] = [];
+  public trackerCertificates: TrackerCertificate[] = [];
   public loading = false;
   public pageEvent: PageEvent = new PageEvent();
 
@@ -37,17 +37,17 @@ export class CertificateTableComponent implements OnInit, OnDestroy {
         this.pageEvent.pageSize = +params['per_page'];
       }
       if (params['page'] && params['per_page'] && params['status']) {
-        this.fetchCertificates();
+        this.fetchTrackerCertificates();
       }
     });
   }
 
   ngOnInit() {
-    this.certificatesSubscription$ = this._store.select(fromRoot.getAllCertificates).subscribe(certificates => {
+    this.certificatesSubscription$ = this._store.select(fromRoot.getAllTrackerCertificates).subscribe(certificates => {
       this.loading = false;
-      this.certificates = certificates;
+      this.trackerCertificates = certificates;
     });
-    this.pageSubscription$ = this._store.select(fromRoot.getCertificatePageStatus)
+    this.pageSubscription$ = this._store.select(fromRoot.getTrackerCertificatePageStatus)
       .subscribe(pageData => this.pageEvent.length = pageData.total);
   }
 
@@ -58,14 +58,14 @@ export class CertificateTableComponent implements OnInit, OnDestroy {
   }
 
 
-  fetchCertificates() {
+  fetchTrackerCertificates() {
     this.loading = true;
-    this._store.dispatch(new certificateActions.FetchAllCertificatesAction(this.queryParams));
+    this._store.dispatch(new certificateActions.FetchAllTrackerCertificatesAction(this.queryParams));
   }
 
   getPage(pageEvent: PageEvent) {
     this.pageEvent = pageEvent;
-    this._router.navigate(['dashboard', 'certificates'], {
+    this._router.navigate(['dashboard', 'vts-certificates'], {
       queryParams: {
         ...this.queryParams,
         page: pageEvent.pageIndex + 1,

@@ -67,7 +67,14 @@ export const ROUTES: RouteInfo[] = [
   },
   {
     path: 'certificates',
-    title: 'Certificates',
+    title: 'SG certificates',
+    type: 'link',
+    icontype: 'fa-certificate',
+    users: ['manufacturer', 'distributor', 'dealer', 'sub_dealer', 'sales', 'rto', 'admin']
+  },
+  {
+    path: 'vts-certificates',
+    title: 'VTS certificates',
     type: 'link',
     icontype: 'fa-certificate',
     users: ['manufacturer', 'distributor', 'dealer', 'sub_dealer', 'sales', 'rto', 'admin']

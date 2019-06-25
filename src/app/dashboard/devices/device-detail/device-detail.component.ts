@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
+import { Location } from '@angular/common';
+import { MatBottomSheetRef, MatBottomSheet } from '@angular/material';
 
 import * as fromRoot from '../../../shared/reducers';
 import * as deviceActions from '../../../shared/actions/device.actions';
 import { Device, User } from '../../../shared/models';
-import { Location } from '@angular/common';
-import { MatBottomSheetRef, MatBottomSheet } from '@angular/material';
 
 @Component({
   selector: 'app-device-detail',
@@ -26,10 +26,10 @@ export class DeviceDetailComponent implements OnInit {
     private _store: Store<fromRoot.State>
   ) {
     this._activatedRoute.queryParams.subscribe(params => {
-      if (params["id"]) {
-        this._store.dispatch(new deviceActions.FetchDeviceAction(params["id"]));
+      if (params['id']) {
+        this._store.dispatch(new deviceActions.FetchDeviceAction(params['id']));
       } else {
-        this._router.navigate(["dashboard", "devices"]);
+        this._router.navigate(['dashboard', 'devices']);
       }
     });
   }

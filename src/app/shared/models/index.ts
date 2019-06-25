@@ -14,6 +14,7 @@ export * from './stats.model';
 export * from './chart.model';
 export * from './picture-data.model';
 export * from './tracker-device.model';
+export * from './tracker-certificate.model';
 
 export class PageData {
   public total: number;

@@ -2,7 +2,7 @@
   <div class="d-flex align-items-center justify-content-between">
     <a routerLink="../" class="btn btn-orange text-light text-light">
       <i class="fas fa-arrow-left mr-2"></i>Go back</a>
-    <h4 class="text-grey-dark m-0">{{addCertificate ? 'Generate certificate' : 'Edit certificate'}}</h4>
+    <h4 class="text-grey-dark m-0">{{addTrackerCertificate ? 'Generate certificate' : 'Edit certificate'}}</h4>
   </div>
 
   <div class="row justify-content-center">
@@ -10,29 +10,23 @@
       <form [formGroup]="certificateForm" autocomplete="off">
         <div class="card mt-5">
           <div class="card-body">
-            <h5 class="text-grey-dark font-weight-bold mb-2">Device details <span *ngIf="!addCertificate">for SLD No.:
-                {{certificate.device.sld_number}}</span></h5>
+            <h5 class="text-grey-dark font-weight-bold mb-2">Device details <span *ngIf="!addTrackerCertificate">for SLD
+                No.:
+                {{certificate.device.serial_no}}</span></h5>
             <div class="row">
-              <div class="col-lg-4" *ngIf="addCertificate">
-                <ng-select [items]="devices" bindLabel="sld_number" bindValue="id" formControlName="device_id"
-                  placeholder="Select SLD number" (add)="fetchVehicles($event)"></ng-select>
+              <div class="col-lg-4" *ngIf="addTrackerCertificate">
+                <ng-select [items]="trackerDevices" bindLabel="serial_no" bindValue="id"
+                  formControlName="tracker_device_id" placeholder="Select serial number"></ng-select>
               </div>
-              <ng-container *ngIf="device_id.valid">
+              <ng-container *ngIf="tracker_device_id.valid">
                 <div class="col-lg-4 d-flex align-items-end">
                   <mat-form-field class="w-100">
                     <input type="number" matInput placeholder="Invoice Number" formControlName="invoice_no">
                   </mat-form-field>
                 </div>
-                <div class="col-lg-4 d-flex align-items-end">
-                  <mat-form-field class="w-100">
-                    <input type="number" matInput placeholder="Cut-off Speed" formControlName="cutoff_speed">
-                    <mat-hint>40kmph - 120kmph</mat-hint>
-                  </mat-form-field>
-                </div>
                 <div class="col-lg-4 d-flex align-items-end" *ngIf="loggedUser.role == 'admin'">
                   <mat-form-field class="w-100">
-                    <input matInput [matDatepicker]="dg" placeholder="Date generated"
-                      formControlName="date_generated">
+                    <input matInput [matDatepicker]="dg" placeholder="Date generated" formControlName="date_generated">
                     <mat-datepicker-toggle matSuffix [for]="dg"></mat-datepicker-toggle>
                     <mat-datepicker #dg></mat-datepicker>
                   </mat-form-field>
@@ -41,7 +35,7 @@
             </div>
           </div>
         </div>
-        <ng-container *ngIf="device_id.valid">
+        <ng-container *ngIf="tracker_device_id.valid">
           <div class="card mt-5">
             <div class="card-body">
               <h5 class="text-grey-dark font-weight-bold mb-2">Customer information</h5>
@@ -58,7 +52,7 @@
                     <mat-hint align="end">{{customer_telephone.value.length}} / 10</mat-hint>
                   </mat-form-field>
                 </div>
-                <ng-container *ngIf="addCertificate">
+                <ng-container *ngIf="addTrackerCertificate">
                   <div class="col-lg-6">
                     <mat-form-field class="w-100">
                       <input matInput placeholder="Address Line 1" formControlName="address_l1">
@@ -86,7 +80,7 @@
                     </mat-form-field>
                   </div>
                 </ng-container>
-                <div class="col-lg-12" *ngIf="!addCertificate">
+                <div class="col-lg-12" *ngIf="!addTrackerCertificate">
                   <mat-form-field class="w-100">
                     <textarea matInput placeholder="Address" formControlName="customer_address"></textarea>
                     <mat-hint>Enter the address with proper formatting.</mat-hint>
@@ -97,20 +91,13 @@
               <h5 class="text-grey-dark font-weight-bold mb-2">Vehicle information</h5>
               <div class="row">
                 <div class="col-lg-4">
-                  <ng-select [items]="brands" formControlName="vehicle_make" placeholder="Select vehicle make">
-                  </ng-select>
-                </div>
-                <div class="col-lg-4">
-                  <ng-select [items]="models" formControlName="vehicle_model" placeholder="Select vehicle model">
-                  </ng-select>
-                </div>
-                <div class="col-lg-4">
-                  <ng-select [items]="variants" bindLabel="variant" bindValue="id" formControlName="vehicle_id"
-                    placeholder="Select vehicle variant"></ng-select>
-                </div>
-                <div class="col-lg-4 d-flex align-items-end">
                   <mat-form-field class="w-100">
-                    <input matInput placeholder="Seal No. / No. of Seals" formControlName="seals">
+                    <input matInput placeholder="Vehicle make" formControlName="make" />
+                  </mat-form-field>
+                </div>
+                <div class="col-lg-4">
+                  <mat-form-field class="w-100">
+                    <input matInput placeholder="Vehicle model" formControlName="model" />
                   </mat-form-field>
                 </div>
                 <div class="col-lg-4">
@@ -128,12 +115,6 @@
                     <input matInput placeholder="Car Registration No." formControlName="car_reg_number">
                     <mat-hint>AA 00 A 0000</mat-hint>
                   </mat-form-field>
-                </div>
-                <div class="col-lg-12" *ngIf="loggedUser.details.state == 'Delhi'">
-                  <p class="mb-1 mt-3 text-muted">Photograph of vehicle</p>
-                  <img [src]="certificate.picture_data.getPicUrl()" *ngIf="certificate.picture_data.url"
-                    class="img-fluid mb-2 rounded">
-                  <input type="file" placeholder="Car Registration No." (change)="pictureLoaded($event)">
                 </div>
               </div>
               <hr>

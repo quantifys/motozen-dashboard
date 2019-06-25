@@ -47,6 +47,10 @@ const routes: Routes = [
         loadChildren: './certificates/certificates.module#CertificatesModule'
       },
       {
+        path: 'vts-certificates',
+        loadChildren: './tracker-certificates/tracker-certificates.module#TrackerCertificatesModule'
+      },
+      {
         path: 'expenses',
         loadChildren: './expenses/expenses.module#ExpensesModule'
       },

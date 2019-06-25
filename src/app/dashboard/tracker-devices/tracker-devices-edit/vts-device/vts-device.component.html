@@ -1,17 +1,27 @@
-<form class="mb-0 d-flex align-items-center" autocomplete="off" [formGroup]="sldForm">
-  <input [attr.id]="'serial_no' + position" type="text" class="form-control" formControlName="serial_no"
-    placeholder="Enter Serial No">
-  <input [attr.id]="'serial_no' + position" type="text" class="form-control" formControlName="imei"
-    placeholder="Enter IMEI">
-  <input [attr.id]="'serial_no' + position" type="text" class="form-control" formControlName="esim1"
-    placeholder="Enter ESIM 1">
-  <input [attr.id]="'serial_no' + position" type="text" class="form-control" formControlName="esim2"
-    placeholder="Enter ESIM 2">
-  <p class="text-danger ml-2 mb-0" *ngIf="sldForm.hasError('exists')" title="Device already exists!">
-    <i class="fas fa-times-circle"></i>
-  </p>
-  <p class="text-danger ml-2 mb-0" *ngIf="serial_no.touched && serial_no.hasError('minlength')"
-    title="Device ID should be 9 characters in length!">
-    <i class="fas fa-times-circle"></i>
-  </p>
+<form class="container-fluid mb-0" autocomplete="off" [formGroup]="sldForm">
+  <div class="row">
+    <div class="pl-1 pr-1 mb-2 col-md-4 d-flex align-items-center">
+      <input [attr.id]="'serial_no' + position" type="text" class="form-control" formControlName="serial_no"
+        placeholder="Enter Serial No">
+      <p class="text-danger ml-1 mb-0" *ngIf="sldForm.hasError('exists')" title="Device already exists!">
+        <i class="fas fa-times-circle"></i>
+      </p>
+      <p class="text-danger ml-1 mb-0" *ngIf="serial_no.touched && serial_no.hasError('minlength')"
+        title="Serial No. should be more than 5 characters in length!">
+        <i class="fas fa-times-circle"></i>
+      </p>
+    </div>
+    <div class="pl-1 pr-1 mb-2 col-md-8">
+      <input [attr.id]="'serial_no' + position" type="text" class="form-control mb-1" formControlName="imei"
+        placeholder="Enter IMEI">
+    </div>
+    <div class="pl-1 pr-1 col-md-6">
+      <input [attr.id]="'serial_no' + position" type="text" class="form-control mb-1" formControlName="esim1"
+        placeholder="Enter ESIM 1">
+    </div>
+    <div class="pl-1 pr-1 col-md-6">
+      <input [attr.id]="'serial_no' + position" type="text" class="form-control" formControlName="esim2"
+        placeholder="Enter ESIM 2">
+    </div>
+  </div>
 </form>

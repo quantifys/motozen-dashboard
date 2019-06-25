@@ -121,7 +121,7 @@ export class SignoutUserFailedAction implements Action {
   constructor(public payload: any) {
     toast({
       type: 'error',
-      title: payload
+      title: typeof(payload) === 'string' ? payload : 'Sign out failed'
     });
   }
 }

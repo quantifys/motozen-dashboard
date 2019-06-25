@@ -54,7 +54,7 @@ export class TrackerDeviceEffects {
     exhaustMap(body => this._tokenService.post('tracker_devices', body)
       .pipe(
         map(response => {
-          this._router.navigate(['dashboard', 'tracker_devices', 'view'], { queryParams: { id: response.json().message.id } });
+          this._router.navigate(['dashboard', 'vts-devices', 'view'], { queryParams: { id: response.json().message.id } });
           return new fromTrackerDevice.CreateTrackerDeviceCompleteAction(response.json().message);
         }),
         catchError(error => of(new fromTrackerDevice.CreateTrackerDeviceFailedAction(error.json().message)))
@@ -67,7 +67,7 @@ export class TrackerDeviceEffects {
     exhaustMap(() => this._tokenService.delete(`tracker_devices/${this.device.id}`)
       .pipe(
         map(() => {
-          this._router.navigate(['dashboard', 'tracker_devices']);
+          this._router.navigate(['dashboard', 'vts-devices']);
           return new fromTrackerDevice.DeleteTrackerDeviceCompleteAction(this.device.id);
         }),
         catchError(error => of(new fromTrackerDevice.DeleteTrackerDeviceFailedAction(error.json().message)))
@@ -80,7 +80,7 @@ export class TrackerDeviceEffects {
     exhaustMap(body => this._tokenService.patch(`tracker_devices/${this.device.id}`, body)
       .pipe(
         map(response => {
-          this._router.navigate(['dashboard', 'tracker_devices', 'view'], { queryParams: { id: response.json().message.id } });
+          this._router.navigate(['dashboard', 'vts-devices', 'view'], { queryParams: { id: response.json().message.id } });
           return new fromTrackerDevice.UpdateTrackerDeviceCompleteAction(response.json().message);
         }),
         catchError(error => of(new fromTrackerDevice.UpdateTrackerDeviceFailedAction(error.json().message)))
@@ -93,7 +93,7 @@ export class TrackerDeviceEffects {
     exhaustMap(body => this._tokenService.post('tracker_devices/transfer', body)
       .pipe(
         map(() => {
-          this._router.navigate(['dashboard', 'tracker_devices']);
+          this._router.navigate(['dashboard', 'vts-devices']);
           return new fromTrackerDevice.TransferTrackerDevicesCompleteAction(this.device.id);
         }),
         catchError(error => of(new fromTrackerDevice.TransferTrackerDevicesFailedAction(error.json().message)))
