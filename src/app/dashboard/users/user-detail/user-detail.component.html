@@ -121,8 +121,8 @@
             </div>
             <hr class="mt-0">
             <h6 class="text-grey-dark">Monthly stats</h6>
-            <bar-chart *ngIf="userStats.po_stats.purchase_graph.data.length > 0" [data]="poChartData"
-              [config]="barChartConfig" elementId="poChart"></bar-chart>
+            <app-bar-chart *ngIf="userStats.po_stats.purchase_graph.data.length > 0" [data]="poChartData"
+              [config]="barChartConfig" elementId="poChart"></app-bar-chart>
             <hr>
             <h6 class="text-grey-dark">Recent</h6>
             <div class="list-group">
@@ -163,7 +163,7 @@
             </div>
             <hr class="mt-0">
             <h6 class="text-grey-dark">Monthly stats</h6>
-            <bar-chart [data]="certChartData" [config]="barChartConfig" elementId="certChart"></bar-chart>
+            <app-bar-chart [data]="certChartData" [config]="barChartConfig" elementId="certChart"></app-bar-chart>
             <div class="d-flex mt-2 justify-content-between">
               <h6 class="text-grey-dark mb-0">VALID: {{userStats.certificate_stats.valid_count}}</h6>
               <h6 class="text-grey-dark mb-0">EXPIRED: {{userStats.certificate_stats.expired_count}}</h6>
