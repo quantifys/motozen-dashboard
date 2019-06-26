@@ -57,10 +57,8 @@ export function reducer(state = initialState, action: trackerDeviceActions.Actio
         allTrackerDevices: [...state.allTrackerDevices, new TrackerDevice(action.payload)]
       });
     case trackerDeviceActions.TRANSFER_TRACKER_DEVICE_COMPLETE_ACTION:
-      trackerDevices = state.allTrackerDevices.filter(trackerDevice =>
-        action.payload.find(id => trackerDevice.id === id) ? null : trackerDevice);
       return Object.assign({}, state, {
-        allTrackerDevices: [...trackerDevices]
+        allTrackerDevices: []
       });
     case trackerDeviceActions.FETCH_TRACKER_DEVICE_TRANSFER_FORMDATA_COMPLETE_ACTION:
       const dealers = action.payload['dealers'] ? action.payload['dealers'] : [];

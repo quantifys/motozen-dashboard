@@ -19,24 +19,28 @@ export class DeviceTransferComponent implements OnInit, OnDestroy {
   public users: User[] = [];
   public devices: Device[] = [];
   public loggedUser: User = new User({});
+  public loggedUserSubscription$: Subscription = new Subscription();
   public userSubscription$: Subscription = new Subscription();
+  public deviceSubscription$: Subscription = new Subscription();
 
   constructor(
     private _fb: FormBuilder,
     private _store: Store<fromRoot.State>
   ) {
-    this.userSubscription$ = this._store.select(fromRoot.getLoggedUser).subscribe(user => this.loggedUser = user);
+    this.loggedUserSubscription$ = this._store.select(fromRoot.getLoggedUser).subscribe(user => this.loggedUser = user);
   }
 
   ngOnInit() {
     this.buildForm();
     this._store.dispatch(new deviceActions.FetchDeviceTransferFormDataAction);
-    this._store.select(fromRoot.getDeviceDealers).subscribe(users => this.users = users);
-    this._store.select(fromRoot.getTransferableDevices).subscribe(devices => this.devices = devices);
+    this.userSubscription$ = this._store.select(fromRoot.getDeviceDealers).subscribe(users => this.users = users);
+    this.deviceSubscription$ = this._store.select(fromRoot.getTransferableDevices).subscribe(devices => this.devices = devices);
   }
 
   ngOnDestroy() {
+    this.loggedUserSubscription$.unsubscribe();
     this.userSubscription$.unsubscribe();
+    this.deviceSubscription$.unsubscribe();
   }
 
   buildForm() {
