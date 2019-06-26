@@ -174,7 +174,6 @@ export class TrackerCertificateEditComponent implements OnInit, OnDestroy {
   loadFormdata(id?: number) {
     this._store.dispatch(new trackerCertificateActions.FetchTrackerCertificateFormdataAction(id));
     this.formDataSubscription$ = this._store.select(fromRoot.getTrackerCertificateFormdata).subscribe(data => {
-      console.log(data);
       this.trackerDevices = data.devices;
       this.customers = data.customers;
     });

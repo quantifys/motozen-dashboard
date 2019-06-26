@@ -16,7 +16,7 @@
           <td><a routerLink="view" class="text-danger" [queryParams]="{id: device.id}">{{device.serial_no}}</a></td>
           <td>{{device.imei}}</td>
           <td>{{device.esim1}}</td>
-          <td>{{device.esim2}}</td>
+          <td>{{device.esim2 ? device.esim2 : '-'}}</td>
         </tr>
       </tbody>
     </table>
