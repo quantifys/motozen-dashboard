@@ -18,7 +18,7 @@ export function reducer(state = initialState, action: expenseActions.Actions): S
   switch (action.type) {
     case expenseActions.FETCH_ALL_EXPENSES_ACTION:
       return Object.assign({}, state, {
-        allCertificates: []
+        allExpenses: []
       });
     case expenseActions.FETCH_ALL_EXPENSES_COMPLETE_ACTION:
       inventories = action.payload.data.map(expense => new Cost(expense));
@@ -39,11 +39,11 @@ export function reducer(state = initialState, action: expenseActions.Actions): S
       });
     case expenseActions.DELETE_EXPENSE_COMPLETE_ACTION:
       return Object.assign({}, state, {
-        allExpenses: [...state.allExpenses.filter(expense => expense.id != action.payload ? expense : null)]
+        allExpenses: [...state.allExpenses.filter(expense => expense.id !== action.payload ? expense : null)]
       });
     case expenseActions.UPDATE_EXPENSE_COMPLETE_ACTION:
       return Object.assign({}, state, {
-        allExpenses: [...state.allExpenses.map(expense => expense.id != action.payload.id ? expense : new Cost(action.payload))]
+        allExpenses: [...state.allExpenses.map(expense => expense.id !== action.payload.id ? expense : new Cost(action.payload))]
       });
     case expenseActions.CREATE_EXPENSE_COMPLETE_ACTION:
       return Object.assign({}, state, {

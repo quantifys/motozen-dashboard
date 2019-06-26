@@ -2,6 +2,7 @@ import { ActionReducerMap, createSelector } from '@ngrx/store';
 
 import * as fromDashboard from './dashboard.reducer';
 import * as fromUser from './user.reducer';
+import * as fromVtsUser from './vts-user.reducer';
 import * as fromDevice from './device.reducer';
 import * as fromTrackerDevice from './tracker-device.reducer';
 import * as fromVehicle from './vehicle.reducer';
@@ -21,6 +22,7 @@ import * as fromReports from './reports.reducer';
 export interface State {
   dashboard: fromDashboard.State;
   users: fromUser.State;
+  vtsUsers: fromVtsUser.State;
   devices: fromDevice.State;
   trackerDevices: fromTrackerDevice.State;
   vehicles: fromVehicle.State;
@@ -41,6 +43,7 @@ export interface State {
 export const reducers: ActionReducerMap<State> = {
   dashboard: fromDashboard.reducer,
   users: fromUser.reducer,
+  vtsUsers: fromVtsUser.reducer,
   devices: fromDevice.reducer,
   trackerDevices: fromTrackerDevice.reducer,
   vehicles: fromVehicle.reducer,
@@ -67,6 +70,11 @@ export const getAllUsers = createSelector(users, (state: fromUser.State) => stat
 export const getLoggedUser = createSelector(users, (state: fromUser.State) => state.loggedUser);
 export const getCurrentUserStats = createSelector(users, (state: fromUser.State) => state.currentUserStats);
 export const getUserPageStatus = createSelector(users, (state: fromUser.State) => state.userPageStatus);
+
+export const vtsUsers = (state: State) => state.vtsUsers;
+export const getAllVtsUsers = createSelector(vtsUsers, (state: fromVtsUser.State) => state.allVtsUsers);
+export const getCurrentVtsUser = createSelector(vtsUsers, (state: fromVtsUser.State) => state.currentVtsUser);
+export const getVtsUserPageStatus = createSelector(vtsUsers, (state: fromVtsUser.State) => state.currentVtsUserPageStatus);
 
 export const devices = (state: State) => state.devices;
 export const getAllDevices = createSelector(devices, (state: fromDevice.State) => state.allDevices);

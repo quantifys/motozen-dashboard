@@ -33,6 +33,7 @@ import { VendorEffects } from './shared/effects/vendor.effects';
 import { ReportEffects } from './shared/effects/reports.effects';
 import { TrackerDeviceEffects } from './shared/effects/tracker-device.effects';
 import { TrackerCertificateEffects } from './shared/effects/tracker-certificate.effects';
+import { VtsUserEffects } from './shared/effects/vts-user.effects';
 
 import { RtoService } from './shared/services/rto.service';
 import { CertificateService } from './shared/services/certificate.service';
@@ -73,7 +74,8 @@ import { TrackerCertificateService } from './shared/services/tracker-certificate
       VendorEffects,
       ReportEffects,
       TrackerDeviceEffects,
-      TrackerCertificateEffects
+      TrackerCertificateEffects,
+      VtsUserEffects
     ]),
     StoreDevtoolsModule.instrument({
       maxAge: 25, // Retains last 25 states

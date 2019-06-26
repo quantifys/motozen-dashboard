@@ -7,11 +7,11 @@ import * as fromRoot from '../../shared/reducers';
 import { User } from '../../shared/models';
 
 @Component({
-  selector: 'app-expenses',
-  templateUrl: './expenses.component.html',
-  styleUrls: ['./expenses.component.scss']
+  selector: 'app-tracker-customers',
+  templateUrl: './tracker-customers.component.html',
+  styleUrls: ['./tracker-customers.component.scss']
 })
-export class ExpensesComponent implements OnInit, OnDestroy {
+export class TrackerCustomersComponent implements OnInit, OnDestroy {
 
   private userSubscription$: Subscription = new Subscription();
   public loggedUser: User = new User({});
@@ -26,7 +26,7 @@ export class ExpensesComponent implements OnInit, OnDestroy {
     this.userSubscription$ = this._store.select(fromRoot.getLoggedUser).subscribe(user => {
       this.loggedUser = user;
       if (user.role) {
-        if (user.role === 'accounts') {
+        if (user.role === 'distributor' || user.role === 'dealer') {
           const newParams: any = {};
           if (!this._activatedRoute.snapshot.queryParams['page']) {
             newParams['page'] = 1;
@@ -34,10 +34,8 @@ export class ExpensesComponent implements OnInit, OnDestroy {
           if (!this._activatedRoute.snapshot.queryParams['per_page']) {
             newParams['per_page'] = 10;
           }
-          if (!this._activatedRoute.snapshot.queryParams['category']) {
-            newParams['category'] = 'direct';
-          }
-          this._router.navigate(['dashboard', 'expenses'], { queryParams: { ...this._activatedRoute.snapshot.queryParams, ...newParams } });
+          this._router.navigate(['dashboard', 'vts-users'],
+            { queryParams: { ...this._activatedRoute.snapshot.queryParams, ...newParams } });
         } else {
           this._router.navigate(['403-forbidden']);
         }
@@ -47,10 +45,6 @@ export class ExpensesComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.userSubscription$.unsubscribe();
-  }
-
-  getQueryParams(type: string): any {
-    return { ...this._activatedRoute.snapshot.queryParams, category: type };
   }
 
 }

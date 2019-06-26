@@ -31,6 +31,10 @@ const routes: Routes = [
         loadChildren: './users/users.module#UsersModule'
       },
       {
+        path: 'vts-users',
+        loadChildren: './tracker-customers/tracker-customers.module#TrackerCustomersModule'
+      },
+      {
         path: 'devices',
         loadChildren: './devices/devices.module#DevicesModule'
       },

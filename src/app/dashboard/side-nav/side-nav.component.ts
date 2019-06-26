@@ -38,6 +38,13 @@ export const ROUTES: RouteInfo[] = [
     users: ['manufacturer', 'sales', 'human_resource', 'rto', 'admin']
   },
   {
+    path: 'vts-users',
+    title: 'VTS users',
+    type: 'link',
+    icontype: 'fa-street-view',
+    users: ['distributor', 'dealer']
+  },
+  {
     path: 'devices',
     title: 'Speed Governors',
     type: 'link',

@@ -1,4 +1,5 @@
 export * from './user.model';
+export * from './vts-user.model';
 export * from './device.model';
 export * from './inventory.model';
 export * from './vehicle.model';
