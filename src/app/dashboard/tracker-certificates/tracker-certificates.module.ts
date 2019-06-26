@@ -11,7 +11,8 @@ import {
   MatButtonModule,
   MatBottomSheetModule,
   MatRadioModule,
-  MatIconModule
+  MatIconModule,
+  MatSelectModule
 } from '@angular/material';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { Routes, RouterModule } from '@angular/router';
@@ -67,6 +68,7 @@ const routes: Routes = [
     MatBottomSheetModule,
     MatRadioModule,
     MatIconModule,
+    MatSelectModule,
     NgSelectModule,
     RouterModule.forChild(routes)
   ],

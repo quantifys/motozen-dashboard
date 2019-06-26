@@ -9,7 +9,7 @@ import moment from 'moment';
 
 import * as fromRoot from '../../../shared/reducers';
 import * as trackerCertificateActions from '../../../shared/actions/tracker-certificate.actions';
-import { TrackerDevice, Rto, User, TrackerCertificate } from '../../../shared/models';
+import { TrackerDevice, Rto, User, TrackerCertificate, VtsUser } from '../../../shared/models';
 import { RtoService } from '../../../shared/services/rto.service';
 
 declare var $: any;
@@ -40,6 +40,7 @@ export class TrackerCertificateEditComponent implements OnInit, OnDestroy {
   public certificateForm: FormGroup;
   public addTrackerCertificate: boolean;
   public trackerDevices: TrackerDevice[] = [];
+  public customers: VtsUser[] = [];
   public rto: Rto[] = [];
   public formdata: any;
   public monthMin: Date = new Date(1900, 0, 1);
@@ -76,7 +77,6 @@ export class TrackerCertificateEditComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.buildForm();
-    this.validateForm();
     this.initializers();
     this.certificateSubscription$ = this._store.select(fromRoot.getCurrentTrackerCertificate)
       .subscribe((certificate: TrackerCertificate) => {
@@ -119,17 +119,10 @@ export class TrackerCertificateEditComponent implements OnInit, OnDestroy {
       id: [null],
       tracker_device_id: [null, [Validators.required, Validators.minLength(4)]],
       invoice_no: [null, Validators.required],
-      customer_name: [null, [Validators.required, Validators.minLength(4)]],
-      customer_telephone: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(13), Validators.pattern('[0-9]+')]],
-      customer_address: [null],
-      address_l1: [null, Validators.required],
-      address_l2: [null],
-      locality: [null],
-      cutoff_speed: [80],
-      city: [null, Validators.required],
-      pincode: ['', Validators.required],
+      tracker_customer_id: [null, Validators.required],
       make: [null, Validators.required],
       model: [null, Validators.required],
+      vehicle_type: [null, Validators.required],
       seals: ['temp', Validators.required],
       engine_number: [null, Validators.required],
       chassis_number: [null, Validators.required],
@@ -148,30 +141,6 @@ export class TrackerCertificateEditComponent implements OnInit, OnDestroy {
 
   get customer_telephone(): FormControl {
     return this.certificateForm.get('customer_telephone') as FormControl;
-  }
-
-  get customer_address(): FormControl {
-    return this.certificateForm.get('customer_address') as FormControl;
-  }
-
-  get address_l1(): FormControl {
-    return this.certificateForm.get('address_l1') as FormControl;
-  }
-
-  get address_l2(): FormControl {
-    return this.certificateForm.get('address_l2') as FormControl;
-  }
-
-  get locality(): FormControl {
-    return this.certificateForm.get('locality') as FormControl;
-  }
-
-  get city(): FormControl {
-    return this.certificateForm.get('city') as FormControl;
-  }
-
-  get pincode(): FormControl {
-    return this.certificateForm.get('pincode') as FormControl;
   }
 
   get chassis_number(): FormControl {
@@ -205,34 +174,10 @@ export class TrackerCertificateEditComponent implements OnInit, OnDestroy {
   loadFormdata(id?: number) {
     this._store.dispatch(new trackerCertificateActions.FetchTrackerCertificateFormdataAction(id));
     this.formDataSubscription$ = this._store.select(fromRoot.getTrackerCertificateFormdata).subscribe(data => {
-      if (data) {
-        this.trackerDevices = data.devices.filter(device => new TrackerDevice(device));
-      }
+      console.log(data);
+      this.trackerDevices = data.devices;
+      this.customers = data.customers;
     });
-  }
-
-  validateForm() {
-    if (this.addTrackerCertificate) {
-      this.customer_address.clearValidators();
-      this.address_l1.setValidators(Validators.required);
-      this.address_l2.setValidators(Validators.required);
-      this.locality.setValidators(Validators.required);
-      this.city.setValidators(Validators.required);
-      this.pincode.setValidators(Validators.required);
-    } else {
-      this.customer_address.setValidators(Validators.required);
-      this.address_l1.clearValidators();
-      this.address_l2.clearValidators();
-      this.locality.clearValidators();
-      this.city.clearValidators();
-      this.pincode.clearValidators();
-    }
-    this.address_l1.updateValueAndValidity();
-    this.address_l2.updateValueAndValidity();
-    this.locality.updateValueAndValidity();
-    this.city.updateValueAndValidity();
-    this.pincode.updateValueAndValidity();
-    this.customer_address.updateValueAndValidity();
   }
 
   initializers() {
@@ -246,13 +191,6 @@ export class TrackerCertificateEditComponent implements OnInit, OnDestroy {
     // tslint:disable-next-line
     formData['car_reg_number'] === '' ? (formData['car_reg_number'] = 'NEW') : null;
     if (this.addTrackerCertificate) {
-      formData['customer_address'] = formData.address_l1 + ', ' + formData.address_l2 + ', ' + formData.locality + ', '
-        + formData.city + ' - ' + formData.pincode;
-      delete formData['address_l1'];
-      delete formData['address_l2'];
-      delete formData['locality'];
-      delete formData['city'];
-      delete formData['pincode'];
       this._store.dispatch(new trackerCertificateActions.CreateTrackerCertificateAction(formData));
     } else {
       if (this.loggedUser.role === 'admin') {

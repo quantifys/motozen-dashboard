@@ -1,4 +1,4 @@
-import { TrackerCertificate, PageData, User } from '../models';
+import { TrackerCertificate, PageData, User, TrackerCertificateFormData } from '../models';
 
 import * as trackerCertificateActions from '../actions/tracker-certificate.actions';
 
@@ -6,7 +6,7 @@ export interface State {
   allTrackerCertificates: TrackerCertificate[];
   reportTrackerCertificates: TrackerCertificate[];
   currentTrackerCertificate: TrackerCertificate;
-  trackerCertificateFormdata: any;
+  trackerCertificateFormdata: TrackerCertificateFormData;
   trackerCertificateFilterUsers: User[];
   trackerCertificatePageStatus: PageData;
   isUnique: boolean;
@@ -16,7 +16,7 @@ const initialState: State = {
   allTrackerCertificates: [],
   reportTrackerCertificates: [],
   currentTrackerCertificate: new TrackerCertificate({}),
-  trackerCertificateFormdata: null,
+  trackerCertificateFormdata: new TrackerCertificateFormData({}),
   trackerCertificateFilterUsers: [],
   trackerCertificatePageStatus: new PageData({}),
   isUnique: false
@@ -71,7 +71,7 @@ export function reducer(state = initialState, action: trackerCertificateActions.
       });
     case trackerCertificateActions.FETCH_TRACKER_CERTIFICATE_FORMDATA_COMPLETE_ACTION:
       return Object.assign({}, state, {
-        trackerCertificateFormdata: action.payload
+        trackerCertificateFormdata: new TrackerCertificateFormData(action.payload)
       });
     case trackerCertificateActions.CLEAR_TRACKER_CERTIFICATE_DATA_ACTION:
       return Object.assign({}, state, {
