@@ -3,7 +3,16 @@ import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { Routes, RouterModule } from '@angular/router';
-import { MatTabsModule, MatButtonModule, MatPaginatorModule, MatFormFieldModule, MatInputModule, MatBottomSheetModule, MatDatepickerModule, MatNativeDateModule } from '@angular/material';
+import {
+  MatTabsModule,
+  MatButtonModule,
+  MatPaginatorModule,
+  MatFormFieldModule,
+  MatInputModule,
+  MatBottomSheetModule,
+  MatDatepickerModule,
+  MatNativeDateModule
+} from '@angular/material';
 
 import { SalarySlipsComponent } from './salary-slips.component';
 import { SalarySlipTableComponent } from './salary-slip-table/salary-slip-table.component';
@@ -16,21 +25,21 @@ const routes: Routes = [
     path: 'edit',
     component: SalarySlipEditComponent,
     data: {
-      title: "Salary slip edit - Dashboard | Gemeni India"
+      title: 'Salary slip edit - Dashboard | Gemeni India'
     }
   },
   {
     path: 'view',
     component: SalarySlipDetailComponent,
     data: {
-      title: "Salary slip details - Dashboard | Gemeni India"
+      title: 'Salary slip details - Dashboard | Gemeni India'
     }
   },
   {
     path: '',
     component: SalarySlipsComponent,
     data: {
-      title: "Salary slip management - Dashboard | Gemeni India"
+      title: 'Salary slip management - Dashboard | Gemeni India'
     }
   }
 ];
@@ -50,7 +59,13 @@ const routes: Routes = [
     NgSelectModule,
     RouterModule.forChild(routes)
   ],
-  declarations: [SalarySlipsComponent, SalarySlipTableComponent, SalarySlipDetailComponent, SalarySlipEditComponent, SalarySlipFilterComponent],
+  declarations: [
+    SalarySlipsComponent,
+    SalarySlipTableComponent,
+    SalarySlipDetailComponent,
+    SalarySlipEditComponent,
+    SalarySlipFilterComponent
+  ],
   entryComponents: [SalarySlipFilterComponent]
 })
 export class SalarySlipsModule { }

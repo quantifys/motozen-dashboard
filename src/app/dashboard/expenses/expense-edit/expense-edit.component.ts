@@ -3,10 +3,10 @@ import { Location } from '@angular/common';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
-import { Store } from "@ngrx/store";
+import { Store } from '@ngrx/store';
 
-import * as fromRoot from "../../../shared/reducers";
-import * as expenseActions from "../../../shared/actions/expense.actions";
+import * as fromRoot from '../../../shared/reducers';
+import * as expenseActions from '../../../shared/actions/expense.actions';
 
 @Component({
   selector: 'app-expense-edit',
@@ -15,7 +15,7 @@ import * as expenseActions from "../../../shared/actions/expense.actions";
 })
 export class ExpenseEditComponent implements OnInit, OnDestroy {
 
-  public addExpense: boolean = false;
+  public addExpense = false;
   public expenseForm: FormGroup;
   public expenseSubscription$: Subscription;
   public formSubscription$: Subscription;
@@ -28,9 +28,9 @@ export class ExpenseEditComponent implements OnInit, OnDestroy {
   ) {
     this._store.dispatch(new expenseActions.ClearExpenseAction);
     this._activatedRoute.queryParams.subscribe(params => {
-      if (params["id"]) {
+      if (params['id']) {
         this.addExpense = false;
-        this._store.dispatch(new expenseActions.FetchExpenseAction(params["id"]));
+        this._store.dispatch(new expenseActions.FetchExpenseAction(params['id']));
       } else {
         this.addExpense = true;
       }
@@ -57,25 +57,25 @@ export class ExpenseEditComponent implements OnInit, OnDestroy {
       description: [null, Validators.required],
       amount: [null, [Validators.required, Validators.min(0)]],
       gst: [null, [Validators.required, Validators.min(0), Validators.max(80)]],
-      gstn: [null, [Validators.minLength(15), Validators.maxLength(15), Validators.pattern("[a-zA-Z0-9]+")]],
+      gstn: [null, [Validators.minLength(15), Validators.maxLength(15), Validators.pattern('[a-zA-Z0-9]+')]],
       total: [null, Validators.required]
     });
   }
 
   get amount(): FormControl {
-    return this.expenseForm.get("amount") as FormControl;
+    return this.expenseForm.get('amount') as FormControl;
   }
 
   get gst(): FormControl {
-    return this.expenseForm.get("gst") as FormControl;
+    return this.expenseForm.get('gst') as FormControl;
   }
 
   get total(): FormControl {
-    return this.expenseForm.get("total") as FormControl;
+    return this.expenseForm.get('total') as FormControl;
   }
 
   get gstn(): FormControl {
-    return this.expenseForm.get("gstn") as FormControl;
+    return this.expenseForm.get('gstn') as FormControl;
   }
 
   formListener() {
