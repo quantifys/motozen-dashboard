@@ -1,0 +1,34 @@
+<div class="table-container">
+  <div class="table-responsive">
+    <table class="table table-sm table-hover w-100 rounded table-striped text-center m-0">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>NAME</th>
+          <th>EMAIL</th>
+          <th>PHONE</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let user of users; let i = index">
+          <td>{{(i + 1) + ((pageEvent.pageIndex + 1) * pageEvent.pageSize) - pageEvent.pageSize}}</td>
+          <td>{{user.name}}</td>
+          <td>
+            <a routerLink="view" class="text-danger" [queryParams]="{id: user.id}">
+              {{user.email}}
+            </a>
+          </td>
+          <td>{{user.phone}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="alert alert-primary text-center rounded-0 border-0 text-light mb-0" *ngIf="users.length == 0 && !loading">
+    <strong>No users found!</strong>
+  </div>
+  <div class="alert alert-primary text-center rounded-0 border-0 text-light mb-0" *ngIf="loading">
+    <strong>Loading...</strong>
+  </div>
+  <mat-paginator [showFirstLastButtons]="true" [length]="pageEvent.length" [pageSize]="pageEvent.pageSize"
+    [pageIndex]="pageEvent.pageIndex" [pageSizeOptions]="[5, 10, 25, 100]" (page)="getPage($event)"></mat-paginator>
+</div>

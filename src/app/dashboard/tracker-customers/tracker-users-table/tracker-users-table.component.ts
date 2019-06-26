@@ -5,21 +5,21 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { PageEvent } from '@angular/material';
 
 import * as fromRoot from '../../../shared/reducers';
-import * as transactionActions from '../../../shared/actions/transaction.actions';
-import { Transaction } from '../../../shared/models';
+import * as vtsUsersActions from '../../../shared/actions/vts-user.actions';
+import { VtsUser } from '../../../shared/models';
 
 @Component({
-  selector: 'app-transaction-table',
-  templateUrl: './transaction-table.component.html',
-  styleUrls: ['./transaction-table.component.scss']
+  selector: 'app-tracker-users-table',
+  templateUrl: './tracker-users-table.component.html',
+  styleUrls: ['./tracker-users-table.component.scss']
 })
-export class TransactionTableComponent implements OnInit, OnDestroy {
+export class TrackerUsersTableComponent implements OnInit, OnDestroy {
 
   private routerSubscription$: Subscription = new Subscription();
   private pageSubscription$: Subscription = new Subscription();
-  private transactionSubscription$: Subscription = new Subscription();
+  private userSubscription$: Subscription = new Subscription();
   public queryParams: any = {};
-  public transactions: Transaction[] = [];
+  public users: VtsUser[] = [];
   public loading = false;
   public pageEvent: PageEvent = new PageEvent();
 
@@ -37,34 +37,34 @@ export class TransactionTableComponent implements OnInit, OnDestroy {
         this.pageEvent.pageSize = +params['per_page'];
       }
       if (params['page'] && params['per_page']) {
-        this.fetchInventories();
+        this.fetchUsers();
       }
     });
   }
 
   ngOnInit() {
-    this.transactionSubscription$ = this._store.select(fromRoot.getAllTransactions).subscribe(transactions => {
+    this.userSubscription$ = this._store.select(fromRoot.getAllVtsUsers).subscribe(users => {
       this.loading = false;
-      this.transactions = transactions;
+      this.users = users;
     });
-    this.pageSubscription$ = this._store.select(fromRoot.getTransactionPageStatus)
+    this.pageSubscription$ = this._store.select(fromRoot.getVtsUserPageStatus)
       .subscribe(pageData => this.pageEvent.length = pageData.total);
   }
 
   ngOnDestroy() {
     this.routerSubscription$.unsubscribe();
-    this.transactionSubscription$.unsubscribe();
+    this.userSubscription$.unsubscribe();
     this.pageSubscription$.unsubscribe();
   }
 
-  fetchInventories() {
+  fetchUsers() {
     this.loading = true;
-    this._store.dispatch(new transactionActions.FetchAllTransactionsAction(this.queryParams));
+    this._store.dispatch(new vtsUsersActions.FetchAllVtsUsersAction(this.queryParams));
   }
 
   getPage(pageEvent: PageEvent) {
     this.pageEvent = pageEvent;
-    this._router.navigate(['dashboard', 'transactions'], {
+    this._router.navigate(['dashboard', 'vts-users'], {
       queryParams: {
         ...this.queryParams,
         page: pageEvent.pageIndex + 1,
