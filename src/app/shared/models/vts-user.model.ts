@@ -3,11 +3,13 @@ export class VtsUser {
   public name: string;
   public email: string;
   public phone: string;
+  public created_at: Date;
 
   constructor(data: any) {
     this.id = data.id ? data.id : null;
     this.name = data.name ? data.name : null;
     this.email = data.email ? data.email : null;
     this.phone = data.phone ? data.phone : null;
+    this.created_at = data.created_at ? new Date(data.created_at) : new Date();
   }
 }
