@@ -4,6 +4,7 @@ import { Vehicle } from './vehicle.model';
 export class PurchaseOrder {
   public id: number;
   public address: string;
+  public type: string;
   public state: string;
   public amount_paid: number;
   public amount_gst: number;
@@ -23,6 +24,7 @@ export class PurchaseOrder {
   constructor(data: any) {
     this.id = data.id ? data.id : null;
     this.address = data.address ? data.address : null;
+    this.type = data.type ? data.type : null;
     this.state = data.state ? data.state : null;
     this.amount_paid = data.amount_paid != null ? +data.amount_paid : null;
     this.amount_gst = data.amount_gst != null ? +data.amount_gst : null;
@@ -49,10 +51,10 @@ export class PurchaseOrder {
   }
 
   getStatus(): string {
-    if (this.status == 'can_modify') {
-      return "New"
+    if (this.status === 'can_modify') {
+      return 'New';
     } else {
-      return this.status ? this.status.replace('_', ' ') : null
+      return this.status ? this.status.replace('_', ' ') : null;
     }
   }
 }

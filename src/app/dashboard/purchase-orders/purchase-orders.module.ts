@@ -1,7 +1,21 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Routes, RouterModule } from '@angular/router';
-import { MatInputModule, MatFormFieldModule, MatDatepickerModule, MatNativeDateModule, MatSlideToggleModule, MatAutocompleteModule, MatButtonModule, MatTabsModule, MatPaginatorModule, MatBottomSheetModule, MatProgressSpinnerModule, MatRadioModule } from '@angular/material';
+import {
+  MatInputModule,
+  MatFormFieldModule,
+  MatDatepickerModule,
+  MatNativeDateModule,
+  MatSlideToggleModule,
+  MatAutocompleteModule,
+  MatButtonModule,
+  MatTabsModule,
+  MatPaginatorModule,
+  MatBottomSheetModule,
+  MatProgressSpinnerModule,
+  MatRadioModule,
+  MatSelectModule
+} from '@angular/material';
 import { NgSelectModule } from '@ng-select/ng-select';
 
 import { PurchaseOrdersComponent } from './purchase-orders.component';
@@ -22,28 +36,28 @@ const routes: Routes = [
     path: 'edit',
     component: PurchaseOrderEditComponent,
     data: {
-      title: "Purchase order edit - Dashboard | Gemeni India"
+      title: 'Purchase order edit - Dashboard | Gemeni India'
     }
   },
   {
     path: 'view',
     component: PurchaseOrderDetailComponent,
     data: {
-      title: "Purchase order details - Dashboard | Gemeni India"
+      title: 'Purchase order details - Dashboard | Gemeni India'
     }
   },
   {
     path: 'dispatch',
     component: PurchaseOrderDispatchComponent,
     data: {
-      title: "Purchase order dispatch - Dashboard | Gemeni India"
+      title: 'Purchase order dispatch - Dashboard | Gemeni India'
     }
   },
   {
-    path: "",
+    path: '',
     component: PurchaseOrdersComponent,
     data: {
-      title: "Purchase order management - Dashboard | Gemeni India"
+      title: 'Purchase order management - Dashboard | Gemeni India'
     }
   }
 ];
@@ -64,11 +78,32 @@ const routes: Routes = [
     MatPaginatorModule,
     MatBottomSheetModule,
     MatProgressSpinnerModule,
+    MatSelectModule,
     MatRadioModule,
     NgSelectModule,
     RouterModule.forChild(routes)
   ],
-  declarations: [PurchaseOrdersComponent, PurchaseOrderTableComponent, PurchaseOrderDetailComponent, PurchaseOrderEditComponent, PurchaseOrderDeleteComponent, PurchaseOrderParticularComponent, PurchaseOrderFilterComponent, PurchaseOrderOpenComponent, PurchaseOrderConfirmComponent, PurchaseOrderDispatchComponent, PurchaseOrderCloseComponent, PurchaseOrderReportComponent],
-  entryComponents: [PurchaseOrderFilterComponent, PurchaseOrderDeleteComponent, PurchaseOrderOpenComponent, PurchaseOrderConfirmComponent, PurchaseOrderCloseComponent, PurchaseOrderReportComponent]
+  declarations: [
+    PurchaseOrdersComponent,
+    PurchaseOrderTableComponent,
+    PurchaseOrderDetailComponent,
+    PurchaseOrderEditComponent,
+    PurchaseOrderDeleteComponent,
+    PurchaseOrderParticularComponent,
+    PurchaseOrderFilterComponent,
+    PurchaseOrderOpenComponent,
+    PurchaseOrderConfirmComponent,
+    PurchaseOrderDispatchComponent,
+    PurchaseOrderCloseComponent,
+    PurchaseOrderReportComponent
+  ],
+  entryComponents: [
+    PurchaseOrderFilterComponent,
+    PurchaseOrderDeleteComponent,
+    PurchaseOrderOpenComponent,
+    PurchaseOrderConfirmComponent,
+    PurchaseOrderCloseComponent,
+    PurchaseOrderReportComponent
+  ]
 })
 export class PurchaseOrdersModule { }
