@@ -12,13 +12,13 @@
             <h5 class="text-grey-dark font-weight-bold mb-3">Particulars information</h5>
             <mat-form-field>
               <mat-label>PO type</mat-label>
-              <mat-select formControlName="type">
+              <mat-select formControlName="po_type">
                 <mat-option value="sld">Speed Governor</mat-option>
                 <mat-option value="tracker">VTS devices</mat-option>
               </mat-select>
             </mat-form-field>
             <hr>
-            <ng-container *ngIf="type.value === 'tracker'">
+            <ng-container *ngIf="po_type.value == 'tracker'">
               <div formArrayName="tracker_po_particulars">
                 <mat-form-field *ngFor="let particular of tracker_po_particulars.controls; let i=index"
                   [formGroupName]="i">
@@ -27,7 +27,7 @@
               </div>
             </ng-container>
           </div>
-          <div class="container-fluid" *ngIf="type.value === 'sld'">
+          <div class="container-fluid" *ngIf="po_type.value == 'sld'">
             <div class="row">
               <div class="text-muted font-weight-bold col-lg-3">Make</div>
               <div class="text-muted font-weight-bold col-lg-4">Model</div>

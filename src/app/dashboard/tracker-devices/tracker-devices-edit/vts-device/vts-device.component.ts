@@ -22,7 +22,7 @@ export class VtsDeviceComponent implements OnInit, AfterViewInit {
   ) { }
 
   ngOnInit() {
-    this.sldForm.valueChanges.pipe(debounce(() => timer(500))).subscribe(value => this.checkSld(this.serial_no.value));
+    this.serial_no.valueChanges.pipe(debounce(() => timer(500))).subscribe(value => this.checkSld(value));
   }
 
   ngAfterViewInit() {
@@ -31,6 +31,18 @@ export class VtsDeviceComponent implements OnInit, AfterViewInit {
 
   get serial_no(): FormControl {
     return this.sldForm.get('serial_no') as FormControl;
+  }
+
+  get imei(): FormControl {
+    return this.sldForm.get('imei') as FormControl;
+  }
+
+  get esim1(): FormControl {
+    return this.sldForm.get('esim1') as FormControl;
+  }
+
+  get esim2(): FormControl {
+    return this.sldForm.get('esim2') as FormControl;
   }
 
   keyUp() {

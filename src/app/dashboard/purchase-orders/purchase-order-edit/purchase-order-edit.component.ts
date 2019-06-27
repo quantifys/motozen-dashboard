@@ -64,7 +64,7 @@ export class PurchaseOrderEditComponent implements OnInit, OnDestroy {
   buildForm() {
     this.purchaseForm = this._fb.group({
       id: null,
-      type: ['sld', Validators.required],
+      po_type: ['sld', Validators.required],
       optionalAddress: false,
       address: null,
       address_l1: null,
@@ -84,8 +84,8 @@ export class PurchaseOrderEditComponent implements OnInit, OnDestroy {
     this.tracker_po_particulars.disable();
   }
 
-  get type(): FormControl {
-    return this.purchaseForm.get('type') as FormControl;
+  get po_type(): FormControl {
+    return this.purchaseForm.get('po_type') as FormControl;
   }
 
   get optionalAddress(): FormControl {
@@ -125,7 +125,7 @@ export class PurchaseOrderEditComponent implements OnInit, OnDestroy {
   }
 
   formListener() {
-    this.type.valueChanges.subscribe(value => {
+    this.po_type.valueChanges.subscribe(value => {
       if (value === 'sld') {
         this.particulars.enable();
         this.tracker_po_particulars.disable();

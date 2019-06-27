@@ -1,8 +1,10 @@
 <form class="container-fluid mb-0" autocomplete="off" [formGroup]="sldForm">
-  <div class="row">
+  <div class="row align-items-end">
     <div class="pl-1 pr-1 mb-2 col-md-4 d-flex align-items-center">
-      <input [attr.id]="'serial_no' + position" type="text" class="form-control" formControlName="serial_no"
-        placeholder="Enter Serial No">
+      <mat-form-field class="w-100">
+        <input [attr.id]="'serial_no' + position" type="text" matInput formControlName="serial_no"
+          placeholder="Enter Serial No">
+      </mat-form-field>
       <p class="text-danger ml-1 mb-0" *ngIf="sldForm.hasError('exists')" title="Device already exists!">
         <i class="fas fa-times-circle"></i>
       </p>
@@ -12,16 +14,25 @@
       </p>
     </div>
     <div class="pl-1 pr-1 mb-2 col-md-8">
-      <input [attr.id]="'serial_no' + position" type="text" class="form-control mb-1" formControlName="imei"
-        placeholder="Enter IMEI">
+      <mat-form-field class="w-100">
+        <input [attr.id]="'serial_no' + position" type="text" matInput class="mb-1" formControlName="imei"
+          placeholder="Enter IMEI" maxLength="15">
+        <mat-hint align="end">{{imei.value ? imei.value.length : '0'}} / 15</mat-hint>
+      </mat-form-field>
     </div>
     <div class="pl-1 pr-1 col-md-6">
-      <input [attr.id]="'serial_no' + position" type="text" class="form-control mb-1" formControlName="esim1"
-        placeholder="Enter ESIM 1">
+      <mat-form-field class="w-100">
+        <input [attr.id]="'serial_no' + position" type="text" class="mb-1" matInput formControlName="esim1"
+          placeholder="Enter ESIM 1" maxlength="19">
+        <mat-hint align="end">{{esim1.value ? esim1.value.length : '0'}} / 19</mat-hint>
+      </mat-form-field>
     </div>
     <div class="pl-1 pr-1 col-md-6">
-      <input [attr.id]="'serial_no' + position" type="text" class="form-control" formControlName="esim2"
-        placeholder="Enter ESIM 2">
+      <mat-form-field class="w-100">
+        <input [attr.id]="'serial_no' + position" type="text" matInput formControlName="esim2"
+          placeholder="Enter ESIM 2" maxlength="19">
+        <mat-hint align="end">{{esim2.value ? esim2.value.length : '0'}} / 19</mat-hint>
+      </mat-form-field>
     </div>
   </div>
 </form>

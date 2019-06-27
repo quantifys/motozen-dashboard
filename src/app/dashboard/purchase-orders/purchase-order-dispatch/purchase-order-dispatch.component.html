@@ -12,11 +12,16 @@
           <div class="container-fluid mt-3" *ngIf="(purchaseOrder.status == 'processing' && !loading) else notReady">
             <h5 class="text-center border-bottom mb-3 pb-2">Enter details</h5>
             <form [formGroup]="dispatchForm">
-              <ng-select [items]="deviceList" [maxSelectedItems]="purchaseOrder.total_quantity" [multiple]="true" bindLabel="sld_number"
-                bindValue="id" formControlName="device_ids" placeholder="Select devices"></ng-select>
+              <ng-select *ngIf="purchaseOrder.po_type == 'sld'" [hideSelected]="true" [items]="deviceList" [maxSelectedItems]="purchaseOrder.total_quantity" [multiple]="true"
+                bindLabel="sld_number" bindValue="id" formControlName="device_ids" placeholder="Select devices">
+              </ng-select>
+              <ng-select *ngIf="purchaseOrder.po_type == 'tracker'" [hideSelected]="true" [items]="trackerDeviceList" [maxSelectedItems]="purchaseOrder.total_quantity" [multiple]="true"
+                bindLabel="serial_no" bindValue="id" formControlName="tracker_device_ids" placeholder="Select VTS devices">
+              </ng-select>
             </form>
             <div class="text-center mb-3">
-              <button mat-stroked-button color="warn" (click)="dispatch()" [disabled]="dispatchForm.invalid || device_ids.value.length != purchaseOrder.total_quantity">Dispatch</button>
+              <button mat-stroked-button color="warn" (click)="dispatch()"
+                [disabled]="dispatchForm.invalid || tracker_device_ids.value.length != purchaseOrder.total_quantity">Dispatch</button>
               <button class="ml-1" mat-button (click)="close()">Close</button>
             </div>
           </div>

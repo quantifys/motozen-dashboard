@@ -1,8 +1,9 @@
 import { Location } from '@angular/common';
-import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef, OnDestroy } from '@angular/core';
 import { FormGroup, FormBuilder, FormArray, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
+import { Subscription } from 'rxjs';
 
 import { TrackerDevice } from 'src/app/shared/models';
 import * as fromRoot from '../../../shared/reducers';
@@ -13,12 +14,14 @@ import * as trackerDeviceActions from '../../../shared/actions/tracker-device.ac
   templateUrl: './tracker-devices-edit.component.html',
   styleUrls: ['./tracker-devices-edit.component.scss']
 })
-export class TrackerDevicesEditComponent implements OnInit {
+export class TrackerDevicesEditComponent implements OnInit, OnDestroy {
 
   public deviceForm: FormGroup;
-  public deviceEditForm: FormGroup;
   public addTrackerDevice: boolean;
   public currentTrackerDevice: TrackerDevice;
+  public querySubscription: Subscription = new Subscription();
+  public trackerSubscription: Subscription = new Subscription();
+  public formSubscription: Subscription = new Subscription();
 
   constructor(
     private _store: Store<fromRoot.State>,
@@ -27,7 +30,7 @@ export class TrackerDevicesEditComponent implements OnInit {
     private _cdr: ChangeDetectorRef,
     public _location: Location
   ) {
-    this._activatedRoute.queryParams.subscribe(params => {
+    this.querySubscription = this._activatedRoute.queryParams.subscribe(params => {
       if (params['id']) {
         this.addTrackerDevice = false;
         this._store.dispatch(new trackerDeviceActions.FetchTrackerDeviceAction(params['id']));
@@ -40,19 +43,24 @@ export class TrackerDevicesEditComponent implements OnInit {
   ngOnInit() {
     this.buildForm();
     this.addVTS();
-    this.deviceForm.valueChanges.subscribe(value => {
+    this.formSubscription = this.deviceForm.valueChanges.subscribe(value => {
       if (this.checkDuplicateInObject('serial_no', value.device)) {
         this.deviceForm.setErrors({ 'duplicates': true });
       } else {
         this.deviceForm.setErrors(null);
       }
     });
-    this._store.select(fromRoot.getCurrentTrackerDevice).subscribe(device => {
+    this.trackerSubscription = this._store.select(fromRoot.getCurrentTrackerDevice).subscribe(device => {
       if (device.id) {
         this.currentTrackerDevice = device;
-        this.deviceEditForm.patchValue(device, { emitEvent: false });
       }
     });
+  }
+
+  ngOnDestroy() {
+    this.querySubscription.unsubscribe();
+    this.trackerSubscription.unsubscribe();
+    this.formSubscription.unsubscribe();
   }
 
   buildForm() {
@@ -68,9 +76,9 @@ export class TrackerDevicesEditComponent implements OnInit {
   addVTS() {
     this.device.push(this._fb.group({
       serial_no: ['', [Validators.required, Validators.minLength(5)]],
-      imei: ['', [Validators.required, Validators.minLength(15)]],
-      esim1: ['', [Validators.required, Validators.minLength(10)]],
-      esim2: ['', [Validators.minLength(10)]]
+      imei: ['', [Validators.required, Validators.minLength(15), Validators.maxLength(15)]],
+      esim1: ['', [Validators.required, Validators.minLength(19), Validators.maxLength(19)]],
+      esim2: ['', [Validators.minLength(19), Validators.maxLength(19)]]
     }));
     this._cdr.detectChanges();
   }

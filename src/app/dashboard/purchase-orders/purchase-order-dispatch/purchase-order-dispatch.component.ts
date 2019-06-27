@@ -6,8 +6,9 @@ import { Store } from '@ngrx/store';
 
 import * as fromRoot from '../../../shared/reducers';
 import * as deviceActions from '../../../shared/actions/device.actions';
+import * as trackerDeviceActions from '../../../shared/actions/tracker-device.actions';
 import * as purchaseOrderActions from '../../../shared/actions/purchase-order.actions';
-import { PurchaseOrder, Device } from '../../../shared/models';
+import { PurchaseOrder, Device, TrackerDevice } from '../../../shared/models';
 
 @Component({
   selector: 'app-purchase-order-dispatch',
@@ -18,26 +19,22 @@ export class PurchaseOrderDispatchComponent implements OnInit, OnDestroy {
 
   private purchaseOrderSubscription$: Subscription = new Subscription();
   private deviceSubscription$: Subscription = new Subscription();
+  private trackerDeviceSubscription$: Subscription = new Subscription();
   public purchaseOrder: PurchaseOrder = new PurchaseOrder({});
   public deviceList: Device[] = [];
+  public trackerDeviceList: TrackerDevice[] = [];
   public dispatchForm: FormGroup;
-  public loading: boolean = true;
+  public loading = true;
 
   constructor(
     private _fb: FormBuilder,
     private _activatedRoute: ActivatedRoute,
     private _store: Store<fromRoot.State>,
   ) {
-    this._store.dispatch(new deviceActions.FetchAllDevicesAction({
-      status: 'unsold',
-      per_page: 2000
-    }));
     this._activatedRoute.queryParams.subscribe(params => {
-      if (params["id"]) {
+      if (params['id']) {
         this.loading = true;
-        this._store.dispatch(new purchaseOrderActions.FetchPurchaseOrderAction(params["id"]));
-      } else {
-
+        this._store.dispatch(new purchaseOrderActions.FetchPurchaseOrderAction(params['id']));
       }
     });
   }
@@ -45,10 +42,25 @@ export class PurchaseOrderDispatchComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.buildForm();
     this.deviceSubscription$ = this._store.select(fromRoot.getAllDevices).subscribe(devices => this.deviceList = devices);
+    this.trackerDeviceSubscription$ = this._store.select(fromRoot.getAllTrackerDevices)
+      .subscribe(devices => this.trackerDeviceList = devices);
     this.purchaseOrderSubscription$ = this._store.select(fromRoot.getCurrentPurchaseOrder).subscribe(order => {
       this.purchaseOrder = order;
       if (order.id) {
         this.loading = false;
+        if (this.purchaseOrder.po_type === 'sld') {
+          this._store.dispatch(new deviceActions.FetchAllDevicesAction({
+            status: 'unsold',
+            per_page: 2000
+          }));
+          this.tracker_device_ids.disable();
+        } else {
+          this._store.dispatch(new trackerDeviceActions.FetchAllTrackerDevicesAction({
+            status: 'unsold',
+            per_page: 2000
+          }));
+          this.device_ids.disable();
+        }
       }
     });
   }
@@ -56,16 +68,22 @@ export class PurchaseOrderDispatchComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.purchaseOrderSubscription$.unsubscribe();
     this.deviceSubscription$.unsubscribe();
+    this.trackerDeviceSubscription$.unsubscribe();
   }
 
   buildForm() {
     this.dispatchForm = this._fb.group({
-      device_ids: [[], [Validators.required]]
+      device_ids: [[], [Validators.required]],
+      tracker_device_ids: [[], [Validators.required]]
     });
   }
 
   get device_ids(): FormControl {
     return this.dispatchForm.get('device_ids') as FormControl;
+  }
+
+  get tracker_device_ids(): FormControl {
+    return this.dispatchForm.get('tracker_device_ids') as FormControl;
   }
 
   dispatch() {
