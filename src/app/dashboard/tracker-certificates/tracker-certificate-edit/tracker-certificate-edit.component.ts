@@ -123,7 +123,6 @@ export class TrackerCertificateEditComponent implements OnInit, OnDestroy {
       make: [null, Validators.required],
       model: [null, Validators.required],
       vehicle_type: [null, Validators.required],
-      seals: ['temp', Validators.required],
       engine_number: [null, Validators.required],
       chassis_number: [null, Validators.required],
       car_reg_number: ['', [Validators.pattern('^[A-Z]{2}[ -][0-9]{1,2}(?: [A-Z])?(?: [A-Z]*)? [0-9]{4}$')]],
