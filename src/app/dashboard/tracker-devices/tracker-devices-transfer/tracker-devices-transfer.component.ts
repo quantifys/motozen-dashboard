@@ -1,11 +1,11 @@
-import { Component, OnInit, EventEmitter, ChangeDetectionStrategy, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
 
 import * as fromRoot from '../../../shared/reducers';
 import * as trackerDeviceActions from '../../../shared/actions/tracker-device.actions';
-import { User, Device, TrackerDevice } from '../../../shared/models';
+import { User, TrackerDevice } from '../../../shared/models';
 
 @Component({
   selector: 'app-tracker-devices-transfer',
@@ -19,6 +19,8 @@ export class TrackerDevicesTransferComponent implements OnInit, OnDestroy {
   public devices: TrackerDevice[] = [];
   public loggedUser: User = new User({});
   public userSubscription$: Subscription = new Subscription();
+  public customerSubscription$: Subscription = new Subscription();
+  public deviceSubscription$: Subscription = new Subscription();
 
   constructor(
     private _fb: FormBuilder,
@@ -30,23 +32,25 @@ export class TrackerDevicesTransferComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.buildForm();
     this._store.dispatch(new trackerDeviceActions.FetchTrackerDeviceTransferFormDataAction);
-    this._store.select(fromRoot.getTrackerDeviceDealers).subscribe(users => this.users = users);
-    this._store.select(fromRoot.getTransferableTrackerDevices).subscribe(devices => this.devices = devices);
+    this.customerSubscription$ = this._store.select(fromRoot.getTrackerDeviceDealers).subscribe(users => this.users = users);
+    this.deviceSubscription$ = this._store.select(fromRoot.getTransferableTrackerDevices).subscribe(devices => this.devices = devices);
   }
 
   ngOnDestroy() {
     this.userSubscription$.unsubscribe();
+    this.customerSubscription$.unsubscribe();
+    this.deviceSubscription$.unsubscribe();
   }
 
   buildForm() {
     this.transferForm = this._fb.group({
       user_id: [null, Validators.required],
-      device_ids: [null, Validators.required]
+      tracker_device_ids: [null, Validators.required]
     });
   }
 
-  get device_ids(): FormControl {
-    return this.transferForm.get('device_ids') as FormControl;
+  get tracker_device_ids(): FormControl {
+    return this.transferForm.get('tracker_device_ids') as FormControl;
   }
 
   saveChanges() {
