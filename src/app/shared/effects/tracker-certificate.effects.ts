@@ -99,7 +99,7 @@ export class TrackerCertificateEffects {
     exhaustMap(() => this._tokenService.delete(`tracker_certificates/${this.tracker_certificate.id}`)
       .pipe(
         map(() => {
-          this._router.navigate(['dashboard', 'tracker_certificates']);
+          this._router.navigate(['dashboard', 'vts-certificates']);
           return new fromTrackerCertificate.DeleteTrackerCertificateCompleteAction(this.tracker_certificate.id);
         }),
         catchError(error => of(new fromTrackerCertificate.DeleteTrackerCertificateFailedAction(error.json().message)))
@@ -112,7 +112,7 @@ export class TrackerCertificateEffects {
     exhaustMap(body => this._tokenService.patch(`tracker_certificates/${this.tracker_certificate.id}`, body)
       .pipe(
         map(response => {
-          this._router.navigate(['dashboard', 'tracker_certificates', 'view'], { queryParams: { id: response.json().message.id } });
+          this._router.navigate(['dashboard', 'vts-certificates', 'view'], { queryParams: { id: response.json().message.id } });
           return new fromTrackerCertificate.UpdateTrackerCertificateCompleteAction(response.json().message);
         }),
         catchError(error => of(new fromTrackerCertificate.UpdateTrackerCertificateFailedAction(error.json().message)))
