@@ -20,9 +20,21 @@ export const FETCH_MFG_CERTIFICATE_TABLE_DASHBOARD_ACTION = '[Device] Fetch MFG 
 export const FETCH_MFG_CERTIFICATE_TABLE_DASHBOARD_COMPLETE_ACTION = '[Device] Fetch MFG Certificate Table Dashboard Complete Action';
 export const FETCH_MFG_CERTIFICATE_TABLE_DASHBOARD_FAILED_ACTION = '[Device] Fetch MFG Certificate Table Dashboard Failed Action';
 
+export const FETCH_MFG_TRACKER_CERTIFICATE_GRAPH_DASHBOARD_ACTION = '[TRACKER] Fetch MFG Tracker Certificate Graph Dashboard Action';
+export const FETCH_MFG_TRACKER_CERTIFICATE_GRAPH_DASHBOARD_COMPLETE_ACTION
+  = '[TRACKER] Fetch MFG Tracker Certificate Graph Dashboard Complete Action';
+export const FETCH_MFG_TRACKER_CERTIFICATE_GRAPH_DASHBOARD_FAILED_ACTION
+  = '[TRACKER] Fetch MFG Tracker Certificate Graph Dashboard Failed Action';
+
+export const FETCH_MFG_TRACKER_CERTIFICATE_TABLE_DASHBOARD_ACTION = '[TRACKER] Fetch MFG Tracker Certificate Table Dashboard Action';
+export const FETCH_MFG_TRACKER_CERTIFICATE_TABLE_DASHBOARD_COMPLETE_ACTION
+  = '[TRACKER] Fetch MFG Tracker Certificate Table Dashboard Complete Action';
+export const FETCH_MFG_TRACKER_CERTIFICATE_TABLE_DASHBOARD_FAILED_ACTION
+  = '[TRACKER] Fetch MFG Tracker Certificate Table Dashboard Failed Action';
+
 export class FetchDashboardDataAction implements Action {
   readonly type = FETCH_DASHBOARD_ACTION;
-  constructor() {
+  constructor(public payload: any) {
     toast({
       title: 'Fetching dashboard...'
     });
@@ -110,6 +122,66 @@ export class FetchMFGCertificateTableDashboardDataFailedAction implements Action
   }
 }
 
+export class FetchMFGTrackerCertificateGraphDashboardDataAction implements Action {
+  readonly type = FETCH_MFG_TRACKER_CERTIFICATE_GRAPH_DASHBOARD_ACTION;
+  constructor(public payload: any) {
+    toast({
+      title: 'Fetching data...'
+    });
+    toast.showLoading();
+  }
+}
+
+export class FetchMFGTrackerCertificateGraphDashboardDataCompleteAction implements Action {
+  readonly type = FETCH_MFG_TRACKER_CERTIFICATE_GRAPH_DASHBOARD_COMPLETE_ACTION;
+  constructor(public payload: any) {
+    toast({
+      type: 'success',
+      title: 'Graph refreshed!'
+    });
+  }
+}
+
+export class FetchMFGTrackerCertificateGraphDashboardDataFailedAction implements Action {
+  readonly type = FETCH_MFG_TRACKER_CERTIFICATE_GRAPH_DASHBOARD_FAILED_ACTION;
+  constructor(public payload: any) {
+    toast({
+      type: 'error',
+      title: payload
+    });
+  }
+}
+
+export class FetchMFGTrackerCertificateTableDashboardDataAction implements Action {
+  readonly type = FETCH_MFG_TRACKER_CERTIFICATE_TABLE_DASHBOARD_ACTION;
+  constructor(public payload: any) {
+    toast({
+      title: 'Fetching data...'
+    });
+    toast.showLoading();
+  }
+}
+
+export class FetchMFGTrackerCertificateTableDashboardDataCompleteAction implements Action {
+  readonly type = FETCH_MFG_TRACKER_CERTIFICATE_TABLE_DASHBOARD_COMPLETE_ACTION;
+  constructor(public payload: any) {
+    toast({
+      type: 'success',
+      title: 'Table refreshed!'
+    });
+  }
+}
+
+export class FetchMFGTrackerCertificateTableDashboardDataFailedAction implements Action {
+  readonly type = FETCH_MFG_TRACKER_CERTIFICATE_TABLE_DASHBOARD_FAILED_ACTION;
+  constructor(public payload: any) {
+    toast({
+      type: 'error',
+      title: payload
+    });
+  }
+}
+
 export type Actions =
   FetchDashboardDataAction
   | FetchDashboardDataCompleteAction
@@ -119,4 +191,10 @@ export type Actions =
   | FetchMFGCertificateGraphDashboardDataFailedAction
   | FetchMFGCertificateTableDashboardDataAction
   | FetchMFGCertificateTableDashboardDataCompleteAction
-  | FetchMFGCertificateTableDashboardDataFailedAction;
+  | FetchMFGCertificateTableDashboardDataFailedAction
+  | FetchMFGTrackerCertificateGraphDashboardDataAction
+  | FetchMFGTrackerCertificateGraphDashboardDataCompleteAction
+  | FetchMFGTrackerCertificateGraphDashboardDataFailedAction
+  | FetchMFGTrackerCertificateTableDashboardDataAction
+  | FetchMFGTrackerCertificateTableDashboardDataCompleteAction
+  | FetchMFGTrackerCertificateTableDashboardDataFailedAction;

@@ -27,24 +27,25 @@ export class SalarySlipsComponent implements OnInit, OnDestroy {
     this.userSubscription$ = this._store.select(fromRoot.getLoggedUser).subscribe(user => {
       this.loggedUser = user;
       if (user.role) {
-        if (user.role == 'human_resource' || user.role == 'accounts') {
-          let newParams: any = {};
-          if (!this._activatedRoute.snapshot.queryParams["page"]) {
-            newParams["page"] = 1;
+        if (user.role === 'human_resource' || user.role === 'accounts') {
+          const newParams: any = {};
+          if (!this._activatedRoute.snapshot.queryParams['page']) {
+            newParams['page'] = 1;
           }
-          if (!this._activatedRoute.snapshot.queryParams["per_page"]) {
-            newParams["per_page"] = 10;
+          if (!this._activatedRoute.snapshot.queryParams['per_page']) {
+            newParams['per_page'] = 10;
           }
-          if (!this._activatedRoute.snapshot.queryParams["status"] && user.role) {
-            if (user.role == 'human_resource') {
-              newParams["status"] = "can_modify";
+          if (!this._activatedRoute.snapshot.queryParams['status'] && user.role) {
+            if (user.role === 'human_resource') {
+              newParams['status'] = 'can_modify';
             } else {
-              newParams["status"] = "confirmed";
+              newParams['status'] = 'confirmed';
             }
           }
-          this._router.navigate(["dashboard", "salary-slips"], { queryParams: { ...this._activatedRoute.snapshot.queryParams, ...newParams } });
+          this._router.navigate(['dashboard', 'salary-slips'],
+            { queryParams: { ...this._activatedRoute.snapshot.queryParams, ...newParams } });
         } else {
-          this._router.navigate(["403-forbidden"]);
+          this._router.navigate(['403-forbidden']);
         }
       }
     });
@@ -58,7 +59,7 @@ export class SalarySlipsComponent implements OnInit, OnDestroy {
   }
 
   getQueryParams(status: string): any {
-    return { ...this._activatedRoute.snapshot.queryParams, status: status }
+    return { ...this._activatedRoute.snapshot.queryParams, status: status };
   }
 
   openFilters() {

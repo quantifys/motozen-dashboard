@@ -1,13 +1,22 @@
 <section class="container-fluid" *ngIf="loggedUser.role == 'manufacturer'">
-  <div class="header d-flex align-items-center">
+  <div class="header d-flex align-items-center justify-content-between">
     <h4 class="text-grey-dark m-0">Dashboard</h4>
+    <form [formGroup]="typeForm">
+      <mat-form-field>
+        <mat-label>Choose device type</mat-label>
+        <mat-select formControlName="type">
+          <mat-option value="sld">Speed Governor</mat-option>
+          <mat-option value="tracker">Vehicle Tracker</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </form>
   </div>
   <div class="row justify-content-center">
-    <div class="col-xl-9 mt-4 left">
+    <div class="col-md-12 col-lg-8 mt-4 left">
       <div class="card">
         <div class="card-header">
           <h5 class="text-grey-dark font-weight-bold mt-2">
-            <i class="fas fa-info-circle mr-2 fa-fw text-orange"></i>Issued certificates timeline</h5>
+            <i class="fas fa-info-circle mr-2 fa-fw text-orange"></i>Issued {{type.value === 'sld' ? 'SG' : 'VTS'}} certificates timeline</h5>
           <form class="container-fluid" [formGroup]="certificateForm">
             <div class="row justify-content-center">
               <div class="col-lg-3">
@@ -22,15 +31,16 @@
           </form>
         </div>
         <div class="card-body">
-          <app-bar-chart [data]="certificateChartData" [config]="barChartConfig" elementId="certificateChart"></app-bar-chart>
+          <app-bar-chart [data]="certificateChartData" [config]="barChartConfig" elementId="certificateChart">
+          </app-bar-chart>
         </div>
       </div>
     </div>
-    <div class="col-xl-3 mt-4 right">
+    <div class="col-md-12 col-lg-4 mt-4 right">
       <div class="card h-100">
         <div class="card-header">
           <h5 class="text-grey-dark font-weight-bold mt-2">
-            <i class="fas fa-info-circle mr-2 fa-fw text-orange"></i>Certificate count</h5>
+            <i class="fas fa-info-circle mr-2 fa-fw text-orange"></i>{{type.value === 'sld' ? 'SG' : 'VTS'}} certificate count</h5>
           <form [formGroup]="certificateTableForm" autocomplete="off">
             <div class="container-fluid">
               <div class="row justify-content-center">
