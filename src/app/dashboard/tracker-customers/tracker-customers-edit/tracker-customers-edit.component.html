@@ -19,8 +19,11 @@
             </mat-form-field>
             <mat-form-field class="w-100 mb-3">
               <span matPrefix>+91 &nbsp;</span>
-              <input matInput type="tel" placeholder="Phone" formControlName="phone">
+              <input matInput maxLength="10" type="tel" placeholder="Phone" formControlName="phone">
               <mat-hint align="end">{{phone.value ? phone.value.length : '0'}} / 10</mat-hint>
+            </mat-form-field>
+            <mat-form-field class="w-100">
+              <textarea matInput rows="5" placeholder="Address" formControlName="address"></textarea>
             </mat-form-field>
             <button class="btn btn-orange text-light btn-save" [disabled]="userForm.invalid || userForm.pristine"
               (click)="saveChanges()">Save</button>

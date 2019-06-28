@@ -49,6 +49,7 @@ export class TrackerCustomersEditComponent implements OnInit, OnDestroy {
     this.userForm = this._fb.group({
       id: null,
       name: [null, Validators.required],
+      address: [null, Validators.required],
       email: [null, [Validators.required, Validators.email]],
       phone: [null, [Validators.required, Validators.minLength(10), Validators.maxLength(10)]],
     });
@@ -66,11 +67,16 @@ export class TrackerCustomersEditComponent implements OnInit, OnDestroy {
     return this.userForm.get('phone') as FormControl;
   }
 
+  get address(): FormControl {
+    return this.userForm.get('address') as FormControl;
+  }
+
   saveChanges() {
     if (this.addUser) {
       this._store.dispatch(new vtsUserActions.CreateVtsUserAction({
         name: this.name.value,
         email: this.email.value,
+        address: this.address.value,
         phone: '+91' + this.phone.value
       }));
     } else {
