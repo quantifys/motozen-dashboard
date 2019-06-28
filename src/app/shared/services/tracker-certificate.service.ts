@@ -61,7 +61,8 @@ export class TrackerCertificateService {
                 + certificate.certificate_number + '\nDATE GENERATED: ' + this._datePipe.transform(certificate.date_generated, 'yyyy-MM-dd')
                 + '\nDUE DATE: ' + this._datePipe.transform(certificate.due_date, 'yyyy-MM-dd') + '\nCHASSIS NUMBER: '
                 + certificate.chassis_number + '\nENGINE NUMBER: ' + certificate.engine_number + '\nCUSTOMER NAME: '
-                + certificate.customer_name + '\nCAR REG NUMBER: ' + certificate.car_reg_number + '\nTesting Report Number: CTOG00090',
+                + certificate.tracker_customer.name + '\nCAR REG NUMBER: '
+                + certificate.car_reg_number + '\nTesting Report Number: CTOG00090',
               'fit': 140
             },
             {
@@ -154,7 +155,7 @@ export class TrackerCertificateService {
         'text': [
           'This is to assure that fitment for customer ',
           {
-            'text': certificate.customer_name,
+            'text': certificate.tracker_customer.name,
             'bold': true
           },
           ' of VTS (Vehicle Tracking System) device with details:'
@@ -194,7 +195,7 @@ export class TrackerCertificateService {
                     'alignment': 'left'
                   },
                   {
-                    'text': certificate.customer_name,
+                    'text': certificate.tracker_customer.name,
                     'alignment': 'center',
                     'bold': true
                   }
@@ -207,7 +208,7 @@ export class TrackerCertificateService {
                     'alignment': 'left'
                   },
                   {
-                    'text': certificate.customer_telephone,
+                    'text': certificate.tracker_customer.phone,
                     'alignment': 'center',
                     'bold': true
                   }
@@ -222,7 +223,7 @@ export class TrackerCertificateService {
                     'alignment': 'left'
                   },
                   {
-                    'text': certificate.customer_address,
+                    'text': certificate.tracker_customer.address,
                     'bold': true
                   }
                 ],
@@ -442,11 +443,11 @@ export class TrackerCertificateService {
               {
                 'text': [
                   {
-                    'text': 'ESIM 2 No.',
+                    'text': 'ESIM 2 No.: ',
                     'alignment': 'left'
                   },
                   {
-                    'text': certificate.device.esim2,
+                    'text': certificate.device.esim2 ? certificate.device.esim2 : '-',
                     'alignment': 'center',
                     'bold': true
                   }
