@@ -46,8 +46,8 @@ export class TrackerDevicesComponent implements OnInit, OnDestroy {
           if (!this._activatedRoute.snapshot.queryParams['per_page']) {
             newParams['per_page'] = 10;
           }
-          if (this._activatedRoute.snapshot.queryParams['sld_number']) {
-            this.search.patchValue(this._activatedRoute.snapshot.queryParams['sld_number'], { emitEvent: false });
+          if (this._activatedRoute.snapshot.queryParams['serial_no']) {
+            this.search.patchValue(this._activatedRoute.snapshot.queryParams['serial_no'], { emitEvent: false });
           }
           this._router.navigate(['dashboard', 'vts-devices'],
             { queryParams: { ...this._activatedRoute.snapshot.queryParams, ...newParams } });
@@ -86,7 +86,7 @@ export class TrackerDevicesComponent implements OnInit, OnDestroy {
     this._router.navigate(['dashboard', 'vts-devices'], {
       queryParams: {
         ...this._activatedRoute.snapshot.queryParams,
-        sld_number: this.search.value !== '' ? this.search.value : null
+        serial_no: this.search.value !== '' ? this.search.value : null
       }
     });
   }

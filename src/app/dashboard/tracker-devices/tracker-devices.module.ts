@@ -17,7 +17,7 @@ import { NgSelectModule } from '@ng-select/ng-select';
 import { TrackerDevicesComponent } from './tracker-devices.component';
 import { TrackerDevicesEditComponent } from './tracker-devices-edit/tracker-devices-edit.component';
 import { TrackerDevicesTransferComponent } from './tracker-devices-transfer/tracker-devices-transfer.component';
-import { TrackerDevicesDetailComponent } from './tracker-devices-detail/tracker-devices-detail.component';
+import { TrackerDevicesDetailComponent, TrackerDeviceDeleteComponent } from './tracker-devices-detail/tracker-devices-detail.component';
 import { TrackerDevicesTableComponent } from './tracker-devices-table/tracker-devices-table.component';
 import { VtsDeviceComponent } from './tracker-devices-edit/vts-device/vts-device.component';
 
@@ -73,7 +73,9 @@ const routes: Routes = [
     TrackerDevicesTransferComponent,
     TrackerDevicesDetailComponent,
     TrackerDevicesTableComponent,
+    TrackerDeviceDeleteComponent,
     VtsDeviceComponent
-  ]
+  ],
+  entryComponents: [TrackerDeviceDeleteComponent]
 })
 export class TrackerDevicesModule { }

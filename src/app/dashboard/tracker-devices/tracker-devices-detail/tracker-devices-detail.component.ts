@@ -40,7 +40,7 @@ export class TrackerDevicesDetailComponent implements OnInit {
   }
 
   deleteDevice() {
-    this.bottomSheet.open(DeviceDeleteComponent);
+    this.bottomSheet.open(TrackerDeviceDeleteComponent);
   }
 
 }
@@ -56,11 +56,11 @@ export class TrackerDevicesDetailComponent implements OnInit {
 </div>
   `,
 })
-export class DeviceDeleteComponent {
+export class TrackerDeviceDeleteComponent {
 
   constructor(
     private _store: Store<fromRoot.State>,
-    private bottomSheetRef: MatBottomSheetRef<DeviceDeleteComponent>
+    private bottomSheetRef: MatBottomSheetRef<TrackerDeviceDeleteComponent>
   ) { }
 
   action() {

@@ -30,6 +30,7 @@ export class TrackerDevicesEditComponent implements OnInit, OnDestroy {
     private _cdr: ChangeDetectorRef,
     public _location: Location
   ) {
+    this._store.dispatch(new trackerDeviceActions.ClearTrackerDeviceDataAction);
     this.querySubscription = this._activatedRoute.queryParams.subscribe(params => {
       if (params['id']) {
         this.addTrackerDevice = false;
@@ -52,7 +53,7 @@ export class TrackerDevicesEditComponent implements OnInit, OnDestroy {
     });
     this.trackerSubscription = this._store.select(fromRoot.getCurrentTrackerDevice).subscribe(device => {
       if (device.id) {
-        this.currentTrackerDevice = device;
+        this.device.at(0).patchValue(device);
       }
     });
   }
@@ -75,6 +76,7 @@ export class TrackerDevicesEditComponent implements OnInit, OnDestroy {
 
   addVTS() {
     this.device.push(this._fb.group({
+      id: null,
       serial_no: ['', [Validators.required, Validators.minLength(5)]],
       imei: ['', [Validators.required, Validators.minLength(15), Validators.maxLength(15)]],
       esim1: ['', [Validators.required, Validators.minLength(19), Validators.maxLength(19)]],
@@ -113,10 +115,11 @@ export class TrackerDevicesEditComponent implements OnInit, OnDestroy {
   }
 
   saveChanges() {
-    const formData = this.deviceForm.value;
     if (this.addTrackerDevice) {
+      const formData = this.deviceForm.value;
       this._store.dispatch(new trackerDeviceActions.CreateTrackerDeviceAction(formData));
     } else {
+      const formData = this.device.at(0).value;
       this._store.dispatch(new trackerDeviceActions.UpdateTrackerDeviceAction({
         tracker_device: formData
       }));

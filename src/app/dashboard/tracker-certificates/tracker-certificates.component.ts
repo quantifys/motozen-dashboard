@@ -53,16 +53,16 @@ export class TrackerCertificatesComponent implements OnInit, OnDestroy {
           }
           if (
             this._activatedRoute.snapshot.queryParams['reg']
-            || this._activatedRoute.snapshot.queryParams['sld']
+            || this._activatedRoute.snapshot.queryParams['serial_no']
             || this._activatedRoute.snapshot.queryParams['engine']
             || this._activatedRoute.snapshot.queryParams['cert']
           ) {
             this.search_type.patchValue(this._activatedRoute.snapshot.queryParams['reg']
-              ? 'reg' : this._activatedRoute.snapshot.queryParams['cert'] ? 'cert' : 'sld', { emitEvent: false });
+              ? 'reg' : this._activatedRoute.snapshot.queryParams['cert'] ? 'cert' : 'serial', { emitEvent: false });
             this.search.patchValue(this._activatedRoute.snapshot.queryParams['reg']
               ? this._activatedRoute.snapshot.queryParams['reg'] : this._activatedRoute.snapshot.queryParams['cert']
                 ? this._activatedRoute.snapshot.queryParams['cert'] : this._activatedRoute.snapshot.queryParams['engine']
-                  ? this._activatedRoute.snapshot.queryParams['engine'] : this._activatedRoute.snapshot.queryParams['sld'],
+                  ? this._activatedRoute.snapshot.queryParams['engine'] : this._activatedRoute.snapshot.queryParams['serial_no'],
               { emitEvent: false });
           }
           this._router.navigate(['dashboard', 'vts-certificates'],
@@ -120,7 +120,7 @@ export class TrackerCertificatesComponent implements OnInit, OnDestroy {
         ...this._activatedRoute.snapshot.queryParams,
         reg: (this.search_type.value === 'reg' && this.search.value !== '') ? this.search.value : null,
         certificate_number: (this.search_type.value === 'cert' && this.search.value !== '') ? this.search.value : null,
-        sld: (this.search_type.value === 'sld' && this.search.value !== '') ? this.search.value : null,
+        serial_no: (this.search_type.value === 'serial' && this.search.value !== '') ? this.search.value : null,
         engine_number: (this.search_type.value === 'engine' && this.search.value !== '') ? this.search.value : null
       }
     });
@@ -130,8 +130,8 @@ export class TrackerCertificatesComponent implements OnInit, OnDestroy {
     switch (this.search_type.value) {
       case 'reg':
         return 'Search by Registration No.';
-      case 'sld':
-        return 'Search by SLD No.';
+      case 'serial':
+        return 'Search by Serial No.';
       case 'engine':
         return 'Search by Engine No.';
       default:

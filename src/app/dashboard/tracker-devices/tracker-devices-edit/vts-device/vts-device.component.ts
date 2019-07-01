@@ -13,7 +13,7 @@ declare var $: any;
   styleUrls: ['./vts-device.component.scss']
 })
 export class VtsDeviceComponent implements OnInit, AfterViewInit {
-  @Input() sldForm: FormGroup;
+  @Input() serialForm: FormGroup;
   @Input('position') position: number;
   @Output() enterPressed: EventEmitter<any> = new EventEmitter();
 
@@ -22,7 +22,7 @@ export class VtsDeviceComponent implements OnInit, AfterViewInit {
   ) { }
 
   ngOnInit() {
-    this.serial_no.valueChanges.pipe(debounce(() => timer(500))).subscribe(value => this.checkSld(value));
+    this.serial_no.valueChanges.pipe(debounce(() => timer(500))).subscribe(value => this.checkSerial(value));
   }
 
   ngAfterViewInit() {
@@ -30,31 +30,31 @@ export class VtsDeviceComponent implements OnInit, AfterViewInit {
   }
 
   get serial_no(): FormControl {
-    return this.sldForm.get('serial_no') as FormControl;
+    return this.serialForm.get('serial_no') as FormControl;
   }
 
   get imei(): FormControl {
-    return this.sldForm.get('imei') as FormControl;
+    return this.serialForm.get('imei') as FormControl;
   }
 
   get esim1(): FormControl {
-    return this.sldForm.get('esim1') as FormControl;
+    return this.serialForm.get('esim1') as FormControl;
   }
 
   get esim2(): FormControl {
-    return this.sldForm.get('esim2') as FormControl;
+    return this.serialForm.get('esim2') as FormControl;
   }
 
   keyUp() {
     this.enterPressed.emit(this.position);
   }
 
-  checkSld(serial_no: string) {
+  checkSerial(serial_no: string) {
     this._deviceService.checkIfVTSExists(serial_no).subscribe(res => {
       if (res) {
-        this.sldForm.setErrors({ 'exists': true });
+        this.serialForm.setErrors({ 'exists': true });
       } else {
-        this.sldForm.setErrors(null);
+        this.serialForm.setErrors(null);
       }
     });
   }
