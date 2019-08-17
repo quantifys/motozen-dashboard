@@ -9,6 +9,9 @@
     <a mat-stroked-button color="primary" routerLink="../edit" [queryParams]="{id: device.id}">Edit</a>
     <button class="ml-2" mat-stroked-button color="warn" (click)="deleteDevice()">Delete</button>
   </div>
+  <div class="d-flex justify-content-end mt-3" *ngIf="loggedUser.role == 'admin'">
+    <a mat-stroked-button color="primary" routerLink="../edit" [queryParams]="{id: device.id}">Edit</a>
+  </div>
   <div class="row justify-content-center mt-4">
     <div class="col-sm-12 col-md-6 col-lg-5 col-xl-4">
       <div class="card">
@@ -17,6 +20,8 @@
             <i class="fas fa-info-circle mr-2 fa-fw text-orange"></i>VTS information</h6>
           <h6 class="text-grey-dark">Serial number:</h6>
           <h6 class="ml-3">{{device.serial_no}}</h6>
+          <h6 class="text-grey-dark">IMEI:</h6>
+          <h6 class="ml-3">{{device.imei}}</h6>
           <h6 class="text-grey-dark">ESIM 1:</h6>
           <h6 class="ml-3">{{device.esim1}}</h6>
           <h6 class="text-grey-dark">ESIM 2:</h6>

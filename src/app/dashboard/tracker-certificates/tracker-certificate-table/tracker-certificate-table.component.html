@@ -18,7 +18,7 @@
               {{certificate.certificate_number}}
             </a>
           </td>
-          <td>{{certificate.customer_name}}</td>
+          <td>{{certificate.tracker_customer.phone}}</td>
           <td>{{certificate.date_generated | date: 'mediumDate'}}</td>
           <td>{{certificate.due_date | date: 'mediumDate'}}</td>
         </tr>

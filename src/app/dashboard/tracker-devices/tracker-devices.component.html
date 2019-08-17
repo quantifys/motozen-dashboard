@@ -40,7 +40,7 @@
     </ng-container>
     <a mat-tab-link routerLink="../" [queryParams]="getQueryParams('sold')" routerLinkActive #sold="routerLinkActive"
       [active]="sold.isActive">
-      <strong>{{(loggedUser.role != 'manufacturer' && loggedUser.role != 'store_purchases') ? 'Current stock' :
+      <strong>{{(loggedUser.role != 'manufacturer' && loggedUser.role != 'store_purchases' && loggedUser.role != 'admin') ? 'Current stock' :
           'Sold'}}</strong>
     </a>
     <a mat-tab-link routerLink="../" [queryParams]="getQueryParams('certified')" routerLinkActive

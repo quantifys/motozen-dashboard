@@ -32,6 +32,7 @@ export class TrackerCertificatesComponent implements OnInit, OnDestroy {
     private bottomSheet: MatBottomSheet,
     private _csvReportService: CsvReportService
   ) {
+    this.buildForm();
     this.userSubscription$ = this._store.select(fromRoot.getLoggedUser).subscribe(user => {
       this.loggedUser = user;
       if (user.role) {
@@ -76,7 +77,6 @@ export class TrackerCertificatesComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.buildForm();
     this.formListener();
     this._router.events.subscribe(events => this.searchField.nativeElement.focus());
   }

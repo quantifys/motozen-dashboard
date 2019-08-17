@@ -49,14 +49,14 @@ export const ROUTES: RouteInfo[] = [
     title: 'Speed Governors',
     type: 'link',
     icontype: 'fa-desktop',
-    users: ['manufacturer', 'distributor', 'dealer', 'sub_dealer', 'store_purchases']
+    users: ['manufacturer', 'distributor', 'dealer', 'sub_dealer', 'store_purchases', 'admin']
   },
   {
     path: 'vts-devices',
     title: 'VTS devices',
     type: 'link',
     icontype: 'fa-map',
-    users: ['manufacturer', 'distributor', 'dealer', 'sub_dealer', 'store_purchases']
+    users: ['manufacturer', 'distributor', 'dealer', 'sub_dealer', 'store_purchases', 'admin']
   },
   {
     path: 'vehicles',

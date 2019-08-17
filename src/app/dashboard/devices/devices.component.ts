@@ -37,6 +37,7 @@ export class DevicesComponent implements OnInit, OnDestroy {
           === 'dealer' || user.role
           === 'sub_dealer' || user.role
           === 'manufacturer' || user.role
+          === 'admin' || user.role
           === 'store_purchases') {
           const newParams: any = {};
           if (!this._activatedRoute.snapshot.queryParams['status']) {

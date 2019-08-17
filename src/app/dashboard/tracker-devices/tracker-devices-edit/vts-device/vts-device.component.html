@@ -23,15 +23,15 @@
     <div class="pl-1 pr-1 col-md-6">
       <mat-form-field class="w-100">
         <input [attr.id]="'serial_no' + position" type="text" class="mb-1" matInput formControlName="esim1"
-          placeholder="Enter ESIM 1" maxlength="19">
-        <mat-hint align="end">{{esim1.value ? esim1.value.length : '0'}} / 19</mat-hint>
+          placeholder="Enter ESIM 1" maxlength="20">
+        <mat-hint align="end">{{esim1.value ? esim1.value.length : '0'}} / 20</mat-hint>
       </mat-form-field>
     </div>
     <div class="pl-1 pr-1 col-md-6">
       <mat-form-field class="w-100">
         <input [attr.id]="'serial_no' + position" type="text" matInput formControlName="esim2"
-          placeholder="Enter ESIM 2" maxlength="19">
-        <mat-hint align="end">{{esim2.value ? esim2.value.length : '0'}} / 19</mat-hint>
+          placeholder="Enter ESIM 2" maxlength="20">
+        <mat-hint align="end">{{esim2.value ? esim2.value.length : '0'}} / 20</mat-hint>
       </mat-form-field>
     </div>
   </div>
