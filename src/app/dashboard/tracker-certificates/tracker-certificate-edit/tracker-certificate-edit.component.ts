@@ -83,6 +83,7 @@ export class TrackerCertificateEditComponent implements OnInit, OnDestroy {
         if (certificate.id) {
           if (this.loggedUser.role === 'admin') {
             this.rto = this._rtoService.getRto(certificate.location_state);
+            this.tracker_customer_id.patchValue(certificate.tracker_customer.id);
           }
           this.certificate = certificate;
           this.certificateForm.patchValue(certificate);
@@ -136,6 +137,10 @@ export class TrackerCertificateEditComponent implements OnInit, OnDestroy {
 
   get tracker_device_id(): FormControl {
     return this.certificateForm.get('tracker_device_id') as FormControl;
+  }
+
+  get tracker_customer_id(): FormControl {
+    return this.certificateForm.get('tracker_customer_id') as FormControl;
   }
 
   get customer_telephone(): FormControl {
