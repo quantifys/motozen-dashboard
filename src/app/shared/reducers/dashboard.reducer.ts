@@ -4,12 +4,14 @@ export interface State {
   dataType: string;
   certificateChartData: any;
   certificateTableData: any;
+  distributorData: any;
 }
 
 const initialState: State = {
   dataType: 'sld',
   certificateChartData: null,
-  certificateTableData: null
+  certificateTableData: null,
+  distributorData: null
 };
 
 export function reducer(state = initialState, action: dashboardActions.Actions): State {
@@ -26,6 +28,14 @@ export function reducer(state = initialState, action: dashboardActions.Actions):
       return Object.assign({}, state, {
         certificateChartData: certificateChartData,
         certificateTableData: certificateTableData
+      });
+    case dashboardActions.FETCH_DIST_DASHBOARD_ACTION:
+      return Object.assign({}, state, {
+        distributorData: null
+      });
+    case dashboardActions.FETCH_DIST_DASHBOARD_COMPLETE_ACTION:
+      return Object.assign({}, state, {
+        distributorData: action.payload
       });
     case dashboardActions.FETCH_MFG_CERTIFICATE_GRAPH_DASHBOARD_COMPLETE_ACTION:
       return Object.assign({}, state, {

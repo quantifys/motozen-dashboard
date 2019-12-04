@@ -16,7 +16,8 @@
       <div class="card">
         <div class="card-header">
           <h5 class="text-grey-dark font-weight-bold mt-2">
-            <i class="fas fa-info-circle mr-2 fa-fw text-orange"></i>Issued {{type.value === 'sld' ? 'SG' : 'VTS'}} certificates timeline</h5>
+            <i class="fas fa-info-circle mr-2 fa-fw text-orange"></i>Issued {{type.value === 'sld' ? 'SG' : 'VTS'}}
+            certificates timeline</h5>
           <form class="container-fluid" [formGroup]="certificateForm">
             <div class="row justify-content-center">
               <div class="col-lg-3">
@@ -40,7 +41,8 @@
       <div class="card h-100">
         <div class="card-header">
           <h5 class="text-grey-dark font-weight-bold mt-2">
-            <i class="fas fa-info-circle mr-2 fa-fw text-orange"></i>{{type.value === 'sld' ? 'SG' : 'VTS'}} certificate count</h5>
+            <i class="fas fa-info-circle mr-2 fa-fw text-orange"></i>{{type.value === 'sld' ? 'SG' : 'VTS'}} certificate
+            count</h5>
           <form [formGroup]="certificateTableForm" autocomplete="off">
             <div class="container-fluid">
               <div class="row justify-content-center">
@@ -96,6 +98,19 @@
               </ng-container>
             </div>
           </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="container-fluid" *ngIf="loggedUser.role == 'distributor' || loggedUser.role == 'dealer'">
+  <div class="row">
+    <div class="col-4">
+      <div class="card">
+        <div class="card-body">
+          <h5>Certificate Renewal Credits</h5>
+          <h1>{{distributorData ? distributorData.credit_stats.speed_governor_credits : '-'}}</h1>
         </div>
       </div>
     </div>

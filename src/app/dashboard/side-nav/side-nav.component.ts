@@ -28,7 +28,7 @@ export const ROUTES: RouteInfo[] = [
     title: 'Dashboard',
     type: 'link',
     icontype: 'fa-chart-area',
-    users: ['manufacturer']
+    users: ['manufacturer', 'distributor']
   },
   {
     path: 'users',

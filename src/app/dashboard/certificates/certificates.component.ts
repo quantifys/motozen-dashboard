@@ -38,6 +38,7 @@ export class CertificatesComponent implements OnInit, OnDestroy {
         if (user.role === 'manufacturer'
           || user.role === 'distributor'
           || user.role === 'dealer'
+          || user.role === 'sub_dealer'
           || user.role === 'sales'
           || user.role === 'rto'
           || user.role === 'admin') {

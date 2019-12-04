@@ -1,28 +1,46 @@
 import { Angular2TokenService } from 'angular2-token';
 import { Effect, Actions } from '@ngrx/effects';
 import { Injectable } from '@angular/core';
-import { Action } from '@ngrx/store';
+import { Action, Store } from '@ngrx/store';
 import { Observable, of } from 'rxjs';
 import { catchError, map, exhaustMap } from 'rxjs/operators';
 
+import { User } from '../models';
+import * as fromRoot from '../../shared/reducers';
 import * as fromDashboard from '../actions/dashboard.actions';
 
 @Injectable()
 export class DashboardEffects {
 
+  public loggedUser: User = new User({});
+
   constructor(
+    private _store: Store<fromRoot.State>,
     private _action$: Actions,
     private _tokenService: Angular2TokenService,
   ) {
+    this._store.select(fromRoot.getLoggedUser).subscribe(user => this.loggedUser = user);
   }
 
   @Effect()
   fetchDashboard$: Observable<Action> = this._action$.ofType(fromDashboard.FETCH_DASHBOARD_ACTION).pipe(
     map((action: fromDashboard.FetchDashboardDataAction) => action),
-    exhaustMap(() => this._tokenService.post(`dashboard_data/mfg/all`, null)
+    exhaustMap(() => this._tokenService
+      .post(`dashboard_data/mfg/all`, null)
       .pipe(
         map(response => new fromDashboard.FetchDashboardDataCompleteAction(response.json().message)),
         catchError(error => of(new fromDashboard.FetchDashboardDataFailedAction(error.json().message)))
+      ))
+  );
+
+  @Effect()
+  fetchDistributorDashboard$: Observable<Action> = this._action$.ofType(fromDashboard.FETCH_DIST_DASHBOARD_ACTION).pipe(
+    map((action: fromDashboard.FetchDistDashboardDataAction) => action),
+    exhaustMap(() => this._tokenService
+      .post(`dashboard_data/distributor/all`, null)
+      .pipe(
+        map(response => new fromDashboard.FetchDistDashboardDataCompleteAction(response.json().message)),
+        catchError(error => of(new fromDashboard.FetchDistDashboardDataFailedAction(error.json().message)))
       ))
   );
 

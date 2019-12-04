@@ -31,6 +31,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   public certificateTableData: any[] = [];
   public pieChartData: any[] = [];
   public barChartConfig: any;
+  public distributorData: any;
   public certificateData: any[] = [];
   public certificateForm: FormGroup;
   public certificateTableForm: FormGroup;
@@ -92,6 +93,9 @@ export class HomeComponent implements OnInit, OnDestroy {
       if (user.role === 'manufacturer') {
         this._store.dispatch(new dashboardActions.FetchDashboardDataAction('sld'));
       }
+      if (user.role === 'distributor' || user.role === 'dealer') {
+        this._store.dispatch(new dashboardActions.FetchDistDashboardDataAction());
+      }
     });
     this.barChartConfig = {
       bars: 'vertical',
@@ -136,6 +140,7 @@ export class HomeComponent implements OnInit, OnDestroy {
         this.certificateTableForm.get('period').patchValue(data['period'], { emitEvent: false });
       }
     });
+    this._store.select(fromRoot.getDistributorDashboardData).subscribe(data => this.distributorData = data);
   }
 
   ngOnDestroy() {

@@ -12,6 +12,10 @@ export const FETCH_DASHBOARD_ACTION = '[Device] Fetch Dashboard Action';
 export const FETCH_DASHBOARD_COMPLETE_ACTION = '[Device] Fetch Dashboard Complete Action';
 export const FETCH_DASHBOARD_FAILED_ACTION = '[Device] Fetch Dashboard Failed Action';
 
+export const FETCH_DIST_DASHBOARD_ACTION = '[Device] Fetch Distributor Dashboard Action';
+export const FETCH_DIST_DASHBOARD_COMPLETE_ACTION = '[Device] Fetch Distributor Dashboard Complete Action';
+export const FETCH_DIST_DASHBOARD_FAILED_ACTION = '[Device] Fetch Distributor Dashboard Failed Action';
+
 export const FETCH_MFG_CERTIFICATE_GRAPH_DASHBOARD_ACTION = '[Device] Fetch MFG Certificate Graph Dashboard Action';
 export const FETCH_MFG_CERTIFICATE_GRAPH_DASHBOARD_COMPLETE_ACTION = '[Device] Fetch MFG Certificate Graph Dashboard Complete Action';
 export const FETCH_MFG_CERTIFICATE_GRAPH_DASHBOARD_FAILED_ACTION = '[Device] Fetch MFG Certificate Graph Dashboard Failed Action';
@@ -54,6 +58,36 @@ export class FetchDashboardDataCompleteAction implements Action {
 
 export class FetchDashboardDataFailedAction implements Action {
   readonly type = FETCH_DASHBOARD_FAILED_ACTION;
+  constructor(public payload: any) {
+    toast({
+      type: 'error',
+      title: payload
+    });
+  }
+}
+
+export class FetchDistDashboardDataAction implements Action {
+  readonly type = FETCH_DIST_DASHBOARD_ACTION;
+  constructor() {
+    toast({
+      title: 'Fetching dashboard...'
+    });
+    toast.showLoading();
+  }
+}
+
+export class FetchDistDashboardDataCompleteAction implements Action {
+  readonly type = FETCH_DIST_DASHBOARD_COMPLETE_ACTION;
+  constructor(public payload: any) {
+    toast({
+      type: 'success',
+      title: 'Dashboard data loaded!'
+    });
+  }
+}
+
+export class FetchDistDashboardDataFailedAction implements Action {
+  readonly type = FETCH_DIST_DASHBOARD_FAILED_ACTION;
   constructor(public payload: any) {
     toast({
       type: 'error',
@@ -186,6 +220,9 @@ export type Actions =
   FetchDashboardDataAction
   | FetchDashboardDataCompleteAction
   | FetchDashboardDataFailedAction
+  | FetchDistDashboardDataAction
+  | FetchDistDashboardDataCompleteAction
+  | FetchDistDashboardDataFailedAction
   | FetchMFGCertificateGraphDashboardDataAction
   | FetchMFGCertificateGraphDashboardDataCompleteAction
   | FetchMFGCertificateGraphDashboardDataFailedAction
