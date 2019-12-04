@@ -54,8 +54,8 @@ export class ExpenseEffects {
     exhaustMap(body => this._tokenService.post('expenses', body)
       .pipe(
         map(response => {
-          this._router.navigate(["dashboard", "expenses", "view"], { queryParams: { id: response.json().message.id } });
-          return new fromExpense.CreateExpenseCompleteAction(response.json().message)
+          this._router.navigate(['dashboard', 'expenses', 'view'], { queryParams: { id: response.json().message.id } });
+          return new fromExpense.CreateExpenseCompleteAction(response.json().message);
         }),
         catchError(error => of(new fromExpense.CreateExpenseFailedAction(error.json().message)))
       ))
@@ -67,7 +67,7 @@ export class ExpenseEffects {
     exhaustMap(() => this._tokenService.delete(`expenses/${this.expense.id}`)
       .pipe(
         map(() => {
-          this._router.navigate(["dashboard", "expenses"]);
+          this._router.navigate(['dashboard', 'expenses']);
           return new fromExpense.DeleteExpenseCompleteAction(this.expense.id);
         }),
         catchError(error => of(new fromExpense.DeleteExpenseFailedAction(error.json().message)))
@@ -80,11 +80,10 @@ export class ExpenseEffects {
     exhaustMap(body => this._tokenService.patch(`expenses/${this.expense.id}`, body)
       .pipe(
         map(response => {
-          this._router.navigate(["dashboard", "expenses", "view"], { queryParams: { id: response.json().message.id } });
-          return new fromExpense.UpdateExpenseCompleteAction(response.json().message)
+          this._router.navigate(['dashboard', 'expenses', 'view'], { queryParams: { id: response.json().message.id } });
+          return new fromExpense.UpdateExpenseCompleteAction(response.json().message);
         }),
         catchError(error => of(new fromExpense.UpdateExpenseFailedAction(error.json().message)))
       ))
   );
-
 }

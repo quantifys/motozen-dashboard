@@ -5,7 +5,7 @@ export interface State {
   allSalarySlips: SalarySlip[];
   currentSalarySlip: SalarySlip;
   salarySlipPageStatus: PageData;
-  employees: User[]
+  employees: User[];
 }
 
 const initialState: State = {
@@ -41,12 +41,13 @@ export function reducer(state = initialState, action: salarySlipActions.Actions)
       });
     case salarySlipActions.DELETE_SALARY_SLIP_COMPLETE_ACTION:
       return Object.assign({}, state, {
-        allSalarySlips: [...state.allSalarySlips.filter(salarySlip => salarySlip.id != state.currentSalarySlip.id ? salarySlip : null)],
+        allSalarySlips: [...state.allSalarySlips.filter(salarySlip => salarySlip.id !== state.currentSalarySlip.id ? salarySlip : null)],
         currentSalarySlip: new SalarySlip({})
       });
     case salarySlipActions.UPDATE_SALARY_SLIP_COMPLETE_ACTION:
       return Object.assign({}, state, {
-        allSalarySlips: [...state.allSalarySlips.map(salarySlip => salarySlip.id != action.payload.id ? salarySlip : new SalarySlip(action.payload))]
+        allSalarySlips: [...state.allSalarySlips.map(salarySlip =>
+          salarySlip.id !== action.payload.id ? salarySlip : new SalarySlip(action.payload))]
       });
     case salarySlipActions.CREATE_SALARY_SLIP_COMPLETE_ACTION:
       return Object.assign({}, state, {

@@ -2,10 +2,13 @@ import { ActionReducerMap, createSelector } from '@ngrx/store';
 
 import * as fromDashboard from './dashboard.reducer';
 import * as fromUser from './user.reducer';
+import * as fromVtsUser from './vts-user.reducer';
 import * as fromDevice from './device.reducer';
+import * as fromTrackerDevice from './tracker-device.reducer';
 import * as fromVehicle from './vehicle.reducer';
 import * as fromInventory from './inventory.reducer';
 import * as fromCertificate from './certificate.reducer';
+import * as fromTrackerCertificate from './tracker-certificate.reducer';
 import * as fromExpense from './expense.reducer';
 import * as fromIncome from './income.reducer';
 import * as fromPurchaseOrder from './purchase-order.reducer';
@@ -19,10 +22,13 @@ import * as fromReports from './reports.reducer';
 export interface State {
   dashboard: fromDashboard.State;
   users: fromUser.State;
+  vtsUsers: fromVtsUser.State;
   devices: fromDevice.State;
+  trackerDevices: fromTrackerDevice.State;
   vehicles: fromVehicle.State;
   inventories: fromInventory.State;
   certificates: fromCertificate.State;
+  trackerCertificates: fromTrackerCertificate.State;
   expenses: fromExpense.State;
   incomes: fromIncome.State;
   purchaseOrders: fromPurchaseOrder.State;
@@ -37,10 +43,13 @@ export interface State {
 export const reducers: ActionReducerMap<State> = {
   dashboard: fromDashboard.reducer,
   users: fromUser.reducer,
+  vtsUsers: fromVtsUser.reducer,
   devices: fromDevice.reducer,
+  trackerDevices: fromTrackerDevice.reducer,
   vehicles: fromVehicle.reducer,
   inventories: fromInventory.reducer,
   certificates: fromCertificate.reducer,
+  trackerCertificates: fromTrackerCertificate.reducer,
   expenses: fromExpense.reducer,
   incomes: fromIncome.reducer,
   purchaseOrders: fromPurchaseOrder.reducer,
@@ -55,12 +64,18 @@ export const reducers: ActionReducerMap<State> = {
 export const dashboard = (state: State) => state.dashboard;
 export const getDashboardCertificateGraphData = createSelector(dashboard, (state: fromDashboard.State) => state.certificateChartData);
 export const getDashboardCertificateTableData = createSelector(dashboard, (state: fromDashboard.State) => state.certificateTableData);
+export const getDistributorDashboardData = createSelector(dashboard, (state: fromDashboard.State) => state.distributorData);
 
 export const users = (state: State) => state.users;
 export const getAllUsers = createSelector(users, (state: fromUser.State) => state.allUsers.filter(user => user.id !== state.loggedUser.id));
 export const getLoggedUser = createSelector(users, (state: fromUser.State) => state.loggedUser);
 export const getCurrentUserStats = createSelector(users, (state: fromUser.State) => state.currentUserStats);
 export const getUserPageStatus = createSelector(users, (state: fromUser.State) => state.userPageStatus);
+
+export const vtsUsers = (state: State) => state.vtsUsers;
+export const getAllVtsUsers = createSelector(vtsUsers, (state: fromVtsUser.State) => state.allVtsUsers);
+export const getCurrentVtsUser = createSelector(vtsUsers, (state: fromVtsUser.State) => state.currentVtsUser);
+export const getVtsUserPageStatus = createSelector(vtsUsers, (state: fromVtsUser.State) => state.currentVtsUserPageStatus);
 
 export const devices = (state: State) => state.devices;
 export const getAllDevices = createSelector(devices, (state: fromDevice.State) => state.allDevices);
@@ -69,6 +84,13 @@ export const getDevicePageStatus = createSelector(devices, (state: fromDevice.St
 export const getDeviceDealers = createSelector(devices, (state: fromDevice.State) => state.dealers);
 export const getTransferableDevices = createSelector(devices, (state: fromDevice.State) => state.devices);
 export const getDeviceFormVehicles = createSelector(devices, (state: fromDevice.State) => state.deviceformVehicles);
+
+export const trackerDevices = (state: State) => state.trackerDevices;
+export const getAllTrackerDevices = createSelector(trackerDevices, (state: fromTrackerDevice.State) => state.allTrackerDevices);
+export const getCurrentTrackerDevice = createSelector(trackerDevices, (state: fromTrackerDevice.State) => state.currentTrackerDevice);
+export const getTrackerDevicePageStatus = createSelector(trackerDevices, (state: fromTrackerDevice.State) => state.trackerDevicePageStatus);
+export const getTrackerDeviceDealers = createSelector(trackerDevices, (state: fromTrackerDevice.State) => state.dealers);
+export const getTransferableTrackerDevices = createSelector(trackerDevices, (state: fromTrackerDevice.State) => state.trackerDevices);
 
 export const vehicles = (state: State) => state.vehicles;
 export const getAllVehicles = createSelector(vehicles, (state: fromVehicle.State) => state.allVehicles);
@@ -89,6 +111,21 @@ export const getVehicleFormData = createSelector(certificates, (state: fromCerti
 export const getCertificateFilterUsers = createSelector(certificates, (state: fromCertificate.State) => state.certificateFilterUsers);
 export const getCertificatePageStatus = createSelector(certificates, (state: fromCertificate.State) => state.certificatePageStatus);
 export const checkCertificateUnique = createSelector(certificates, (state: fromCertificate.State) => state.isUnique);
+
+export const trackerCertificates = (state: State) => state.trackerCertificates;
+export const getAllTrackerCertificates = createSelector(trackerCertificates,
+  (state: fromTrackerCertificate.State) => state.allTrackerCertificates);
+export const getReportTrackerCertificates = createSelector(trackerCertificates,
+  (state: fromTrackerCertificate.State) => state.reportTrackerCertificates);
+export const getCurrentTrackerCertificate = createSelector(trackerCertificates,
+  (state: fromTrackerCertificate.State) => state.currentTrackerCertificate);
+export const getTrackerCertificateFormdata = createSelector(trackerCertificates,
+  (state: fromTrackerCertificate.State) => state.trackerCertificateFormdata);
+export const getTrackerCertificateFilterUsers = createSelector(trackerCertificates,
+  (state: fromTrackerCertificate.State) => state.trackerCertificateFilterUsers);
+export const getTrackerCertificatePageStatus = createSelector(trackerCertificates,
+  (state: fromTrackerCertificate.State) => state.trackerCertificatePageStatus);
+export const checkTrackerCertificateUnique = createSelector(trackerCertificates, (state: fromTrackerCertificate.State) => state.isUnique);
 
 export const expenses = (state: State) => state.expenses;
 export const getAllExpenses = createSelector(expenses, (state: fromExpense.State) => state.allExpenses);

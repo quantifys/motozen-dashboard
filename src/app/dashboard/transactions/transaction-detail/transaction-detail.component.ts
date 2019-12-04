@@ -23,10 +23,10 @@ export class TransactionDetailComponent implements OnInit {
     private _store: Store<fromRoot.State>
   ) {
     this._activatedRoute.queryParams.subscribe(params => {
-      if (params["id"]) {
-        this._store.dispatch(new transactionActions.FetchTransactionAction(params["id"]));
+      if (params['id']) {
+        this._store.dispatch(new transactionActions.FetchTransactionAction(params['id']));
       } else {
-        this._router.navigate(["dashboard", "transaction"]);
+        this._router.navigate(['dashboard', 'transaction']);
       }
     });
   }
@@ -34,5 +34,4 @@ export class TransactionDetailComponent implements OnInit {
   ngOnInit() {
     this._store.select(fromRoot.getCurrentTransaction).subscribe(transaction => this.transaction = transaction);
   }
-
 }

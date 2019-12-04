@@ -9,7 +9,7 @@ import * as certificateActions from '../../../shared/actions/certificate.actions
 import { Certificate } from '../../../shared/models';
 
 @Component({
-  selector: 'certificate-table',
+  selector: 'app-certificate-table',
   templateUrl: './certificate-table.component.html',
   styleUrls: ['./certificate-table.component.scss']
 })
@@ -20,7 +20,7 @@ export class CertificateTableComponent implements OnInit, OnDestroy {
   private certificatesSubscription$: Subscription = new Subscription();
   public queryParams: any = {};
   public certificates: Certificate[] = [];
-  public loading: boolean = false;
+  public loading = false;
   public pageEvent: PageEvent = new PageEvent();
 
   constructor(
@@ -30,13 +30,13 @@ export class CertificateTableComponent implements OnInit, OnDestroy {
   ) {
     this.routerSubscription$ = this._activatedRoute.queryParams.subscribe(params => {
       this.queryParams = params;
-      if (params["page"]) {
-        this.pageEvent.pageIndex = +params["page"] - 1;
+      if (params['page']) {
+        this.pageEvent.pageIndex = +params['page'] - 1;
       }
-      if (params["per_page"]) {
-        this.pageEvent.pageSize = +params["per_page"];
+      if (params['per_page']) {
+        this.pageEvent.pageSize = +params['per_page'];
       }
-      if (params["page"] && params["per_page"] && params["status"]) {
+      if (params['page'] && params['per_page'] && params['status']) {
         this.fetchCertificates();
       }
     });
@@ -47,7 +47,8 @@ export class CertificateTableComponent implements OnInit, OnDestroy {
       this.loading = false;
       this.certificates = certificates;
     });
-    this.pageSubscription$ = this._store.select(fromRoot.getCertificatePageStatus).subscribe(pageData => this.pageEvent.length = pageData.total);
+    this.pageSubscription$ = this._store.select(fromRoot.getCertificatePageStatus)
+      .subscribe(pageData => this.pageEvent.length = pageData.total);
   }
 
   ngOnDestroy() {
@@ -64,7 +65,7 @@ export class CertificateTableComponent implements OnInit, OnDestroy {
 
   getPage(pageEvent: PageEvent) {
     this.pageEvent = pageEvent;
-    this._router.navigate(["dashboard", "certificates"], {
+    this._router.navigate(['dashboard', 'certificates'], {
       queryParams: {
         ...this.queryParams,
         page: pageEvent.pageIndex + 1,

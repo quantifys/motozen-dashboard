@@ -1,0 +1,38 @@
+<form class="container-fluid mb-0" autocomplete="off" [formGroup]="serialForm">
+  <div class="row align-items-end">
+    <div class="pl-1 pr-1 mb-2 col-md-4 d-flex align-items-center">
+      <mat-form-field class="w-100">
+        <input [attr.id]="'serial_no' + position" type="text" matInput formControlName="serial_no"
+          placeholder="Enter Serial No">
+      </mat-form-field>
+      <p class="text-danger ml-1 mb-0" *ngIf="serialForm.hasError('exists')" title="Device already exists!">
+        <i class="fas fa-times-circle"></i>
+      </p>
+      <p class="text-danger ml-1 mb-0" *ngIf="serial_no.touched && serial_no.hasError('minlength')"
+        title="Serial No. should be more than 5 characters in length!">
+        <i class="fas fa-times-circle"></i>
+      </p>
+    </div>
+    <div class="pl-1 pr-1 mb-2 col-md-8">
+      <mat-form-field class="w-100">
+        <input [attr.id]="'serial_no' + position" type="text" matInput class="mb-1" formControlName="imei"
+          placeholder="Enter IMEI" maxLength="15">
+        <mat-hint align="end">{{imei.value ? imei.value.length : '0'}} / 15</mat-hint>
+      </mat-form-field>
+    </div>
+    <div class="pl-1 pr-1 col-md-6">
+      <mat-form-field class="w-100">
+        <input [attr.id]="'serial_no' + position" type="text" class="mb-1" matInput formControlName="esim1"
+          placeholder="Enter ESIM 1" maxlength="20">
+        <mat-hint align="end">{{esim1.value ? esim1.value.length : '0'}} / 20</mat-hint>
+      </mat-form-field>
+    </div>
+    <div class="pl-1 pr-1 col-md-6">
+      <mat-form-field class="w-100">
+        <input [attr.id]="'serial_no' + position" type="text" matInput formControlName="esim2"
+          placeholder="Enter ESIM 2" maxlength="20">
+        <mat-hint align="end">{{esim2.value ? esim2.value.length : '0'}} / 20</mat-hint>
+      </mat-form-field>
+    </div>
+  </div>
+</form>

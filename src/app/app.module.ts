@@ -31,6 +31,9 @@ import { ExpenseEffects } from './shared/effects/expense.effects';
 import { TransactionEffects } from './shared/effects/transaction.effects';
 import { VendorEffects } from './shared/effects/vendor.effects';
 import { ReportEffects } from './shared/effects/reports.effects';
+import { TrackerDeviceEffects } from './shared/effects/tracker-device.effects';
+import { TrackerCertificateEffects } from './shared/effects/tracker-certificate.effects';
+import { VtsUserEffects } from './shared/effects/vts-user.effects';
 
 import { RtoService } from './shared/services/rto.service';
 import { CertificateService } from './shared/services/certificate.service';
@@ -40,6 +43,7 @@ import { GooglePieChartService } from './shared/services/google-pie-chart.servic
 import { GoogleBarChartService } from './shared/services/google-bar-chart.service';
 import { CsvReportService } from './shared/services/csv-report.service';
 import { VehicleSelectService } from './shared/services/vehicle-select.service';
+import { TrackerCertificateService } from './shared/services/tracker-certificate.service';
 
 @NgModule({
   declarations: [
@@ -68,7 +72,10 @@ import { VehicleSelectService } from './shared/services/vehicle-select.service';
       TransactionEffects,
       SalarySlipEffects,
       VendorEffects,
-      ReportEffects
+      ReportEffects,
+      TrackerDeviceEffects,
+      TrackerCertificateEffects,
+      VtsUserEffects
     ]),
     StoreDevtoolsModule.instrument({
       maxAge: 25, // Retains last 25 states
@@ -85,7 +92,8 @@ import { VehicleSelectService } from './shared/services/vehicle-select.service';
     GooglePieChartService,
     GoogleBarChartService,
     CsvReportService,
-    VehicleSelectService
+    VehicleSelectService,
+    TrackerCertificateService
   ],
   bootstrap: [AppComponent]
 })

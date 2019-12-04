@@ -4,6 +4,7 @@ import { Vehicle } from './vehicle.model';
 export class PurchaseOrder {
   public id: number;
   public address: string;
+  public po_type: string;
   public state: string;
   public amount_paid: number;
   public amount_gst: number;
@@ -18,11 +19,13 @@ export class PurchaseOrder {
   public tracking_no: string;
   public remarks: string;
   public particulars: PurchaseOrderParticulars[];
+  public tracker_po_particulars: TrackerPurchaseOrderParticulars[];
   public user: User;
 
   constructor(data: any) {
     this.id = data.id ? data.id : null;
     this.address = data.address ? data.address : null;
+    this.po_type = data.po_type ? data.po_type : null;
     this.state = data.state ? data.state : null;
     this.amount_paid = data.amount_paid != null ? +data.amount_paid : null;
     this.amount_gst = data.amount_gst != null ? +data.amount_gst : null;
@@ -37,6 +40,8 @@ export class PurchaseOrder {
     this.tracking_no = data.tracking_no ? data.tracking_no : null;
     this.remarks = data.remarks ? data.remarks : null;
     this.particulars = data.particulars ? data.particulars.map(particular => new PurchaseOrderParticulars(particular)) : [];
+    this.tracker_po_particulars = data.tracker_po_particulars ? data.tracker_po_particulars
+      .map(particular => new TrackerPurchaseOrderParticulars(particular)) : [];
     this.user = data.user ? new User(data.user) : new User({});
   }
 
@@ -49,10 +54,10 @@ export class PurchaseOrder {
   }
 
   getStatus(): string {
-    if (this.status == 'can_modify') {
-      return "New"
+    if (this.status === 'can_modify') {
+      return 'New';
     } else {
-      return this.status ? this.status.replace('_', ' ') : null
+      return this.status ? this.status.replace('_', ' ') : null;
     }
   }
 }
@@ -66,5 +71,15 @@ export class PurchaseOrderParticulars {
     this.id = data.id ? data.id : null;
     this.quantity = data.quantity != null ? +data.quantity : null;
     this.vehicle = data.vehicle ? new Vehicle(data.vehicle) : new Vehicle({});
+  }
+}
+
+export class TrackerPurchaseOrderParticulars {
+  public id: number;
+  public quantity: number;
+
+  constructor(data: any) {
+    this.id = data.id ? data.id : null;
+    this.quantity = data.quantity != null ? +data.quantity : null;
   }
 }

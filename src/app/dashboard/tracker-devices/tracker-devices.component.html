@@ -1,0 +1,52 @@
+<section class="container">
+  <div class="top-header row">
+    <div class="col-sm-12 col-lg-6">
+      <h4 class="text-grey-dark m-0">VTS List</h4>
+    </div>
+    <div class="col-sm-12 col-lg-6 controls">
+      <button mat-stroked-button color="warn" *ngIf="loggedUser.role == 'manufacturer'" (click)="stockSummary()">Stock
+        summary</button>
+      <a class="btn btn-orange text-light" routerLink="transfer"
+        *ngIf="loggedUser.role == 'distributor' || loggedUser.role == 'dealer'">
+        <i class="fas fa-desktop mr-2"></i>Transfer stock</a>
+      <a class="btn btn-orange text-light" routerLink="edit" [queryParams]="{type: 'new'}"
+        *ngIf="loggedUser.role == 'store_purchases'">
+        <i class="fas fa-map mr-2"></i>Add VTS</a>
+    </div>
+  </div>
+  <div class="container-fluid mt-3">
+    <div class="row justify-content-center">
+      <div class="col-md-6">
+        <form [formGroup]="searchForm" autocomplete="off">
+          <mat-form-field color="warn" class="w-100">
+            <input matInput #search placeholder="Search by serial number" formControlName="search" id="searchInput">
+            <mat-icon color="warn" matSuffix>search</mat-icon>
+          </mat-form-field>
+        </form>
+      </div>
+    </div>
+  </div>
+  <hr class="mb-0">
+  <nav mat-tab-nav-bar color="warn">
+    <ng-container *ngIf="loggedUser.role == 'manufacturer' || loggedUser.role == 'store_purchases'">
+      <a mat-tab-link routerLink="../" [queryParams]="getQueryParams('unsold')" routerLinkActive
+        #unsold="routerLinkActive" [active]="unsold.isActive">
+        <strong>Unsold</strong>
+      </a>
+      <a mat-tab-link routerLink="../" [queryParams]="getQueryParams('dispatch')" routerLinkActive
+        #dispatch="routerLinkActive" [active]="dispatch.isActive">
+        <strong>Dispatched</strong>
+      </a>
+    </ng-container>
+    <a mat-tab-link routerLink="../" [queryParams]="getQueryParams('sold')" routerLinkActive #sold="routerLinkActive"
+      [active]="sold.isActive">
+      <strong>{{(loggedUser.role != 'manufacturer' && loggedUser.role != 'store_purchases' && loggedUser.role != 'admin') ? 'Current stock' :
+          'Sold'}}</strong>
+    </a>
+    <a mat-tab-link routerLink="../" [queryParams]="getQueryParams('certified')" routerLinkActive
+      #certified="routerLinkActive" [active]="certified.isActive">
+      <strong>Certified</strong>
+    </a>
+  </nav>
+  <app-tracker-devices-table></app-tracker-devices-table>
+</section>

@@ -3,6 +3,8 @@ export class User {
   public serial_no: string;
   public name: string;
   public email: string;
+  public phone: string;
+  public address: string;
   public role: string;
   public password: string;
   public password_confirmation: string;
@@ -14,6 +16,8 @@ export class User {
     this.serial_no = data.serial_no ? data.serial_no : null;
     this.name = data.name ? data.name : null;
     this.email = data.email ? data.email : null;
+    this.phone = data.phone ? data.phone : null;
+    this.address = data.address ? data.address : null;
     this.role = data.role ? data.role : null;
     this.password = data.password ? data.password : null;
     this.password_confirmation = data.password_confirmation ? data.password_confirmation : null;

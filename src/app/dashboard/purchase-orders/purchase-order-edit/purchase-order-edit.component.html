@@ -9,9 +9,25 @@
       <form [formGroup]="purchaseForm" autocomplete="off">
         <div class="card mt-5">
           <div class="card-body">
-            <h5 class="text-grey-dark font-weight-bold mb-0">Particulars information</h5>
+            <h5 class="text-grey-dark font-weight-bold mb-3">Particulars information</h5>
+            <mat-form-field>
+              <mat-label>PO type</mat-label>
+              <mat-select formControlName="po_type">
+                <mat-option value="sld">Speed Governor</mat-option>
+                <mat-option value="tracker">VTS devices</mat-option>
+              </mat-select>
+            </mat-form-field>
+            <hr>
+            <ng-container *ngIf="po_type.value == 'tracker'">
+              <div formArrayName="tracker_po_particulars">
+                <mat-form-field *ngFor="let particular of tracker_po_particulars.controls; let i=index"
+                  [formGroupName]="i">
+                  <input matInput type="number" formControlName="quantity" placeholder="VTS Quantity">
+                </mat-form-field>
+              </div>
+            </ng-container>
           </div>
-          <div class="container-fluid">
+          <div class="container-fluid" *ngIf="po_type.value == 'sld'">
             <div class="row">
               <div class="text-muted font-weight-bold col-lg-3">Make</div>
               <div class="text-muted font-weight-bold col-lg-4">Model</div>
@@ -19,8 +35,8 @@
               <div class="text-muted font-weight-bold col-lg-2"></div>
             </div>
             <ng-container formArrayName="particulars">
-              <div class="row" purchase-order-particular *ngFor="let particular of particulars.controls; let i=index" [formGroupName]="i"
-                [group]="particular">
+              <div class="row" purchase-order-particular *ngFor="let particular of particulars.controls; let i=index"
+                [formGroupName]="i" [group]="particular">
                 <div class="col-lg-2">
                   <button *ngIf="particulars.length > 1" (click)="removeVehicle(i)" mat-icon-button color="warn">
                     <i class="fas fa-trash-alt"></i>
@@ -39,7 +55,8 @@
           <div class="card-body">
             <h5 class="text-grey-dark font-weight-bold mb-3">Purchase order information</h5>
             <div class="w-100 text-right" *ngIf="addPurchaseOrder">
-              <mat-slide-toggle color="warn" formControlName="optionalAddress" (ngModelChange)="addressValidate($event)">
+              <mat-slide-toggle color="warn" formControlName="optionalAddress"
+                (ngModelChange)="addressValidate($event)">
                 <strong class="text-secondary">Provide optional address</strong>
               </mat-slide-toggle>
             </div>
@@ -72,8 +89,8 @@
                     </mat-form-field>
                   </div>
                   <div class="col-lg-6">
-                    <ng-select aria-autocomplete="off" autocomplete="off" id="state" [items]="states" bindLabel="name" bindValue="name" formControlName="state"
-                      placeholder="Select state"></ng-select>
+                    <ng-select aria-autocomplete="off" autocomplete="off" id="state" [items]="states" bindLabel="name"
+                      bindValue="name" formControlName="state" placeholder="Select state"></ng-select>
                   </div>
                   <div class="col-lg-6">
                     <mat-form-field class="w-100">
@@ -89,7 +106,8 @@
               </div>
             </div>
             <div class="text-right mt-3">
-              <button class="btn btn-orange text-light btn-save" [disabled]="purchaseForm.invalid || purchaseForm.pristine" (click)="saveChanges()">Save</button>
+              <button class="btn btn-orange text-light btn-save"
+                [disabled]="purchaseForm.invalid || purchaseForm.pristine" (click)="saveChanges()">Save</button>
             </div>
           </div>
         </div>

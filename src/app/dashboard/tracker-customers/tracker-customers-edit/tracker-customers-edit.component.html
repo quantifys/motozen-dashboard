@@ -1,0 +1,35 @@
+<section class="container">
+  <div class="d-flex align-items-center justify-content-between">
+    <a (click)="_location.back()" class="btn btn-orange text-light text-light">
+      <i class="fas fa-arrow-left mr-2"></i>Go back</a>
+    <h4 class="text-grey-dark m-0">{{addUser ? 'Add user' : 'Edit user'}}</h4>
+  </div>
+
+  <div class="row justify-content-center">
+    <div class="col-sm-10 col-lg-6 col-xl-4">
+      <div class="card mt-5">
+        <div class="card-body">
+          <form [formGroup]="userForm" autocomplete="off">
+            <h5 class="text-grey-dark font-weight-bold mb-4">Customer information</h5>
+            <mat-form-field class="w-100">
+              <input matInput type="text" placeholder="Name" formControlName="name">
+            </mat-form-field>
+            <mat-form-field class="w-100">
+              <input matInput type="email" placeholder="Email" formControlName="email">
+            </mat-form-field>
+            <mat-form-field class="w-100 mb-3">
+              <span matPrefix>+91 &nbsp;</span>
+              <input matInput maxLength="10" type="tel" placeholder="Phone" formControlName="phone">
+              <mat-hint align="end">{{phone.value ? phone.value.length : '0'}} / 10</mat-hint>
+            </mat-form-field>
+            <mat-form-field class="w-100">
+              <textarea matInput rows="5" placeholder="Address" formControlName="address"></textarea>
+            </mat-form-field>
+            <button class="btn btn-orange text-light btn-save" [disabled]="userForm.invalid || userForm.pristine"
+              (click)="saveChanges()">Save</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

@@ -99,7 +99,7 @@
 <ng-template #issued>
   <button mat-stroked-button color="primary" (click)="certificateAction(true)">Download</button>
   <button class="ml-2" mat-stroked-button color="primary" (click)="certificateAction(false)">Print</button>
-  <ng-container *ngIf="certificate.status == 'renewable' || certificate.status == 'expired'">
+  <ng-container *ngIf="certificate.status == 'is_valid' || certificate.status == 'renewable' || certificate.status == 'expired'">
     <button class="ml-2" mat-stroked-button color="warn" (click)="renewCertificate()">Renew</button>
   </ng-container>
 </ng-template>

@@ -1,0 +1,114 @@
+<section class="container">
+  <div class="d-flex align-items-center justify-content-between">
+    <a routerLink="../" class="btn btn-orange text-light text-light">
+      <i class="fas fa-arrow-left mr-2"></i>Go back</a>
+    <h4 class="text-grey-dark m-0">{{addTrackerCertificate ? 'Generate certificate' : 'Edit certificate'}}</h4>
+  </div>
+
+  <div class="row justify-content-center">
+    <div class="col-sm-12 col-lg-10">
+      <form [formGroup]="certificateForm" autocomplete="off">
+        <div class="card mt-5">
+          <div class="card-body">
+            <h5 class="text-grey-dark font-weight-bold mb-2">Device details <span *ngIf="!addTrackerCertificate">for Serial
+                No.:
+                {{certificate.device.serial_no}}</span></h5>
+            <div class="row">
+              <div class="col-lg-4" *ngIf="addTrackerCertificate">
+                <ng-select [items]="trackerDevices" bindLabel="serial_no" bindValue="id"
+                  formControlName="tracker_device_id" placeholder="Select serial number"></ng-select>
+              </div>
+              <ng-container *ngIf="tracker_device_id.valid">
+                <div class="col-lg-4 d-flex align-items-end">
+                  <mat-form-field class="w-100">
+                    <input type="number" matInput placeholder="Invoice Number" formControlName="invoice_no">
+                  </mat-form-field>
+                </div>
+                <div class="col-lg-4 d-flex align-items-end" *ngIf="loggedUser.role == 'admin'">
+                  <mat-form-field class="w-100">
+                    <input matInput [matDatepicker]="dg" placeholder="Date generated" formControlName="date_generated">
+                    <mat-datepicker-toggle matSuffix [for]="dg"></mat-datepicker-toggle>
+                    <mat-datepicker #dg></mat-datepicker>
+                  </mat-form-field>
+                </div>
+              </ng-container>
+            </div>
+          </div>
+        </div>
+        <ng-container *ngIf="tracker_device_id.valid">
+          <div class="card mt-5">
+            <div class="card-body">
+              <h5 class="text-grey-dark font-weight-bold mb-2">Customer information</h5>
+              <ng-select [items]="customers" bindLabel="namePhone" bindValue="id" formControlName="tracker_customer_id"
+                placeholder="Select customer"></ng-select>
+              <hr>
+              <h5 class="text-grey-dark font-weight-bold mb-2">Vehicle information</h5>
+              <div class="row">
+                <div class="col-lg-4">
+                  <mat-form-field class="w-100">
+                    <input matInput placeholder="Vehicle make" formControlName="make" />
+                  </mat-form-field>
+                </div>
+                <div class="col-lg-4">
+                  <mat-form-field class="w-100">
+                    <input matInput placeholder="Vehicle model" formControlName="model" />
+                  </mat-form-field>
+                </div>
+                <div class="col-lg-4">
+                  <mat-form-field class="w-100">
+                    <mat-label>Type</mat-label>
+                    <mat-select formControlName="vehicle_type">
+                      <mat-option value="LMV">LMV</mat-option>
+                      <mat-option value="HMV">HMV</mat-option>
+                      <mat-option value="Bike">Bike</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+                <div class="col-lg-4">
+                  <mat-form-field class="w-100">
+                    <input matInput placeholder="Engine No." formControlName="engine_number">
+                  </mat-form-field>
+                </div>
+                <div class="col-lg-4">
+                  <mat-form-field class="w-100">
+                    <input matInput placeholder="Chassis No." formControlName="chassis_number">
+                  </mat-form-field>
+                </div>
+                <div class="col-lg-4">
+                  <mat-form-field class="w-100">
+                    <input matInput placeholder="Car Registration No." formControlName="car_reg_number">
+                    <mat-hint>AA 00 A 0000</mat-hint>
+                  </mat-form-field>
+                </div>
+              </div>
+              <hr>
+              <h5 class="text-grey-dark font-weight-bold mb-2">RTO details</h5>
+              <div class="row">
+                <div class="col-lg-4">
+                  <ng-select [items]="rto" bindLabel="full_name" bindValue="full_name" formControlName="location_rto"
+                    placeholder="Select RTO office"></ng-select>
+                </div>
+                <div class="col-lg-4 datepicker d-flex align-items-end">
+                  <app-month-picker class="w-100" label="MFG month & year" [min]="monthMin" [max]="monthMax"
+                    formControlName="mfg_month_year"></app-month-picker>
+                </div>
+                <div class="col-lg-4 d-flex align-items-end">
+                  <mat-form-field class="w-100">
+                    <input matInput [matDatepicker]="dp" placeholder="Registration date"
+                      formControlName="reg_month_year">
+                    <mat-datepicker-toggle matSuffix [for]="dp"></mat-datepicker-toggle>
+                    <mat-datepicker #dp></mat-datepicker>
+                  </mat-form-field>
+                </div>
+              </div>
+              <hr>
+              <button class="btn btn-orange text-light btn-save"
+                [disabled]="certificateForm.invalid || certificateForm.pristine" (click)="verify()">Verify &
+                Save</button>
+            </div>
+          </div>
+        </ng-container>
+      </form>
+    </div>
+  </div>
+</section>

@@ -8,13 +8,13 @@ import { DeviceService } from '../../../../shared/services/device.service';
 declare var $: any;
 
 @Component({
-  selector: 'sld-device',
+  selector: 'app-sld-device',
   templateUrl: './sld.component.html',
   styleUrls: ['./sld.component.scss']
 })
 export class SldComponent implements OnInit, AfterViewInit {
 
-  @Input('group') sldForm: FormGroup;
+  @Input() sldForm: FormGroup;
   @Input('position') position: number;
   @Output() enterPressed: EventEmitter<any> = new EventEmitter();
 
@@ -41,7 +41,7 @@ export class SldComponent implements OnInit, AfterViewInit {
   checkSld(sld_number: string) {
     this._deviceService.checkIfDeviceExists(sld_number).subscribe(res => {
       if (res) {
-        this.sldForm.setErrors({ "exists": true })
+        this.sldForm.setErrors({ 'exists': true });
       } else {
         this.sldForm.setErrors(null);
       }

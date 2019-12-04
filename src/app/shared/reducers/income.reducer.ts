@@ -44,11 +44,11 @@ export function reducer(state = initialState, action: incomeActions.Actions): St
       });
     case incomeActions.DELETE_INCOME_COMPLETE_ACTION:
       return Object.assign({}, state, {
-        allIncomes: [...state.allIncomes.filter(income => income.id != action.payload ? income : null)]
+        allIncomes: [...state.allIncomes.filter(income => income.id !== action.payload ? income : null)]
       });
     case incomeActions.UPDATE_INCOME_COMPLETE_ACTION:
       return Object.assign({}, state, {
-        allIncomes: [...state.allIncomes.map(income => income.id != action.payload.id ? income : new Cost(action.payload))]
+        allIncomes: [...state.allIncomes.map(income => income.id !== action.payload.id ? income : new Cost(action.payload))]
       });
     case incomeActions.CREATE_INCOME_COMPLETE_ACTION:
       return Object.assign({}, state, {

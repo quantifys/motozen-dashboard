@@ -16,6 +16,7 @@ import { environment } from '../../environments/environment';
 export class LoginComponent implements OnInit {
 
   public loginForm: FormGroup;
+  public visible = false;
   public version: string = environment.VERSION;
 
   constructor(
@@ -24,7 +25,9 @@ export class LoginComponent implements OnInit {
     private _tokenService: Angular2TokenService,
     private _router: Router
   ) {
-    this._tokenService.userSignedIn() ? this._router.navigate(["dashboard"]) : null
+    if (this._tokenService.userSignedIn()) {
+      this._router.navigate(['dashboard']);
+    }
   }
 
   ngOnInit() {
@@ -48,6 +51,11 @@ export class LoginComponent implements OnInit {
 
   loginClicked() {
     this._store.dispatch(new userActions.LoginUserAction(this.loginForm.value));
+  }
+
+  toggleVisible(event: Event) {
+    event.stopPropagation();
+    this.visible = !this.visible;
   }
 
 }

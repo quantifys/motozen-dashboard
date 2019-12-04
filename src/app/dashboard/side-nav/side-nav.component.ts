@@ -28,7 +28,7 @@ export const ROUTES: RouteInfo[] = [
     title: 'Dashboard',
     type: 'link',
     icontype: 'fa-chart-area',
-    users: ['manufacturer']
+    users: ['manufacturer', 'distributor']
   },
   {
     path: 'users',
@@ -38,11 +38,25 @@ export const ROUTES: RouteInfo[] = [
     users: ['manufacturer', 'sales', 'human_resource', 'rto', 'admin']
   },
   {
+    path: 'vts-users',
+    title: 'VTS users',
+    type: 'link',
+    icontype: 'fa-street-view',
+    users: ['distributor', 'dealer']
+  },
+  {
     path: 'devices',
-    title: 'Devices',
+    title: 'Speed Governors',
     type: 'link',
     icontype: 'fa-desktop',
-    users: ['manufacturer', 'distributor', 'dealer', 'sub_dealer', 'store_purchases']
+    users: ['manufacturer', 'distributor', 'dealer', 'sub_dealer', 'store_purchases', 'admin']
+  },
+  {
+    path: 'vts-devices',
+    title: 'VTS devices',
+    type: 'link',
+    icontype: 'fa-map',
+    users: ['manufacturer', 'distributor', 'dealer', 'sub_dealer', 'store_purchases', 'admin']
   },
   {
     path: 'vehicles',
@@ -60,7 +74,14 @@ export const ROUTES: RouteInfo[] = [
   },
   {
     path: 'certificates',
-    title: 'Certificates',
+    title: 'SG certificates',
+    type: 'link',
+    icontype: 'fa-certificate',
+    users: ['manufacturer', 'distributor', 'dealer', 'sub_dealer', 'sales', 'rto', 'admin']
+  },
+  {
+    path: 'vts-certificates',
+    title: 'VTS certificates',
     type: 'link',
     icontype: 'fa-certificate',
     users: ['manufacturer', 'distributor', 'dealer', 'sub_dealer', 'sales', 'rto', 'admin']
@@ -124,7 +145,7 @@ export const ROUTES: RouteInfo[] = [
 ];
 
 @Component({
-  selector: 'side-nav',
+  selector: 'app-side-nav',
   templateUrl: './side-nav.component.html',
   styleUrls: ['./side-nav.component.scss']
 })

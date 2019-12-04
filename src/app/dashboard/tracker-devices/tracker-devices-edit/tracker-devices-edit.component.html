@@ -1,0 +1,44 @@
+<section class="container-fluid">
+  <div class="d-flex align-items-center justify-content-between">
+    <a (click)="_location.back()" class="btn btn-orange text-light text-light">
+      <i class="fas fa-arrow-left mr-2"></i>Go back</a>
+    <h4 class="text-grey-dark m-0">{{addTrackerDevice ? 'Add VTS' : 'Edit VTS'}}</h4>
+  </div>
+
+  <div class="row justify-content-center">
+    <div class="col-sm-12 col-md-10 col-lg-10">
+      <div class="card mt-5">
+        <div class="card-body">
+          <h6 class="text-grey-dark font-weight-bold mb-3">Add list of devices</h6>
+          <form [formGroup]="deviceForm">
+            <div class="container-fluid" formArrayName="tracker_device">
+              <ng-container *ngFor="let serial of device.controls; let i=index">
+                <div class="row">
+                  <div class="col-1">
+                    {{i + 1}}
+                  </div>
+                  <div class="col-md-10 p-0">
+                    <app-vts-device [formGroupName]="i" [serialForm]="serial"
+                      (enterPressed)="enterPressed($event)" [position]="i"></app-vts-device>
+                  </div>
+                  <div class="col-1 p-0">
+                    <button mat-icon-button color="warn" (click)="deleteVTS(i)" *ngIf="device.controls.length > 1">
+                      <mat-icon>delete</mat-icon>
+                    </button>
+                  </div>
+                </div>
+                <hr *ngIf="device.controls.length > 1">
+              </ng-container>
+              <div class="text-right mt-3" *ngIf="addTrackerDevice">
+                <button mat-stroked-button color="warn" (click)="addVTS()">Add device</button>
+              </div>
+            </div>
+            <hr>
+            <button class="btn btn-orange text-light btn-save" [disabled]="deviceForm.invalid"
+              (click)="saveChanges()">Save</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

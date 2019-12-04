@@ -1,4 +1,5 @@
 export * from './user.model';
+export * from './vts-user.model';
 export * from './device.model';
 export * from './inventory.model';
 export * from './vehicle.model';
@@ -13,6 +14,9 @@ export * from './vendor.model';
 export * from './stats.model';
 export * from './chart.model';
 export * from './picture-data.model';
+export * from './tracker-device.model';
+export * from './tracker-certificate.model';
+export * from './form-data.model';
 
 export class PageData {
   public total: number;

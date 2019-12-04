@@ -1,0 +1,55 @@
+<section class="container">
+  <div class="row top-header">
+    <div class="col-sm-12 col-lg-6">
+      <h4 class="text-grey-dark m-0">VTS Certificate Management</h4>
+    </div>
+    <div class="col-sm-12 col-lg-6 controls">
+      <button mat-stroked-button color="warn" (click)="openFilters()">Add Filters</button>
+      <button mat-stroked-button class="ml-2" color="primary" (click)="exportCsv()">Export CSV</button>
+      <a class="btn btn-orange text-light ml-3"
+        *ngIf="loggedUser.role != 'sales' && loggedUser.role != 'admin' && loggedUser.role != 'manufacturer' && loggedUser.role != 'rto'"
+        routerLink="edit" [queryParams]="{type: 'new'}">
+        <i class="fas fa-plus mr-2"></i>Generate Certificate</a>
+    </div>
+  </div>
+  <div class="container-fluid mt-3">
+    <form [formGroup]="searchForm" autocomplete="off">
+      <div class="row">
+        <div class="col-sm-10 offset-sm-2 col-md-8 offset-md-2 col-lg-6 offset-lg-3">
+          <mat-form-field color="warn" class="w-100">
+            <input matInput #search [placeholder]="getSearchPlaceholder()" formControlName="search">
+            <mat-icon color="warn" matSuffix>search</mat-icon>
+          </mat-form-field>
+        </div>
+        <div class="col-sm-12 col-lg-6 offset-lg-3 text-center">
+          <mat-radio-group formControlName="search_type">
+            <mat-radio-button color="warn" value="cert">Certificate No.</mat-radio-button>
+            <mat-radio-button color="warn" class="ml-4" value="reg">Reg. No.</mat-radio-button>
+            <mat-radio-button color="warn" class="ml-4" value="serial">Serial No.</mat-radio-button>
+            <mat-radio-button color="warn" class="ml-4" value="engine">Engine No.</mat-radio-button>
+          </mat-radio-group>
+        </div>
+      </div>
+    </form>
+  </div>
+  <hr class="mb-0">
+  <nav mat-tab-nav-bar color="warn">
+    <a mat-tab-link routerLink="../" [queryParams]="getQueryParams('can_modify')" routerLinkActive
+      #new="routerLinkActive" [active]="new.isActive">
+      <strong>New</strong>
+    </a>
+    <a mat-tab-link routerLink="../" [queryParams]="getQueryParams('is_valid')" routerLinkActive
+      #issued="routerLinkActive" [active]="issued.isActive">
+      <strong>Issued</strong>
+    </a>
+    <a mat-tab-link routerLink="../" [queryParams]="getQueryParams('renewable')" routerLinkActive
+      #expiring="routerLinkActive" [active]="expiring.isActive">
+      <strong>Expiring soon</strong>
+    </a>
+    <a mat-tab-link routerLink="../" [queryParams]="getQueryParams('expired')" routerLinkActive
+      #expired="routerLinkActive" [active]="expired.isActive">
+      <strong>Expired</strong>
+    </a>
+  </nav>
+  <app-tracker-certificate-table></app-tracker-certificate-table>
+</section>

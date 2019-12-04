@@ -3,10 +3,10 @@ import { Location } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { FormBuilder, FormGroup, FormControl, Validators, FormArray } from '@angular/forms';
-import { Store } from "@ngrx/store";
+import { Store } from '@ngrx/store';
 
-import * as fromRoot from "../../../shared/reducers";
-import * as purchaseOrderActions from "../../../shared/actions/purchase-order.actions";
+import * as fromRoot from '../../../shared/reducers';
+import * as purchaseOrderActions from '../../../shared/actions/purchase-order.actions';
 import { RtoService } from '../../../shared/services/rto.service';
 import { PurchaseOrderParticulars } from '../../../shared/models';
 
@@ -33,9 +33,9 @@ export class PurchaseOrderEditComponent implements OnInit, OnDestroy {
   ) {
     this._store.dispatch(new purchaseOrderActions.FetchPurchaseOrderFormDataAction);
     this.routerSubscription$ = this._activatedRoute.queryParams.subscribe(params => {
-      if (params["id"]) {
+      if (params['id']) {
         this.addPurchaseOrder = false;
-        this._store.dispatch(new purchaseOrderActions.FetchPurchaseOrderAction(params["id"]));
+        this._store.dispatch(new purchaseOrderActions.FetchPurchaseOrderAction(params['id']));
       } else {
         this.addPurchaseOrder = true;
       }
@@ -44,6 +44,7 @@ export class PurchaseOrderEditComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.buildForm();
+    this.formListener();
     this.states = this._rtoService.getStates();
     if (this.addPurchaseOrder) {
       this.addVehicle();
@@ -63,6 +64,7 @@ export class PurchaseOrderEditComponent implements OnInit, OnDestroy {
   buildForm() {
     this.purchaseForm = this._fb.group({
       id: null,
+      po_type: ['sld', Validators.required],
       optionalAddress: false,
       address: null,
       address_l1: null,
@@ -72,40 +74,70 @@ export class PurchaseOrderEditComponent implements OnInit, OnDestroy {
       state: null,
       pincode: null,
       remarks: null,
-      particulars: this._fb.array([])
+      particulars: this._fb.array([]),
+      tracker_po_particulars: this._fb.array([
+        this._fb.group({
+          quantity: [null, [Validators.required, Validators.min(0)]]
+        })
+      ])
     });
+    this.tracker_po_particulars.disable();
+  }
+
+  get po_type(): FormControl {
+    return this.purchaseForm.get('po_type') as FormControl;
   }
 
   get optionalAddress(): FormControl {
-    return this.purchaseForm.get("optionalAddress") as FormControl;
+    return this.purchaseForm.get('optionalAddress') as FormControl;
   }
 
   get address_l1(): FormControl {
-    return this.purchaseForm.get("address_l1") as FormControl;
+    return this.purchaseForm.get('address_l1') as FormControl;
   }
 
   get address_l2(): FormControl {
-    return this.purchaseForm.get("address_l2") as FormControl;
+    return this.purchaseForm.get('address_l2') as FormControl;
   }
 
   get locality(): FormControl {
-    return this.purchaseForm.get("locality") as FormControl;
+    return this.purchaseForm.get('locality') as FormControl;
   }
 
   get city(): FormControl {
-    return this.purchaseForm.get("city") as FormControl;
+    return this.purchaseForm.get('city') as FormControl;
   }
 
   get state(): FormControl {
-    return this.purchaseForm.get("state") as FormControl;
+    return this.purchaseForm.get('state') as FormControl;
   }
 
   get pincode(): FormControl {
-    return this.purchaseForm.get("pincode") as FormControl;
+    return this.purchaseForm.get('pincode') as FormControl;
   }
 
   get particulars(): FormArray {
     return this.purchaseForm.get('particulars') as FormArray;
+  }
+
+  get tracker_po_particulars(): FormArray {
+    return this.purchaseForm.get('tracker_po_particulars') as FormArray;
+  }
+
+  formListener() {
+    this.po_type.valueChanges.subscribe(value => {
+      if (value === 'sld') {
+        this.particulars.enable();
+        this.tracker_po_particulars.disable();
+        // this.initVehicle();
+      } else {
+        this.particulars.disable();
+        this.tracker_po_particulars.enable();
+        // while (this.particulars.length > 0) {
+        //   this.particulars.removeAt(0);
+        // }
+      }
+    });
   }
 
   initVehicle(data?: PurchaseOrderParticulars) {
@@ -122,40 +154,41 @@ export class PurchaseOrderEditComponent implements OnInit, OnDestroy {
   }
 
   removeVehicle(i: number) {
-    this.particulars.at(i).get('id') ? this.deletedItems.push(this.particulars.at(i).value) : null
+    // tslint:disable-next-line
+    this.particulars.at(i).get('id') ? this.deletedItems.push(this.particulars.at(i).value) : null;
     this.particulars.removeAt(i);
   }
 
   addressValidate(event) {
-    let controls: string[] = ["address_l1", "locality", "city", "state", "pincode"];
+    const controls: string[] = ['address_l1', 'locality', 'city', 'state', 'pincode'];
     controls.map(control => {
-      event ? this.purchaseForm.get(control).setValidators(Validators.required) : this.purchaseForm.get(control).clearValidators()
-      if (control == "pincode") {
-        event ? this.purchaseForm.get(control).setValidators([Validators.required, Validators.minLength(6), Validators.pattern("[0-9]+")]) : this.purchaseForm.get(control).clearValidators()
+      event ? this.purchaseForm.get(control).setValidators(Validators.required) : this.purchaseForm.get(control).clearValidators();
+      if (control === 'pincode') {
+        event ? this.purchaseForm.get(control).setValidators([Validators.required, Validators.minLength(6), Validators.pattern('[0-9]+')])
+          : this.purchaseForm.get(control).clearValidators();
       }
       this.purchaseForm.get(control).updateValueAndValidity();
     });
   }
 
   saveChanges() {
-    let formData: any = this.purchaseForm.value;
+    const formData: any = this.purchaseForm.value;
     if (this.addPurchaseOrder) {
-      if (formData["optionalAddress"]) {
-        formData["address"] = formData["address_l1"] + ",\n" + (String(formData["address_l2"]).trim() != "" ? (formData["address_l2"] + ",\n") : "") + formData["locality"] + ", " + formData["city"] + ",\n" + formData["state"] + " - " + formData["pincode"]
+      if (formData['optionalAddress']) {
+        formData['address'] = formData['address_l1'] + ',\n' + (String(formData['address_l2']).trim() !== '' ? (formData['address_l2']
+          + ',\n') : '') + formData['locality'] + ', ' + formData['city'] + ',\n' + formData['state'] + ' - ' + formData['pincode'];
       }
-    } else {
-      
     }
-    delete formData["optionalAddress"];
-    delete formData["address_l1"];
-    delete formData["address_l2"];
-    delete formData["locality"];
-    delete formData["city"];
-    delete formData["state"];
-    delete formData["pincode"];
+    delete formData['optionalAddress'];
+    delete formData['address_l1'];
+    delete formData['address_l2'];
+    delete formData['locality'];
+    delete formData['city'];
+    delete formData['state'];
+    delete formData['pincode'];
 
     this.addPurchaseOrder
       ? this._store.dispatch(new purchaseOrderActions.CreatePurchaseOrderAction({ purchase_order: formData }))
-      : this._store.dispatch(new purchaseOrderActions.UpdatePurchaseOrderAction({ purchase_order: formData }))
+      : this._store.dispatch(new purchaseOrderActions.UpdatePurchaseOrderAction({ purchase_order: formData }));
   }
 }

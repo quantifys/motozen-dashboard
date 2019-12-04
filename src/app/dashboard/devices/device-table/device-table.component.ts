@@ -2,14 +2,14 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { Store } from '@ngrx/store';
+import { PageEvent } from '@angular/material';
 
 import * as fromRoot from '../../../shared/reducers';
 import * as deviceActions from '../../../shared/actions/device.actions';
 import { Device } from '../../../shared/models/device.model';
-import { PageEvent } from '@angular/material';
 
 @Component({
-  selector: 'device-table',
+  selector: 'app-device-table',
   templateUrl: './device-table.component.html',
   styleUrls: ['./device-table.component.scss']
 })
@@ -20,7 +20,7 @@ export class DeviceTableComponent implements OnInit, OnDestroy {
   private devicesSubscription$: Subscription = new Subscription();
   public queryParams: any = {};
   public devices: Device[] = [];
-  public loading: boolean = false;
+  public loading = false;
   public pageEvent: PageEvent = new PageEvent();
 
   constructor(
@@ -30,13 +30,13 @@ export class DeviceTableComponent implements OnInit, OnDestroy {
   ) {
     this.routerSubscription$ = this._activatedRoute.queryParams.subscribe(params => {
       this.queryParams = params;
-      if (params["page"]) {
-        this.pageEvent.pageIndex = +params["page"] - 1;
+      if (params['page']) {
+        this.pageEvent.pageIndex = +params['page'] - 1;
       }
-      if (params["per_page"]) {
-        this.pageEvent.pageSize = +params["per_page"];
+      if (params['per_page']) {
+        this.pageEvent.pageSize = +params['per_page'];
       }
-      if (params["page"] && params["per_page"] && params["status"]) {
+      if (params['page'] && params['per_page'] && params['status']) {
         this.fetchDevices();
       }
     });
@@ -59,17 +59,17 @@ export class DeviceTableComponent implements OnInit, OnDestroy {
 
   fetchDevices() {
     this.loading = true;
-    let data: any = {};
+    const data: any = {};
     Object.assign(data, this.queryParams);
-    data["order"] = {
+    data['order'] = {
       sld_number: 'desc'
-    }
+    };
     this._store.dispatch(new deviceActions.FetchAllDevicesAction(data));
   }
 
   getPage(pageEvent: PageEvent) {
     this.pageEvent = pageEvent;
-    this._router.navigate(["dashboard", "devices"], {
+    this._router.navigate(['dashboard', 'devices'], {
       queryParams: {
         ...this.queryParams,
         page: pageEvent.pageIndex + 1,
@@ -77,5 +77,4 @@ export class DeviceTableComponent implements OnInit, OnDestroy {
       }
     });
   }
-
 }

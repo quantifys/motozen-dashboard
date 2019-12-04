@@ -1,0 +1,101 @@
+<section class="container">
+  <div class="d-flex align-items-center justify-content-between">
+    <button (click)="_location.back()" class="btn btn-orange text-light text-light">
+      <i class="fas fa-arrow-left mr-2"></i>Go back</button>
+    <h4 class="text-grey-dark m-0">VTS Certificate details</h4>
+  </div>
+  <div class="d-flex justify-content-end mt-3">
+    <ng-container *ngIf="certificate.status == 'can_modify'; else issued">
+      <button mat-stroked-button color="primary" (click)="issueCertificate()">Issue</button>
+      <a class="ml-2" mat-stroked-button color="warn" routerLink="../edit" [queryParams]="{id: certificate.id}">Edit</a>
+      <button class="ml-2" mat-stroked-button color="warn" (click)="deleteCertificate()">Delete</button>
+    </ng-container>
+    <ng-container *ngIf="loggedUser.role == 'admin'">
+      <a class="ml-2" mat-stroked-button color="warn" routerLink="../edit" [queryParams]="{id: certificate.id}">Edit</a>
+      <button class="ml-2" mat-stroked-button color="warn" (click)="deleteCertificate()">Delete</button>
+    </ng-container>
+  </div>
+  <div class="row justify-content-center mt-4">
+    <div class="col-sm-12 col-md-8 col-lg-4 mt-3">
+      <div class="card">
+        <div class="card-body">
+          <h6 class="text-grey-dark font-weight-bold mb-3">
+            <i class="fas fa-info-circle mr-2 fa-fw text-orange"></i>Certificate details</h6>
+          <h6 class="text-grey-dark">Fitment Number:</h6>
+          <h6 class="ml-3">{{certificate.certificate_number}}</h6>
+          <h6 class="text-grey-dark">Date of Issue:</h6>
+          <h6 class="ml-3">{{certificate.date_generated | date: 'fullDate'}}</h6>
+          <h6 class="text-grey-dark">Date of Expiry:</h6>
+          <h6 class="ml-3">{{certificate.due_date | date: 'fullDate'}}</h6>
+          <h6 class="text-grey-dark">Registered RTO:</h6>
+          <h6 class="ml-3">{{certificate.location_rto}}</h6>
+          <h6 class="text-grey-dark">Registered State:</h6>
+          <h6 class="ml-3">{{certificate.location_state}}</h6>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-12 col-md-8 col-lg-4 mt-3">
+      <div class="card">
+        <div class="card-body">
+          <h6 class="text-grey-dark font-weight-bold mb-3">
+            <i class="fas fa-info-circle mr-2 fa-fw text-orange"></i>Vehicle information</h6>
+          <h6 class="text-grey-dark">Registration Number:</h6>
+          <h6 class="ml-3">{{certificate.car_reg_number}}</h6>
+          <h6 class="text-grey-dark">Vehicle make:</h6>
+          <h6 class="ml-3">{{certificate.make}}</h6>
+          <h6 class="text-grey-dark">Vehicle model:</h6>
+          <h6 class="ml-3">{{certificate.model}}</h6>
+          <h6 class="text-grey-dark">Engine number:</h6>
+          <h6 class="ml-3">{{certificate.engine_number}}</h6>
+          <h6 class="text-grey-dark">Chassis number:</h6>
+          <h6 class="ml-3">{{certificate.chassis_number}}</h6>
+          <h6 class="text-grey-dark">Manufacturing month & year:</h6>
+          <h6 class="ml-3">{{certificate.mfg_month_year | date: 'MMMM, yyyy'}}</h6>
+          <h6 class="text-grey-dark">Registration month & year:</h6>
+          <h6 class="ml-3">{{certificate.reg_month_year | date: 'fullDate'}}</h6>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-12 col-md-8 col-lg-4 mt-3">
+      <div class="card">
+        <div class="card-body">
+          <h6 class="text-grey-dark font-weight-bold mb-3">
+            <i class="fas fa-info-circle mr-2 fa-fw text-orange"></i>Device details</h6>
+          <h6 class="text-grey-dark">Serial Number:</h6>
+          <h6 class="ml-3"><a routerLink="../../devices/view" class="text-orange"
+              [queryParams]="{id: certificate.device.id}">{{certificate.device.serial_no}}</a></h6>
+              <h6 class="text-grey-dark">IMEI:</h6>
+              <h6 class="ml-3">{{certificate.device.imei}}</h6>
+              <h6 class="text-grey-dark">ESIM 1:</h6>
+              <h6 class="ml-3">{{certificate.device.esim1}}</h6>
+              <h6 class="text-grey-dark">ESIM 2:</h6>
+              <h6 class="ml-3">{{certificate.device.esim2 ? certificate.device.esim2 : '-'}}</h6>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-12 col-md-8 col-lg-4 mt-3">
+      <div class="card">
+        <div class="card-body">
+          <h6 class="text-grey-dark font-weight-bold mb-3">
+            <i class="fas fa-info-circle mr-2 fa-fw text-orange"></i>Customer information</h6>
+          <h6 class="text-grey-dark">Name:</h6>
+          <h6 class="ml-3">{{certificate.tracker_customer.name}}</h6>
+          <h6 class="text-grey-dark">Email:</h6>
+          <h6 class="ml-3">{{certificate.tracker_customer.email}}</h6>
+          <h6 class="text-grey-dark">Address:</h6>
+          <h6 class="ml-3">{{certificate.tracker_customer.address}}</h6>
+          <h6 class="text-grey-dark">Contact:</h6>
+          <h6 class="ml-3">{{certificate.tracker_customer.phone}}</h6>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<ng-template #issued>
+  <button mat-stroked-button color="primary" (click)="certificateAction(true)">Download</button>
+  <button class="ml-2" mat-stroked-button color="primary" (click)="certificateAction(false)">Print</button>
+  <ng-container *ngIf="certificate.status == 'renewable' || certificate.status == 'expired'">
+    <button class="ml-2" mat-stroked-button color="warn" (click)="renewCertificate()">Renew</button>
+  </ng-container>
+</ng-template>

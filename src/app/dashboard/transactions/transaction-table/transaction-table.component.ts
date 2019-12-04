@@ -9,18 +9,18 @@ import * as transactionActions from '../../../shared/actions/transaction.actions
 import { Transaction } from '../../../shared/models';
 
 @Component({
-  selector: 'transaction-table',
+  selector: 'app-transaction-table',
   templateUrl: './transaction-table.component.html',
   styleUrls: ['./transaction-table.component.scss']
 })
-export class TransactionTableComponent implements OnInit {
+export class TransactionTableComponent implements OnInit, OnDestroy {
 
   private routerSubscription$: Subscription = new Subscription();
   private pageSubscription$: Subscription = new Subscription();
   private transactionSubscription$: Subscription = new Subscription();
   public queryParams: any = {};
   public transactions: Transaction[] = [];
-  public loading: boolean = false;
+  public loading = false;
   public pageEvent: PageEvent = new PageEvent();
 
   constructor(
@@ -30,13 +30,13 @@ export class TransactionTableComponent implements OnInit {
   ) {
     this.routerSubscription$ = this._activatedRoute.queryParams.subscribe(params => {
       this.queryParams = params;
-      if (params["page"]) {
-        this.pageEvent.pageIndex = +params["page"] - 1;
+      if (params['page']) {
+        this.pageEvent.pageIndex = +params['page'] - 1;
       }
-      if (params["per_page"]) {
-        this.pageEvent.pageSize = +params["per_page"];
+      if (params['per_page']) {
+        this.pageEvent.pageSize = +params['per_page'];
       }
-      if (params["page"] && params["per_page"]) {
+      if (params['page'] && params['per_page']) {
         this.fetchInventories();
       }
     });
@@ -47,7 +47,8 @@ export class TransactionTableComponent implements OnInit {
       this.loading = false;
       this.transactions = transactions;
     });
-    this.pageSubscription$ = this._store.select(fromRoot.getTransactionPageStatus).subscribe(pageData => this.pageEvent.length = pageData.total);
+    this.pageSubscription$ = this._store.select(fromRoot.getTransactionPageStatus)
+      .subscribe(pageData => this.pageEvent.length = pageData.total);
   }
 
   ngOnDestroy() {
@@ -63,7 +64,7 @@ export class TransactionTableComponent implements OnInit {
 
   getPage(pageEvent: PageEvent) {
     this.pageEvent = pageEvent;
-    this._router.navigate(["dashboard", "transactions"], {
+    this._router.navigate(['dashboard', 'transactions'], {
       queryParams: {
         ...this.queryParams,
         page: pageEvent.pageIndex + 1,

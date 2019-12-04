@@ -1,0 +1,55 @@
+<section class="container">
+  <div class="d-flex align-items-center justify-content-between">
+    <button (click)="_location.back()" class="btn btn-orange text-light text-light">
+      <i class="fas fa-arrow-left mr-2"></i>Go back</button>
+    <h4 class="text-grey-dark m-0">VTS details</h4>
+  </div>
+  <div class="d-flex justify-content-end mt-3"
+    *ngIf="device.status == 'unsold' && loggedUser.role == 'store_purchases'">
+    <a mat-stroked-button color="primary" routerLink="../edit" [queryParams]="{id: device.id}">Edit</a>
+    <button class="ml-2" mat-stroked-button color="warn" (click)="deleteDevice()">Delete</button>
+  </div>
+  <div class="d-flex justify-content-end mt-3" *ngIf="loggedUser.role == 'admin'">
+    <a mat-stroked-button color="primary" routerLink="../edit" [queryParams]="{id: device.id}">Edit</a>
+  </div>
+  <div class="row justify-content-center mt-4">
+    <div class="col-sm-12 col-md-6 col-lg-5 col-xl-4">
+      <div class="card">
+        <div class="card-body">
+          <h6 class="text-grey-dark font-weight-bold mb-3">
+            <i class="fas fa-info-circle mr-2 fa-fw text-orange"></i>VTS information</h6>
+          <h6 class="text-grey-dark">Serial number:</h6>
+          <h6 class="ml-3">{{device.serial_no}}</h6>
+          <h6 class="text-grey-dark">IMEI:</h6>
+          <h6 class="ml-3">{{device.imei}}</h6>
+          <h6 class="text-grey-dark">ESIM 1:</h6>
+          <h6 class="ml-3">{{device.esim1}}</h6>
+          <h6 class="text-grey-dark">ESIM 2:</h6>
+          <h6 class="ml-3">{{device.esim2 ? device.esim2 : '-'}}</h6>
+          <h6 class="text-grey-dark">Created at:</h6>
+          <h6 class="ml-3">{{device.created_at | date: 'fullDate'}}</h6>
+          <h6 class="text-grey-dark">Status:</h6>
+          <h6 class="ml-3 font-weight-bold">{{device.status | uppercase}}</h6>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-12 col-md-6 col-lg-5 col-xl-4" *ngIf="device.certificate.id || device.user.id">
+      <div class="card">
+        <div class="card-body">
+          <h6 class="text-grey-dark font-weight-bold mb-3">
+            <i class="fas fa-info-circle mr-2 fa-fw text-orange"></i>Device information</h6>
+          <h6 class="text-grey-dark">Distributor/Dealer:</h6>
+          <a routerLink="../../users/view" [queryParams]="{id: device.user.id}">
+            <h6 class="ml-3">{{device.user.name}}</h6>
+          </a>
+          <ng-container *ngIf="device.certificate.id">
+            <h6 class="text-grey-dark">Certificate Number:</h6>
+            <a routerLink="../../certificates/view" [queryParams]="{id: device.certificate.id}">
+              <h6 class="ml-3">{{device.certificate.certificate_number}}</h6>
+            </a>
+          </ng-container>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
