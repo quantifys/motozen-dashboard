@@ -27,7 +27,7 @@ export class RequisitionOrderService {
   createRequisition(requisition: RequisitionOrder): any {
     this.requisitionDoc = {
       pageSize: "A4",
-      watermark: { text: "Gemeni  ", color: "grey", opacity: 0.2 },
+      watermark: { text: "TEDI  ", color: "grey", opacity: 0.2 },
       header: function (currentPage, pageCount) {
         return {
           text: "Page " + currentPage.toString() + " of " + pageCount,

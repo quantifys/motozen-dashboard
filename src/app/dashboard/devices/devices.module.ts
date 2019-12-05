@@ -29,28 +29,28 @@ const routes: Routes = [
     path: '',
     component: DevicesComponent,
     data: {
-      title: 'Device management - Dashboard | Gemeni India'
+      title: 'Device management - Dashboard | TEDI India'
     }
   },
   {
     path: 'edit',
     component: DeviceEditComponent,
     data: {
-      title: 'Device edit - Dashboard | Gemeni India'
+      title: 'Device edit - Dashboard | TEDI India'
     }
   },
   {
     path: 'transfer',
     component: DeviceTransferComponent,
     data: {
-      title: 'Device transfer - Dashboard | Gemeni India'
+      title: 'Device transfer - Dashboard | TEDI India'
     }
   },
   {
     path: 'view',
     component: DeviceDetailComponent,
     data: {
-      title: 'Device details - Dashboard | Gemeni India'
+      title: 'Device details - Dashboard | TEDI India'
     }
   }
 ];

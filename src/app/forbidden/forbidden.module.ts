@@ -10,7 +10,7 @@ const routes: Routes = [
     path: '',
     component: ForbiddenComponent,
     data: {
-      title: "Error 403 | Gemeni India"
+      title: "Error 403 | TEDI India"
     }
   }
 ];

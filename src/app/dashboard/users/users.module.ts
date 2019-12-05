@@ -28,21 +28,21 @@ const routes: Routes = [
     path: '',
     component: UsersComponent,
     data: {
-      title: 'Dashboard - User management | Gemeni India'
+      title: 'Dashboard - User management | TEDI India'
     }
   },
   {
     path: 'edit',
     component: UserEditComponent,
     data: {
-      title: 'Dashboard - User edit | Gemeni India'
+      title: 'Dashboard - User edit | TEDI India'
     }
   },
   {
     path: 'view',
     component: UserDetailComponent,
     data: {
-      title: 'Dashboard - User details | Gemeni India'
+      title: 'Dashboard - User details | TEDI India'
     }
   }
 ];

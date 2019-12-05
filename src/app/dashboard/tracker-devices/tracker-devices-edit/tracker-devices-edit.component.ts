@@ -79,8 +79,8 @@ export class TrackerDevicesEditComponent implements OnInit, OnDestroy {
       id: null,
       serial_no: ['', [Validators.required, Validators.minLength(5)]],
       imei: ['', [Validators.required, Validators.minLength(15), Validators.maxLength(15)]],
-      esim1: ['', [Validators.required, Validators.minLength(19), Validators.maxLength(20)]],
-      esim2: ['', [Validators.minLength(19), Validators.maxLength(20)]]
+      esim1: ['', [Validators.required, Validators.minLength(13), Validators.maxLength(20)]],
+      esim2: ['', [Validators.minLength(13), Validators.maxLength(20)]]
     }));
     this._cdr.detectChanges();
   }

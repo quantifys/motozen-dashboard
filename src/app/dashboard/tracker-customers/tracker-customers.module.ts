@@ -14,21 +14,21 @@ const routes: Routes = [
     path: 'edit',
     component: TrackerCustomersEditComponent,
     data: {
-      title: 'VTS user edit - Dashboard | Gemeni India'
+      title: 'VTS user edit - Dashboard | TEDI India'
     }
   },
   {
     path: 'view',
     component: TrackerUsersDetailsComponent,
     data: {
-      title: 'VTS user details - Dashboard | Gemeni India'
+      title: 'VTS user details - Dashboard | TEDI India'
     }
   },
   {
     path: '',
     component: TrackerCustomersComponent,
     data: {
-      title: 'VTS users - Dashboard | Gemeni India'
+      title: 'VTS users - Dashboard | TEDI India'
     }
   }
 ];

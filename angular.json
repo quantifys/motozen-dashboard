@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "gemeni-dashboard": {
+    "tedi-dashboard": {
       "root": "",
       "sourceRoot": "src",
       "projectType": "application",
@@ -17,7 +17,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/gemeni-dashboard",
+            "outputPath": "dist/tedi-dashboard",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -61,18 +61,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "gemeni-dashboard:build"
+            "browserTarget": "tedi-dashboard:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "gemeni-dashboard:build:production"
+              "browserTarget": "tedi-dashboard:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "gemeni-dashboard:build"
+            "browserTarget": "tedi-dashboard:build"
           }
         },
         "test": {
@@ -106,7 +106,7 @@
         }
       }
     },
-    "gemeni-dashboard-e2e": {
+    "tedi-dashboard-e2e": {
       "root": "e2e/",
       "projectType": "application",
       "architect": {
@@ -114,11 +114,11 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "gemeni-dashboard:serve"
+            "devServerTarget": "tedi-dashboard:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "gemeni-dashboard:serve:production"
+              "devServerTarget": "tedi-dashboard:serve:production"
             }
           }
         },
@@ -134,5 +134,5 @@
       }
     }
   },
-  "defaultProject": "gemeni-dashboard"
+  "defaultProject": "tedi-dashboard"
 }

@@ -14,21 +14,21 @@ export const routes: Routes = [
     path: 'edit',
     component: ExpenseEditComponent,
     data: {
-      title: "Expense edit - Dashboard | Gemeni India"
+      title: "Expense edit - Dashboard | TEDI India"
     }
   },
   {
     path: 'view',
     component: ExpenseDetailComponent,
     data: {
-      title: "Expense details - Dashboard | Gemeni India"
+      title: "Expense details - Dashboard | TEDI India"
     }
   },
   {
     path: "",
     component: ExpensesComponent,
     data: {
-      title: "Expenses - Dashboard | Gemeni India"
+      title: "Expenses - Dashboard | TEDI India"
     }
   }
 ];

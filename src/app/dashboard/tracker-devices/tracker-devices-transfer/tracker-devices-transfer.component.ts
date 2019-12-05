@@ -58,4 +58,15 @@ export class TrackerDevicesTransferComponent implements OnInit, OnDestroy {
     this.transferForm.reset();
   }
 
+  selectionText(): string {
+    switch (this.loggedUser.role) {
+      case 'manufacturer':
+        return 'distributor';
+      case 'distributor':
+        return 'dealer';
+      default:
+        return 'sub-dealer';
+    }
+  }
+
 }

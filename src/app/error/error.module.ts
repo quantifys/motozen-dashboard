@@ -10,7 +10,7 @@ const routes: Routes = [
     path: '',
     component: ErrorComponent,
     data: {
-      title: '404 not found | Gemeni India'
+      title: '404 not found | TEDI India'
     }
   }
 ];

@@ -17,21 +17,21 @@ const routes: Routes = [
     path: 'edit',
     component: RequisitionOrderEditComponent,
     data: {
-      title: "Requisition Order edit - Dashboard | Gemeni India"
+      title: "Requisition Order edit - Dashboard | TEDI India"
     }
   },
   {
     path: 'view',
     component: RequisitionOrderDetailComponent,
     data: {
-      title: "Requisition Order details - Dashboard | Gemeni India"
+      title: "Requisition Order details - Dashboard | TEDI India"
     }
   },
   {
     path: '',
     component: RequisitionOrdersComponent,
     data: {
-      title: "Requisition Order management - Dashboard | Gemeni India"
+      title: "Requisition Order management - Dashboard | TEDI India"
     }
   }
 ];

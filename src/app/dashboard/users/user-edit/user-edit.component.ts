@@ -372,11 +372,13 @@ export class UserEditComponent implements OnInit {
           delete formData['distributor_id'];
         }
       }
-      delete formData.details['address_l1'];
-      delete formData.details['address_l2'];
-      delete formData.details['locality'];
-      delete formData.details['city'];
-      delete formData.details['pincode'];
+      if (formData.details) {
+        delete formData.details['address_l1'];
+        delete formData.details['address_l2'];
+        delete formData.details['locality'];
+        delete formData.details['city'];
+        delete formData.details['pincode'];
+      }
       this._store.dispatch(new userActions.CreateNewUserAction({
         user: this.userForm.value
       }));

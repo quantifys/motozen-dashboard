@@ -1,7 +1,7 @@
 export const environment = {
   production: true,
   token_auth_config: {
-    apiBase: "https://api.gemeniindia.com",
+    apiBase: "https://tedi-api.quantifys.com",
     signInRedirect: "login",
     signOutFailedValidate: true
   },

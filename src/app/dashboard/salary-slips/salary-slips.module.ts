@@ -25,21 +25,21 @@ const routes: Routes = [
     path: 'edit',
     component: SalarySlipEditComponent,
     data: {
-      title: 'Salary slip edit - Dashboard | Gemeni India'
+      title: 'Salary slip edit - Dashboard | TEDI India'
     }
   },
   {
     path: 'view',
     component: SalarySlipDetailComponent,
     data: {
-      title: 'Salary slip details - Dashboard | Gemeni India'
+      title: 'Salary slip details - Dashboard | TEDI India'
     }
   },
   {
     path: '',
     component: SalarySlipsComponent,
     data: {
-      title: 'Salary slip management - Dashboard | Gemeni India'
+      title: 'Salary slip management - Dashboard | TEDI India'
     }
   }
 ];

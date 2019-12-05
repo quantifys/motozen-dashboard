@@ -24,21 +24,21 @@ const routes: Routes = [
     path: '',
     component: VehiclesComponent,
     data: {
-      title: 'Vehicle Management - Dashboard | Gemeni India'
+      title: 'Vehicle Management - Dashboard | TEDI India'
     }
   },
   {
     path: 'edit',
     component: VehicleEditComponent,
     data: {
-      title: 'Vehicle edit - Dashboard | Gemeni India'
+      title: 'Vehicle edit - Dashboard | TEDI India'
     }
   },
   {
     path: 'view',
     component: VehicleDetailComponent,
     data: {
-      title: 'Vehicle details - Dashboard | Gemeni India'
+      title: 'Vehicle details - Dashboard | TEDI India'
     }
   }
 ];

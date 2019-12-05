@@ -85,13 +85,13 @@ export class HomeComponent implements OnInit, OnDestroy {
     const paramsType = this._activatedRoute.snapshot.queryParams['type'];
     if (!paramsType || (paramsType !== 'sld' && paramsType !== 'tracker')) {
       this._router.navigate(['dashboard', 'home'],
-        { queryParams: { type: 'sld' } });
+        { queryParams: { type: 'tracker' } });
     }
     this.paramSubscription = this._activatedRoute.queryParams.subscribe(params => this.type.patchValue(params['type']));
     this.loggedUserSubscription = this._store.select(fromRoot.getLoggedUser).subscribe(user => {
       this.loggedUser = user;
       if (user.role === 'manufacturer') {
-        this._store.dispatch(new dashboardActions.FetchDashboardDataAction('sld'));
+        this._store.dispatch(new dashboardActions.FetchDashboardDataAction('tracker'));
       }
       if (user.role === 'distributor' || user.role === 'dealer') {
         this._store.dispatch(new dashboardActions.FetchDistDashboardDataAction());
@@ -163,7 +163,7 @@ export class HomeComponent implements OnInit, OnDestroy {
       search: null
     });
     this.typeForm = this._fb.group({
-      type: ['sld']
+      type: ['tracker']
     });
   }
 

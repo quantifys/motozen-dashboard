@@ -15,21 +15,21 @@ const routes: Routes = [
     path: 'edit',
     component: IncomeEditComponent,
     data: {
-      title: "Income edit - Dashboard | Gemeni India"
+      title: "Income edit - Dashboard | TEDI India"
     }
   },
   {
     path: 'view',
     component: IncomeDetailComponent,
     data: {
-      title: "Income details - Dashboard | Gemeni India"
+      title: "Income details - Dashboard | TEDI India"
     }
   },
   {
     path: "",
     component: IncomesComponent,
     data: {
-      title: "Incomes - Dashboard | Gemeni India"
+      title: "Incomes - Dashboard | TEDI India"
     }
   }
 ];

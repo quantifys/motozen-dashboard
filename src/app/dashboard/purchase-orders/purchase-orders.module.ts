@@ -36,28 +36,28 @@ const routes: Routes = [
     path: 'edit',
     component: PurchaseOrderEditComponent,
     data: {
-      title: 'Purchase order edit - Dashboard | Gemeni India'
+      title: 'Purchase order edit - Dashboard | TEDI India'
     }
   },
   {
     path: 'view',
     component: PurchaseOrderDetailComponent,
     data: {
-      title: 'Purchase order details - Dashboard | Gemeni India'
+      title: 'Purchase order details - Dashboard | TEDI India'
     }
   },
   {
     path: 'dispatch',
     component: PurchaseOrderDispatchComponent,
     data: {
-      title: 'Purchase order dispatch - Dashboard | Gemeni India'
+      title: 'Purchase order dispatch - Dashboard | TEDI India'
     }
   },
   {
     path: '',
     component: PurchaseOrdersComponent,
     data: {
-      title: 'Purchase order management - Dashboard | Gemeni India'
+      title: 'Purchase order management - Dashboard | TEDI India'
     }
   }
 ];

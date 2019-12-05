@@ -17,21 +17,21 @@ const routes: Routes = [
     path: 'edit',
     component: ReceiveNoteEditComponent,
     data: {
-      title: "Receive Note edit - Dashboard | Gemeni India"
+      title: "Receive Note edit - Dashboard | TEDI India"
     }
   },
   {
     path: 'view',
     component: ReceiveNoteDetailComponent,
     data: {
-      title: "Receive Note details - Dashboard | Gemeni India"
+      title: "Receive Note details - Dashboard | TEDI India"
     }
   },
   {
     path: '',
     component: ReceiveNotesComponent,
     data: {
-      title: "Receive Note management - Dashboard | Gemeni India"
+      title: "Receive Note management - Dashboard | TEDI India"
     }
   }
 ];

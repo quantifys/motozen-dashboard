@@ -29,8 +29,10 @@
               <h6 class="ml-3">
                 <a [href]="'mailto:' + userStats.user.email">{{userStats.user.email}}</a>
               </h6>
-              <h6 class="text-grey-dark">Renewal credits:</h6>
-              <h1 class="ml-3">{{userStats.credit_account.renewal_credits}}</h1>
+              <ng-container *ngIf="userStats.user.role == 'distributor' || userStats.user.role == 'dealer'">
+                <h6 class="text-grey-dark">Renewal credits:</h6>
+                <h1 class="ml-3">{{userStats.credit_account.renewal_credits}}</h1>
+              </ng-container>
               <ng-container *ngIf="userStats.user.role == 'dealer'">
                 <h6 class="text-grey-dark">Distributor ID:</h6>
                 <a routerLink="../view" [queryParams]="{id: userStats.distributor.id}">

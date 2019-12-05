@@ -44,13 +44,13 @@ export const ROUTES: RouteInfo[] = [
     icontype: 'fa-street-view',
     users: ['distributor', 'dealer']
   },
-  {
-    path: 'devices',
-    title: 'Speed Governors',
-    type: 'link',
-    icontype: 'fa-desktop',
-    users: ['manufacturer', 'distributor', 'dealer', 'sub_dealer', 'store_purchases', 'admin']
-  },
+  // {
+  //   path: 'devices',
+  //   title: 'Speed Governors',
+  //   type: 'link',
+  //   icontype: 'fa-desktop',
+  //   users: ['manufacturer', 'distributor', 'dealer', 'sub_dealer', 'store_purchases', 'admin']
+  // },
   {
     path: 'vts-devices',
     title: 'VTS devices',
@@ -58,27 +58,27 @@ export const ROUTES: RouteInfo[] = [
     icontype: 'fa-map',
     users: ['manufacturer', 'distributor', 'dealer', 'sub_dealer', 'store_purchases', 'admin']
   },
-  {
-    path: 'vehicles',
-    title: 'Vehicles',
-    type: 'link',
-    icontype: 'fa-bus',
-    users: ['manufacturer', 'sales']
-  },
-  {
-    path: 'inventory',
-    title: 'Inventory',
-    type: 'link',
-    icontype: 'fa-sitemap',
-    users: ['manufacturer', 'store_purchases', 'plant_supervisor']
-  },
-  {
-    path: 'certificates',
-    title: 'SG certificates',
-    type: 'link',
-    icontype: 'fa-certificate',
-    users: ['manufacturer', 'distributor', 'dealer', 'sub_dealer', 'sales', 'rto', 'admin']
-  },
+  // {
+  //   path: 'vehicles',
+  //   title: 'Vehicles',
+  //   type: 'link',
+  //   icontype: 'fa-bus',
+  //   users: ['manufacturer', 'sales']
+  // },
+  // {
+  //   path: 'inventory',
+  //   title: 'Inventory',
+  //   type: 'link',
+  //   icontype: 'fa-sitemap',
+  //   users: ['manufacturer', 'store_purchases', 'plant_supervisor']
+  // },
+  // {
+  //   path: 'certificates',
+  //   title: 'SG certificates',
+  //   type: 'link',
+  //   icontype: 'fa-certificate',
+  //   users: ['manufacturer', 'distributor', 'dealer', 'sub_dealer', 'sales', 'rto', 'admin']
+  // },
   {
     path: 'vts-certificates',
     title: 'VTS certificates',
@@ -86,62 +86,62 @@ export const ROUTES: RouteInfo[] = [
     icontype: 'fa-certificate',
     users: ['manufacturer', 'distributor', 'dealer', 'sub_dealer', 'sales', 'rto', 'admin']
   },
-  {
-    path: 'vendors',
-    title: 'Vendors',
-    type: 'link',
-    icontype: 'fa-shipping-fast',
-    users: ['manufacturer', 'store_purchases']
-  },
-  {
-    path: 'purchase-orders',
-    title: 'Purchase Orders',
-    type: 'link',
-    icontype: 'fa-credit-card',
-    users: ['manufacturer', 'distributor', 'store_purchases', 'accounts', 'store_dispatch', 'store_logistics', 'sales', 'admin']
-  },
-  {
-    path: 'receive-notes',
-    title: 'Receive Notes',
-    type: 'link',
-    icontype: 'fa-clipboard-check',
-    users: ['store_purchases']
-  },
-  {
-    path: 'requisition-orders',
-    title: 'Requisition Orders',
-    type: 'link',
-    icontype: 'fa-book',
-    users: ['store_purchases', 'plant_supervisor']
-  },
-  {
-    path: 'salary-slips',
-    title: 'Salary Slips',
-    type: 'link',
-    icontype: 'fa-users',
-    users: ['human_resource', 'accounts']
-  },
-  {
-    path: 'expenses',
-    title: 'Expenses',
-    type: 'link',
-    icontype: 'fa-credit-card',
-    users: ['accounts']
-  },
-  {
-    path: 'incomes',
-    title: 'Incomes',
-    type: 'link',
-    icontype: 'fa-hand-holding-usd',
-    users: ['accounts']
-  },
-  {
-    path: 'transactions',
-    title: 'Transactions',
-    type: 'link',
-    icontype: 'fa-file-invoice-dollar',
-    users: ['manufacturer', 'accounts']
-  }
+  // {
+  //   path: 'vendors',
+  //   title: 'Vendors',
+  //   type: 'link',
+  //   icontype: 'fa-shipping-fast',
+  //   users: ['manufacturer', 'store_purchases']
+  // },
+  // {
+  //   path: 'purchase-orders',
+  //   title: 'Purchase Orders',
+  //   type: 'link',
+  //   icontype: 'fa-credit-card',
+  //   users: ['manufacturer', 'distributor', 'store_purchases', 'accounts', 'store_dispatch', 'store_logistics', 'sales', 'admin']
+  // },
+  // {
+  //   path: 'receive-notes',
+  //   title: 'Receive Notes',
+  //   type: 'link',
+  //   icontype: 'fa-clipboard-check',
+  //   users: ['store_purchases']
+  // },
+  // {
+  //   path: 'requisition-orders',
+  //   title: 'Requisition Orders',
+  //   type: 'link',
+  //   icontype: 'fa-book',
+  //   users: ['store_purchases', 'plant_supervisor']
+  // },
+  // {
+  //   path: 'salary-slips',
+  //   title: 'Salary Slips',
+  //   type: 'link',
+  //   icontype: 'fa-users',
+  //   users: ['human_resource', 'accounts']
+  // },
+  // {
+  //   path: 'expenses',
+  //   title: 'Expenses',
+  //   type: 'link',
+  //   icontype: 'fa-credit-card',
+  //   users: ['accounts']
+  // },
+  // {
+  //   path: 'incomes',
+  //   title: 'Incomes',
+  //   type: 'link',
+  //   icontype: 'fa-hand-holding-usd',
+  //   users: ['accounts']
+  // },
+  // {
+  //   path: 'transactions',
+  //   title: 'Transactions',
+  //   type: 'link',
+  //   icontype: 'fa-file-invoice-dollar',
+  //   users: ['manufacturer', 'accounts']
+  // }
 ];
 
 @Component({

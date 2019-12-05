@@ -1,5 +1,5 @@
 {
-  "name": "gemeni-dashboard",
+  "name": "tedi-dashboard",
   "version": "3.1.0",
   "scripts": {
     "ng": "ng",
@@ -8,8 +8,8 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "deploy": "ng build --prod --aot && cd dist/gemeni-dashboard && scp -dr * deploy@205.147.101.185:/var/www/gemeni-portal-frontend/ && cd ../",
-    "upload": "cd dist/gemeni-dashboard && scp -dr * deploy@205.147.101.185:/var/www/gemeni-portal-frontend/ && cd ../"
+    "deploy": "ng build --prod --aot && cd dist/tedi-dashboard && scp -dr * deploy@205.147.101.185:/var/www/tedivts/ && cd ../",
+    "upload": "cd dist/tedi-dashboard && scp -dr * deploy@205.147.101.185:/var/www/tedivts/ && cd ../"
   },
   "private": true,
   "dependencies": {

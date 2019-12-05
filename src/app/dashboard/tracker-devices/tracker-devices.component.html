@@ -4,13 +4,13 @@
       <h4 class="text-grey-dark m-0">VTS List</h4>
     </div>
     <div class="col-sm-12 col-lg-6 controls">
-      <button mat-stroked-button color="warn" *ngIf="loggedUser.role == 'manufacturer'" (click)="stockSummary()">Stock
-        summary</button>
-      <a class="btn btn-orange text-light" routerLink="transfer"
-        *ngIf="loggedUser.role == 'distributor' || loggedUser.role == 'dealer'">
+      <!-- <button mat-stroked-button color="warn" *ngIf="loggedUser.role == 'manufacturer'" (click)="stockSummary()">Stock
+        summary</button> -->
+      <a class="btn btn-orange text-light mr-2" routerLink="transfer"
+        *ngIf="loggedUser.role == 'manufacturer' || loggedUser.role == 'distributor' || loggedUser.role == 'dealer'">
         <i class="fas fa-desktop mr-2"></i>Transfer stock</a>
       <a class="btn btn-orange text-light" routerLink="edit" [queryParams]="{type: 'new'}"
-        *ngIf="loggedUser.role == 'store_purchases'">
+        *ngIf="loggedUser.role == 'manufacturer' || loggedUser.role == 'store_purchases'">
         <i class="fas fa-map mr-2"></i>Add VTS</a>
     </div>
   </div>

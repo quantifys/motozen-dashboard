@@ -40,7 +40,7 @@ export class CertificateService {
     const general = {
       pageSize: 'A4',
       watermark: {
-        text: 'Gemeni',
+        text: 'TEDI',
         color: 'grey',
         opacity: 0.2,
         fontSize: 20
@@ -60,7 +60,7 @@ export class CertificateService {
     const delhiCertificate = {
       pageSize: 'A4',
       watermark: {
-        text: 'Gemeni',
+        text: 'TEDI',
         color: 'grey',
         opacity: 0.2,
         fontSize: 20

@@ -15,14 +15,14 @@ const routes: Routes = [
     path: 'view',
     component: TransactionDetailComponent,
     data: {
-      title: "Transaction details - Dashboard | Gemeni India"
+      title: "Transaction details - Dashboard | TEDI India"
     }
   },
   {
     path: '',
     component: TransactionsComponent,
     data: {
-      title: "Transactions list - Dashboard | Gemeni India"
+      title: "Transactions list - Dashboard | TEDI India"
     }
   }
 ];

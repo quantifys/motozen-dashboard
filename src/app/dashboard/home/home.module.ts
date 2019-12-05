@@ -13,7 +13,7 @@ const routes: Routes = [
     path: '',
     component: HomeComponent,
     data: {
-      title: "Dashboard - Home | Gemeni India"
+      title: "Dashboard - Home | TEDI India"
     },
   }
 ];

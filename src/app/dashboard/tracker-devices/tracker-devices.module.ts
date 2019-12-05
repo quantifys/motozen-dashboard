@@ -20,34 +20,35 @@ import { TrackerDevicesTransferComponent } from './tracker-devices-transfer/trac
 import { TrackerDevicesDetailComponent, TrackerDeviceDeleteComponent } from './tracker-devices-detail/tracker-devices-detail.component';
 import { TrackerDevicesTableComponent } from './tracker-devices-table/tracker-devices-table.component';
 import { VtsDeviceComponent } from './tracker-devices-edit/vts-device/vts-device.component';
+import { StockSummaryComponent } from './stock-summary/stock-summary.component';
 
 const routes: Routes = [
   {
     path: '',
     component: TrackerDevicesComponent,
     data: {
-      title: 'VTS Device management - Dashboard | Gemeni India'
+      title: 'VTS Device management - Dashboard | TEDI India'
     }
   },
   {
     path: 'edit',
     component: TrackerDevicesEditComponent,
     data: {
-      title: 'VTS Device edit - Dashboard | Gemeni India'
+      title: 'VTS Device edit - Dashboard | TEDI India'
     }
   },
   {
     path: 'transfer',
     component: TrackerDevicesTransferComponent,
     data: {
-      title: 'Tracker Device transfer - Dashboard | Gemeni India'
+      title: 'Tracker Device transfer - Dashboard | TEDI India'
     }
   },
   {
     path: 'view',
     component: TrackerDevicesDetailComponent,
     data: {
-      title: 'VTS Device details - Dashboard | Gemeni India'
+      title: 'VTS Device details - Dashboard | TEDI India'
     }
   }
 ];
@@ -74,8 +75,9 @@ const routes: Routes = [
     TrackerDevicesDetailComponent,
     TrackerDevicesTableComponent,
     TrackerDeviceDeleteComponent,
-    VtsDeviceComponent
+    VtsDeviceComponent,
+    StockSummaryComponent
   ],
-  entryComponents: [TrackerDeviceDeleteComponent]
+  entryComponents: [TrackerDeviceDeleteComponent, StockSummaryComponent]
 })
 export class TrackerDevicesModule { }

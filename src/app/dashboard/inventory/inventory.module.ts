@@ -15,21 +15,21 @@ const routes: Routes = [
     path: 'edit',
     component: InventoryEditComponent,
     data: {
-      title: "Inventory edit - Dashboard | Gemeni India"
+      title: "Inventory edit - Dashboard | TEDI India"
     }
   },
   {
     path: 'view',
     component: InventoryDetailComponent,
     data: {
-      title: "Inventory details - Dashboard | Gemeni India"
+      title: "Inventory details - Dashboard | TEDI India"
     }
   },
   {
     path: '',
     component: InventoryComponent,
     data: {
-      title: "Inventory management - Dashboard | Gemeni India"
+      title: "Inventory management - Dashboard | TEDI India"
     }
   }
 ];

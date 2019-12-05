@@ -11,7 +11,7 @@ const routes: Routes = [
     path: '',
     component: LoginComponent,
     data: {
-      title: 'Login | Gemeni India'
+      title: 'Login | TEDI India'
     }
   }
 ];

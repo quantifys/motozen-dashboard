@@ -34,21 +34,21 @@ const routes: Routes = [
     path: 'edit',
     component: CertificateEditComponent,
     data: {
-      title: 'Certificate edit - Dashboard | Gemeni India'
+      title: 'Certificate edit - Dashboard | TEDI India'
     }
   },
   {
     path: 'view',
     component: CertificateDetailComponent,
     data: {
-      title: 'Certificate details - Dashboard | Gemeni India'
+      title: 'Certificate details - Dashboard | TEDI India'
     }
   },
   {
     path: '',
     component: CertificatesComponent,
     data: {
-      title: 'Certificate management - Dashboard | Gemeni India'
+      title: 'Certificate management - Dashboard | TEDI India'
     }
   }
 ];

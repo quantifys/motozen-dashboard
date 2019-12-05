@@ -79,7 +79,7 @@ export class PurchaseOrderService {
   createPo(purchase_order: PurchaseOrder) {
     this.poDoc = {
       pageSize: "A4",
-      watermark: { text: "Gemeni Enterprises", color: "grey", opacity: 0.2 },
+      watermark: { text: "TEDI India Pvt. Ltd.", color: "grey", opacity: 0.2 },
       header: function (currentPage, pageCount) {
         return {
           text: "Page " + currentPage.toString() + " of " + pageCount,
@@ -150,7 +150,7 @@ export class PurchaseOrderService {
                 {
                   border: [true, true, false, false],
                   text:
-                    "From: \n\nGemeni Enterprises\nOffice No.\nShiv Towers\nPatto Plaza\nPatto, Panaji\nGoa - 403001"
+                    "From: \n\nTEDI INDIA PRIVATE LIMITED\nNO. 14/33, Jubilee Road,\nWest Mambalam, Chennai - 600 033"
                 },
                 {
                   border: [false, true, false, false],
