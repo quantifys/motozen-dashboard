@@ -10,7 +10,7 @@
       <a class="ml-2" mat-stroked-button color="warn" routerLink="../edit" [queryParams]="{id: certificate.id}">Edit</a>
       <button class="ml-2" mat-stroked-button color="warn" (click)="deleteCertificate()">Delete</button>
     </ng-container>
-    <ng-container *ngIf="loggedUser.role == 'admin'">
+    <ng-container *ngIf="certificate.status != 'can_modify' && (loggedUser.role == 'admin' || loggedUser.role == 'manufacturer')">
       <a class="ml-2" mat-stroked-button color="warn" routerLink="../edit" [queryParams]="{id: certificate.id}">Edit</a>
       <button class="ml-2" mat-stroked-button color="warn" (click)="deleteCertificate()">Delete</button>
     </ng-container>
@@ -70,6 +70,8 @@
               <h6 class="ml-3">{{certificate.device.esim1}}</h6>
               <h6 class="text-grey-dark">ESIM 2:</h6>
               <h6 class="ml-3">{{certificate.device.esim2 ? certificate.device.esim2 : '-'}}</h6>
+              <h6 class="text-grey-dark">ICCID:</h6>
+              <h6 class="ml-3">{{certificate.device.iccid ? certificate.device.iccid : '-'}}</h6>
         </div>
       </div>
     </div>

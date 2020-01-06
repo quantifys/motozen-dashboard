@@ -1,0 +1,54 @@
+<section class="container-fluid">
+  <div class="d-flex align-items-center justify-content-between">
+    <a routerLink="../" class="btn btn-orange text-light text-light">
+      <i class="fas fa-arrow-left mr-2"></i>Go back</a>
+    <h4 class="text-grey-dark m-0">Add VTS</h4>
+  </div>
+
+  <div class="row justify-content-center">
+    <div class="col-sm-12 col-md-10 col-lg-10">
+      <div class="card mt-5">
+        <div class="card-body">
+          <h6 class="text-grey-dark font-weight-bold mb-3">Select devices CSV</h6>
+          <form [formGroup]="deviceForm">
+            <input type="file" accept=".csv" formControlName="devices" placeholder="Select CSV"
+              (change)="onFileSelect($event.target)">
+            <p class="text-muted mt-2 mb-2">CSV must have serialNo, imei, esim1, esim2 (optional) columns. Download
+              sample <a href="../../../../assets/sample-tracker-devices.csv">here</a></p>
+            <div class="table-responsive" *ngIf="devices?.length > 0">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th>Serial NO</th>
+                    <th>IMEI</th>
+                    <th>ESIM 1</th>
+                    <th>ESIM 2</th>
+                    <th>ICCID</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let device of devices; let i=index">
+                    <td>{{device.serial_no}}</td>
+                    <td>{{device.imei}}</td>
+                    <td>{{device.esim1}}</td>
+                    <td>{{device.esim2}}</td>
+                    <td>{{device.iccid}}</td>
+                    <td>
+                      <button mat-icon-button color="warn" (click)="remove(i)">
+                        <mat-icon>delete</mat-icon>
+                      </button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <hr>
+            <button class="btn btn-orange text-light btn-save" [disabled]="devices.length == 0"
+              (click)="saveChanges()">Save</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

@@ -45,6 +45,10 @@ export class VtsDeviceComponent implements OnInit, AfterViewInit {
     return this.serialForm.get('esim2') as FormControl;
   }
 
+  get iccid(): FormControl {
+    return this.serialForm.get('iccid') as FormControl;
+  }
+
   keyUp() {
     this.enterPressed.emit(this.position);
   }

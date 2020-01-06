@@ -81,8 +81,8 @@ export class TrackerCertificateEditComponent implements OnInit, OnDestroy {
     this.certificateSubscription$ = this._store.select(fromRoot.getCurrentTrackerCertificate)
       .subscribe((certificate: TrackerCertificate) => {
         if (certificate.id) {
-          if (this.loggedUser.role === 'admin') {
-            this.rto = this._rtoService.getRto(certificate.location_state);
+          if (this.loggedUser.role === 'admin' || this.loggedUser.role === 'manufacturer') {
+            this.rto = this._rtoService.getAllRto();
             this.tracker_customer_id.patchValue(certificate.tracker_customer.id);
           }
           this.certificate = certificate;
@@ -95,7 +95,7 @@ export class TrackerCertificateEditComponent implements OnInit, OnDestroy {
     this.userSubscription$ = this._store.select(fromRoot.getLoggedUser).subscribe(user => {
       this.loggedUser = user;
       if (user.role !== 'admin') {
-        this.rto = this._rtoService.getRto(user.details.state);
+        this.rto = this._rtoService.getAllRto();
       }
       this.location_state.patchValue(user.details.state, { emitEvent: false });
     });
@@ -204,6 +204,10 @@ export class TrackerCertificateEditComponent implements OnInit, OnDestroy {
   }
 
   verify() {
+    if (this.loggedUser.role === 'manufacturer') {
+      this.saveChanges();
+      return;
+    }
     const data: any = {};
     ['car_reg_number', 'chassis_number', 'engine_number'].map(field => {
       const control: FormControl = this.certificateForm.get(field) as FormControl;

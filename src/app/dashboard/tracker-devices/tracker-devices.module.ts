@@ -21,6 +21,7 @@ import { TrackerDevicesDetailComponent, TrackerDeviceDeleteComponent } from './t
 import { TrackerDevicesTableComponent } from './tracker-devices-table/tracker-devices-table.component';
 import { VtsDeviceComponent } from './tracker-devices-edit/vts-device/vts-device.component';
 import { StockSummaryComponent } from './stock-summary/stock-summary.component';
+import { BulkUploadComponent } from './bulk-upload/bulk-upload.component';
 
 const routes: Routes = [
   {
@@ -42,6 +43,13 @@ const routes: Routes = [
     component: TrackerDevicesTransferComponent,
     data: {
       title: 'Tracker Device transfer - Dashboard | TEDI India'
+    }
+  },
+  {
+    path: 'bulk-upload',
+    component: BulkUploadComponent,
+    data: {
+      title: 'Tracker Device bulk upload - Dashboard | TEDI India'
     }
   },
   {
@@ -76,7 +84,8 @@ const routes: Routes = [
     TrackerDevicesTableComponent,
     TrackerDeviceDeleteComponent,
     VtsDeviceComponent,
-    StockSummaryComponent
+    StockSummaryComponent,
+    BulkUploadComponent
   ],
   entryComponents: [TrackerDeviceDeleteComponent, StockSummaryComponent]
 })

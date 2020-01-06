@@ -15,6 +15,7 @@ export class TrackerCertificate {
   public location_state: string;
   public make: string;
   public model: string;
+  public vehicle_type: string;
   public engine_number: string;
   public chassis_number: string;
   public car_reg_number: string;
@@ -42,6 +43,7 @@ export class TrackerCertificate {
     this.location_state = data.location_state ? data.location_state : null;
     this.make = data.make ? data.make : null;
     this.model = data.model ? data.model : null;
+    this.vehicle_type = data.vehicle_type ? data.vehicle_type : null;
     this.location_rto = data.location_rto ? data.location_rto : null;
     this.seals = data.seals ? data.seals : null;
     this.user = data.user ? new User(data.user) : new User({});
