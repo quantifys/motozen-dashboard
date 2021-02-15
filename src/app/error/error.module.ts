@@ -1,26 +1,22 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { MatButtonModule } from '@angular/material';
-import { Routes, RouterModule } from '@angular/router';
+import { NgModule } from "@angular/core";
+import { CommonModule } from "@angular/common";
+import { MatButtonModule } from "@angular/material";
+import { Routes, RouterModule } from "@angular/router";
 
-import { ErrorComponent } from './error.component';
+import { ErrorComponent } from "./error.component";
 
 const routes: Routes = [
   {
-    path: '',
+    path: "",
     component: ErrorComponent,
     data: {
-      title: '404 not found | TEDI India'
-    }
-  }
+      title: "404 not found | PIAN VTS",
+    },
+  },
 ];
 
 @NgModule({
-  imports: [
-    CommonModule,
-    MatButtonModule,
-    RouterModule.forChild(routes)
-  ],
-  declarations: [ErrorComponent]
+  imports: [CommonModule, MatButtonModule, RouterModule.forChild(routes)],
+  declarations: [ErrorComponent],
 })
-export class ErrorModule { }
+export class ErrorModule {}

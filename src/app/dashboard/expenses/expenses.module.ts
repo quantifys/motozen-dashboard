@@ -1,36 +1,47 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { ReactiveFormsModule } from '@angular/forms';
-import { MatRadioModule, MatFormFieldModule, MatInputModule, MatTabsModule, MatPaginatorModule, MatButtonModule, MatBottomSheetModule } from '@angular/material';
-import { Routes, RouterModule } from '@angular/router';
+import { NgModule } from "@angular/core";
+import { CommonModule } from "@angular/common";
+import { ReactiveFormsModule } from "@angular/forms";
+import {
+  MatRadioModule,
+  MatFormFieldModule,
+  MatInputModule,
+  MatTabsModule,
+  MatPaginatorModule,
+  MatButtonModule,
+  MatBottomSheetModule,
+} from "@angular/material";
+import { Routes, RouterModule } from "@angular/router";
 
-import { ExpensesComponent } from './expenses.component';
-import { ExpenseEditComponent } from './expense-edit/expense-edit.component';
-import { ExpenseDetailComponent, ExpenseDeleteComponent } from './expense-detail/expense-detail.component';
-import { ExpenseTableComponent } from './expense-table/expense-table.component';
+import { ExpensesComponent } from "./expenses.component";
+import { ExpenseEditComponent } from "./expense-edit/expense-edit.component";
+import {
+  ExpenseDetailComponent,
+  ExpenseDeleteComponent,
+} from "./expense-detail/expense-detail.component";
+import { ExpenseTableComponent } from "./expense-table/expense-table.component";
 
 export const routes: Routes = [
   {
-    path: 'edit',
+    path: "edit",
     component: ExpenseEditComponent,
     data: {
-      title: "Expense edit - Dashboard | TEDI India"
-    }
+      title: "Expense edit - Dashboard | PIAN VTS",
+    },
   },
   {
-    path: 'view',
+    path: "view",
     component: ExpenseDetailComponent,
     data: {
-      title: "Expense details - Dashboard | TEDI India"
-    }
+      title: "Expense details - Dashboard | PIAN VTS",
+    },
   },
   {
     path: "",
     component: ExpensesComponent,
     data: {
-      title: "Expenses - Dashboard | TEDI India"
-    }
-  }
+      title: "Expenses - Dashboard | PIAN VTS",
+    },
+  },
 ];
 
 @NgModule({
@@ -44,9 +55,15 @@ export const routes: Routes = [
     MatInputModule,
     MatButtonModule,
     MatBottomSheetModule,
-    RouterModule.forChild(routes)
+    RouterModule.forChild(routes),
   ],
-  declarations: [ExpensesComponent, ExpenseEditComponent, ExpenseDetailComponent, ExpenseTableComponent, ExpenseDeleteComponent],
-  entryComponents: [ExpenseDeleteComponent]
+  declarations: [
+    ExpensesComponent,
+    ExpenseEditComponent,
+    ExpenseDetailComponent,
+    ExpenseTableComponent,
+    ExpenseDeleteComponent,
+  ],
+  entryComponents: [ExpenseDeleteComponent],
 })
-export class ExpensesModule { }
+export class ExpensesModule {}

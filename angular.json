@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "tedi-dashboard": {
+    "pian-dashboard": {
       "root": "",
       "sourceRoot": "src",
       "projectType": "application",
@@ -17,7 +17,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/tedi-dashboard",
+            "outputPath": "dist/pian-dashboard",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -40,12 +40,10 @@
           },
           "configurations": {
             "production": {
-              "fileReplacements": [
-                {
-                  "replace": "src/environments/environment.ts",
-                  "with": "src/environments/environment.prod.ts"
-                }
-              ],
+              "fileReplacements": [{
+                "replace": "src/environments/environment.ts",
+                "with": "src/environments/environment.prod.ts"
+              }],
               "optimization": true,
               "outputHashing": "all",
               "sourceMap": false,
@@ -61,18 +59,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "tedi-dashboard:build"
+            "browserTarget": "pian-dashboard:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "tedi-dashboard:build:production"
+              "browserTarget": "pian-dashboard:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "tedi-dashboard:build"
+            "browserTarget": "pian-dashboard:build"
           }
         },
         "test": {
@@ -106,7 +104,7 @@
         }
       }
     },
-    "tedi-dashboard-e2e": {
+    "pian-dashboard-e2e": {
       "root": "e2e/",
       "projectType": "application",
       "architect": {
@@ -114,11 +112,11 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "tedi-dashboard:serve"
+            "devServerTarget": "pian-dashboard:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "tedi-dashboard:serve:production"
+              "devServerTarget": "pian-dashboard:serve:production"
             }
           }
         },
@@ -134,5 +132,5 @@
       }
     }
   },
-  "defaultProject": "tedi-dashboard"
+  "defaultProject": "pian-dashboard"
 }

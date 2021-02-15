@@ -1,37 +1,45 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { ReactiveFormsModule } from '@angular/forms';
-import { Routes, RouterModule } from '@angular/router';
-import { MatTabsModule, MatButtonModule, MatFormFieldModule, MatInputModule, MatRadioModule, MatBottomSheetModule, MatPaginatorModule } from '@angular/material';
+import { NgModule } from "@angular/core";
+import { CommonModule } from "@angular/common";
+import { ReactiveFormsModule } from "@angular/forms";
+import { Routes, RouterModule } from "@angular/router";
+import {
+  MatTabsModule,
+  MatButtonModule,
+  MatFormFieldModule,
+  MatInputModule,
+  MatRadioModule,
+  MatBottomSheetModule,
+  MatPaginatorModule,
+} from "@angular/material";
 
-import { IncomesComponent } from './incomes.component';
-import { IncomeEditComponent } from './income-edit/income-edit.component';
-import { IncomeDetailComponent } from './income-detail/income-detail.component';
-import { IncomeDeleteComponent } from './income-delete/income-delete.component';
-import { IncomeTableComponent } from './income-table/income-table.component';
+import { IncomesComponent } from "./incomes.component";
+import { IncomeEditComponent } from "./income-edit/income-edit.component";
+import { IncomeDetailComponent } from "./income-detail/income-detail.component";
+import { IncomeDeleteComponent } from "./income-delete/income-delete.component";
+import { IncomeTableComponent } from "./income-table/income-table.component";
 
 const routes: Routes = [
   {
-    path: 'edit',
+    path: "edit",
     component: IncomeEditComponent,
     data: {
-      title: "Income edit - Dashboard | TEDI India"
-    }
+      title: "Income edit - Dashboard | PIAN VTS",
+    },
   },
   {
-    path: 'view',
+    path: "view",
     component: IncomeDetailComponent,
     data: {
-      title: "Income details - Dashboard | TEDI India"
-    }
+      title: "Income details - Dashboard | PIAN VTS",
+    },
   },
   {
     path: "",
     component: IncomesComponent,
     data: {
-      title: "Incomes - Dashboard | TEDI India"
-    }
-  }
+      title: "Incomes - Dashboard | PIAN VTS",
+    },
+  },
 ];
 
 @NgModule({
@@ -45,9 +53,15 @@ const routes: Routes = [
     MatRadioModule,
     MatBottomSheetModule,
     MatPaginatorModule,
-    RouterModule.forChild(routes)
+    RouterModule.forChild(routes),
   ],
-  declarations: [IncomesComponent, IncomeEditComponent, IncomeDetailComponent, IncomeDeleteComponent, IncomeTableComponent],
-  entryComponents: [IncomeDeleteComponent]
+  declarations: [
+    IncomesComponent,
+    IncomeEditComponent,
+    IncomeDetailComponent,
+    IncomeDeleteComponent,
+    IncomeTableComponent,
+  ],
+  entryComponents: [IncomeDeleteComponent],
 })
-export class IncomesModule { }
+export class IncomesModule {}

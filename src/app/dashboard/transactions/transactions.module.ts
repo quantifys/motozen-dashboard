@@ -1,30 +1,38 @@
-import { NgModule } from '@angular/core';
-import { ReactiveFormsModule } from '@angular/forms';
-import { CommonModule } from '@angular/common';
-import { NgSelectModule } from '@ng-select/ng-select';
-import { Routes, RouterModule } from '@angular/router';
-import { MatButtonModule, MatPaginatorModule, MatBottomSheetModule, MatDatepickerModule, MatNativeDateModule, MatFormFieldModule, MatInputModule } from '@angular/material';
+import { NgModule } from "@angular/core";
+import { ReactiveFormsModule } from "@angular/forms";
+import { CommonModule } from "@angular/common";
+import { NgSelectModule } from "@ng-select/ng-select";
+import { Routes, RouterModule } from "@angular/router";
+import {
+  MatButtonModule,
+  MatPaginatorModule,
+  MatBottomSheetModule,
+  MatDatepickerModule,
+  MatNativeDateModule,
+  MatFormFieldModule,
+  MatInputModule,
+} from "@angular/material";
 
-import { TransactionsComponent } from './transactions.component';
-import { TransactionFilterComponent } from './transaction-filter/transaction-filter.component';
-import { TransactionTableComponent } from './transaction-table/transaction-table.component';
-import { TransactionDetailComponent } from './transaction-detail/transaction-detail.component';
+import { TransactionsComponent } from "./transactions.component";
+import { TransactionFilterComponent } from "./transaction-filter/transaction-filter.component";
+import { TransactionTableComponent } from "./transaction-table/transaction-table.component";
+import { TransactionDetailComponent } from "./transaction-detail/transaction-detail.component";
 
 const routes: Routes = [
   {
-    path: 'view',
+    path: "view",
     component: TransactionDetailComponent,
     data: {
-      title: "Transaction details - Dashboard | TEDI India"
-    }
+      title: "Transaction details - Dashboard | PIAN VTS",
+    },
   },
   {
-    path: '',
+    path: "",
     component: TransactionsComponent,
     data: {
-      title: "Transactions list - Dashboard | TEDI India"
-    }
-  }
+      title: "Transactions list - Dashboard | PIAN VTS",
+    },
+  },
 ];
 
 @NgModule({
@@ -39,9 +47,14 @@ const routes: Routes = [
     MatFormFieldModule,
     MatInputModule,
     NgSelectModule,
-    RouterModule.forChild(routes)
+    RouterModule.forChild(routes),
   ],
-  declarations: [TransactionsComponent, TransactionFilterComponent, TransactionTableComponent, TransactionDetailComponent],
-  entryComponents: [TransactionFilterComponent]
+  declarations: [
+    TransactionsComponent,
+    TransactionFilterComponent,
+    TransactionTableComponent,
+    TransactionDetailComponent,
+  ],
+  entryComponents: [TransactionFilterComponent],
 })
-export class TransactionsModule { }
+export class TransactionsModule {}

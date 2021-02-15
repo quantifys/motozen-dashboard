@@ -1,21 +1,27 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { ReactiveFormsModule, FormsModule } from '@angular/forms';
-import { MatCardModule, MatFormFieldModule, MatInputModule, MatIconModule, MatSelectModule } from '@angular/material';
-import { NgSelectModule } from '@ng-select/ng-select';
-import { Routes, RouterModule } from '@angular/router';
+import { NgModule } from "@angular/core";
+import { CommonModule } from "@angular/common";
+import { ReactiveFormsModule, FormsModule } from "@angular/forms";
+import {
+  MatCardModule,
+  MatFormFieldModule,
+  MatInputModule,
+  MatIconModule,
+  MatSelectModule,
+} from "@angular/material";
+import { NgSelectModule } from "@ng-select/ng-select";
+import { Routes, RouterModule } from "@angular/router";
 
-import { HomeComponent } from './home.component';
-import { ChartsModule } from '../charts/charts.module';
+import { HomeComponent } from "./home.component";
+import { ChartsModule } from "../charts/charts.module";
 
 const routes: Routes = [
   {
-    path: '',
+    path: "",
     component: HomeComponent,
     data: {
-      title: "Dashboard - Home | TEDI India"
+      title: "Dashboard - Home | PIAN VTS",
     },
-  }
+  },
 ];
 
 @NgModule({
@@ -30,8 +36,8 @@ const routes: Routes = [
     MatIconModule,
     MatSelectModule,
     FormsModule,
-    RouterModule.forChild(routes)
+    RouterModule.forChild(routes),
   ],
-  declarations: [HomeComponent]
+  declarations: [HomeComponent],
 })
-export class HomeModule { }
+export class HomeModule {}

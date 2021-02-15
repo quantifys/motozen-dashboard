@@ -1,6 +1,6 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { Routes, RouterModule } from '@angular/router';
+import { NgModule } from "@angular/core";
+import { CommonModule } from "@angular/common";
+import { Routes, RouterModule } from "@angular/router";
 import {
   MatTabsModule,
   MatPaginatorModule,
@@ -10,41 +10,44 @@ import {
   MatButtonModule,
   MatBottomSheetModule,
   MatCardModule,
-  MatProgressSpinnerModule
-} from '@angular/material';
-import { ReactiveFormsModule } from '@angular/forms';
-import { NgSelectModule } from '@ng-select/ng-select';
+  MatProgressSpinnerModule,
+} from "@angular/material";
+import { ReactiveFormsModule } from "@angular/forms";
+import { NgSelectModule } from "@ng-select/ng-select";
 
-import { UsersComponent } from './users.component';
-import { UserTableComponent } from './user-table/user-table.component';
-import { UserEditComponent } from './user-edit/user-edit.component';
-import { UserDetailComponent } from './user-detail/user-detail.component';
-import { UserDeleteComponent, UserChangePasswordComponent } from './user-control/user-control.component';
-import { ChartsModule } from '../charts/charts.module';
-import { AddCreditComponent } from './add-credit/add-credit.component';
+import { UsersComponent } from "./users.component";
+import { UserTableComponent } from "./user-table/user-table.component";
+import { UserEditComponent } from "./user-edit/user-edit.component";
+import { UserDetailComponent } from "./user-detail/user-detail.component";
+import {
+  UserDeleteComponent,
+  UserChangePasswordComponent,
+} from "./user-control/user-control.component";
+import { ChartsModule } from "../charts/charts.module";
+import { AddCreditComponent } from "./add-credit/add-credit.component";
 
 const routes: Routes = [
   {
-    path: '',
+    path: "",
     component: UsersComponent,
     data: {
-      title: 'Dashboard - User management | TEDI India'
-    }
+      title: "Dashboard - User management | PIAN VTS",
+    },
   },
   {
-    path: 'edit',
+    path: "edit",
     component: UserEditComponent,
     data: {
-      title: 'Dashboard - User edit | TEDI India'
-    }
+      title: "Dashboard - User edit | PIAN VTS",
+    },
   },
   {
-    path: 'view',
+    path: "view",
     component: UserDetailComponent,
     data: {
-      title: 'Dashboard - User details | TEDI India'
-    }
-  }
+      title: "Dashboard - User details | PIAN VTS",
+    },
+  },
 ];
 
 @NgModule({
@@ -62,7 +65,7 @@ const routes: Routes = [
     MatProgressSpinnerModule,
     NgSelectModule,
     ChartsModule,
-    RouterModule.forChild(routes)
+    RouterModule.forChild(routes),
   ],
   declarations: [
     UsersComponent,
@@ -71,8 +74,12 @@ const routes: Routes = [
     UserDetailComponent,
     UserDeleteComponent,
     UserChangePasswordComponent,
-    AddCreditComponent
+    AddCreditComponent,
   ],
-  entryComponents: [UserDeleteComponent, UserChangePasswordComponent, AddCreditComponent]
+  entryComponents: [
+    UserDeleteComponent,
+    UserChangePasswordComponent,
+    AddCreditComponent,
+  ],
 })
-export class UsersModule { }
+export class UsersModule {}

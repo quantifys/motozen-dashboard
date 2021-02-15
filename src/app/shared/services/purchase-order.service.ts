@@ -1,24 +1,23 @@
 import { Injectable } from "@angular/core";
 import { Store } from "@ngrx/store";
 
-import * as pdfMake from 'pdfmake/build/pdfmake';
-import * as pdfFonts from 'pdfmake/build/vfs_fonts';
+import * as pdfMake from "pdfmake/build/pdfmake";
+import * as pdfFonts from "pdfmake/build/vfs_fonts";
 
 import * as fromRoot from "../../shared/reducers";
 import { PurchaseOrder } from "../models";
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root",
 })
 export class PurchaseOrderService {
-  
   public poDoc: any;
   public purchaseOrder: PurchaseOrder = new PurchaseOrder({});
 
-  constructor(
-    private _store: Store<fromRoot.State>
-  ) {
-    this._store.select(fromRoot.getCurrentPurchaseOrder).subscribe(purchaseOrder => this.purchaseOrder = purchaseOrder);
+  constructor(private _store: Store<fromRoot.State>) {
+    this._store
+      .select(fromRoot.getCurrentPurchaseOrder)
+      .subscribe((purchaseOrder) => (this.purchaseOrder = purchaseOrder));
     pdfMake.vfs = pdfFonts.pdfMake.vfs;
   }
 
@@ -27,8 +26,8 @@ export class PurchaseOrderService {
       table: {
         headerRows: 1,
         widths: ["auto", "*", "auto", "auto"],
-        body: this.buildTableBody(data, columns)
-      }
+        body: this.buildTableBody(data, columns),
+      },
     };
   }
 
@@ -40,19 +39,19 @@ export class PurchaseOrderService {
       header.push({
         text: column.toString(),
         bold: true,
-        fillColor: "#eeeeee"
+        fillColor: "#eeeeee",
       });
     });
     header.push({
       text: columns[2].toString(),
       bold: true,
       alignment: "center",
-      fillColor: "#eeeeee"
+      fillColor: "#eeeeee",
     });
     header.push({
       text: columns[3].toString(),
       bold: true,
-      fillColor: "#eeeeee"
+      fillColor: "#eeeeee",
     });
     body.push(header);
 
@@ -65,7 +64,7 @@ export class PurchaseOrderService {
       );
       dataRow.push({
         text: row.vehicle.connector.item_code,
-        alignment: "center"
+        alignment: "center",
       });
       dataRow.push(row.quantity);
 
@@ -79,12 +78,12 @@ export class PurchaseOrderService {
   createPo(purchase_order: PurchaseOrder) {
     this.poDoc = {
       pageSize: "A4",
-      watermark: { text: "TEDI India Pvt. Ltd.", color: "grey", opacity: 0.2 },
+      watermark: { text: "PIAN India Pvt. Ltd.", color: "grey", opacity: 0.2 },
       header: function (currentPage, pageCount) {
         return {
           text: "Page " + currentPage.toString() + " of " + pageCount,
           alignment: "center",
-          margin: [0, 10, 0, 0]
+          margin: [0, 10, 0, 0],
         };
       },
       content: [
@@ -98,30 +97,30 @@ export class PurchaseOrderService {
                   text: "Delivery Note",
                   bold: true,
                   fontSize: 20,
-                  alignment: "center"
-                }
-              ]
-            ]
-          }
+                  alignment: "center",
+                },
+              ],
+            ],
+          },
         },
         {
           text: "\nDate: " + purchase_order.created_at,
-          alignment: "right"
+          alignment: "right",
         },
         {
           text: "\nPurchase Order No.: " + purchase_order.serial_no,
           alignment: "right",
-          fontSize: 13
+          fontSize: 13,
         },
         {
           text:
-            "-----------------------------------------------------------------------------------------------------------------------------------------------------------"
+            "-----------------------------------------------------------------------------------------------------------------------------------------------------------",
         },
         this.table(purchase_order.particulars, [
           "Sr No.",
           "Description",
           "Connector Item Code",
-          "Quantity"
+          "Quantity",
         ]),
         {
           margin: [0, 100, 0, 0],
@@ -131,16 +130,16 @@ export class PurchaseOrderService {
             {
               text: "______________\nDispatch",
               alignment: "center",
-              fontSize: 15
-            }
-          ]
+              fontSize: 15,
+            },
+          ],
         },
         {
           pageBreak: "before",
           text:
             "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - Shipping Label - - - - - - - - - - - - - - - - - -  - - - - - - - - - - - - - - - - - ",
           alignment: "center",
-          margin: [0, 0, 0, 25]
+          margin: [0, 0, 0, 25],
         },
         {
           table: {
@@ -150,23 +149,23 @@ export class PurchaseOrderService {
                 {
                   border: [true, true, false, false],
                   text:
-                    "From: \n\nTEDI INDIA PRIVATE LIMITED\nNO. 14/33, Jubilee Road,\nWest Mambalam, Chennai - 600 033"
+                    "From: \n\nPIAN INDIA PRIVATE LIMITED\nNO. 14/33, Jubilee Road,\nWest Mambalam, Chennai - 600 033",
                 },
                 {
                   border: [false, true, false, false],
                   text: "To,",
                   fontSize: 15,
-                  margin: [10, 100, 0, 0]
+                  margin: [10, 100, 0, 0],
                 },
                 {
                   border: [false, true, true, false],
-                  text: ""
-                }
+                  text: "",
+                },
               ],
               [
                 {
                   border: [true, false, false, true],
-                  text: ""
+                  text: "",
                 },
                 {
                   border: [false, false, false, true],
@@ -180,34 +179,35 @@ export class PurchaseOrderService {
                     purchase_order.user.details.contact,
                   alignment: "left",
                   fontSize: "25",
-                  bold: true
+                  bold: true,
                 },
                 {
                   border: [false, false, true, true],
-                  text: ""
-                }
-              ]
-            ]
-          }
+                  text: "",
+                },
+              ],
+            ],
+          },
         },
         {
           text:
             "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  - - - - - - - - - - - - - - - - - -  - - - - - - - - - - - - - - - - - ",
           alignment: "center",
-          margin: [0, 20, 0, 0]
-        }
-      ]
+          margin: [0, 20, 0, 0],
+        },
+      ],
     };
   }
 
   downloadPurchaseOrder() {
     this.createPo(this.purchaseOrder);
-    pdfMake.createPdf(this.poDoc).download(this.purchaseOrder.serial_no + ".pdf");
+    pdfMake
+      .createPdf(this.poDoc)
+      .download(this.purchaseOrder.serial_no + ".pdf");
   }
 
   printPurchaseOrder() {
     this.createPo(this.purchaseOrder);
     pdfMake.createPdf(this.poDoc).print();
   }
-
 }

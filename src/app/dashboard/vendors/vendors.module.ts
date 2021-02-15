@@ -1,36 +1,43 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { ReactiveFormsModule } from '@angular/forms';
-import { MatTabsModule, MatButtonModule, MatPaginatorModule, MatFormFieldModule, MatInputModule, MatSlideToggleModule } from '@angular/material';
-import { Routes, RouterModule } from '@angular/router';
+import { NgModule } from "@angular/core";
+import { CommonModule } from "@angular/common";
+import { ReactiveFormsModule } from "@angular/forms";
+import {
+  MatTabsModule,
+  MatButtonModule,
+  MatPaginatorModule,
+  MatFormFieldModule,
+  MatInputModule,
+  MatSlideToggleModule,
+} from "@angular/material";
+import { Routes, RouterModule } from "@angular/router";
 
-import { VendorsComponent } from './vendors.component';
-import { VendorTableComponent } from './vendor-table/vendor-table.component';
-import { VendorEditComponent } from './vendor-edit/vendor-edit.component';
-import { VendorDetailComponent } from './vendor-detail/vendor-detail.component';
+import { VendorsComponent } from "./vendors.component";
+import { VendorTableComponent } from "./vendor-table/vendor-table.component";
+import { VendorEditComponent } from "./vendor-edit/vendor-edit.component";
+import { VendorDetailComponent } from "./vendor-detail/vendor-detail.component";
 
 const routes: Routes = [
   {
-    path: 'edit',
+    path: "edit",
     component: VendorEditComponent,
     data: {
-      title: "Vendor edit - Dashboard | TEDI India"
-    }
+      title: "Vendor edit - Dashboard | PIAN VTS",
+    },
   },
   {
-    path: 'view',
+    path: "view",
     component: VendorDetailComponent,
     data: {
-      title: "Vendor details - Dashboard | TEDI India"
-    }
+      title: "Vendor details - Dashboard | PIAN VTS",
+    },
   },
   {
-    path: '',
+    path: "",
     component: VendorsComponent,
     data: {
-      title: "Vendor management - Dashboard | TEDI India"
-    }
-  }
+      title: "Vendor management - Dashboard | PIAN VTS",
+    },
+  },
 ];
 
 @NgModule({
@@ -43,8 +50,13 @@ const routes: Routes = [
     MatFormFieldModule,
     MatInputModule,
     MatSlideToggleModule,
-    RouterModule.forChild(routes)
+    RouterModule.forChild(routes),
   ],
-  declarations: [VendorsComponent, VendorTableComponent, VendorEditComponent, VendorDetailComponent]
+  declarations: [
+    VendorsComponent,
+    VendorTableComponent,
+    VendorEditComponent,
+    VendorDetailComponent,
+  ],
 })
-export class VendorsModule { }
+export class VendorsModule {}

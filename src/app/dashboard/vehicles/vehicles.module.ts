@@ -1,7 +1,7 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { Routes, RouterModule } from '@angular/router';
-import { ReactiveFormsModule } from '@angular/forms';
+import { NgModule } from "@angular/core";
+import { CommonModule } from "@angular/common";
+import { Routes, RouterModule } from "@angular/router";
+import { ReactiveFormsModule } from "@angular/forms";
 import {
   MatFormFieldModule,
   MatInputModule,
@@ -9,38 +9,41 @@ import {
   MatPaginatorModule,
   MatIconModule,
   MatBottomSheetModule,
-  MatCheckboxModule
-} from '@angular/material';
-import { NgSelectModule } from '@ng-select/ng-select';
-import { LightboxModule } from 'ngx-lightbox';
+  MatCheckboxModule,
+} from "@angular/material";
+import { NgSelectModule } from "@ng-select/ng-select";
+import { LightboxModule } from "ngx-lightbox";
 
-import { VehiclesComponent } from './vehicles.component';
-import { VehicleDetailComponent, VehicleDeleteComponent } from './vehicle-detail/vehicle-detail.component';
-import { VehicleEditComponent } from './vehicle-edit/vehicle-edit.component';
-import { VehicleTableComponent } from './vehicle-table/vehicle-table.component';
+import { VehiclesComponent } from "./vehicles.component";
+import {
+  VehicleDetailComponent,
+  VehicleDeleteComponent,
+} from "./vehicle-detail/vehicle-detail.component";
+import { VehicleEditComponent } from "./vehicle-edit/vehicle-edit.component";
+import { VehicleTableComponent } from "./vehicle-table/vehicle-table.component";
 
 const routes: Routes = [
   {
-    path: '',
+    path: "",
     component: VehiclesComponent,
     data: {
-      title: 'Vehicle Management - Dashboard | TEDI India'
-    }
+      title: "Vehicle Management - Dashboard | PIAN VTS",
+    },
   },
   {
-    path: 'edit',
+    path: "edit",
     component: VehicleEditComponent,
     data: {
-      title: 'Vehicle edit - Dashboard | TEDI India'
-    }
+      title: "Vehicle edit - Dashboard | PIAN VTS",
+    },
   },
   {
-    path: 'view',
+    path: "view",
     component: VehicleDetailComponent,
     data: {
-      title: 'Vehicle details - Dashboard | TEDI India'
-    }
-  }
+      title: "Vehicle details - Dashboard | PIAN VTS",
+    },
+  },
 ];
 @NgModule({
   imports: [
@@ -55,9 +58,15 @@ const routes: Routes = [
     MatBottomSheetModule,
     MatCheckboxModule,
     LightboxModule,
-    RouterModule.forChild(routes)
+    RouterModule.forChild(routes),
   ],
-  declarations: [VehiclesComponent, VehicleDetailComponent, VehicleEditComponent, VehicleTableComponent, VehicleDeleteComponent],
-  entryComponents: [VehicleDeleteComponent]
+  declarations: [
+    VehiclesComponent,
+    VehicleDetailComponent,
+    VehicleEditComponent,
+    VehicleTableComponent,
+    VehicleDeleteComponent,
+  ],
+  entryComponents: [VehicleDeleteComponent],
 })
-export class VehiclesModule { }
+export class VehiclesModule {}

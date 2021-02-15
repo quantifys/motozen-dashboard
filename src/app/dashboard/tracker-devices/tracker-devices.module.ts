@@ -1,7 +1,7 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { Routes, RouterModule } from '@angular/router';
-import { ReactiveFormsModule } from '@angular/forms';
+import { NgModule } from "@angular/core";
+import { CommonModule } from "@angular/common";
+import { Routes, RouterModule } from "@angular/router";
+import { ReactiveFormsModule } from "@angular/forms";
 import {
   MatTabsModule,
   MatButtonModule,
@@ -10,55 +10,58 @@ import {
   MatInputModule,
   MatPaginatorModule,
   MatBottomSheetModule,
-  MatRadioModule
-} from '@angular/material';
-import { NgSelectModule } from '@ng-select/ng-select';
+  MatRadioModule,
+} from "@angular/material";
+import { NgSelectModule } from "@ng-select/ng-select";
 
-import { TrackerDevicesComponent } from './tracker-devices.component';
-import { TrackerDevicesEditComponent } from './tracker-devices-edit/tracker-devices-edit.component';
-import { TrackerDevicesTransferComponent } from './tracker-devices-transfer/tracker-devices-transfer.component';
-import { TrackerDevicesDetailComponent, TrackerDeviceDeleteComponent } from './tracker-devices-detail/tracker-devices-detail.component';
-import { TrackerDevicesTableComponent } from './tracker-devices-table/tracker-devices-table.component';
-import { VtsDeviceComponent } from './tracker-devices-edit/vts-device/vts-device.component';
-import { StockSummaryComponent } from './stock-summary/stock-summary.component';
-import { BulkUploadComponent } from './bulk-upload/bulk-upload.component';
+import { TrackerDevicesComponent } from "./tracker-devices.component";
+import { TrackerDevicesEditComponent } from "./tracker-devices-edit/tracker-devices-edit.component";
+import { TrackerDevicesTransferComponent } from "./tracker-devices-transfer/tracker-devices-transfer.component";
+import {
+  TrackerDevicesDetailComponent,
+  TrackerDeviceDeleteComponent,
+} from "./tracker-devices-detail/tracker-devices-detail.component";
+import { TrackerDevicesTableComponent } from "./tracker-devices-table/tracker-devices-table.component";
+import { VtsDeviceComponent } from "./tracker-devices-edit/vts-device/vts-device.component";
+import { StockSummaryComponent } from "./stock-summary/stock-summary.component";
+import { BulkUploadComponent } from "./bulk-upload/bulk-upload.component";
 
 const routes: Routes = [
   {
-    path: '',
+    path: "",
     component: TrackerDevicesComponent,
     data: {
-      title: 'VTS Device management - Dashboard | TEDI India'
-    }
+      title: "VTS Device management - Dashboard | PIAN VTS",
+    },
   },
   {
-    path: 'edit',
+    path: "edit",
     component: TrackerDevicesEditComponent,
     data: {
-      title: 'VTS Device edit - Dashboard | TEDI India'
-    }
+      title: "VTS Device edit - Dashboard | PIAN VTS",
+    },
   },
   {
-    path: 'transfer',
+    path: "transfer",
     component: TrackerDevicesTransferComponent,
     data: {
-      title: 'Tracker Device transfer - Dashboard | TEDI India'
-    }
+      title: "Tracker Device transfer - Dashboard | PIAN VTS",
+    },
   },
   {
-    path: 'bulk-upload',
+    path: "bulk-upload",
     component: BulkUploadComponent,
     data: {
-      title: 'Tracker Device bulk upload - Dashboard | TEDI India'
-    }
+      title: "Tracker Device bulk upload - Dashboard | PIAN VTS",
+    },
   },
   {
-    path: 'view',
+    path: "view",
     component: TrackerDevicesDetailComponent,
     data: {
-      title: 'VTS Device details - Dashboard | TEDI India'
-    }
-  }
+      title: "VTS Device details - Dashboard | PIAN VTS",
+    },
+  },
 ];
 
 @NgModule({
@@ -74,7 +77,7 @@ const routes: Routes = [
     MatBottomSheetModule,
     MatRadioModule,
     NgSelectModule,
-    RouterModule.forChild(routes)
+    RouterModule.forChild(routes),
   ],
   declarations: [
     TrackerDevicesComponent,
@@ -85,8 +88,8 @@ const routes: Routes = [
     TrackerDeviceDeleteComponent,
     VtsDeviceComponent,
     StockSummaryComponent,
-    BulkUploadComponent
+    BulkUploadComponent,
   ],
-  entryComponents: [TrackerDeviceDeleteComponent, StockSummaryComponent]
+  entryComponents: [TrackerDeviceDeleteComponent, StockSummaryComponent],
 })
-export class TrackerDevicesModule { }
+export class TrackerDevicesModule {}

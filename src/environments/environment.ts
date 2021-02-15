@@ -5,12 +5,12 @@
 export const environment = {
   production: false,
   token_auth_config: {
-    apiBase: 'http://localhost:3000',
-    // apiBase: 'https://tedi-api.quantifys.com',
-    signInRedirect: 'login',
-    signOutFailedValidate: true
+    // apiBase: 'http://localhost:3000',
+    apiBase: "https://api.pianvtsirnss.com",
+    signInRedirect: "login",
+    signOutFailedValidate: true,
   },
-  VERSION: require('../../package.json').version
+  VERSION: require("../../package.json").version,
 };
 
 /*

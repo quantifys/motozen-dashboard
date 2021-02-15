@@ -1,36 +1,41 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { Routes, RouterModule } from '@angular/router';
-import { MatButtonModule, MatPaginatorModule, MatInputModule, MatFormFieldModule } from '@angular/material';
-import { ReactiveFormsModule } from '@angular/forms';
+import { NgModule } from "@angular/core";
+import { CommonModule } from "@angular/common";
+import { Routes, RouterModule } from "@angular/router";
+import {
+  MatButtonModule,
+  MatPaginatorModule,
+  MatInputModule,
+  MatFormFieldModule,
+} from "@angular/material";
+import { ReactiveFormsModule } from "@angular/forms";
 
-import { TrackerCustomersComponent } from './tracker-customers.component';
-import { TrackerUsersTableComponent } from './tracker-users-table/tracker-users-table.component';
-import { TrackerUsersDetailsComponent } from './tracker-users-details/tracker-users-details.component';
-import { TrackerCustomersEditComponent } from './tracker-customers-edit/tracker-customers-edit.component';
+import { TrackerCustomersComponent } from "./tracker-customers.component";
+import { TrackerUsersTableComponent } from "./tracker-users-table/tracker-users-table.component";
+import { TrackerUsersDetailsComponent } from "./tracker-users-details/tracker-users-details.component";
+import { TrackerCustomersEditComponent } from "./tracker-customers-edit/tracker-customers-edit.component";
 
 const routes: Routes = [
   {
-    path: 'edit',
+    path: "edit",
     component: TrackerCustomersEditComponent,
     data: {
-      title: 'VTS user edit - Dashboard | TEDI India'
-    }
+      title: "VTS user edit - Dashboard | PIAN VTS",
+    },
   },
   {
-    path: 'view',
+    path: "view",
     component: TrackerUsersDetailsComponent,
     data: {
-      title: 'VTS user details - Dashboard | TEDI India'
-    }
+      title: "VTS user details - Dashboard | PIAN VTS",
+    },
   },
   {
-    path: '',
+    path: "",
     component: TrackerCustomersComponent,
     data: {
-      title: 'VTS users - Dashboard | TEDI India'
-    }
-  }
+      title: "VTS users - Dashboard | PIAN VTS",
+    },
+  },
 ];
 
 @NgModule({
@@ -41,8 +46,13 @@ const routes: Routes = [
     MatButtonModule,
     MatPaginatorModule,
     MatInputModule,
-    MatFormFieldModule
+    MatFormFieldModule,
   ],
-  declarations: [TrackerCustomersComponent, TrackerUsersTableComponent, TrackerUsersDetailsComponent, TrackerCustomersEditComponent]
+  declarations: [
+    TrackerCustomersComponent,
+    TrackerUsersTableComponent,
+    TrackerUsersDetailsComponent,
+    TrackerCustomersEditComponent,
+  ],
 })
-export class TrackerCustomersModule { }
+export class TrackerCustomersModule {}

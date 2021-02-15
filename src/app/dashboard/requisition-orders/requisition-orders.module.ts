@@ -1,39 +1,50 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { ReactiveFormsModule } from '@angular/forms';
-import { NgSelectModule } from '@ng-select/ng-select';
-import { RouterModule, Routes } from '@angular/router';
-import { MatTabsModule, MatButtonModule, MatPaginatorModule, MatFormFieldModule, MatInputModule, MatBottomSheetModule } from '@angular/material';
+import { NgModule } from "@angular/core";
+import { CommonModule } from "@angular/common";
+import { ReactiveFormsModule } from "@angular/forms";
+import { NgSelectModule } from "@ng-select/ng-select";
+import { RouterModule, Routes } from "@angular/router";
+import {
+  MatTabsModule,
+  MatButtonModule,
+  MatPaginatorModule,
+  MatFormFieldModule,
+  MatInputModule,
+  MatBottomSheetModule,
+} from "@angular/material";
 
-import { RequisitionOrdersComponent } from './requisition-orders.component';
-import { RequisitionOrderTableComponent } from './requisition-order-table/requisition-order-table.component';
-import { RequisitionOrderDetailComponent } from './requisition-order-detail/requisition-order-detail.component';
-import { RequisitionOrderEditComponent } from './requisition-order-edit/requisition-order-edit.component';
-import { RequisitionOrderParticularComponent } from './requisition-order-particular/requisition-order-particular.component';
-import { RequisitionOrderDeleteComponent, RequisitionOrderOpenComponent, RequisitionOrderCloseComponent } from './requisition-order-controls/requisition-order-controls.component';
+import { RequisitionOrdersComponent } from "./requisition-orders.component";
+import { RequisitionOrderTableComponent } from "./requisition-order-table/requisition-order-table.component";
+import { RequisitionOrderDetailComponent } from "./requisition-order-detail/requisition-order-detail.component";
+import { RequisitionOrderEditComponent } from "./requisition-order-edit/requisition-order-edit.component";
+import { RequisitionOrderParticularComponent } from "./requisition-order-particular/requisition-order-particular.component";
+import {
+  RequisitionOrderDeleteComponent,
+  RequisitionOrderOpenComponent,
+  RequisitionOrderCloseComponent,
+} from "./requisition-order-controls/requisition-order-controls.component";
 
 const routes: Routes = [
   {
-    path: 'edit',
+    path: "edit",
     component: RequisitionOrderEditComponent,
     data: {
-      title: "Requisition Order edit - Dashboard | TEDI India"
-    }
+      title: "Requisition Order edit - Dashboard | PIAN VTS",
+    },
   },
   {
-    path: 'view',
+    path: "view",
     component: RequisitionOrderDetailComponent,
     data: {
-      title: "Requisition Order details - Dashboard | TEDI India"
-    }
+      title: "Requisition Order details - Dashboard | PIAN VTS",
+    },
   },
   {
-    path: '',
+    path: "",
     component: RequisitionOrdersComponent,
     data: {
-      title: "Requisition Order management - Dashboard | TEDI India"
-    }
-  }
+      title: "Requisition Order management - Dashboard | PIAN VTS",
+    },
+  },
 ];
 
 @NgModule({
@@ -47,9 +58,22 @@ const routes: Routes = [
     MatInputModule,
     MatBottomSheetModule,
     NgSelectModule,
-    RouterModule.forChild(routes)
+    RouterModule.forChild(routes),
   ],
-  declarations: [RequisitionOrdersComponent, RequisitionOrderTableComponent, RequisitionOrderDetailComponent, RequisitionOrderEditComponent, RequisitionOrderParticularComponent, RequisitionOrderDeleteComponent, RequisitionOrderOpenComponent, RequisitionOrderCloseComponent],
-  entryComponents: [RequisitionOrderDeleteComponent, RequisitionOrderOpenComponent, RequisitionOrderCloseComponent]
+  declarations: [
+    RequisitionOrdersComponent,
+    RequisitionOrderTableComponent,
+    RequisitionOrderDetailComponent,
+    RequisitionOrderEditComponent,
+    RequisitionOrderParticularComponent,
+    RequisitionOrderDeleteComponent,
+    RequisitionOrderOpenComponent,
+    RequisitionOrderCloseComponent,
+  ],
+  entryComponents: [
+    RequisitionOrderDeleteComponent,
+    RequisitionOrderOpenComponent,
+    RequisitionOrderCloseComponent,
+  ],
 })
-export class RequisitionOrdersModule { }
+export class RequisitionOrdersModule {}

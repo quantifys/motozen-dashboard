@@ -1,9 +1,9 @@
 export const environment = {
   production: true,
   token_auth_config: {
-    apiBase: "https://tedi-api.quantifys.com",
+    apiBase: "https://api.pianvtsirnss.com",
     signInRedirect: "login",
-    signOutFailedValidate: true
+    signOutFailedValidate: true,
   },
-  VERSION: require('../../package.json').version
+  VERSION: require("../../package.json").version,
 };

@@ -1,5 +1,5 @@
 {
-  "name": "tedi-dashboard",
+  "name": "pian-dashboard",
   "version": "3.1.0",
   "scripts": {
     "ng": "ng",
@@ -8,8 +8,8 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "deploy": "ng build --prod --aot && cd dist/tedi-dashboard && scp -dr * deploy@205.147.101.185:/var/www/tedivts/ && cd ../",
-    "upload": "cd dist/tedi-dashboard && scp -dr * deploy@205.147.101.185:/var/www/tedivts/ && cd ../"
+    "deploy": "ng build --prod --aot && cd dist/pian-dashboard && scp -dr * deploy@205.147.101.185:/var/www/pianvts/ && cd ../",
+    "upload": "cd dist/pian-dashboard && scp -dr * deploy@205.147.101.185:/var/www/pianvts/ && cd ../"
   },
   "private": true,
   "dependencies": {
@@ -29,7 +29,7 @@
     "@ngrx/effects": "^6.0.1",
     "@ngrx/store": "^6.0.1",
     "angular2-token": "^0.2.0",
-    "angular5-csv": "^0.2.10",
+    "angular5-csv": "^0.2.11",
     "bootstrap": "^4.1.1",
     "core-js": "^2.5.4",
     "fs-extra": "^7.0.0",
@@ -38,6 +38,7 @@
     "moment": "^2.22.2",
     "ngx-lightbox": "^1.1.0",
     "ngx-pipes": "^2.5.0",
+    "node-sass": "^4.14.1",
     "path": "^0.12.7",
     "pdfmake": "^0.1.38",
     "popper.js": "^1.14.3",
@@ -46,7 +47,7 @@
     "zone.js": "^0.8.26"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "^0.10.5",
+    "@angular-devkit/build-angular": "^0.10.2",
     "@angular/cli": "~6.0.8",
     "@angular/compiler-cli": "^6.0.3",
     "@angular/language-service": "^6.0.3",

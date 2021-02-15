@@ -1,21 +1,25 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { RouterModule, Routes } from '@angular/router';
-import { MatInputModule, MatFormFieldModule, MatIconModule, MatButtonModule } from '@angular/material';
-import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { NgModule } from "@angular/core";
+import { CommonModule } from "@angular/common";
+import { RouterModule, Routes } from "@angular/router";
+import {
+  MatInputModule,
+  MatFormFieldModule,
+  MatIconModule,
+  MatButtonModule,
+} from "@angular/material";
+import { ReactiveFormsModule, FormsModule } from "@angular/forms";
 
-import { LoginComponent } from './login.component';
+import { LoginComponent } from "./login.component";
 
 const routes: Routes = [
   {
-    path: '',
+    path: "",
     component: LoginComponent,
     data: {
-      title: 'Login | TEDI India'
-    }
-  }
+      title: "Login | PIAN VTS",
+    },
+  },
 ];
-
 
 @NgModule({
   imports: [
@@ -26,10 +30,8 @@ const routes: Routes = [
     MatInputModule,
     MatIconModule,
     MatButtonModule,
-    RouterModule.forChild(routes)
+    RouterModule.forChild(routes),
   ],
-  declarations: [
-    LoginComponent
-  ]
+  declarations: [LoginComponent],
 })
-export class LoginModule { }
+export class LoginModule {}

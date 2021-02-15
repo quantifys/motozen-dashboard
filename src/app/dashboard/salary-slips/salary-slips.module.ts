@@ -1,8 +1,8 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { ReactiveFormsModule } from '@angular/forms';
-import { NgSelectModule } from '@ng-select/ng-select';
-import { Routes, RouterModule } from '@angular/router';
+import { NgModule } from "@angular/core";
+import { CommonModule } from "@angular/common";
+import { ReactiveFormsModule } from "@angular/forms";
+import { NgSelectModule } from "@ng-select/ng-select";
+import { Routes, RouterModule } from "@angular/router";
 import {
   MatTabsModule,
   MatButtonModule,
@@ -11,37 +11,37 @@ import {
   MatInputModule,
   MatBottomSheetModule,
   MatDatepickerModule,
-  MatNativeDateModule
-} from '@angular/material';
+  MatNativeDateModule,
+} from "@angular/material";
 
-import { SalarySlipsComponent } from './salary-slips.component';
-import { SalarySlipTableComponent } from './salary-slip-table/salary-slip-table.component';
-import { SalarySlipDetailComponent } from './salary-slip-detail/salary-slip-detail.component';
-import { SalarySlipEditComponent } from './salary-slip-edit/salary-slip-edit.component';
-import { SalarySlipFilterComponent } from './salary-slip-filter/salary-slip-filter.component';
+import { SalarySlipsComponent } from "./salary-slips.component";
+import { SalarySlipTableComponent } from "./salary-slip-table/salary-slip-table.component";
+import { SalarySlipDetailComponent } from "./salary-slip-detail/salary-slip-detail.component";
+import { SalarySlipEditComponent } from "./salary-slip-edit/salary-slip-edit.component";
+import { SalarySlipFilterComponent } from "./salary-slip-filter/salary-slip-filter.component";
 
 const routes: Routes = [
   {
-    path: 'edit',
+    path: "edit",
     component: SalarySlipEditComponent,
     data: {
-      title: 'Salary slip edit - Dashboard | TEDI India'
-    }
+      title: "Salary slip edit - Dashboard | PIAN VTS",
+    },
   },
   {
-    path: 'view',
+    path: "view",
     component: SalarySlipDetailComponent,
     data: {
-      title: 'Salary slip details - Dashboard | TEDI India'
-    }
+      title: "Salary slip details - Dashboard | PIAN VTS",
+    },
   },
   {
-    path: '',
+    path: "",
     component: SalarySlipsComponent,
     data: {
-      title: 'Salary slip management - Dashboard | TEDI India'
-    }
-  }
+      title: "Salary slip management - Dashboard | PIAN VTS",
+    },
+  },
 ];
 
 @NgModule({
@@ -57,15 +57,15 @@ const routes: Routes = [
     MatDatepickerModule,
     MatNativeDateModule,
     NgSelectModule,
-    RouterModule.forChild(routes)
+    RouterModule.forChild(routes),
   ],
   declarations: [
     SalarySlipsComponent,
     SalarySlipTableComponent,
     SalarySlipDetailComponent,
     SalarySlipEditComponent,
-    SalarySlipFilterComponent
+    SalarySlipFilterComponent,
   ],
-  entryComponents: [SalarySlipFilterComponent]
+  entryComponents: [SalarySlipFilterComponent],
 })
-export class SalarySlipsModule { }
+export class SalarySlipsModule {}
