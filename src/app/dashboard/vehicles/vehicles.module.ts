@@ -27,21 +27,21 @@ const routes: Routes = [
     path: "",
     component: VehiclesComponent,
     data: {
-      title: "Vehicle Management - Dashboard | PIAN VTS",
+      title: "Vehicle Management - Dashboard | MOTOZEN",
     },
   },
   {
     path: "edit",
     component: VehicleEditComponent,
     data: {
-      title: "Vehicle edit - Dashboard | PIAN VTS",
+      title: "Vehicle edit - Dashboard | MOTOZEN",
     },
   },
   {
     path: "view",
     component: VehicleDetailComponent,
     data: {
-      title: "Vehicle details - Dashboard | PIAN VTS",
+      title: "Vehicle details - Dashboard | MOTOZEN",
     },
   },
 ];

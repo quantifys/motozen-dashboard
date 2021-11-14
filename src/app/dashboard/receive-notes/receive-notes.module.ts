@@ -28,21 +28,21 @@ const routes: Routes = [
     path: "edit",
     component: ReceiveNoteEditComponent,
     data: {
-      title: "Receive Note edit - Dashboard | PIAN VTS",
+      title: "Receive Note edit - Dashboard | MOTOZEN",
     },
   },
   {
     path: "view",
     component: ReceiveNoteDetailComponent,
     data: {
-      title: "Receive Note details - Dashboard | PIAN VTS",
+      title: "Receive Note details - Dashboard | MOTOZEN",
     },
   },
   {
     path: "",
     component: ReceiveNotesComponent,
     data: {
-      title: "Receive Note management - Dashboard | PIAN VTS",
+      title: "Receive Note management - Dashboard | MOTOZEN",
     },
   },
 ];

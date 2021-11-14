@@ -23,14 +23,14 @@ const routes: Routes = [
     path: "view",
     component: TransactionDetailComponent,
     data: {
-      title: "Transaction details - Dashboard | PIAN VTS",
+      title: "Transaction details - Dashboard | MOTOZEN",
     },
   },
   {
     path: "",
     component: TransactionsComponent,
     data: {
-      title: "Transactions list - Dashboard | PIAN VTS",
+      title: "Transactions list - Dashboard | MOTOZEN",
     },
   },
 ];

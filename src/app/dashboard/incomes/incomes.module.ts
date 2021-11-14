@@ -23,21 +23,21 @@ const routes: Routes = [
     path: "edit",
     component: IncomeEditComponent,
     data: {
-      title: "Income edit - Dashboard | PIAN VTS",
+      title: "Income edit - Dashboard | MOTOZEN",
     },
   },
   {
     path: "view",
     component: IncomeDetailComponent,
     data: {
-      title: "Income details - Dashboard | PIAN VTS",
+      title: "Income details - Dashboard | MOTOZEN",
     },
   },
   {
     path: "",
     component: IncomesComponent,
     data: {
-      title: "Incomes - Dashboard | PIAN VTS",
+      title: "Incomes - Dashboard | MOTOZEN",
     },
   },
 ];

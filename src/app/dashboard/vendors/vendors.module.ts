@@ -21,21 +21,21 @@ const routes: Routes = [
     path: "edit",
     component: VendorEditComponent,
     data: {
-      title: "Vendor edit - Dashboard | PIAN VTS",
+      title: "Vendor edit - Dashboard | MOTOZEN",
     },
   },
   {
     path: "view",
     component: VendorDetailComponent,
     data: {
-      title: "Vendor details - Dashboard | PIAN VTS",
+      title: "Vendor details - Dashboard | MOTOZEN",
     },
   },
   {
     path: "",
     component: VendorsComponent,
     data: {
-      title: "Vendor management - Dashboard | PIAN VTS",
+      title: "Vendor management - Dashboard | MOTOZEN",
     },
   },
 ];

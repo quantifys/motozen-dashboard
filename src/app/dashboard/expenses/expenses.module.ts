@@ -25,21 +25,21 @@ export const routes: Routes = [
     path: "edit",
     component: ExpenseEditComponent,
     data: {
-      title: "Expense edit - Dashboard | PIAN VTS",
+      title: "Expense edit - Dashboard | MOTOZEN",
     },
   },
   {
     path: "view",
     component: ExpenseDetailComponent,
     data: {
-      title: "Expense details - Dashboard | PIAN VTS",
+      title: "Expense details - Dashboard | MOTOZEN",
     },
   },
   {
     path: "",
     component: ExpensesComponent,
     data: {
-      title: "Expenses - Dashboard | PIAN VTS",
+      title: "Expenses - Dashboard | MOTOZEN",
     },
   },
 ];

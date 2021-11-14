@@ -19,7 +19,7 @@ const routes: Routes = [
     path: "",
     component: HomeComponent,
     data: {
-      title: "Dashboard - Home | PIAN VTS",
+      title: "Dashboard - Home | MOTOZEN",
     },
   },
 ];

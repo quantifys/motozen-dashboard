@@ -41,7 +41,7 @@ export class CertificateService {
     const general = {
       pageSize: "A4",
       watermark: {
-        text: "PIAN",
+        text: "MOTOZEN",
         color: "grey",
         opacity: 0.2,
         fontSize: 20,
@@ -61,7 +61,7 @@ export class CertificateService {
     const delhiCertificate = {
       pageSize: "A4",
       watermark: {
-        text: "PIAN",
+        text: "MOTOZEN",
         color: "grey",
         opacity: 0.2,
         fontSize: 20,
@@ -101,8 +101,7 @@ export class CertificateService {
                 fontSize: 35,
               },
               {
-                text:
-                  "309, 3rd Floor, Citi Centre,\nPatto, Panaji, Goa - 403001\ncustomercare@gemeniindia.com\nwww.gemeniindia.com",
+                text: "309, 3rd Floor, Citi Centre,\nPatto, Panaji, Goa - 403001\ncustomercare@gemeniindia.com\nwww.gemeniindia.com",
                 alignment: "center",
                 margin: [0, 0, 0, 5],
               },
@@ -139,8 +138,7 @@ export class CertificateService {
           margin: [0, 0, 0, 2],
         },
         {
-          text:
-            "(AS PER PROVISION OF PARA NO. 5 OF NOTIFICATION NO. MLO (VIU)/ TPT/2017/165/315 DATED 17.07.2018)",
+          text: "(AS PER PROVISION OF PARA NO. 5 OF NOTIFICATION NO. MLO (VIU)/ TPT/2017/165/315 DATED 17.07.2018)",
           fontSize: "9",
           alignment: "center",
           bold: true,
@@ -248,8 +246,7 @@ export class CertificateService {
                   fontSize: "9",
                 },
                 {
-                  text:
-                    "\nNAME OF THE CENTRE\n\n...........................................",
+                  text: "\nNAME OF THE CENTRE\n\n...........................................",
                   alignment: "right",
                   fontSize: "9",
                 },
@@ -407,8 +404,7 @@ export class CertificateService {
               fontSize: 35,
             },
             {
-              text:
-                "309, 3rd Floor, Citi Centre,\nPatto, Panaji, Goa - 403001\ncustomercare@gemeniindia.com\nwww.gemeniindia.com",
+              text: "309, 3rd Floor, Citi Centre,\nPatto, Panaji, Goa - 403001\ncustomercare@gemeniindia.com\nwww.gemeniindia.com",
               alignment: "center",
               margin: [0, 0, 0, 5],
             },

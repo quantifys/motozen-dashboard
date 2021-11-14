@@ -39,28 +39,28 @@ const routes: Routes = [
     path: "edit",
     component: PurchaseOrderEditComponent,
     data: {
-      title: "Purchase order edit - Dashboard | PIAN VTS",
+      title: "Purchase order edit - Dashboard | MOTOZEN",
     },
   },
   {
     path: "view",
     component: PurchaseOrderDetailComponent,
     data: {
-      title: "Purchase order details - Dashboard | PIAN VTS",
+      title: "Purchase order details - Dashboard | MOTOZEN",
     },
   },
   {
     path: "dispatch",
     component: PurchaseOrderDispatchComponent,
     data: {
-      title: "Purchase order dispatch - Dashboard | PIAN VTS",
+      title: "Purchase order dispatch - Dashboard | MOTOZEN",
     },
   },
   {
     path: "",
     component: PurchaseOrdersComponent,
     data: {
-      title: "Purchase order management - Dashboard | PIAN VTS",
+      title: "Purchase order management - Dashboard | MOTOZEN",
     },
   },
 ];

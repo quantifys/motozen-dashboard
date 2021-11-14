@@ -31,35 +31,35 @@ const routes: Routes = [
     path: "",
     component: TrackerDevicesComponent,
     data: {
-      title: "VTS Device management - Dashboard | PIAN VTS",
+      title: "VTS Device management - Dashboard | MOTOZEN",
     },
   },
   {
     path: "edit",
     component: TrackerDevicesEditComponent,
     data: {
-      title: "VTS Device edit - Dashboard | PIAN VTS",
+      title: "VTS Device edit - Dashboard | MOTOZEN",
     },
   },
   {
     path: "transfer",
     component: TrackerDevicesTransferComponent,
     data: {
-      title: "Tracker Device transfer - Dashboard | PIAN VTS",
+      title: "Tracker Device transfer - Dashboard | MOTOZEN",
     },
   },
   {
     path: "bulk-upload",
     component: BulkUploadComponent,
     data: {
-      title: "Tracker Device bulk upload - Dashboard | PIAN VTS",
+      title: "Tracker Device bulk upload - Dashboard | MOTOZEN",
     },
   },
   {
     path: "view",
     component: TrackerDevicesDetailComponent,
     data: {
-      title: "VTS Device details - Dashboard | PIAN VTS",
+      title: "VTS Device details - Dashboard | MOTOZEN",
     },
   },
 ];

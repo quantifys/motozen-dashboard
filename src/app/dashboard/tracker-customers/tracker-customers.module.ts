@@ -19,21 +19,21 @@ const routes: Routes = [
     path: "edit",
     component: TrackerCustomersEditComponent,
     data: {
-      title: "VTS user edit - Dashboard | PIAN VTS",
+      title: "VTS user edit - Dashboard | MOTOZEN",
     },
   },
   {
     path: "view",
     component: TrackerUsersDetailsComponent,
     data: {
-      title: "VTS user details - Dashboard | PIAN VTS",
+      title: "VTS user details - Dashboard | MOTOZEN",
     },
   },
   {
     path: "",
     component: TrackerCustomersComponent,
     data: {
-      title: "VTS users - Dashboard | PIAN VTS",
+      title: "VTS users - Dashboard | MOTOZEN",
     },
   },
 ];

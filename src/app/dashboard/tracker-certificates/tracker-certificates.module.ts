@@ -34,21 +34,21 @@ const routes: Routes = [
     path: "edit",
     component: TrackerCertificateEditComponent,
     data: {
-      title: "Tracker Certificate edit - Dashboard | PIAN VTS",
+      title: "Tracker Certificate edit - Dashboard | MOTOZEN",
     },
   },
   {
     path: "view",
     component: TrackerCertificateDetailsComponent,
     data: {
-      title: "Tracker Certificate details - Dashboard | PIAN VTS",
+      title: "Tracker Certificate details - Dashboard | MOTOZEN",
     },
   },
   {
     path: "",
     component: TrackerCertificatesComponent,
     data: {
-      title: "Tracker Certificate management - Dashboard | PIAN VTS",
+      title: "Tracker Certificate management - Dashboard | MOTOZEN",
     },
   },
 ];

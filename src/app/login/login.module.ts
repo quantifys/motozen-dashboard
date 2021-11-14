@@ -16,7 +16,7 @@ const routes: Routes = [
     path: "",
     component: LoginComponent,
     data: {
-      title: "Login | PIAN VTS",
+      title: "Login | MOTOZEN",
     },
   },
 ];

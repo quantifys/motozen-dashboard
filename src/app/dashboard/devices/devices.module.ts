@@ -32,28 +32,28 @@ const routes: Routes = [
     path: "",
     component: DevicesComponent,
     data: {
-      title: "Device management - Dashboard | PIAN VTS",
+      title: "Device management - Dashboard | MOTOZEN",
     },
   },
   {
     path: "edit",
     component: DeviceEditComponent,
     data: {
-      title: "Device edit - Dashboard | PIAN VTS",
+      title: "Device edit - Dashboard | MOTOZEN",
     },
   },
   {
     path: "transfer",
     component: DeviceTransferComponent,
     data: {
-      title: "Device transfer - Dashboard | PIAN VTS",
+      title: "Device transfer - Dashboard | MOTOZEN",
     },
   },
   {
     path: "view",
     component: DeviceDetailComponent,
     data: {
-      title: "Device details - Dashboard | PIAN VTS",
+      title: "Device details - Dashboard | MOTOZEN",
     },
   },
 ];

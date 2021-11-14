@@ -111,7 +111,7 @@ export class TrackerCertificateService {
             width: 80,
           },
           {
-            text: `PIAN INDIA Pvt. Ltd.\nOnline Vehicle Tracking Device Certificate\nAIS-140 & AIS004 (part-3)\nCertificate No: ${certificate.certificate_number}`,
+            text: `MOTOZEN Pvt. Ltd.\nOnline Vehicle Tracking Device Certificate\nAIS-140 & AIS004 (part-3)\nCertificate No: ${certificate.certificate_number}`,
             style: "header",
           },
           {
@@ -211,7 +211,7 @@ export class TrackerCertificateService {
           },
           {
             qr:
-              "PIAN INDIA PVT. LTD.\nSERIAL NO: " +
+              "MOTOZEN PVT. LTD.\nSERIAL NO: " +
               certificate.device.serial_no +
               "\nCERTIFICATE NUMBER: " +
               certificate.certificate_number +
@@ -293,7 +293,7 @@ export class TrackerCertificateService {
                   {
                     text: [
                       "Fitment centre name:",
-                      { text: "PIAN INDIA PVT LTD | T1E2", bold: true },
+                      { text: "MOTOZEN PVT LTD | T1E2", bold: true },
                     ],
                   },
                 ],
@@ -429,8 +429,7 @@ export class TrackerCertificateService {
                     text: [
                       "Certified by:",
                       {
-                        text:
-                          "International Centre For Automative Technology (ICAT)",
+                        text: "International Centre For Automative Technology (ICAT)",
                         bold: true,
                       },
                     ],
@@ -484,14 +483,13 @@ export class TrackerCertificateService {
                     bold: true,
                   },
                   {
-                    text: "Certificate Issued By: PIAN INDIA PVT LTD",
+                    text: "Certificate Issued By: MOTOZEN PVT LTD",
                     bold: true,
                   },
                 ],
                 [
                   {
-                    text:
-                      "Mandated by-MORTH-Ministry of Road TransPort & Highways",
+                    text: "Mandated by-MORTH-Ministry of Road TransPort & Highways",
                     bold: true,
                     colSpan: 2,
                     style: "medium",
@@ -500,8 +498,7 @@ export class TrackerCertificateService {
                 ],
                 [
                   {
-                    text:
-                      "This is certifying that following vehicle has been fitted and activated with approved PIAN INDIA Vehicle Location Tracking Device as per AIS-140 &AIS-004 (Part-3) Standard which is activated live tracking and more features, unless the device tampered or the seal is Broken by unauthorized technicians or individual.",
+                    text: "This is certifying that following vehicle has been fitted and activated with approved MOTOZEN Vehicle Location Tracking Device as per AIS-140 &AIS-004 (Part-3) Standard which is activated live tracking and more features, unless the device tampered or the seal is Broken by unauthorized technicians or individual.",
                     style: "small",
                   },
                   {
@@ -511,8 +508,7 @@ export class TrackerCertificateService {
                 ],
                 [
                   {
-                    text:
-                      "This is to Acknowledge and confirm that we have got our vehicle fitted with above vehicle location tracking unit. We have checked the performance of the vehicle after fitment and we confirm VLD is functioning as per norms laid out in AIS-140 &AIS-004(PART-3), We are satisfied with the performance of the device in all respect we undertake not to raise any dispute or any legal claims against M/S PIAN INDIA PRIVATE LIMITED, In the event that the above mentioned function are found broken/torn/tampered/after expiry & Warranty date issues.",
+                    text: "This is to Acknowledge and confirm that we have got our vehicle fitted with above vehicle location tracking unit. We have checked the performance of the vehicle after fitment and we confirm VLD is functioning as per norms laid out in AIS-140 &AIS-004(PART-3), We are satisfied with the performance of the device in all respect we undertake not to raise any dispute or any legal claims against M/S MOTOZEN PRIVATE LIMITED, In the event that the above mentioned function are found broken/torn/tampered/after expiry & Warranty date issues.",
                     colSpan: 2,
                     style: "small",
                   },
@@ -538,8 +534,7 @@ export class TrackerCertificateService {
         ],
       },
       {
-        text:
-          "For Repairs and breakdowns please contact the respective District Dealers,if not attended within 2 working days please inform us in writing Email:admin@pian.co.in\nToll Free No. 1800 121 5800\nThis certificate is computer generated and does not require any Seal/Signature in original.",
+        text: "For Repairs and breakdowns please contact the respective District Dealers,if not attended within 2 working days please inform us in writing Email:admin@trackingmotozen.com\nToll Free No. 1800 121 5800\nThis certificate is computer generated and does not require any Seal/Signature in original.",
         style: "small",
         pageBreak: "after",
       },

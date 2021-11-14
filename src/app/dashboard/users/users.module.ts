@@ -31,21 +31,21 @@ const routes: Routes = [
     path: "",
     component: UsersComponent,
     data: {
-      title: "Dashboard - User management | PIAN VTS",
+      title: "Dashboard - User management | MOTOZEN",
     },
   },
   {
     path: "edit",
     component: UserEditComponent,
     data: {
-      title: "Dashboard - User edit | PIAN VTS",
+      title: "Dashboard - User edit | MOTOZEN",
     },
   },
   {
     path: "view",
     component: UserDetailComponent,
     data: {
-      title: "Dashboard - User details | PIAN VTS",
+      title: "Dashboard - User details | MOTOZEN",
     },
   },
 ];

@@ -25,21 +25,21 @@ const routes: Routes = [
     path: "edit",
     component: InventoryEditComponent,
     data: {
-      title: "Inventory edit - Dashboard | PIAN VTS",
+      title: "Inventory edit - Dashboard | MOTOZEN",
     },
   },
   {
     path: "view",
     component: InventoryDetailComponent,
     data: {
-      title: "Inventory details - Dashboard | PIAN VTS",
+      title: "Inventory details - Dashboard | MOTOZEN",
     },
   },
   {
     path: "",
     component: InventoryComponent,
     data: {
-      title: "Inventory management - Dashboard | PIAN VTS",
+      title: "Inventory management - Dashboard | MOTOZEN",
     },
   },
 ];

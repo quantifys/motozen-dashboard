@@ -25,21 +25,21 @@ const routes: Routes = [
     path: "edit",
     component: SalarySlipEditComponent,
     data: {
-      title: "Salary slip edit - Dashboard | PIAN VTS",
+      title: "Salary slip edit - Dashboard | MOTOZEN",
     },
   },
   {
     path: "view",
     component: SalarySlipDetailComponent,
     data: {
-      title: "Salary slip details - Dashboard | PIAN VTS",
+      title: "Salary slip details - Dashboard | MOTOZEN",
     },
   },
   {
     path: "",
     component: SalarySlipsComponent,
     data: {
-      title: "Salary slip management - Dashboard | PIAN VTS",
+      title: "Salary slip management - Dashboard | MOTOZEN",
     },
   },
 ];

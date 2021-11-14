@@ -1,5 +1,5 @@
 {
-  "name": "pian-dashboard",
+  "name": "motozen-dashboard",
   "version": "3.1.0",
   "scripts": {
     "ng": "ng",
@@ -8,8 +8,8 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "deploy": "ng build --prod --aot && cd dist/pian-dashboard && scp -dr * deploy@205.147.101.185:/var/www/pianvts/ && cd ../",
-    "upload": "cd dist/pian-dashboard && scp -dr * deploy@205.147.101.185:/var/www/pianvts/ && cd ../"
+    "deploy": "ng build --prod --aot && cd dist/motozen-dashboard && scp -dr * deploy@3.6.34.134:/var/www/motozen-dashboard/ && cd ../",
+    "upload": "cd dist/motozen-dashboard && scp -dr * deploy@3.6.34.134:/var/www/motozen-dashboard/ && cd ../"
   },
   "private": true,
   "dependencies": {

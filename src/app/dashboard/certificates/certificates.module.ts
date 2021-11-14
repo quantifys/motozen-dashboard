@@ -34,21 +34,21 @@ const routes: Routes = [
     path: "edit",
     component: CertificateEditComponent,
     data: {
-      title: "Certificate edit - Dashboard | PIAN VTS",
+      title: "Certificate edit - Dashboard | MOTOZEN",
     },
   },
   {
     path: "view",
     component: CertificateDetailComponent,
     data: {
-      title: "Certificate details - Dashboard | PIAN VTS",
+      title: "Certificate details - Dashboard | MOTOZEN",
     },
   },
   {
     path: "",
     component: CertificatesComponent,
     data: {
-      title: "Certificate management - Dashboard | PIAN VTS",
+      title: "Certificate management - Dashboard | MOTOZEN",
     },
   },
 ];

@@ -28,7 +28,7 @@ export class RequisitionOrderService {
   createRequisition(requisition: RequisitionOrder): any {
     this.requisitionDoc = {
       pageSize: "A4",
-      watermark: { text: "PIAN  ", color: "grey", opacity: 0.2 },
+      watermark: { text: "MOTOZEN  ", color: "grey", opacity: 0.2 },
       header: function (currentPage, pageCount) {
         return {
           text: "Page " + currentPage.toString() + " of " + pageCount,
@@ -86,8 +86,7 @@ export class RequisitionOrderService {
           fontSize: 13,
         },
         {
-          text:
-            "-----------------------------------------------------------------------------------------------------------------------------------------------------------",
+          text: "-----------------------------------------------------------------------------------------------------------------------------------------------------------",
         },
         this.table(requisition.req_particulars, [
           "Sr No.",

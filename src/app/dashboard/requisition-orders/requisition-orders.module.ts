@@ -28,21 +28,21 @@ const routes: Routes = [
     path: "edit",
     component: RequisitionOrderEditComponent,
     data: {
-      title: "Requisition Order edit - Dashboard | PIAN VTS",
+      title: "Requisition Order edit - Dashboard | MOTOZEN",
     },
   },
   {
     path: "view",
     component: RequisitionOrderDetailComponent,
     data: {
-      title: "Requisition Order details - Dashboard | PIAN VTS",
+      title: "Requisition Order details - Dashboard | MOTOZEN",
     },
   },
   {
     path: "",
     component: RequisitionOrdersComponent,
     data: {
-      title: "Requisition Order management - Dashboard | PIAN VTS",
+      title: "Requisition Order management - Dashboard | MOTOZEN",
     },
   },
 ];

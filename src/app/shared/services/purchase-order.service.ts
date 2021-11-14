@@ -78,7 +78,7 @@ export class PurchaseOrderService {
   createPo(purchase_order: PurchaseOrder) {
     this.poDoc = {
       pageSize: "A4",
-      watermark: { text: "PIAN India Pvt. Ltd.", color: "grey", opacity: 0.2 },
+      watermark: { text: "MOTOZEN Pvt. Ltd.", color: "grey", opacity: 0.2 },
       header: function (currentPage, pageCount) {
         return {
           text: "Page " + currentPage.toString() + " of " + pageCount,
@@ -113,8 +113,7 @@ export class PurchaseOrderService {
           fontSize: 13,
         },
         {
-          text:
-            "-----------------------------------------------------------------------------------------------------------------------------------------------------------",
+          text: "-----------------------------------------------------------------------------------------------------------------------------------------------------------",
         },
         this.table(purchase_order.particulars, [
           "Sr No.",
@@ -136,8 +135,7 @@ export class PurchaseOrderService {
         },
         {
           pageBreak: "before",
-          text:
-            "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - Shipping Label - - - - - - - - - - - - - - - - - -  - - - - - - - - - - - - - - - - - ",
+          text: "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - Shipping Label - - - - - - - - - - - - - - - - - -  - - - - - - - - - - - - - - - - - ",
           alignment: "center",
           margin: [0, 0, 0, 25],
         },
@@ -148,8 +146,7 @@ export class PurchaseOrderService {
               [
                 {
                   border: [true, true, false, false],
-                  text:
-                    "From: \n\nPIAN INDIA PRIVATE LIMITED\nNO. 14/33, Jubilee Road,\nWest Mambalam, Chennai - 600 033",
+                  text: "From: \n\nMOTOZEN PRIVATE LIMITED\nNO. 14/33, Jubilee Road,\nWest Mambalam, Chennai - 600 033",
                 },
                 {
                   border: [false, true, false, false],
@@ -190,8 +187,7 @@ export class PurchaseOrderService {
           },
         },
         {
-          text:
-            "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  - - - - - - - - - - - - - - - - - -  - - - - - - - - - - - - - - - - - ",
+          text: "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  - - - - - - - - - - - - - - - - - -  - - - - - - - - - - - - - - - - - ",
           alignment: "center",
           margin: [0, 20, 0, 0],
         },

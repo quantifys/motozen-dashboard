@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "pian-dashboard": {
+    "motozen-dashboard": {
       "root": "",
       "sourceRoot": "src",
       "projectType": "application",
@@ -17,7 +17,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/pian-dashboard",
+            "outputPath": "dist/motozen-dashboard",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -59,18 +59,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "pian-dashboard:build"
+            "browserTarget": "motozen-dashboard:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "pian-dashboard:build:production"
+              "browserTarget": "motozen-dashboard:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "pian-dashboard:build"
+            "browserTarget": "motozen-dashboard:build"
           }
         },
         "test": {
@@ -104,7 +104,7 @@
         }
       }
     },
-    "pian-dashboard-e2e": {
+    "motozen-dashboard-e2e": {
       "root": "e2e/",
       "projectType": "application",
       "architect": {
@@ -112,11 +112,11 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "pian-dashboard:serve"
+            "devServerTarget": "motozen-dashboard:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "pian-dashboard:serve:production"
+              "devServerTarget": "motozen-dashboard:serve:production"
             }
           }
         },
@@ -132,5 +132,5 @@
       }
     }
   },
-  "defaultProject": "pian-dashboard"
+  "defaultProject": "motozen-dashboard"
 }
